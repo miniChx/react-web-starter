@@ -1,23 +1,21 @@
-@import '../themes/default';
-
-.motion-common(@duration: @animation-duration-base) {
-  animation-duration: @duration;
+.motion-common() {
+  animation-duration: .2s;
   animation-fill-mode: both;
 }
 
-.motion-common-leave(@duration: @animation-duration-base) {
-  animation-duration: @duration;
+.motion-common-leave() {
+  animation-duration: .2s;
   animation-fill-mode: both;
 }
 
-.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+.make-motion(@className, @keyframeName) {
   .@{className}-enter,
   .@{className}-appear {
-    .motion-common(@duration);
+    .motion-common();
     animation-play-state: paused;
   }
   .@{className}-leave {
-    .motion-common-leave(@duration);
+    .motion-common-leave();
     animation-play-state: paused;
   }
   .@{className}-enter.@{className}-enter-active,

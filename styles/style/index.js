@@ -11,7 +11,7 @@ if (typeof window !== undefined && window.document && window.document.documentEl
   const NO_FLEX = 'no-flex';
 
   if (!isFlexSupported(documentElement.style) &&
-      documentElement.className.indexOf(NO_FLEX) === -1) {
+    documentElement.className.indexOf(NO_FLEX) === -1) {
     documentElement.className += ` ${NO_FLEX}`;
   }
 }
