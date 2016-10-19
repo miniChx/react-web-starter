@@ -14,30 +14,47 @@ import { App, Home, Foo, SubPage, NoMatch, Loading } from '../components';
 
 import { executeInit } from '../service/ServiceInitHelper';
 
+// eslint-disable-next-line no-unused-vars
+const setupWithComponents = (store, history) => () => {
+  return (
+    <Provider store={store}>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Home} />
+          <Route path="foo" component={Foo} />
+          <Route path="page:index" component={SubPage} />
+          <Route path="*" component={NoMatch} />
+        </Route>
+      </Router>
+    </Provider>
+  );
+};
+
+const setupWithRouteConfig = (store, history) => () => {
+  const routeConfig = {
+    path: '/',
+    component: App,
+    indexRoute: { component: Home },
+    childRoutes: [
+      { path: 'foo', component: Foo },
+      { path: 'page:index', component: SubPage },
+      { path: '*', component: NoMatch },
+    ]
+  };
+
+  return (
+    <Provider store={store}>
+      <Router history={history} routes={routeConfig} />
+    </Provider>
+  );
+};
+
 const setup = () => {
   const store = configureStore({});
   const history = syncHistoryWithStore(browserHistory, store);
 
-  executeInit(store);
-
-  // eslint-disable-next-line arrow-body-style
-  const AppContainer = () => {
-    return (
-      <Provider store={store}>
-        <div>
-          <Router history={history}>
-            <Route path="/" component={App}>
-              <IndexRoute component={Home} />
-              <Route path="foo" component={Foo} />
-              <Route path="page:index" component={SubPage} />
-              <Route path="*" component={NoMatch} />
-            </Route>
-          </Router>
-          <Loading></Loading>
-        </div>
-      </Provider>
-    );
-  };
+  // const AppContainer = setupWithComponents(store, history);
+  const AppContainer = setupWithRouteConfig(store, history);
 
   return AppContainer;
 };
