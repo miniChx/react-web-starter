@@ -10,12 +10,15 @@ import configureStore from '../store/configureStore';
 // import { setLayout } from '../actions/device';
 // import { initApp } from '../actions/global';
 
-import { App, Home, Foo, SubPage, NoMatch } from '../components';
+import { App, Home, Foo, SubPage, NoMatch, Loading } from '../components';
 
+import { executeInit } from '../service/ServiceInitHelper';
 
 const setup = () => {
   const store = configureStore({});
   const history = syncHistoryWithStore(browserHistory, store);
+
+  executeInit(store);
 
   // eslint-disable-next-line arrow-body-style
   const AppContainer = () => {
@@ -30,6 +33,7 @@ const setup = () => {
               <Route path="*" component={NoMatch} />
             </Route>
           </Router>
+          <Loading></Loading>
         </div>
       </Provider>
     );
