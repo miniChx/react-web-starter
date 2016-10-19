@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
+import 'mxa/dist/mxa.less';
 
 import configureStore from '../store/configureStore';
 
