@@ -123,6 +123,14 @@ tasks.set('run-dev', () => {
   const bundler = webpack(webpackConfig);
   return new Promise(resolve => {
     browserSync({
+      ghostMode: false,
+
+      snippetOptions: {
+        rule: {
+          match: /qqqqqqqqq/
+        }
+      },
+
       server: {
         baseDir: 'build',
 

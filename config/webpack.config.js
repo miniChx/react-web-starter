@@ -109,6 +109,13 @@ const config = {
         },
       },
       {
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          `css-loader`
+        ],
+      },
+      {
         test: /\.less$/,
         include: path.resolve(__dirname, '../src/styles/views'),
         loaders: [
