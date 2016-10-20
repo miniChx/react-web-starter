@@ -11,7 +11,8 @@ import configureStore from '../store/configureStore';
 // import { setLayout } from '../actions/device';
 // import { initApp } from '../actions/global';
 
-import { App, Home, Foo, SubPage, Demo, NotFound } from '../components';
+import { App, Home, Foo, SubPage, DemoWrapper, NotFound } from '../components';
+import { ListDemo1, ListDemo2, Tree } from '../components/demos';
 
 // eslint-disable-next-line no-unused-vars, arrow-body-style
 const setupWithComponents = (store, history) => () => {
@@ -39,7 +40,13 @@ const setupWithRouteConfig = (store, history) => () => {
       { path: 'page:index', component: SubPage },
       {
         path: 'demo',
-        component: Demo,
+        component: DemoWrapper,
+        indexRoute: { component: Tree },
+        childRoutes: [
+          { path: 'list/1', component: ListDemo1 },
+          { path: 'list/2', component: ListDemo2 },
+          { path: 'tree', component: Tree },
+        ]
       },
       { path: '*', component: NotFound },
     ]

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Menu, Row, Col } from 'mxa';
 
+const MenuItem = Menu.Item;
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -18,18 +20,21 @@ class Header extends React.Component {
     const menuMode = this.state.menuMode;
     const menu = [
       <Menu mode={menuMode} selectedKeys={[activeMenuItem]} id="nav" key="nav">
-        <Menu.Item key="/">
+        <MenuItem key="/">
           <Link to="/">首页</Link>
-        </Menu.Item>
-        <Menu.Item key="/foo">
+        </MenuItem>
+        <MenuItem key="/foo">
           <Link to="/foo">Foo</Link>
-        </Menu.Item>
-        <Menu.Item key="/page1">
+        </MenuItem>
+        <MenuItem key="/page1">
           <Link to="/page1">Page 1</Link>
-        </Menu.Item>
-        <Menu.Item key="/page2">
+        </MenuItem>
+        <MenuItem key="/page2">
           <Link to="/page2">Page 2</Link>
-        </Menu.Item>
+        </MenuItem>
+        <MenuItem key="/demo">
+          <Link to="/demo">Demo</Link>
+        </MenuItem>
       </Menu>,
     ];
 
