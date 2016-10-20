@@ -41,7 +41,7 @@ const setupWithRouteConfig = (store, history) => () => {
       {
         path: 'demo',
         component: DemoWrapper,
-        indexRoute: { component: Tree },
+        indexRoute: { component: ListDemo1 },
         childRoutes: [
           { path: 'list/1', component: ListDemo1 },
           { path: 'list/2', component: ListDemo2 },
