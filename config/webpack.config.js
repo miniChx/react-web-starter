@@ -142,14 +142,31 @@ const config = {
         ],
       },
       {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        loader: 'url-loader?limit=10000',
+        loader: 'url-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+          limit: 10000,
+        },
       },
       {
         test: /\.(eot|ttf|wav|mp3)$/,
         loader: 'file-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+        },
       },
     ],
+  },
+
+  resolve: {
+    root: path.resolve(__dirname, '../src'),
+    modulesDirectories: ['node_modules'],
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.json'],
   },
 
   // The list of plugins for PostCSS
