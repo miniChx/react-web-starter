@@ -9,6 +9,7 @@ const webpack = require('webpack');
 const browserSync = require('browser-sync');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const connectHistoryApiFallback = require('connect-history-api-fallback');
 
 
 // TODO: Update configuration settings
@@ -84,12 +85,14 @@ tasks.set('bundle', () => {
 //
 // Build website into a distributable format
 // -----------------------------------------------------------------------------
-tasks.set('build', () => Promise.resolve()
-  .then(() => run('clean'))
-  .then(() => run('copy'))
-  .then(() => run('bundle'))
-  .then(() => run('html'))
-);
+tasks.set('build', () => {
+  global.DEBUG = process.argv.includes('--debug') || false;
+  return Promise.resolve()
+    .then(() => run('clean'))
+    .then(() => run('copy'))
+    .then(() => run('bundle'))
+    .then(() => run('html'));
+});
 
 //
 // Build and publish the website
@@ -109,68 +112,57 @@ tasks.set('publish', () => {
 // Build website and launch it in a browser for testing (default)
 // -----------------------------------------------------------------------------
 tasks.set('start', () => Promise.resolve()
+  .then(() => run('clean'))
   .then(() => run('copy'))
   .then(() => run('run-dev'))
 );
 
-tasks.set('run-dev', () => {
+tasks.set('run-dev', () => new Promise(resolve => {
   global.HMR = !process.argv.includes('--no-hmr'); // Hot Module Replacement (HMR)
+
+  // Generate index.html page
   const template = fs.readFileSync(path.join(__dirname, '../src/views/index.ejs'), 'utf8');
   const render = ejs.compile(template, { filename: path.join(__dirname, '../src/views/index.ejs') });
   const output = render({ debug: true, bundle: './dist/main.js', config });
   fs.writeFileSync(path.join(__dirname, '../build/index.html'), output, 'utf8');
+
   const webpackConfig = require('../config/webpack.config');
-  const bundler = webpack(webpackConfig);
-  return new Promise(resolve => {
-    browserSync({
-      ghostMode: false,
+  const compiler = webpack(webpackConfig);
 
-      snippetOptions: {
-        rule: {
-          match: /qqqqqqqqq/
-        }
-      },
+  const devMiddleware = webpackDevMiddleware(compiler, {
+    // IMPORTANT: dev middleware can't access config, so we should
+    // provide publicPath by ourselves
+    publicPath: webpackConfig.output.publicPath,
 
-      server: {
-        baseDir: 'build',
+    // pretty colored output
+    stats: webpackConfig.stats,
 
-        middleware: [
-          webpackDevMiddleware(bundler, {
-            // IMPORTANT: dev middleware can't access config, so we should
-            // provide publicPath by ourselves
-            publicPath: webpackConfig.output.publicPath,
-
-            // pretty colored output
-            stats: webpackConfig.stats,
-
-            // for other settings see
-            // http://webpack.github.io/docs/webpack-dev-middleware.html
-          }),
-
-          // bundler should be the same as above
-          webpackHotMiddleware(bundler),
-
-          // Serve index.html for all unknown requests
-          (req, res, next) => {
-            if (req.headers.accept && req.headers.accept.startsWith('text/html')) {
-              req.url = '/index.html'; // eslint-disable-line no-param-reassign
-            }
-            next();
-          },
-        ],
-      },
-
-      // no need to watch '*.js' and '*.less' here, webpack will take care of it for us,
-      // including full page reloads if HMR won't work
-      files: [
-        path.join(__dirname, '../src/**/*.css'),
-        path.join(__dirname, '../src/**/*.html'),
-      ],
-    });
-
-    resolve();
+    // for other settings see
+    // http://webpack.github.io/docs/webpack-dev-middleware.html
   });
-});
+
+  // Launch Browsersync after the initial bundling is complete
+  // For more information visit https://browsersync.io/docs/options
+  browserSync({
+    // ghostMode: false,
+    //
+    snippetOptions: {
+      rule: {
+        match: /qqqqqqqqq/
+      }
+    },
+
+    server: {
+      baseDir: 'build',
+
+      middleware: [
+        devMiddleware,
+        webpackHotMiddleware(compiler),
+        connectHistoryApiFallback()
+      ],
+    },
+  }, resolve);
+}));
 
 // Execute the specified task or default one. E.g.: node run build
-run(process.argv[2] || 'start');
+run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'start' /* default */);
