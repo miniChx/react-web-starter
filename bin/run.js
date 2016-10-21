@@ -7,9 +7,9 @@ const del = require('del');
 const ejs = require('ejs');
 const webpack = require('webpack');
 const browserSync = require('browser-sync');
+const webpackDevServer = require('webpack-dev-server');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const connectHistoryApiFallback = require('connect-history-api-fallback');
 
 
 // TODO: Update configuration settings
@@ -117,52 +117,15 @@ tasks.set('start', () => Promise.resolve()
   .then(() => run('run-dev'))
 );
 
-tasks.set('run-dev', () => new Promise(resolve => {
+tasks.set('run-dev', () => {
   global.HMR = !process.argv.includes('--no-hmr'); // Hot Module Replacement (HMR)
-
-  // Generate index.html page
   const template = fs.readFileSync(path.join(__dirname, '../src/views/index.ejs'), 'utf8');
   const render = ejs.compile(template, { filename: path.join(__dirname, '../src/views/index.ejs') });
   const output = render({ debug: true, bundle: './dist/main.js', config });
   fs.writeFileSync(path.join(__dirname, '../build/index.html'), output, 'utf8');
 
-  const webpackConfig = require('../config/webpack.config');
-  const compiler = webpack(webpackConfig);
-
-  const devMiddleware = webpackDevMiddleware(compiler, {
-    // IMPORTANT: dev middleware can't access config, so we should
-    // provide publicPath by ourselves
-    publicPath: webpackConfig.output.publicPath,
-
-    // pretty colored output
-    stats: webpackConfig.stats,
-
-    // for other settings see
-    // http://webpack.github.io/docs/webpack-dev-middleware.html
-  });
-
-  // Launch Browsersync after the initial bundling is complete
-  // For more information visit https://browsersync.io/docs/options
-  browserSync({
-    // ghostMode: false,
-    //
-    snippetOptions: {
-      rule: {
-        match: /qqqqqqqqq/
-      }
-    },
-
-    server: {
-      baseDir: 'build',
-
-      middleware: [
-        devMiddleware,
-        webpackHotMiddleware(compiler),
-        connectHistoryApiFallback()
-      ],
-    },
-  }, resolve);
-}));
+  return Promise.resolve();
+});
 
 // Execute the specified task or default one. E.g.: node run build
 run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'start' /* default */);

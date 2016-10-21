@@ -5,9 +5,9 @@ const path = require('path');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 
-const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
-const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
-const useHMR = !!global.HMR; // Hot Module Replacement (HMR)
+const isDebug = true;
+const isVerbose = false;
+const useHMR = true;
 
 const AUTOPREFIXER_BROWSERS = [
   'Android 2.3',
@@ -19,6 +19,18 @@ const AUTOPREFIXER_BROWSERS = [
   'Opera >= 12',
   'Safari >= 7.1',
 ];
+
+const STATS = {
+  colors: true,
+  reasons: isDebug,
+  hash: isVerbose,
+  version: isVerbose,
+  timings: true,
+  chunks: isVerbose,
+  chunkModules: isVerbose,
+  cached: isVerbose,
+  cachedAssets: isVerbose,
+};
 
 // Webpack configuration (main.js => build/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
@@ -50,17 +62,7 @@ const config = {
   // devtool: isDebug ? 'cheap-module-eval-source-map' : false,
 
   // What information should be printed to the console
-  stats: {
-    colors: true,
-    reasons: isDebug,
-    hash: isVerbose,
-    version: isVerbose,
-    timings: true,
-    chunks: isVerbose,
-    chunkModules: isVerbose,
-    cached: isVerbose,
-    cachedAssets: isVerbose,
-  },
+  stats: STATS,
 
   // The list of plugins for Webpack compiler
   plugins: [
@@ -100,11 +102,6 @@ const config = {
           ],
           plugins: [
             'transform-runtime',
-            ...isDebug ? [] : [
-              'transform-react-remove-prop-types',
-              'transform-react-constant-elements',
-              'transform-react-inline-elements',
-            ],
           ],
         },
       },
@@ -224,22 +221,40 @@ const config = {
     };
   },
 
-};
+  devServer: {
+    // webpack-dev-server options
 
-// Optimize the bundle in release (production) mode
-if (!isDebug) {
-  config.plugins.push(new webpack.optimize.DedupePlugin());
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: isVerbose } }));
-  config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
-}
+    contentBase: "build",
+    // Can also be an array, or: contentBase: "http://localhost/",
+
+    publicPath: '/dist/',
+
+    hot: true,
+    // Enable special support for Hot Module Replacement
+    // Page is no longer updated, but a "webpackHotUpdate" message is send to the content
+    // Use "webpack/hot/dev-server" as additional module in your entry point
+    // Note: this does _not_ add the `HotModuleReplacementPlugin` like the CLI option does.
+
+    progress: true,
+    inline: true,
+    noInfo: false,
+    historyApiFallback: true,
+
+    // pretty colored output
+    stats: STATS,
+
+    // for other settings see
+    // http://webpack.github.io/docs/webpack-dev-middleware.html
+  },
+};
 
 // Hot Module Replacement (HMR) + React Hot Reload
 if (isDebug && useHMR) {
-  config.entry.unshift('react-hot-loader/patch');
-  config.module.loaders.find(x => x.loader === 'babel-loader')
-    .query.plugins.unshift('react-hot-loader/babel');
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
-  config.plugins.push(new webpack.NoErrorsPlugin());
+  // config.entry.unshift('react-hot-loader/patch');
+  // config.module.loaders.find(x => x.loader === 'babel-loader')
+  //   .query.plugins.unshift('react-hot-loader/babel');
+  // config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  // config.plugins.push(new webpack.NoErrorsPlugin());
 }
 
 module.exports = config;
