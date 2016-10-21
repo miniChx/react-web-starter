@@ -78,7 +78,7 @@
     "postcss-selector-matches": "^2.0.1",
     "postcss-selector-not": "^2.0.0",
     "precommit-hook-eslint": "^3.0.0",
-    "react-hot-loader": "^3.0.0-beta.2",
+    "react-hot-loader": "^3.0.0-beta.6",
     "redux-logger": "^2.6.1",
     "remote-redux-devtools": "^0.4.8",
     "style-loader": "^0.13.1",
@@ -109,7 +109,7 @@
     "build:debug": "node bin/run build --debug",
     "publish": "node bin/run publish",
     "publish:debug": "node bin/run publish --debug",
-    "start": "node bin/run"
+    "start": "node bin/run start && webpack-dev-server --hot --config config/webpack.config.dev.js"
   },
   "author": "ge_yangyang@126.com",
   "pre-commit": [
