@@ -7,10 +7,6 @@ const del = require('del');
 const ejs = require('ejs');
 const webpack = require('webpack');
 const browserSync = require('browser-sync');
-const webpackDevServer = require('webpack-dev-server');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-
 
 // TODO: Update configuration settings
 const config = {
