@@ -1,119 +1,14 @@
 @import "../core/variables";
 
-
-.mxMenuContainer {
-  border-bottom: 1px solid #e9e9e9;
-  margin: 0;
-  display: block;
-  padding: 0px 0px 48px;
+.borderColorLight {
+  background-color: @label-required-color;
 }
 
-.mxMenu {
-  display: block;
-  outline: none;
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
-  color: #ffffff;
-  line-height: 46px;
-  box-shadow: none;
-  z-index: 0;
+.borderColorDark {
+  background-color: @legend-color;
 }
 
-.mxMenuItem {
-  display: block;
-  color: #666;
-  position: relative;
-  top: 1px;
-  float: left;
-  border-bottom: 2px solid transparent;
-  z-index: 2;
-  margin: 0;
-  padding: 0 20px;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
-}
-
-.mxMenuItem:hover {
-  border-bottom: 2px solid #2db7f5;
-}
-
-.mxMenuItemSelected {
-  border-bottom: 2px solid #2db7f5;
-  color: #2db7f5;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-}
-
-.mxMenuItemDisabled {
-  color: #999!important;
-  cursor: not-allowed;
-  background: none;
-}
-
-.mxMenuItemSubmenu {
-  top: 100%;
-  left: 0;
-  position: absolute;
-  min-width: 100%;
-  margin-top: 2px;
-  z-index: 1050;
-  background-color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 1px 6px rgba(0,0,0,.2);
-  list-style: none !important;
-}
-
-.mxMenuHidden {
-  display: none;
-}
-
-.mxMenuOpen {
-  display: block;
-}
-
-.mxMenuVertical {
-  list-style: none;
-  z-index: 999;
-  display: block;
-  outline: none;
-}
-
-.mxMenuVerticalItem {
-  display: block;
-  color: #666;
-  position: relative;
-  top: 1px;
- //  float: left;
-  border-bottom: 2px solid transparent;
-  z-index: 2;
-  margin: 0;
-  // padding: 0 20px;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
-}
-
-
-.mxMenuV {
-  outline: none;
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
-  z-index: 1050;
-  box-shadow: 0 1px 6px rgba(0,0,0,.2);
-  color: #666;
-  background: #fff;
-  line-height: 46px;
-}
-
-.mxMenuSubInline {
-  padding: 0;
-  border: 0;
-  box-shadow: none;
-  border-radius: 0;
+.colHeight {
+  height: @grid-columns;
+  padding: 10px;
 }

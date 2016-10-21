@@ -4,6 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styles from '../../styles/views/hello.less';
+import { Spin } from 'mxa';
 
 class Loading extends React.Component {
 
@@ -11,11 +12,11 @@ class Loading extends React.Component {
     if (this.props.showLoading) {
       return (
         <div className={styles.mask}>
-          <span style={{color: 'red', position: 'absolute', marginTop:170 }}>加载中...</span>
+          <Spin tip="Loading..."/>
         </div>
       );
     }
-    return null;
+    return <div />
   }
 }
 

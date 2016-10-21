@@ -2,8 +2,10 @@
  * Created by baoyinghai on 10/18/16.
  */
 
-  import { init } from './DispatchService';
+import * as DispatchService from './DispatchService';
+import * as CacheService from './CacheService';
 
 export const executeInit = (... args) => {
-  init(args[0]);
+  DispatchService.init(args[0]);
+  CacheService.init(args[0]);
 }
