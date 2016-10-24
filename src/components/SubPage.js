@@ -5,7 +5,10 @@ import React from 'react';
 class SubPage extends React.Component {
   render() {
     return (
-      <div>I am page {this.props.params.index}!</div>
+      <div>
+        <span>I am page subPage!</span>
+        <span>{this.props.desc}</span>
+      </div>
     );
   }
 }

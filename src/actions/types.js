@@ -11,3 +11,7 @@ export const AUTH_FAILED = 'AUTH_FAILED';
 export const INCREASE = 'INCREASE';
 export const DECREASE = 'DECREASE';
 
+export const ADD_PAGE = 'ADD_PAGE';
+export const UPDATE_PAGE = 'UPDATE_PAGE';
+export const RESET_MENU = 'RESET_MENU';
+
