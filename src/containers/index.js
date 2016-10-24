@@ -7,6 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import 'mxa/dist/mxa.less';
 
 import configureStore from '../store/configureStore';
+import analytics from '../actions/analytics';
 
 // import { setLayout } from '../actions/device';
 // import { initApp } from '../actions/global';
@@ -23,6 +24,15 @@ const setupWithComponents = (store, history) => () => {
           <IndexRoute component={Home} />
           <Route path="foo" component={Foo} />
           <Route path="page:index" component={SubPage} />
+          <Route path="demo" component={DemoWrapper}>
+            <IndexRoute component={ListDemo2} />
+            <Route path="tree" component={Tree} />
+            <Route path="list">
+              <IndexRoute component={ListDemo1} />
+              <Route path="1" component={ListDemo1} />
+              <Route path="2" component={ListDemo2} />
+            </Route>
+          </Route>
           <Route path="*" component={NotFound} />
         </Route>
       </Router>
@@ -62,6 +72,8 @@ const setupWithRouteConfig = (store, history) => () => {
 const setup = () => {
   const store = configureStore({});
   const history = syncHistoryWithStore(browserHistory, store);
+
+  history.listen(location => analytics.track(location.pathname));
 
   // const AppContainer = setupWithComponents(store, history);
   const AppContainer = setupWithRouteConfig(store, history);
