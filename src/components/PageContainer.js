@@ -2,31 +2,71 @@
  * Created by baoyinghai on 10/21/16.
  */
 import React from 'react';
-import { getPages } from '../service/CacheService';
+import { searchMenu } from '../service/CacheService';
 import { Row, Col, Button } from 'mxa';
-import { constructPage } from '../renderTools'
+import { constructPage } from '../renderTools';
+import { PAGE_TYPE_LIST } from '../actions/types';
+import NotMatchType from './NotMatchType';
+import ListView from './listView';
+import { dispatch } from '../service/DispatchService';
+import { getInitData } from '../actions/pageContainer';
 
 class PageContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    const pages = getPages();
-    // TODO: create your wraper
-    this.tag = null;
-    pages && pages.forEach((p) => {
-      if (p.pageCode === this.props.params.id) {
-        if(p.layout) {
-          this.tag = constructPage(p.layout, p.element);
-        } else {
-          this.tag = p.comp;
-        }
-      }
-    });
+    this.linkInfo = searchMenu(this.props.params.splat);
+    this.createPage = this.createPage.bind(this);
+    this.getUrlPath = this.getUrlPath.bind(this);
+    this.initPageContainer = this.initPageContainer.bind(this);
+    console.log(this.linkInfo);
+    this.state = {
+      page: this.createPage(this.linkInfo.domainLink, this.linkInfo.type)
+    };
+  }
+
+  getUrlPath(url) {
+    return url;
+  }
+
+  createPage(link, type) {
+    switch(type) {
+      case PAGE_TYPE_LIST:
+        return (<ListView />);
+        break;
+      default:
+        return (<NotMatchType pageType={type} />);
+    }
+  }
+
+  getLinkInfoFromMenu() {
+
+  }
+
+  componentWillReceiveProps(next) {
+    if (next.params.splat !== this.props.params.splat) {
+      this.linkInfo = searchMenu(this.props.params.splat);
+      this.setState({
+        page: this.createPage(this.linkInfo.domainLink, this.linkInfo.type)
+      });
+      this.initPageContainer();
+    }
+
+  }
+
+  initPageContainer() {
+    dispatch(getInitData(this.getUrlPath(this.linkInfo.domainLink)));
+  }
+
+  componentDidMount() {
+    this.initPageContainer();
+    console.log(' fetch data and create page');
   }
 
   render() {
+
     return (
-      <div>{this.tag}</div>
+      <div>{this.state.page}</div>
     );
   }
 }

@@ -8,7 +8,7 @@ var { Link } = require('react-router');
 
 import { Menu, Icon } from 'mxa';
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+// const MenuItemGroup = Menu.ItemGroup;
 
 class MenuCreator extends React.Component {
 
@@ -27,38 +27,34 @@ class MenuCreator extends React.Component {
     });
   }
 
+
+  renderMenuItem(item) {
+    if (item && item.subMenus && item.subMenus.length > 0) {
+      return (
+        <SubMenu key={item.menuCode} title={<span>{item.menuValue}</span>} >
+          {item.subMenus.map((subItem) => {
+            return this.renderMenuItem(subItem);
+          })}
+        </SubMenu>
+      );
+    }
+    return (
+      <Menu.Item key={item.menuCode}><Link to={'/page_container' + item.domainLink}>{item.menuValue}</Link></Menu.Item>
+    );
+  }
+
   render() {
     return (
       <Menu onClick={this.handleClick}
             selectedKeys={[this.state.current]}
-            mode="horizontal"
+            mode="inline"
       >
-        {this.props.menu && this.props.menu.map((item => {
-          if (item && item.subMenus && item.subMenus.length > 0 ) {
-            return (
-              <SubMenu key={item.menuCode} title={<span>{item.menuValue}</span>} >
-                {item && item.subMenus && item.subMenus.length > 0 && item.subMenus.map((subItem) => {
-                  return (
-                    <Menu.Item key={item.menuCode + ':' + subItem.menuCode}>
-                      <Link to={'/' + subItem.domainLink}>
-                      {subItem.menuValue}
-                      </Link>
-                    </Menu.Item>
-                  );
-                })}
-              </SubMenu>
-            );
-          }
-          return (
-            <Menu.Item key={item.menuCode}><Link to={'/' + item.domainLink}>{item.menuValue}</Link></Menu.Item>
-          );
-        }))}
+        {this.props.menu && this.props.menu.map((item => this.renderMenuItem(item)))}
       </Menu>
     );
   }
 }
 
-// eslint-disable-next-line arrow-body-style
 const mapStateToProps = state => ({
   menu: state.menu,
 });

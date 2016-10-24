@@ -4,8 +4,9 @@
 
 import React from 'react';
 import * as CacheService from '../../service/CacheService';
-import { Row, Col, Button } from 'mxa';
+import { Row, Col, Button, Tree } from 'mxa';
 import SetMenu from './SetMenu';
+const TreeNode = Tree.TreeNode;
 
 
 //{
@@ -25,10 +26,16 @@ class MenuManager extends React.Component {
   constructor(props) {
     super(props);
     this.clearState = this.clearState.bind(this);
+
+    this.keys = ['0-0-0', '0-0-1'];
+
     this.state = {
       menu: CacheService.getMenu(),
       type: null,
-      position: null
+      position: null,
+      defaultExpandedKeys: this.keys,
+      defaultSelectedKeys: this.keys,
+      defaultCheckedKeys: this.keys,
     }
   }
 
@@ -43,11 +50,10 @@ class MenuManager extends React.Component {
 
   renderAddBtn(type, position) {
     return (
-      <div key="last">
-        <Button type="ghost"  size="small" onClick={() => this.setCreateState(type, position)} >
-          创建节点
-        </Button>
-      </div>
+      <TreeNode
+        title={ <Button type="ghost"  size="small" onClick={() => this.setCreateState(type, position)} >创建节点</Button> }
+        key={'last_' + type + '_' + position}
+      />
     );
   }
 
@@ -55,28 +61,40 @@ class MenuManager extends React.Component {
     const subList = [];
     subMenus.forEach((item, index) => {
       subList.push(
-        <div key={'sub_' + index}>
-          <span>{'--' + item.menuValue}</span>
-        </div>
+        <TreeNode title={item.menuValue} key={'sub_' + index} />
       );
     });
-    subList.push(this.renderAddBtn('sub', index));
     return subList;
   }
+
+  renderNode(item, index) {
+    return (
+      <TreeNode title={item.menuValue} key={item.menuCode}>
+        {item.subMenus && item.subMenus.map((i, j) => {
+          return this.renderNode( i, j)
+        })}
+      </TreeNode>
+    );
+  }
+
 
   renderMenu() {
     const list = [];
     this.state.menu.forEach((item, index) => {
-      list.push(
-        <div key={'root_'+ index}>
-          <div>{item.menuValue}</div>
-          {item.subMenus && this.renderSubMenus(item.subMenus, index)}
-          {!item.subMenus && this.renderAddBtn('sub', index)}
-        </div>
-      );
+      list.push(this.renderNode(item, index));
+      //list.push(
+      //  <TreeNode title={item.menuValue} key={'root_'+ index}>
+      //    {item.subMenus && this.renderSubMenus(item.subMenus, index)}
+      //  </TreeNode>
+      //);
     });
-    list.push(this.renderAddBtn('root', 'last'));
-    return list;
+    return (
+      <Tree className="myCls" showLine defaultExpandAll={true}
+            onSelect={this.onSelect} onCheck={this.onCheck}
+      >
+        {list}
+      </Tree>
+    );
   }
 
   renderLinkMenu() {
