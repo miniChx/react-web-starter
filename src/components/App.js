@@ -1,5 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import Header from './layout/Header';
+import Footer from './layout/Footer';
+
+import '../styles/global/index.less';
+import appStyle from '../styles/views/app.less';
+
 import { Link, browserHistory } from 'react-router';
 import classNames from 'classnames';
 import styles from '../styles/views/hello.less';
