@@ -4,6 +4,8 @@
 import Qs from 'qs';
 import MxFetch from '../common/mxfetch';
 
+const host = 'http://127.0.0.1:3003';
+
 const _getHeader = () => {
   return {
     'Accept': 'application/json',
@@ -39,7 +41,7 @@ const rawFetch = (url, param) => {
   console.log('以下打印一次传出去的param:');
   console.log(param);
   console.log('请求地址:' + url);
-  return process(MxFetch.fetch(url, param, 6180));
+  return process(MxFetch.fetch( host + url, param, 6180));
 };
 
 export const PFetch = (url, param) => {

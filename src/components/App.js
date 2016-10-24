@@ -7,15 +7,13 @@ import Footer from './layout/Footer';
 import '../styles/global/index.less';
 import appStyle from '../styles/views/app.less';
 
-import { Link, browserHistory } from 'react-router';
 import classNames from 'classnames';
-import styles from '../styles/views/hello.less';
-import '../styles/core/common.less';
+
 import { longRunExec } from '../system/longRunOpt';
 import { testFetch } from '../actions/test/fetchTest';
 import Menu from './menu/index';
-import mxa from 'mxa';
 import Title from './title';
+import { Row, Col } from 'mxa';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component {
@@ -33,15 +31,14 @@ class App extends React.Component {
 
 
   render() {
-    let welcomeStyle = styles.content;
-    if (this.props.routing.locationBeforeTransitions.pathname === '/') welcomeStyle = styles.contentLegend;
-    return (
+   return (
       <div>
         <Title />
-        <Menu />
-        <div>
-          {this.props.children}
-        </div>
+        <Row>
+          <Col span={4} ><Menu /></Col>
+          <Col span={20} >{this.props.children}</Col>
+        </Row>
+
       </div>
     );
   }

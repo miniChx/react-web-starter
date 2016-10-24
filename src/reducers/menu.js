@@ -1,24 +1,14 @@
 /**
  * Created by baoyinghai on 10/20/16.
  */
-import { RESET_MENU } from '../actions/types';
+import { RESET_MENU, PAGE_TYPE_LIST } from '../actions/types';
 
 const initialState = [
   {
-    "displaySequence":0,
-    "domainLink":"home",
-    "menuCode":"home",
-    "menuValue":"首页",
-    "roleCodes":[
-      "Role1",
-      "Role3",
-      "Role4"
-    ]
-  },
-  {
     "displaySequence":1,
-    "menuCode":"systemManagement",
-    "menuValue":"权限管理",
+    "menuCode":"renderList",
+    "type": PAGE_TYPE_LIST,
+    "menuValue":"系统管理",
     "roleCodes":[
       "Role1",
       "Role2",
@@ -27,16 +17,48 @@ const initialState = [
     "subMenus":[
       {
         "displaySequence":1,
-        "domainLink":"menu_manager",
-        "menuCode":"orgApplyManagement",
-        "menuValue":"菜单管理",
+        "menuCode":"orgManagement",
+        "menuValue":"机构管理",
         "roleCodes":[
-          "Role1"
+          "Role1",
+          "Role5"
+        ],
+        "subMenus":[
+          {
+            "displaySequence":1,
+            "domainLink":"/org_apply_list",
+            "menuCode":"orgApplyManagement",
+            "menuValue":"机构申请",
+            "roleCodes":[
+              "Role1"
+            ]
+          },
+          {
+            "displaySequence":2,
+            "menuCode":"orgApproveManagement",
+            "menuValue":"机构审批",
+            "roleCodes":[
+              "Role1",
+              "Role5"
+            ],
+            "subMenus":[
+              {
+                "displaySequence":1,
+                "domainLink":"/org_approve_undo_list",
+                "menuCode":"orgApproveUndo",
+                "menuValue":"未完成的工作",
+                "roleCodes":[
+                  "Role1"
+                ]
+              }
+            ]
+          }
         ]
       },
       {
         "displaySequence":2,
-        "domainLink":"user_manager",
+        "domainLink":"/AccountList/render",
+        "type": PAGE_TYPE_LIST,
         "menuCode":"accountManagement",
         "menuValue":"用户管理",
         "roleCodes":[
@@ -48,9 +70,10 @@ const initialState = [
   },
   {
     "displaySequence":2,
-    "domainLink":"module_factory",
+    "domainLink":"/demo_list",
     "menuCode":"caseManagement",
-    "menuValue":"模块工厂",
+    "menuValue":"案例管理",
+    "type": PAGE_TYPE_LIST,
     "roleCodes":[
       "Role1",
       "Role3",

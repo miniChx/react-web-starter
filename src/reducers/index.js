@@ -3,7 +3,6 @@ import { routerReducer } from 'react-router-redux';
 import count from './count';
 import global from './global';
 import menu from './menu';
-import routerConfig from './routerConfig';
 import pages from './pages';
 
 export default combineReducers({
@@ -11,6 +10,5 @@ export default combineReducers({
   routing: routerReducer,
   global,
   menu,
-  routerConfig,
   pages
 });
