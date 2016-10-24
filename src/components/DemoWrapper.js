@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router';
 import { Row, Col, Menu, Icon } from 'mxa';
 
 const SubMenu = Menu.SubMenu;
@@ -49,12 +50,17 @@ class DemoWrapper extends React.Component {
         onClick={this.handleClick}
       >
         <SubMenu key="sub1" title={<span><Icon type="bars" /><span>List</span></span>}>
-          <MenuItem key="1">Option 1</MenuItem>
-          <MenuItem key="2">Option 2</MenuItem>
-          <MenuItem key="3">Option 3</MenuItem>
-          <MenuItem key="4">Option 4</MenuItem>
+          <MenuItem key="1">
+            <Link to="/demo/list/1">1</Link>
+          </MenuItem>
+          <MenuItem key="2">
+            <Link to="/demo/list/2">2</Link>
+          </MenuItem>
         </SubMenu>
-        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
+        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Tree</span></span>}>
+          <MenuItem key="2">
+            <Link to="/demo/tree">Tree</Link>
+          </MenuItem>
           <MenuItem key="5">Option 5</MenuItem>
           <MenuItem key="6">Option 6</MenuItem>
           <SubMenu key="sub3" title="Submenu">
