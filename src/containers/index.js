@@ -9,6 +9,7 @@ import { Loading } from '../components';
 import 'mxa/dist/mxa.less';
 
 import configureStore from '../store/configureStore';
+import analytics from '../actions/analytics';
 
 import { executeInit } from '../service/ServiceInitHelper';
 
