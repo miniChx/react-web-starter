@@ -5,5 +5,5 @@ import { GFetch } from '../../network/fetch';
 
 
 export const testFetch = () => (dispatch, getState) => {
-  return GFetch('http://localhost:3003', {}).then((d) => console.log(d)).catch(err => console.log(err));
+  return GFetch('/hello', null).then((d) => console.log(d)).catch(err => console.log(err));
 };

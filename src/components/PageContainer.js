@@ -3,16 +3,11 @@
  */
 import React from 'react';
 import { searchMenu } from '../service/CacheService';
-import { Row, Col, Button } from 'mxa';
 import { constructPage } from '../renderTools';
-import { PAGE_TYPE_LIST } from '../actions/types';
-import NotMatchType from './NotMatchType';
-import ListView from './listView';
 import { dispatch } from '../service/DispatchService';
 import { getInitData } from '../actions/pageContainer';
 import { longRunExec } from '../system/longRunOpt';
-
-// 自动生成ref
+import PageConfig from './PageConfig';
 
 class PageContainer extends React.Component {
 
@@ -20,12 +15,10 @@ class PageContainer extends React.Component {
     super(props);
     this.refStr = '';
     this.createRefs = this.createRefs.bind(this);
-    this.linkInfo = searchMenu(this.props.params.splat);
     this.createPage = this.createPage.bind(this);
     this.getUrlPath = this.getUrlPath.bind(this);
     this.initPageContainer = this.initPageContainer.bind(this);
-    console.log(this.linkInfo);
-    this.page = this.createPage(this.linkInfo.domainLink, this.linkInfo.type);
+    this.combineComp = this.combineComp.bind(this);
   }
 
   createRefs() {
@@ -34,28 +27,23 @@ class PageContainer extends React.Component {
     return ref;
   }
 
+  combineComp(Comp) {
+    return (<Comp ref={this.createRefs()} exec={longRunExec} />);
+  }
+
   getUrlPath(url) {
     return url;
   }
 
   createPage(link, type) {
-    switch(type) {
-      case PAGE_TYPE_LIST:
-        return (<ListView ref={this.createRefs()}/>);
-        break;
-      default:
-        return (<NotMatchType pageType={type} />);
-    }
-  }
-
-  componentWillReceiveProps(next) {
+    const comp = type ? PageConfig[type] : PageConfig.default;
+    return this.combineComp(comp);
   }
 
   initPageContainer() {
     const self = this;
     longRunExec(() => {
       return getInitData(this.getUrlPath(this.linkInfo.domainLink)).then((data) => {
-        console.log('XXXXXXX ref', this.refStr);
         self.refs && self.refs[this.refStr] &&
         self.refs[this.refStr].initComponent &&
         self.refs[this.refStr].initComponent(data);
@@ -64,17 +52,10 @@ class PageContainer extends React.Component {
 
   }
 
-  componentDidMount() {
-    this.initPageContainer();
-    console.log(' fetch data and create page');
-  }
-
   render() {
-
     this.linkInfo = searchMenu(this.props.params.splat);
     this.page = this.createPage(this.linkInfo.domainLink, this.linkInfo.type);
     this.initPageContainer();
-
     return (
       <div>{this.page}</div>
     );

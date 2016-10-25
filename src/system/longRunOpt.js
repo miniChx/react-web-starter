@@ -27,11 +27,16 @@ export const longRunExec = (bizHandler, needLoding = true) => {
           content: errorData.message,
         });
       });
+  }).catch((e) => {
+    console.log(e);
+    Modal.error({
+      title: '系统异常',
+      content: JSON.stringify(e)
+    });
+  }).then(() => {
     if (needLoding) {
       dispatch(fetchEnd());
     }
-  }).catch((e) => {
-    console.log('err', e);
   });
 };
 

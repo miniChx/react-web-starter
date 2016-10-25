@@ -60,7 +60,7 @@ export const GFetch = (url, param) => {
   const headers = {
     ..._getHeader()
   };
-  return rawFetch(url + '?' + Qs.stringify(param), {
+  return rawFetch(url + (param ? '?' + Qs.stringify(param) : ''), {
     method: 'GET',
     headers,
   });
