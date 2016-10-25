@@ -13,7 +13,7 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 app.use(bodyParder());
 
-app.get('/', function (req, res) {
+app.get('/hello', function (req, res) {
   setTimeout(() =>  res.send({data: [
     {name: 'A'},
     {name: 'B'},
@@ -24,12 +24,13 @@ app.get('/', function (req, res) {
     {name: 'G'}
   ],
     token: '123123'
-  }), 5000);
+  }), 1000);
 
 });
 
 
 app.post('/AccountList/render', function (req, res) {
+  setTimeout(() =>
   res.json({
     "detailResult": null,
     "fields": [
@@ -223,7 +224,8 @@ app.post('/AccountList/render', function (req, res) {
         ]
       }
     ]
-  });
+  })
+  , 1000);
 });
 
 var server = app.listen(3003, function () {

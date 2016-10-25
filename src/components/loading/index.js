@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import styles from '../../styles/views/hello.less';
+import styles from '../../styles/views/cps.less';
 import { Spin } from 'mxa';
 
 class Loading extends React.Component {
@@ -12,11 +12,11 @@ class Loading extends React.Component {
     if (this.props.showLoading) {
       return (
         <div className={styles.mask}>
-          <Spin tip="Loading..."/>
+          <Spin size="large" />
         </div>
       );
     }
-    return <div />
+    return <div /> ;
   }
 }
 
