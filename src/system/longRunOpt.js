@@ -3,8 +3,8 @@
  */
 
 import co from 'co';
-import { dispatch } from '../../service/DispatchService';
-import { fetchStart, fetchEnd } from '../../actions/showLoading';
+import { dispatch } from '../service/DispatchService';
+import { fetchStart, fetchEnd } from '../actions/showLoading';
 import { Modal, Button } from 'mxa';
 
 

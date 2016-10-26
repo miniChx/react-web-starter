@@ -9,7 +9,7 @@ import appStyle from '../styles/views/app.less';
 
 import classNames from 'classnames';
 
-import { longRunExec } from '../framework/system/longRunOpt';
+import { longRunExec } from '../system/longRunOpt';
 import { testFetch } from '../actions/test/fetchTest';
 import Menu from './menu/index';
 import Title from './title';

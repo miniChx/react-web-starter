@@ -11,5 +11,6 @@ export NotFound from './NotFound.js';
 export NotMatchType from './notMatchType';
 export ListView from './listView';
 export ListDetail from './listDetail';
+export PageContainer from './pageContainer'
 
 
