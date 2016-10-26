@@ -4,6 +4,7 @@
 import { RESET_MENU, PAGE_TYPE_LIST } from '../actions/types';
 
 // TODO: 本地页面
+/* eslint-disable */
 const initialState = [
   {
     "displaySequence":1,
@@ -86,7 +87,7 @@ const initialState = [
 export default function update(state = initialState, action) {
   switch (action.type) {
     case RESET_MENU:
-      return [ ...action.payload];
+      return [...action.payload];
     default:
       return state;
   }

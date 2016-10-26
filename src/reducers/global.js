@@ -10,9 +10,9 @@ const initialState = {
 export default function update(state = initialState, action) {
   switch (action.type) {
     case FETCH_END:
-     return Object.assign({}, state, {showLoading: false});
+      return Object.assign({}, state, { showLoading: false });
     case FETCH_START:
-      return Object.assign({}, state, {showLoading: true});
+      return Object.assign({}, state, { showLoading: true });
     default:
       return state;
   }

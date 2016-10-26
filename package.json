@@ -22,7 +22,8 @@
     "redux-actions": "^0.12.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.0.0",
+    "co": "^4.6.0"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.4.0",

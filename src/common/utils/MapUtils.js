@@ -1,6 +1,7 @@
 /**
  * Created by baoyinghai on 10/26/16.
  */
+/* eslint-disable */
 export const getValueByKeyNoDef = (entry, def, ...keys) => {
   if (keys && keys.length === 0) {
     return entry;
@@ -14,4 +15,4 @@ export const getValueByKey = (entry, def, ...keys) => {
     return def;
   }
   return tag;
-}
+};

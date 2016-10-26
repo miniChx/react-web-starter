@@ -7,16 +7,16 @@ import { routerShape } from 'react-router';
 
 export default class Register extends React.Component {
 
+  static contextTypes = {
+    router: routerShape
+  };
+
   constructor(props) {
     super(props);
     this.buttonClick = this.buttonClick.bind(this);
   }
 
-  static contextTypes = {
-    router: routerShape
-  };
-
-  buttonClick(e) {
+  buttonClick() {
     // 登陆之后的路由跳转
     this.context.router.push({ pathname: '/login' });
   }

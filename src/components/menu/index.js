@@ -3,18 +3,21 @@
  */
 
 import React from 'react';
+
 import { connect } from 'react-redux';
-var { Link } = require('react-router');
 
-import { Menu, Icon } from 'mxa';
+import { Link } from 'react-router';
+
+import { Menu } from 'mxa';
+
 const SubMenu = Menu.SubMenu;
-// const MenuItemGroup = Menu.ItemGroup;
 
+/* eslint-disable */
 class MenuCreator extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state =  {
+    this.state = {
       current: 'mail',
     };
     this.handleClick = this.handleClick.bind(this);

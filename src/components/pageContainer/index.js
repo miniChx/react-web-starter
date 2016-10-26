@@ -2,14 +2,17 @@
  * Created by baoyinghai on 10/21/16.
  */
 import React from 'react';
+
+import { routerShape } from 'react-router';
+
 import { searchMenu } from '../../service/CacheService';
 import { dispatch } from '../../service/DispatchService';
 import { getInitData } from '../../actions/pageContainer';
 import { longRunExec } from '../../system/longRunOpt';
 import PageConfig from './config';
-import { routerShape } from 'react-router';
-import { getValueByKey } from '../../common/utils/MapUtils';
 
+import { getValueByKey } from '../../common/utils/MapUtils';
+/* eslint-disable */
 class PageContainer extends React.Component {
 
   constructor(props) {

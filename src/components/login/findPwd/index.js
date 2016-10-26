@@ -7,14 +7,15 @@ import { routerShape } from 'react-router';
 
 export default class FindPwd extends React.Component {
 
+  static contextTypes = {
+    router: routerShape
+  };
+
   constructor(props) {
     super(props);
     this.buttonClick = this.buttonClick.bind(this);
   }
 
-  static contextTypes = {
-    router: routerShape
-  };
 
   buttonClick(e) {
     this.context.router.push({ pathname: '/login' });

@@ -3,7 +3,12 @@
  */
 import React from 'react';
 
+/* eslint-disable */
 export default class ListView extends React.Component {
+
+  constructor(props){
+    super(props);
+  }
 
   render() {
     return (
