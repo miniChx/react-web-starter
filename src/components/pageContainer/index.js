@@ -6,7 +6,7 @@ import React from 'react';
 import { routerShape } from 'react-router';
 
 import { searchMenu } from '../../service/CacheService';
-import { dispatch } from '../../service/DispatchService';
+// import { dispatch } from '../../service/DispatchService';
 import { getInitData } from '../../actions/pageContainer';
 import { longRunExec } from '../../system/longRunOpt';
 import PageConfig from './config';

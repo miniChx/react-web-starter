@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import 'mxa/dist/mxa.less';
+// import 'mxa/dist/mxa.less';
 
 import MxRouter from '../router';
 
@@ -28,8 +28,9 @@ const setup = () => {
   const store = configureStore({});
   executeInit(store);
   const history = syncHistoryWithStore(browserHistory, store);
-  const AppContainer = setupWithRouteConfig(store, history);
+  history.listen(location => analytics.track(location.pathname));
 
+  const AppContainer = setupWithRouteConfig(store, history);
   return AppContainer;
 };
 
