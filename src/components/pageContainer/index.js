@@ -5,7 +5,7 @@ import React from 'react';
 import { searchMenu } from '../../service/CacheService';
 import { dispatch } from '../../service/DispatchService';
 import { getInitData } from '../../actions/pageContainer';
-import { longRunExec } from '../system/longRunOpt';
+import { longRunExec } from '../../system/longRunOpt';
 import PageConfig from './config';
 import { routerShape } from 'react-router';
 import { getValueByKey } from '../../common/utils/MapUtils';
