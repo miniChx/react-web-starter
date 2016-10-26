@@ -4,12 +4,24 @@
 
 
 import React from 'react';
+import { Button, Table, Icon, Select } from 'mxa';
 
 export default class ListDetail extends React.Component {
 
   constructor(props) {
     super(props);
+    this.buttonClick = this.buttonClick.bind(this);
   }
+
+  buttonClick(e) {
+    this.props.jump(
+      '/AccountList/foo',
+      { modal: 'i am modal ' },
+      { domainType: 'foo', needFetch: false }
+    );
+  }
+
+
 
   render() {
     return (
@@ -17,6 +29,8 @@ export default class ListDetail extends React.Component {
         detail
         <span>{JSON.stringify(this.props.query)}</span>
         <span>{JSON.stringify(this.props.state)}</span>
+
+        <Button type="ghost" onClick={() => this.buttonClick()} >jump to foo</Button>
       </div>
     );
   }
