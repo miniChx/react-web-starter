@@ -18,3 +18,6 @@ export const RESET_MENU = 'RESET_MENU';
 export const PAGE_TYPE_LIST = 'List';
 export const PAGE_TYPE_DETAIL = 'Detail';
 
+export const ACTION_SESSION_LOGIN = 'session_login';
+export const ACTION_SESSION_LOGOUT = 'session_logout';
+
