@@ -8,9 +8,11 @@ import Foo from '../Foo';
 
 import { PAGE_TYPE_LIST, PAGE_TYPE_DETAIL } from '../../actions/types';
 
+const defStr = 'default';
+
 export default {
-  default: NotMatchType,
+  [defStr]: NotMatchType,
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
   foo: Foo,
-}
+};

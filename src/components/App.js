@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { routerShape } from 'react-router';
 
-import Header from './layout/Header';
-import Footer from './layout/Footer';
+// import Header from './layout/Header';
+// import Footer from './layout/Footer';
 
 import '../styles/global/index.less';
+/* eslint-disable */
 import appStyle from '../styles/views/app.less';
 import classNames from 'classnames';
 

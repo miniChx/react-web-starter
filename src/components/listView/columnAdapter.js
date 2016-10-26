@@ -4,7 +4,7 @@
 
 import { toLowerFirstCase } from '../../common/utils/StringUtils';
 
-
+/* eslint-disable */
 export const transColumn = (fields = []) => {
   return fields && fields.map((f) => {
       return {
@@ -12,15 +12,15 @@ export const transColumn = (fields = []) => {
         dataIndex: toLowerFirstCase(f.name),
         key: toLowerFirstCase(f.name),
       };
-    }) || [];
+    });
 };
-
+/* eslint-disable */
 export const transData = (data= []) => {
   return data && data.map((d) => {
       return { ...d };
-    }) || [];
+    });
 };
-
+/* eslint-disable */
 export const transButtons = (data = []) => {
   return data && data.map((d) => {
       return {
@@ -28,11 +28,11 @@ export const transButtons = (data = []) => {
         link: d.domainLink || d.actionName,
         key: d.domainLink || d.actionName
       }
-    }) || [];
+    });
 };
-
+/* eslint-disable */
 export const transFilter = (data = []) => {
   return data && data.map((d) => {
       return { ...d };
-    }) || [];
+    });
 }

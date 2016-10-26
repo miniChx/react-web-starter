@@ -1,13 +1,11 @@
 /**
  * Created by baoyinghai on 10/18/16.
  */
-
 import co from 'co';
+import { Modal, Button } from 'mxa';
 import { dispatch } from '../service/DispatchService';
 import { fetchStart, fetchEnd } from '../actions/showLoading';
-import { Modal, Button } from 'mxa';
-
-
+/* eslint-disable */
 export const longRunExec = (bizHandler, needLoding = true) => {
 
   const self = this;

@@ -3,6 +3,7 @@
  */
 import { createAction } from 'redux-actions';
 import { RESET_MENU } from './types';
-
+/* eslint-disable */
 export const resetMenu = createAction(RESET_MENU);
+
 

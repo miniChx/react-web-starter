@@ -16,14 +16,15 @@ const routeConfig = {
   childRoutes: [
     { path: '/home', component: Home },
     { path: '/menu_manager', component: MenuManager },
-    { path: '/login', component: Login},
-    { path: '/register', component: Register},
-    { path: '/findPwd', component: FindPwd},
-    { path: '/page_container/**', component: PageContainer},
+    { path: '/login', component: Login },
+    { path: '/register', component: Register },
+    { path: '/findPwd', component: FindPwd },
+    { path: '/page_container/**', component: PageContainer },
     { path: '*', component: NotFound },
   ]
 };
 
+/* eslint-disable */
 export default class MxRouter extends React.Component {
 
   render() {

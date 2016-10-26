@@ -2,18 +2,18 @@
  * Created by baoyinghai on 10/18/16.
  */
 
-var self = {};
-
+const self = {};
+/* eslint-disable */
 (function() {
   'use strict';
 
   function headers(xhr) {
-    var head = new Headers();
+    const head = new Headers();
     var pairs = xhr.getAllResponseHeaders().trim().split('\n');
     pairs.forEach(function(header) {
-      var split = header.trim().split(':')
-      var key = split.shift().trim();
-      var value = split.join(':').trim();
+      const split = header.trim().split(':')
+      const key = split.shift().trim();
+      const value = split.join(':').trim();
       head.append(key, value);
     });
     return head;
@@ -33,8 +33,8 @@ var self = {};
   };
 
   self.fetch = function(input, init, timeout) {
-    var request;
-    var timeoutTimer
+    let request;
+    let timeoutTimer
     if (Request.prototype.isPrototypeOf(input) && !init) {
       request = input;
     } else {
@@ -42,7 +42,7 @@ var self = {};
     }
 
     return new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest();
+      const xhr = new XMLHttpRequest();
 
       function responseURL() {
         if ('responseURL' in xhr) {
@@ -63,18 +63,18 @@ var self = {};
 
       xhr.onload = function() {
         cleanTimeoutTimer();
-        var status = (xhr.status === 1223) ? 204 : xhr.status;
+        const status = (xhr.status === 1223) ? 204 : xhr.status;
         if (status < 100 || status > 599) {
           reject(new TypeError('Network request failed'));
           return;
         }
-        var options = {
+        const options = {
           status: status,
           statusText: xhr.statusText,
           headers: headers(xhr),
           url: responseURL()
         }
-        var body = 'response' in xhr ? xhr.response : xhr.responseText;
+        const body = 'response' in xhr ? xhr.response : xhr.responseText;
         resolve(new Response(body, options));
       };
 

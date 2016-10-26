@@ -2,11 +2,17 @@
  * Created by baoyinghai on 10/18/16.
  */
 import React from 'react';
-import { connect } from 'react-redux';
-import styles from '../../styles/views/cps.less';
-import { Spin } from 'mxa';
 
+import { connect } from 'react-redux';
+import { Spin } from 'mxa';
+import styles from '../../styles/views/cps.less';
+
+/* eslint-disable */
 class Loading extends React.Component {
+
+  constructor(prop){
+    super(prop);
+  }
 
   render() {
     if (this.props.showLoading) {

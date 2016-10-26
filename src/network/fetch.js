@@ -1,11 +1,13 @@
 /**
  * Created by baoyinghai on 10/18/16.
  */
+/* eslint-disable */
 import Qs from 'qs';
+/* eslint-disable */
 import MxFetch from '../common/mxfetch/index';
-
+/* eslint-disable */
 const host = 'http://127.0.0.1:3003';
-
+/* eslint-disable */
 const _getHeader = () => {
   return {
     'Accept': 'application/json',
@@ -13,7 +15,7 @@ const _getHeader = () => {
     'Authorization': 'Basic  '
   };
 };
-
+/* eslint-disable */
 const process = (_promise) => {
   return new Promise((resolve, reject) => {
     _promise.then((response) => response.text())
@@ -35,7 +37,7 @@ const process = (_promise) => {
       });
   });
 };
-
+/* eslint-disable */
 const rawFetch = (url, param) => {
   /* eslint-disable no-console */
   console.log('以下打印一次传出去的param:');
@@ -43,7 +45,7 @@ const rawFetch = (url, param) => {
   console.log('请求地址:' + url);
   return process(MxFetch.fetch( host + url, param, 6180));
 };
-
+/* eslint-disable */
 export const PFetch = (url, param) => {
 
   const headers = {
@@ -55,7 +57,7 @@ export const PFetch = (url, param) => {
     body: JSON.stringify(param)
   });
 };
-
+/* eslint-disable */
 export const GFetch = (url, param) => {
   const headers = {
     ..._getHeader()

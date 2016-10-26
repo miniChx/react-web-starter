@@ -7,6 +7,7 @@ import { Icon, Col, Row } from 'mxa';
 import { dispatch } from '../../service/DispatchService';
 import { logout } from '../../actions/session';
 
+/* eslint-disable */
 export default class Title extends React.Component {
 
   constructor(props) {

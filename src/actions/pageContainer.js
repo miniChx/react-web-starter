@@ -3,10 +3,7 @@
  */
 import { PFetch } from '../network/fetch';
 
-
+/* eslint-disable */
 export const getInitData = (link, param) => {
-  return PFetch(link, param).then((d) => {
-    console.log('success', d);
-    return d;
-  });
+  return PFetch(link, param).then((d) => d);
 };
