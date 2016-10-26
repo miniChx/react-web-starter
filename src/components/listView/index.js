@@ -26,6 +26,7 @@ export default class ListView extends React.Component {
   constructor(props){
     super(props);
     this.initComponent = this.initComponent.bind(this);
+    this.pagination = {};
     this.state = {
       data: [],
       columns: [],
@@ -66,6 +67,17 @@ export default class ListView extends React.Component {
       columns: transColumn(data.fields).concat([{title: '操作', dataIndex: '', key: 'x', render: this.renderActions}]),
       buttons: transButtons(data.buttons),
       filterItems: transFilter(data.filterItems),
+    }, () => {
+      this.pagination = {
+        total: data && data.pageResult && data.pageResult.totalItems,
+        showSizeChanger: true,
+        onShowSizeChange(current, pageSize) {
+          console.log('Current: ', current, '; PageSize: ', pageSize);
+        },
+        onChange(current) {
+          console.log('Current: ', current);
+        },
+      }
     });
   }
 
@@ -107,7 +119,12 @@ export default class ListView extends React.Component {
               );
             })}
           </div>
-          <Table columns={this.state.columns} dataSource={this.state.data} sortOrder={false}/>
+          <Table
+            columns={this.state.columns}
+            dataSource={this.state.data}
+            sortOrder={false}
+            pagination={this.pagination}
+          />
         </div>
       );
     }
