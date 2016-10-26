@@ -15,5 +15,6 @@ export const ADD_PAGE = 'ADD_PAGE';
 export const UPDATE_PAGE = 'UPDATE_PAGE';
 export const RESET_MENU = 'RESET_MENU';
 
-export const PAGE_TYPE_LIST = 'RICH_LIST';
+export const PAGE_TYPE_LIST = 'List';
+export const PAGE_TYPE_DETAIL = 'Detail';
 

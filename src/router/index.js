@@ -4,8 +4,10 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { App, Home, Foo, SubPage, NotFound, Loading, MenuManager, UserManager, ModuleFactory, PageContainer }
+import { App, Home, Foo, SubPage, NotFound, Loading, MenuManager, UserManager, ModuleFactory }
   from '../components';
+
+import PageContainer from '../framework/pageContainer'
 
 const routeConfig = {
   path: '/',

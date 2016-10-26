@@ -2,7 +2,7 @@
  * Created by baoyinghai on 10/18/16.
  */
 import Qs from 'qs';
-import MxFetch from '../common/mxfetch';
+import MxFetch from '../common/mxfetch/index';
 
 const host = 'http://127.0.0.1:3003';
 
