@@ -39,7 +39,11 @@ class MenuCreator extends React.Component {
       );
     }
     return (
-      <Menu.Item key={item.menuCode}><Link to={'/page_container' + item.domainLink}>{item.menuValue}</Link></Menu.Item>
+      <Menu.Item key={item.menuCode}>
+        <Link to={'/page_container' + item.domainLink}>
+          {item.menuValue}
+        </Link>
+      </Menu.Item>
     );
   }
 

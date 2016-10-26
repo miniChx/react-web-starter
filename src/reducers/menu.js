@@ -3,11 +3,12 @@
  */
 import { RESET_MENU, PAGE_TYPE_LIST } from '../actions/types';
 
+// TODO: 本地页面
 const initialState = [
   {
     "displaySequence":1,
     "menuCode":"renderList",
-    "type": PAGE_TYPE_LIST,
+    "domainType": PAGE_TYPE_LIST,
     "menuValue":"系统管理",
     "roleCodes":[
       "Role1",
@@ -58,7 +59,7 @@ const initialState = [
       {
         "displaySequence":2,
         "domainLink":"/AccountList/render",
-        "type": PAGE_TYPE_LIST,
+        "domainType": PAGE_TYPE_LIST,
         "menuCode":"accountManagement",
         "menuValue":"用户管理",
         "roleCodes":[
@@ -73,7 +74,7 @@ const initialState = [
     "domainLink":"/demo_list",
     "menuCode":"caseManagement",
     "menuValue":"案例管理",
-    "type": PAGE_TYPE_LIST,
+    "domainType": PAGE_TYPE_LIST,
     "roleCodes":[
       "Role1",
       "Role3",
