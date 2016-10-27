@@ -1,18 +1,21 @@
 /**
  * Created by baoyinghai on 10/18/16.
  */
-import { FETCH_END, FETCH_START } from '../actions/types';
+import { FETCH_END, FETCH_START, INIT_DATA_FROM_SERVER } from '../actions/types';
 
 const initialState = {
-  showLoading: false
+  showLoading: false,
+  isInit: false
 };
 
 export default function update(state = initialState, action) {
   switch (action.type) {
     case FETCH_END:
-      return Object.assign({}, state, { showLoading: false });
+      return { ...state, showLoading: false };
     case FETCH_START:
-      return Object.assign({}, state, { showLoading: true });
+      return { ...state, showLoading: true };
+    case INIT_DATA_FROM_SERVER:
+      return { ...state, isInit: true };
     default:
       return state;
   }
