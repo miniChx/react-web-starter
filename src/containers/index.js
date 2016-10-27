@@ -29,7 +29,6 @@ const setup = () => {
   executeInit(store);
   const history = syncHistoryWithStore(browserHistory, store);
   history.listen(location => analytics.track(location.pathname));
-
   const AppContainer = setupWithRouteConfig(store, history);
   return AppContainer;
 };

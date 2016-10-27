@@ -38,17 +38,21 @@ export default class ListView extends React.Component {
     this.handleChangeOfSelect = this.handleChangeOfSelect.bind(this);
     this.buttonClick = this.buttonClick.bind(this);
     this.renderActions = this.renderActions.bind(this);
+    this.goToDetail = this.goToDetail.bind(this);
   }
 
   buttonClick(e) {
     // TODO: 按钮类型的判断
-    if (e === '详情') {
-      this.props.jump(
-        '/AccountList/detail',
-        { modal: 'i am modal ' },
-        { domainType: PAGE_TYPE_DETAIL, needFetch: false }
-      );
-    }
+    console.log('button click: ', e.key);
+  }
+
+  goToDetail(record) {
+    console.log(record);
+    this.props.jump(
+      '/AccountList/detail',
+      { modal: 'i am modal ' },
+      { domainType: PAGE_TYPE_DETAIL, needFetch: false, record, columns: this.state.columns }
+    );
   }
 
   renderActions(text, record) {
@@ -56,7 +60,7 @@ export default class ListView extends React.Component {
       <span>
         <a href="#">删除</a>
         <span className="mx-divider" />
-        <a href="#">详情</a>
+        <a onClick={() => this.goToDetail(record)}>详情</a>
       </span>
     );
   }
