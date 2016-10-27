@@ -29,6 +29,89 @@ app.get('/hello', function (req, res) {
 });
 
 
+
+app.post('/Advice/getMenus', function (req, res) {
+  res.json({result: [
+    {
+      "displaySequence":1,
+      "menuCode":"renderList",
+      "domainType": 'List',
+      "menuValue":"系统管理",
+      "roleCodes":[
+        "Role1",
+        "Role2",
+        "Role5"
+      ],
+      "subMenus":[
+        {
+          "displaySequence":1,
+          "menuCode":"orgManagement",
+          "menuValue":"机构管理",
+          "roleCodes":[
+            "Role1",
+            "Role5"
+          ],
+          "subMenus":[
+            {
+              "displaySequence":1,
+              "domainLink":"/org_apply_list",
+              "menuCode":"orgApplyManagement",
+              "menuValue":"机构申请",
+              "roleCodes":[
+                "Role1"
+              ]
+            },
+            {
+              "displaySequence":2,
+              "menuCode":"orgApproveManagement",
+              "menuValue":"机构审批",
+              "roleCodes":[
+                "Role1",
+                "Role5"
+              ],
+              "subMenus":[
+                {
+                  "displaySequence":1,
+                  "domainLink":"/org_approve_undo_list",
+                  "menuCode":"orgApproveUndo",
+                  "menuValue":"未完成的工作",
+                  "roleCodes":[
+                    "Role1"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "displaySequence":2,
+          "domainLink":"/AccountList/render",
+          "domainType": 'List',
+          "menuCode":"accountManagement",
+          "menuValue":"用户管理",
+          "roleCodes":[
+            "Role1",
+            "Role2"
+          ]
+        }
+      ]
+    },
+    {
+      "displaySequence":2,
+      "domainLink":"/demo_list",
+      "menuCode":"caseManagement",
+      "menuValue":"案例管理",
+      "domainType": 'List',
+      "roleCodes":[
+        "Role1",
+        "Role3",
+        "Role4"
+      ]
+    }
+  ]});
+});
+
+
 app.post('/AccountList/render', function (req, res) {
   setTimeout(() =>
   res.json({
@@ -440,9 +523,13 @@ app.post('/AccountList/render', function (req, res) {
   , 1000);
 });
 
-var server = app.listen(3003, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+var handler = function() {
+  var server = app.listen(3003, function () {
+    var host = server.address().address;
+    var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+    console.log('Example app listening at http://%s:%s', host, port);
+  });
+};
+
+module.exports = { run: handler };

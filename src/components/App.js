@@ -13,6 +13,9 @@ import classNames from 'classnames';
 import Menu from './menu/index';
 import Title from './title';
 import { Row, Col } from 'mxa';
+import { isInitDataFromServer } from '../service/CacheService';
+import { initDataFromServer } from '../actions/initDataFromServer';
+import { longRunExec } from '../system/longRunOpt';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component {
@@ -37,6 +40,12 @@ class App extends React.Component {
   componentDidMount() {
     if (!this.props.session.token) {
       this.context.router.push({ pathname: '/login' });
+    }
+    if (!isInitDataFromServer()) {
+      longRunExec(() => {
+        return this.props.dispatch(initDataFromServer());
+      });
+
     }
   }
 
@@ -63,7 +72,7 @@ class App extends React.Component {
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = state => ({
   routing: state.routing,
-  session: state.session
+  session: state.session,
 });
 
 export default connect(mapStateToProps)(App);

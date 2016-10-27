@@ -20,4 +20,5 @@ export const PAGE_TYPE_DETAIL = 'Detail';
 
 export const ACTION_SESSION_LOGIN = 'session_login';
 export const ACTION_SESSION_LOGOUT = 'session_logout';
+export const INIT_DATA_FROM_SERVER = 'INIT_DATA_FROM_SERVER';
 
