@@ -42,13 +42,7 @@ export default class ListView extends React.Component {
 
   buttonClick(e) {
     // TODO: 按钮类型的判断
-    if (e === '详情') {
-      this.props.jump(
-        '/AccountList/detail',
-        { modal: 'i am modal ' },
-        { domainType: PAGE_TYPE_DETAIL, needFetch: false }
-      );
-    }
+    console.log('button click: ', e.key);
   }
 
   goToDetail(record) {
