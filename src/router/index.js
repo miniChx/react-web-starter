@@ -8,7 +8,17 @@ import { App, Home, NotFound, MenuManager, PageContainer, Login,
 }
   from '../components';
 
+import { getToken } from '../service/CacheService';
+
 export const CONTAINER_PRE = 'page_container';
+
+// 登录后不可见页面的控制.
+const userIsInATeam = (nextState, replace, callback) => {
+  if (getToken()) {
+    replace('/');
+  }
+  callback();
+};
 
 const routeConfig = {
   path: '/',
@@ -17,9 +27,9 @@ const routeConfig = {
   childRoutes: [
     { path: '/home', component: Home },
     { path: '/menu_manager', component: MenuManager },
-    { path: '/login', component: Login },
-    { path: '/register', component: Register },
-    { path: '/findPwd', component: FindPwd },
+    { path: '/login', component: Login, onEnter: userIsInATeam },
+    { path: '/register', component: Register, onEnter: userIsInATeam },
+    { path: '/findPwd', component: FindPwd, onEnter: userIsInATeam },
     { path: '/' + CONTAINER_PRE + '/**', component: PageContainer },
     { path: '*', component: NotFound },
   ]

@@ -66,7 +66,6 @@ class MenuCreator extends React.Component {
 
   // 控制选中的菜单项
   handleClick(e) {
-    console.log('click ', e);
     this.setState({
       current: e.key,
     });
@@ -74,7 +73,6 @@ class MenuCreator extends React.Component {
 
   // 控制菜单的展开和闭合
   subMenuClick(e) {
-    console.log('click', e);
     const index = this.state.openKeys.lastIndexOf(e.key);
     if (index === -1) {
       this.setState({
@@ -87,20 +85,14 @@ class MenuCreator extends React.Component {
     }
   }
 
-
-
   componentWillReceiveProps(next){
     const { linkInfo, indexPath } = this.getMenuInfo(next.routing);
     if (linkInfo) {
-      // if(linkInfo.menuCode !== this.state.current) {
       const openKeys = this.getOpenKeys(indexPath, this.props.menu)
       this.setState({
         current: linkInfo.menuCode,
         openKeys
       });
-      // } else {
-      //  console.log('receive props', 'current is same');
-      // }
     }
   }
 
