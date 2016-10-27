@@ -1,5 +1,7 @@
 import React from 'react';
-
-export default function Foo() {
-  return <div>I am Foo!</div>;
+/* eslint-disable */
+export default class Foo extends React.Component {
+  render() {
+    return <div>I am Foo!</div>;
+  }
 }

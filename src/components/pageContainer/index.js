@@ -30,6 +30,7 @@ class PageContainer extends React.Component {
     this.getNeedFetch = this.getNeedFetch.bind(this);
     this.getUrlQuery = this.getUrlQuery.bind(this);
     this.getUrlState = this.getUrlState.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   static contextTypes = {
@@ -46,6 +47,10 @@ class PageContainer extends React.Component {
     this.context.router.push({
       pathname: '/' + CONTAINER_PRE + pathname, query, state
     });
+  }
+
+  goBack() {
+    this.context.router.goBack();
   }
 
   getSplat() {
@@ -69,7 +74,13 @@ class PageContainer extends React.Component {
   }
 
   combineComp(Comp) {
-    return (<Comp ref={this.createRefs()} exec={longRunExec} jump={this.jump} query={this.getUrlQuery()} state={this.getUrlState()} />);
+    return (<Comp ref={this.createRefs()}
+                  exec={longRunExec}
+                  jump={this.jump}
+                  goBack={this.goBack}
+                  query={this.getUrlQuery()}
+                  state={this.getUrlState()}
+    />);
   }
 
   getUrlPath(url) {
@@ -77,6 +88,7 @@ class PageContainer extends React.Component {
   }
 
   createPage(link, type) {
+    console.log(PageConfig);
     const comp = type ? PageConfig[type] : PageConfig.default;
     return this.combineComp(comp);
   }
@@ -94,12 +106,12 @@ class PageContainer extends React.Component {
   }
 
   render() {
-    const { linkInfo } = searchMenu(this.getSplat());
-    if (linkInfo) {
-      this.page = this.createPage(this.getSplat(), linkInfo.domainType);
+    if (this.getDomainType()) {
+      this.page = this.createPage(this.getSplat(), this.getDomainType());
     } else {
-      if(this.getDomainType()) {
-        this.page = this.createPage(this.getSplat(), this.getDomainType());
+      const { linkInfo } = searchMenu(this.getSplat());
+      if (linkInfo) {
+        this.page = this.createPage(this.getSplat(), linkInfo.domainType);
       } else {
         this.page = this.createPage('', 'default');
       }
