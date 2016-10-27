@@ -11,6 +11,7 @@ export const transColumn = (fields = []) => {
         title: f.description,
         dataIndex: toLowerFirstCase(f.name),
         key: toLowerFirstCase(f.name),
+        sorter: (a, b) => a[toLowerFirstCase(f.name)].length - b[toLowerFirstCase(f.name)].length,
       };
     });
 };
