@@ -37,6 +37,7 @@ export default class ListView extends React.Component {
     this.handleChangeOfSelect = this.handleChangeOfSelect.bind(this);
     this.buttonClick = this.buttonClick.bind(this);
     this.renderActions = this.renderActions.bind(this);
+    this.goToDetail = this.goToDetail.bind(this);
   }
 
   buttonClick(e) {
@@ -50,12 +51,21 @@ export default class ListView extends React.Component {
     }
   }
 
+  goToDetail(record) {
+    console.log(record);
+    this.props.jump(
+      '/AccountList/detail',
+      { modal: 'i am modal ' },
+      { domainType: PAGE_TYPE_DETAIL, needFetch: false, record, columns: this.state.columns }
+    );
+  }
+
   renderActions(text, record) {
     return (
       <span>
         <a href="#">删除</a>
         <span className="mx-divider" />
-        <a href="#">详情</a>
+        <a onClick={() => this.goToDetail(record)}>详情</a>
       </span>
     );
   }
