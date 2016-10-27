@@ -4,7 +4,7 @@
 
 
 import React from 'react';
-import { Button, Table, Icon, Select } from 'mxa';
+import { Button } from 'mxa';
 import { routerShape, Link } from 'react-router';
 import { dispatch } from '../../service/DispatchService';
 import { login } from '../../actions/session';

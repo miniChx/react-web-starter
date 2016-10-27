@@ -2,7 +2,7 @@
  * Created by baoyinghai on 10/26/16.
  */
 import React from 'react';
-import { Button, Table, Icon, Select } from 'mxa';
+import { Button } from 'mxa';
 import { routerShape } from 'react-router';
 
 export default class Register extends React.Component {

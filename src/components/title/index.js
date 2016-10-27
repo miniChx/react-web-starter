@@ -2,7 +2,6 @@
  * Created by baoyinghai on 10/19/16.
  */
 import React from 'react';
-import { connect } from 'react-redux';
 import { Icon, Col, Row } from 'mxa';
 import { dispatch } from '../../service/DispatchService';
 import { logout } from '../../actions/session';

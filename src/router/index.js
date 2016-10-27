@@ -2,9 +2,8 @@
  * Created by baoyinghai on 10/20/16.
  */
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { connect } from 'react-redux';
-import { App, Home, Foo, SubPage, NotFound, Loading, MenuManager, UserManager, ModuleFactory, PageContainer, Login,
+import { Router } from 'react-router';
+import { App, Home, NotFound, MenuManager, PageContainer, Login,
   Register, FindPwd
 }
   from '../components';
