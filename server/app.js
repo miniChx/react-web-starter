@@ -12,6 +12,7 @@ var allowCrossDomain = function(req, res, next) {
 
 app.use(allowCrossDomain);
 app.use(bodyParder());
+// app.use(express.static('../build'));
 
 app.get('/hello', function (req, res) {
   setTimeout(() =>  res.send({data: [
