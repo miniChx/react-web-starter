@@ -77,7 +77,6 @@ class PageContainer extends React.Component {
   }
 
   createPage(link, type) {
-    console.log(PageConfig);
     const comp = type ? PageConfig[type] : PageConfig.default;
     return this.combineComp(comp);
   }

@@ -5,7 +5,9 @@ let _store = null;
 /* eslint-disable */
 export const init = store => {
   _store = store;
-}
+};
+
+export const getToken = () => _store.getState().session.token;
 
 export const getMenu = () => _store.getState().menu;
 
