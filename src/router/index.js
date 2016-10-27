@@ -9,6 +9,8 @@ import { App, Home, Foo, SubPage, NotFound, Loading, MenuManager, UserManager, M
 }
   from '../components';
 
+export const CONTAINER_PRE = 'page_container';
+
 const routeConfig = {
   path: '/',
   component: App,
@@ -19,7 +21,7 @@ const routeConfig = {
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/findPwd', component: FindPwd },
-    { path: '/page_container/**', component: PageContainer },
+    { path: '/' + CONTAINER_PRE + '/**', component: PageContainer },
     { path: '*', component: NotFound },
   ]
 };

@@ -13,6 +13,8 @@ import { searchMenu } from '../../service/CacheService';
 
 import { getValueByKey } from '../../common/utils/MapUtils';
 
+import { CONTAINER_PRE } from '../../router';
+
 const SubMenu = Menu.SubMenu;
 
 /* eslint-disable */
@@ -25,25 +27,25 @@ class MenuCreator extends React.Component {
     this.subMenuClick = this.subMenuClick.bind(this);
     this.getMenuInfo = this.getMenuInfo.bind(this);
     this.getOpenKeys = this.getOpenKeys.bind(this);
+    let state = {
+      current: '',
+      openKeys: []
+    };
     const { linkInfo, indexPath } = this.getMenuInfo(this.props.routing);
     if (linkInfo) {
       const openKeys = this.getOpenKeys(indexPath, this.props.menu)
-      return {
+      state = {
         current: linkInfo.menuCode,
         openKeys
       };
     }
-
-    this.state = {
-      current: '',
-      openKeys: []
-    }
+    this.state = state;
   }
 
   // 根据路由变化, 获得路由信息
   getMenuInfo(routing) {
     const path = getValueByKey(routing, null, 'locationBeforeTransitions', 'pathname');
-    const start = '/page_container/'.length;
+    const start = ('/' + CONTAINER_PRE + '/').length;
     const end = path.length;
 
     return searchMenu(path.substring(start, end));
@@ -90,15 +92,15 @@ class MenuCreator extends React.Component {
   componentWillReceiveProps(next){
     const { linkInfo, indexPath } = this.getMenuInfo(next.routing);
     if (linkInfo) {
-      if(linkInfo.menuCode !== this.state.current) {
-        const openKeys = this.getOpenKeys(indexPath, this.props.menu)
-        this.setState({
-          current: linkInfo.menuCode,
-          openKeys
-        });
-      } else {
-        console.log('receive props', 'current is same');
-      }
+      // if(linkInfo.menuCode !== this.state.current) {
+      const openKeys = this.getOpenKeys(indexPath, this.props.menu)
+      this.setState({
+        current: linkInfo.menuCode,
+        openKeys
+      });
+      // } else {
+      //  console.log('receive props', 'current is same');
+      // }
     }
   }
 
@@ -114,7 +116,7 @@ class MenuCreator extends React.Component {
     }
     return (
       <Menu.Item key={item.menuCode} >
-        <Link to={'/page_container' + item.domainLink}>
+        <Link to={'/' + CONTAINER_PRE + item.domainLink}>
           {item.menuValue}
         </Link>
       </Menu.Item>
