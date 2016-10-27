@@ -8,6 +8,8 @@ import { App, Home, NotFound, MenuManager, PageContainer, Login,
 }
   from '../components';
 
+export const CONTAINER_PRE = 'page_container';
+
 const routeConfig = {
   path: '/',
   component: App,
@@ -18,7 +20,7 @@ const routeConfig = {
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/findPwd', component: FindPwd },
-    { path: '/page_container/**', component: PageContainer },
+    { path: '/' + CONTAINER_PRE + '/**', component: PageContainer },
     { path: '*', component: NotFound },
   ]
 };

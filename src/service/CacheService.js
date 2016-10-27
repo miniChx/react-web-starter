@@ -16,19 +16,33 @@ export const searchMenu = (id) => {
   const menu = _store.getState().menu;
 
   let tag = null;
+  const indexPath = [];
 
   const filter = (item) => {
     if (item.subMenus) {
-      item.subMenus.forEach((i) => filter(i));
+      item.subMenus.every((i, index) => {
+        if(index !==0 ) {
+          indexPath.pop();
+        }
+        indexPath.push(index);
+        filter(i);
+        return !tag;
+      });
+      !tag && indexPath.pop();
     }
-    if (item.domainLink === id || item.domainLink === '/' + id) {
+    if (tag && item.domainLink === id || item.domainLink === '/' + id) {
       tag = item;
     }
   };
-  menu.forEach((m) => {
+  menu.every((m, index) => {
+    if(index !==0 ) {
+      indexPath.pop();
+    }
+    indexPath.push(index);
     filter(m);
+    return !tag;
   });
+  !tag && indexPath.pop();
 
-  return tag;
-
+  return { linkInfo: tag, indexPath };
 };

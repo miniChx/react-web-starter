@@ -10,6 +10,7 @@ import { searchMenu } from '../../service/CacheService';
 import { getInitData } from '../../actions/pageContainer';
 import { longRunExec } from '../../system/longRunOpt';
 import PageConfig from './config';
+import { CONTAINER_PRE } from '../../router';
 
 import { getValueByKey } from '../../common/utils/MapUtils';
 /* eslint-disable */
@@ -43,7 +44,7 @@ class PageContainer extends React.Component {
 
   jump(pathname, query, state) {
     this.context.router.push({
-      pathname: '/page_container' + pathname, query, state
+      pathname: '/' + CONTAINER_PRE + pathname, query, state
     });
   }
 
@@ -94,7 +95,7 @@ class PageContainer extends React.Component {
   }
 
   render() {
-    const linkInfo = searchMenu(this.getSplat());
+    const { linkInfo } = searchMenu(this.getSplat());
     if (linkInfo) {
       this.page = this.createPage(this.getSplat(), linkInfo.domainType);
     } else {
