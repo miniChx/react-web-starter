@@ -39,6 +39,16 @@ export default class ListView extends React.Component {
     this.renderActions = this.renderActions.bind(this);
   }
 
+  componentDidMount() {
+    this.timer = setTimeout(() => {
+      this.initComponent(this.props.data);
+    }, 0);
+  }
+
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+  }
+
   buttonClick(e) {
     // TODO: 按钮类型的判断
     if (e === '详情') {
@@ -130,7 +140,7 @@ export default class ListView extends React.Component {
     }
     return (
       <div className={styles.paddingWraper} >
-        <span>数据加载中...</span>
+        <span>我是列表...</span>
       </div>
     );
 
