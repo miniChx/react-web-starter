@@ -13,7 +13,7 @@ export default class ListDetail extends React.Component {
 
   buttonClick() {
     this.props.jump(
-      '/AccountList/foo',
+      '/org_approve_undo_list',
       { modal: 'i am modal ' },
       { domainType: 'foo', needFetch: false }
     );

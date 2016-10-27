@@ -94,7 +94,7 @@ class PageContainer extends React.Component {
   }
 
   render() {
-    const linkInfo = searchMenu(this.getSplat());
+    const { linkInfo } = searchMenu(this.getSplat());
     if (linkInfo) {
       this.page = this.createPage(this.getSplat(), linkInfo.domainType);
     } else {
