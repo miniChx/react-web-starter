@@ -20,6 +20,7 @@ const userIsInATeam = (nextState, replace, callback) => {
   callback();
 };
 
+
 const routeConfig = {
   path: '/',
   component: App,

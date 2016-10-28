@@ -50,21 +50,25 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.props.session.token) {
-      return (
-        <div>
-          <Title />
-          <Row>
-            <Col span={4} ><Menu /></Col>
-            <Col span={20} >{this.props.children}</Col>
-          </Row>
+    if (this.props.isInit) {
+      if (this.props.session.token) {
+        return (
+          <div>
+            <Title />
+            <Row>
+              <Col span={4} ><Menu /></Col>
+              <Col span={20} >{this.props.children}</Col>
+            </Row>
 
-        </div>
+          </div>
+        );
+      }
+      return (
+        <div>{this.props.children}</div>
       );
+    } else {
+     return (<div />);
     }
-    return (
-      <div>{this.props.children}</div>
-    );
   }
 }
 
@@ -73,6 +77,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   routing: state.routing,
   session: state.session,
+  isInit: state.global.isInit
 });
 
 export default connect(mapStateToProps)(App);
