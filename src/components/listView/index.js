@@ -5,6 +5,7 @@
 import React from 'react';
 
 import { Button, Table, Icon, Select } from 'mxa';
+import SearchInput from '../searchInput/index';
 
 const Option = Select.Option;
 /* eslint-disable */
@@ -26,12 +27,12 @@ export default class ListView extends React.Component {
   constructor(props){
     super(props);
     this.initComponent = this.initComponent.bind(this);
-    this.pagination = {};
     this.state = {
       data: [],
       columns: [],
       buttons: [],
       filterItems: [],
+      pagination: {},
     };
     this.createFilterItem = this.createFilterItem.bind(this);
     this.handleChangeOfSelect = this.handleChangeOfSelect.bind(this);
@@ -40,15 +41,19 @@ export default class ListView extends React.Component {
     this.goToDetail = this.goToDetail.bind(this);
   }
 
+  componentDidMount() {
+    this.timer = setTimeout(() => {
+      this.initComponent(this.props.data);
+    }, 0);
+  }
+
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+  }
+
   buttonClick(e) {
     // TODO: 按钮类型的判断
-    if (e === '详情') {
-      this.props.jump(
-        '/AccountList/detail',
-        { modal: 'i am modal ' },
-        { domainType: PAGE_TYPE_DETAIL, needFetch: false }
-      );
-    }
+    console.log('button click: ', e.key);
   }
 
   goToDetail(record) {
@@ -77,18 +82,12 @@ export default class ListView extends React.Component {
       columns: transColumn(data.fields).concat([{title: '操作', dataIndex: '', key: 'x', render: this.renderActions}]),
       buttons: transButtons(data.buttons),
       filterItems: transFilter(data.filterItems),
-    }, () => {
-      this.pagination = {
+      pagination: {
         total: data && data.pageResult && data.pageResult.totalItems,
-        showSizeChanger: true,
-        onShowSizeChange(current, pageSize) {
-          console.log('Current: ', current, '; PageSize: ', pageSize);
-        },
-        onChange(current) {
-          console.log('Current: ', current);
-        },
+        showSizeChanger: true
       }
     });
+
   }
 
   handleChangeOfSelect(e) {
@@ -103,6 +102,10 @@ export default class ListView extends React.Component {
         );
       });
   }
+
+  onChange = (pagination, filters, sorter) => {
+    console.log('params', pagination, filters, sorter);
+  };
 
   render() {
     if (this.state.columns && this.state.columns.length > 0) {
@@ -129,20 +132,19 @@ export default class ListView extends React.Component {
               );
             })}
           </div>
+          <SearchInput placeholder={"搜索"}/>
           <Table
             columns={this.state.columns}
             dataSource={this.state.data}
             sortOrder={false}
-            pagination={this.pagination}
+            pagination={this.state.pagination}
+            onChange={this.onChange}
           />
         </div>
       );
     }
     return (
-      <div className={styles.paddingWraper} >
-        <span>数据加载中...</span>
-      </div>
+      <div />
     );
-
   }
 };
