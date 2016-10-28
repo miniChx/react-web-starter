@@ -20,13 +20,13 @@ export default class Title extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col span={8} className="">
-          <h1>快速开发基础平台</h1>
+      <Row className={styles.titleContainer}>
+        <Col span={8} offset={8}>
+          <h1 className={styles.title_color}>快速开发基础平台</h1>
         </Col>
-        <Col span={2} offset={10}>
-          <span style={{cursor:'pointer'}} onClick={this._logout}>
-            <Icon type="logout"/>{' 退出'}
+        <Col span={2} offset={5}>
+          <span className={styles.title_color} style={{cursor:'pointer'}} onClick={this._logout}>
+            <Icon type="logout" className={styles.title_color} />{' 退出'}
           </span>
         </Col>
       </Row>
