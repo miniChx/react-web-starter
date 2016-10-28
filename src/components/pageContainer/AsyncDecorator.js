@@ -2,6 +2,7 @@ import React from 'react';
 
 import { getInitData } from '../../actions/pageContainer';
 import { getValueByKey } from '../../common/utils/MapUtils';
+import { longRunExec } from '../../system/longRunOpt';
 
 const AsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {
@@ -15,12 +16,12 @@ const AsyncDecorator = Wrapper => {
     componentDidMount() {
       if (this.getNeedFetch()) {
         const url = this.getUrlPath('/' + this.props.params.splat);
-        getInitData(url, {})
+        longRunExec(() => getInitData(url, {})
           .then(data => {
             this.setState({
               data,
             });
-          });
+          }));
       }
     }
 
