@@ -1,8 +1,6 @@
 import React from 'react';
-import assign from 'lodash/assign';
 
 import { getInitData } from '../../actions/pageContainer';
-import styles from '../../styles/views/cps.less';
 import { getValueByKey } from '../../common/utils/MapUtils';
 
 const AsyncDecorator = Wrapper => {
