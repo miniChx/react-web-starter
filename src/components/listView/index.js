@@ -139,10 +139,6 @@ export default class ListView extends React.Component {
         </div>
       );
     }
-    return (
-      <div className={styles.paddingWraper} >
-        <span>数据加载中...</span>
-      </div>
-    );
+    return null;
   }
 };
