@@ -3,7 +3,6 @@
  */
 import React from 'react';
 
-import { routerShape } from 'react-router';
 import { autobind } from 'core-decorators';
 
 import { searchMenu } from '../../service/CacheService';
@@ -25,10 +24,6 @@ class PageContainer extends React.Component {
   constructor(props) {
     super(props);
     // this.refStr = '';
-  }
-
-  static contextTypes = {
-    router: routerShape
   }
 
   @autobind
@@ -70,15 +65,16 @@ class PageContainer extends React.Component {
       }
     }
 
+    let FinalPage = this.page;
     if (this.getNeedFetch()) {
-      const FinalPage = Compose(AsyncDecorator)(this.page);
+      FinalPage = Compose(AsyncDecorator)(this.page);
       return (
-        <div><FinalPage url={this.getUrlPath('/' + this.props.params.splat)} /></div>
+        <div><FinalPage {...this.props} url={this.getUrlPath('/' + this.props.params.splat)} /></div>
       );
     }
 
     return (
-      <div>{this.page}</div>
+      <div><FinalPage {...this.props}/></div>
     );
   }
 }
