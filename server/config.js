@@ -13,4 +13,4 @@ const wifi = {
   port: 9081
 }
 
-module.exports = wifi;
+module.exports = line;
