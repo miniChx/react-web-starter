@@ -21,6 +21,7 @@ const PackDecorator = Wrapper => {
       this.state = {
         data: null
       };
+     // this.props = preProps;
     }
 
     @autobind
