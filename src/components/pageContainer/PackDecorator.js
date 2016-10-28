@@ -47,6 +47,11 @@ const PackDecorator = Wrapper => {
       return getValueByKey(this.props, {}, 'location', 'state');
     }
 
+    @autobind
+    _goBack() {
+      this.context.router.goBack();
+    }
+
     render() {
       return (
         <Wrapper
@@ -56,6 +61,7 @@ const PackDecorator = Wrapper => {
           jump={this._jump}
           query={this._query}
           state={this._state}
+          goBack={this._goBack}
         />
       );
     }

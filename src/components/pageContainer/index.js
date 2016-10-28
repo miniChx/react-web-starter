@@ -25,15 +25,10 @@ class PageContainer extends React.Component {
   constructor(props) {
     super(props);
     // this.refStr = '';
-    this.goBack = this.goBack.bind(this);
   }
 
   static contextTypes = {
     router: routerShape
-  }
-
-  goBack() {
-    this.context.router.goBack();
   }
 
   @autobind
@@ -51,16 +46,7 @@ class PageContainer extends React.Component {
     return getValueByKey(this.props, true, 'location', 'state', 'needFetch');
   }
 
-  combineComp(Comp) {
-    return (<Comp ref={this.createRefs()}
-                  exec={longRunExec}
-                  jump={this.jump}
-                  goBack={this.goBack}
-                  query={this.getUrlQuery()}
-                  state={this.getUrlState()}
-    />);
-  }
-
+  @autobind
   getUrlPath(url) {
     return url;
   }
