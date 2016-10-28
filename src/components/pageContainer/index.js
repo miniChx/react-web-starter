@@ -25,10 +25,15 @@ class PageContainer extends React.Component {
   constructor(props) {
     super(props);
     // this.refStr = '';
+    this.goBack = this.goBack.bind(this);
   }
 
   static contextTypes = {
     router: routerShape
+  }
+
+  goBack() {
+    this.context.router.goBack();
   }
 
   @autobind
@@ -46,24 +51,34 @@ class PageContainer extends React.Component {
     return getValueByKey(this.props, true, 'location', 'state', 'needFetch');
   }
 
-  @autobind
+  combineComp(Comp) {
+    return (<Comp ref={this.createRefs()}
+                  exec={longRunExec}
+                  jump={this.jump}
+                  goBack={this.goBack}
+                  query={this.getUrlQuery()}
+                  state={this.getUrlState()}
+    />);
+  }
+
   getUrlPath(url) {
     return url;
   }
 
   @autobind
   createPage(link, type) {
+    console.log(PageConfig);
     const comp = type ? PageConfig[type] : PageConfig.default;
     return Compose(PackDecorator)(comp);
   }
 
   render() {
-    const { linkInfo } = searchMenu(this.getSplat());
-    if (linkInfo) {
-      this.page = this.createPage(this.getSplat(), linkInfo.domainType);
+    if (this.getDomainType()) {
+      this.page = this.createPage(this.getSplat(), this.getDomainType());
     } else {
-      if(this.getDomainType()) {
-        this.page = this.createPage(this.getSplat(), this.getDomainType());
+      const { linkInfo } = searchMenu(this.getSplat());
+      if (linkInfo) {
+        this.page = this.createPage(this.getSplat(), linkInfo.domainType);
       } else {
         this.page = this.createPage('', 'default');
       }

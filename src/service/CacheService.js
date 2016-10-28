@@ -7,11 +7,12 @@ export const init = store => {
   _store = store;
 };
 
+export const isInitDataFromServer = () => _store.getState().global.isInit;
+
 export const getToken = () => _store.getState().session.token;
 
 export const getMenu = () => _store.getState().menu;
 
-export const getPages = () => _store.getState().pages;
 
 /* eslint-disable */
 export const searchMenu = (id) => {
