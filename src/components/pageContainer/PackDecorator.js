@@ -3,7 +3,6 @@ import React from 'react';
 import { routerShape } from 'react-router';
 import { autobind } from 'core-decorators';
 
-
 import { getValueByKey } from '../../common/utils/MapUtils';
 
 import { longRunExec } from '../../system/longRunOpt';
@@ -17,11 +16,9 @@ const PackDecorator = Wrapper => {
 
     constructor(props) {
       super(props);
-      // initial state
       this.state = {
         data: null
       };
-     // this.props = preProps;
     }
 
     @autobind

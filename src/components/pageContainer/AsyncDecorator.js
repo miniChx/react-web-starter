@@ -3,43 +3,44 @@ import assign from 'lodash/assign';
 
 import { getInitData } from '../../actions/pageContainer';
 import styles from '../../styles/views/cps.less';
+import { getValueByKey } from '../../common/utils/MapUtils';
 
 const AsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {
     constructor(props) {
       super(props);
-      // initial state
       this.state = {
         data: null
       };
     }
 
     componentDidMount() {
-      const { url } = this.props;
-
-      getInitData(url, {})
-        .then(data => {
-          this.setState({
-            data,
+      if (this.getNeedFetch()) {
+        const url = this.getUrlPath('/' + this.props.params.splat);
+        getInitData(url, {})
+          .then(data => {
+            this.setState({
+              data,
+            });
           });
-        });
+      }
     }
+
+    getUrlPath = url => {
+      return url;
+    };
+
+    getNeedFetch = () => {
+      return getValueByKey(this.props, true, 'location', 'state', 'needFetch');
+    };
 
     render() {
       const { data } = this.state;
-      if (data) {
-        return (
-          <Wrapper
-            {...this.props}
-            data={data}
-          />
-        );
-      }
-
       return (
-        <div className={styles.paddingWraper} >
-          <span>数据加载中...</span>
-        </div>
+        <Wrapper
+          {...this.props}
+          initData={data}
+        />
       );
     }
   }
