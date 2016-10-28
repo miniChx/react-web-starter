@@ -24,7 +24,7 @@ export default class Title extends React.Component {
         <Col span={8} offset={8}>
           <h1 className={styles.title_color}>快速开发基础平台</h1>
         </Col>
-        <Col span={2} offset={5}>
+        <Col span={2} offset={6}>
           <span className={styles.title_color} style={{cursor:'pointer'}} onClick={this._logout}>
             <Icon type="logout" className={styles.title_color} />{' 退出'}
           </span>

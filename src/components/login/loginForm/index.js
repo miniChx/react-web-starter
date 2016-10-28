@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { Form, Button, Input, Row, Col, Checkbox } from 'mxa';
+import { Link } from 'react-router';
 
 const FormItem = Form.Item;
 
@@ -15,8 +16,13 @@ function noop() {
 
 class LoginForm extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentDidMount() {
-    if (this.props.config.isRemember) {
+    if (this.props.config && this.props.config.isRemember) {
       this.props.form.setFieldsValue({
         remember: this.props.config.isRemember
       });
@@ -81,13 +87,16 @@ class LoginForm extends React.Component {
               />
             )}
           </FormItem>
-          <Row>
-            <Col offset={7}>
+          <Row type="flex" align="middle">
+            <Col span={7} offset={7}>
               <FormItem>
                 {!config.noNeedRememberLogin && getFieldDecorator('remember')(
                   <Checkbox defaultChecked={config.isRemember}>记住登录</Checkbox>
                 )}
               </FormItem>
+            </Col>
+            <Col span={7}>
+              <Link to="/findPwd" >找回密码</Link>
             </Col>
           </Row>
           <Row type="flex" justify="center">

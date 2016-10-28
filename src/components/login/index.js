@@ -33,8 +33,7 @@ export default class Login extends React.Component {
     return (
       <div>
         <LoginForm submitCallback={this.handleSubmit.bind(this)}/>
-        <Link to="/register" >注册</Link>
-        <Link to="/findPwd" >找回密码</Link>
+        <Button><Link to="/register" >注册</Link></Button>
         <Button type="ghost" onClick={() => this.buttonClick()} > login </Button>
       </div>
     );
