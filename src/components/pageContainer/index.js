@@ -4,6 +4,7 @@
 import React from 'react';
 
 import { routerShape } from 'react-router';
+import { autobind } from 'core-decorators';
 
 import { searchMenu } from '../../service/CacheService';
 // import { dispatch } from '../../service/DispatchService';
@@ -12,97 +13,49 @@ import { longRunExec } from '../../system/longRunOpt';
 import PageConfig from './config';
 import { CONTAINER_PRE } from '../../router';
 
+
+import Compose from '../../common/utils/Compose';
+import AsyncDecorator from './AsyncDecorator';
+import PackDecorator from './PackDecorator';
+
 import { getValueByKey } from '../../common/utils/MapUtils';
 /* eslint-disable */
 class PageContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.refStr = '';
-    this.createRefs = this.createRefs.bind(this);
-    this.createPage = this.createPage.bind(this);
-    this.getUrlPath = this.getUrlPath.bind(this);
-    this.initPageContainer = this.initPageContainer.bind(this);
-    this.combineComp = this.combineComp.bind(this);
-    this.jump = this.jump.bind(this);
-    this.getSplat = this.getSplat.bind(this);
-    this.getDomainType = this.getDomainType.bind(this);
-    this.getNeedFetch = this.getNeedFetch.bind(this);
-    this.getUrlQuery = this.getUrlQuery.bind(this);
-    this.getUrlState = this.getUrlState.bind(this);
-    this.goBack = this.goBack.bind(this);
+    // this.refStr = '';
   }
 
   static contextTypes = {
     router: routerShape
   }
 
-  createRefs() {
-    const ref = 'pageContainer_' + Math.random();
-    this.refStr = ref;
-    return ref;
-  }
-
-  jump(pathname, query, state) {
-    this.context.router.push({
-      pathname: '/' + CONTAINER_PRE + pathname, query, state
-    });
-  }
-
-  goBack() {
-    this.context.router.goBack();
-  }
-
+  @autobind
   getSplat() {
     return getValueByKey(this.props, '', 'params', 'splat');
   }
 
+  @autobind
   getDomainType(){
     return getValueByKey(this.props, null, 'location', 'state', 'domainType');
   }
 
+  @autobind
   getNeedFetch() {
     return getValueByKey(this.props, true, 'location', 'state', 'needFetch');
   }
 
-  getUrlQuery() {
-    return getValueByKey(this.props, {}, 'location', 'query');
-  }
-
-  getUrlState() {
-    return getValueByKey(this.props, {}, 'location', 'state');
-  }
-
-  combineComp(Comp) {
-    return (<Comp ref={this.createRefs()}
-                  exec={longRunExec}
-                  jump={this.jump}
-                  goBack={this.goBack}
-                  query={this.getUrlQuery()}
-                  state={this.getUrlState()}
-    />);
-  }
-
+  @autobind
   getUrlPath(url) {
     return url;
   }
 
+  @autobind
   createPage(link, type) {
     console.log(PageConfig);
     const comp = type ? PageConfig[type] : PageConfig.default;
-    return this.combineComp(comp);
-  }
-
-  initPageContainer() {
-    const self = this;
-    longRunExec(() => {
-      return getInitData(this.getUrlPath('/' + this.props.params.splat), {}).then((data) => {
-        self.refs && self.refs[this.refStr] &&
-        self.refs[this.refStr].initComponent &&
-        self.refs[this.refStr].initComponent(data);
-      });
-    });
-
+    return Compose(PackDecorator)(comp);
   }
 
   render() {
@@ -116,7 +69,14 @@ class PageContainer extends React.Component {
         this.page = this.createPage('', 'default');
       }
     }
-    this.getNeedFetch() && this.initPageContainer();
+
+    if (this.getNeedFetch()) {
+      const FinalPage = Compose(AsyncDecorator)(this.page);
+      return (
+        <div><FinalPage url={this.getUrlPath('/' + this.props.params.splat)} /></div>
+      );
+    }
+
     return (
       <div>{this.page}</div>
     );

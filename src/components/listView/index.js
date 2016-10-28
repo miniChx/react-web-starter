@@ -41,6 +41,16 @@ export default class ListView extends React.Component {
     this.goToDetail = this.goToDetail.bind(this);
   }
 
+  componentDidMount() {
+    this.timer = setTimeout(() => {
+      this.initComponent(this.props.data);
+    }, 0);
+  }
+
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+  }
+
   buttonClick(e) {
     // TODO: 按钮类型的判断
     console.log('button click: ', e.key);
@@ -134,10 +144,7 @@ export default class ListView extends React.Component {
       );
     }
     return (
-      <div className={styles.paddingWraper} >
-        <span>数据加载中...</span>
-      </div>
+      <div />
     );
-
   }
 };
