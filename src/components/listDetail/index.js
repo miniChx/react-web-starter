@@ -3,12 +3,43 @@
  */
 import React from 'react';
 import { Button, Row, Col } from 'mxa';
+import FormDetail from '../formDetail';
 
+const itemTypes = ['number', 'normal', 'normal', 'normal', 'normal', 'select', 'select', 'normal', 'cascader', 'select', 'number'];
+const options = [{
+  value: 'zhejiang',
+  label: 'Zhejiang',
+  children: [{
+    value: 'hangzhou',
+    label: 'Hangzhou',
+    children: [{
+      value: 'xihu',
+      label: 'West Lake',
+    }],
+  }],
+}, {
+  value: 'jiangsu',
+  label: 'Jiangsu',
+  children: [{
+    value: 'nanjing',
+    label: 'Nanjing',
+    children: [{
+      value: 'zhonghuamen',
+      label: 'Zhong Hua Men',
+    }],
+  }],
+}];
+const cascaderData = [{
+  index: 8,
+  datas: options
+}];
+/* eslint-disable */
 export default class ListDetail extends React.Component {
 
   constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);
+    this.updateClick = this.updateClick.bind(this);
     const record = this.props.state.record;
     const columns = this.props.state.columns;
     const data = Object.keys(record).map(key => {
@@ -24,21 +55,14 @@ export default class ListDetail extends React.Component {
     this.props.goBack();
   }
 
+  updateClick(values) {
+    console.log('updateClick' + values);
+  }
+
   render() {
     return (
       <div>
-        {this.state.data.map((item, index) =>
-          (
-            <Row key={'row_' + index}>
-              <Col span={6}>
-                <span>{item.label}</span>
-              </Col>
-              <Col span={6}>
-                <span>{item.value}</span>
-              </Col>
-            </Row>
-          ))}
-
+        <FormDetail dataSource={this.state.data} itemTypes={itemTypes} updateClick={(values) => this.updateClick(values)} cascaderData={cascaderData}/>
         <Button type="ghost" onClick={() => this.goBack()} >返回</Button>
       </div>
     );

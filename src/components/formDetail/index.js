@@ -2,78 +2,144 @@
  * Created by geweimin on 16/10/27.
  */
 import React from 'react';
-import { Form, Button } from 'mxa';
+import { Form, Button, Row, Col, Input, InputNumber, Select, Cascader } from 'mxa';
 
 /* eslint-disable */
 let FormDetail;
-let keyMap = [];
+const FormItem = Form.Item;
 class FormDetailD extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state= {
-      isEditing: false,
-      editContent: '编辑'
+    this.state = {
+      isEditing: false
     }
-  }
-
-  renderInput() {
-
   }
 
   updateClick() {
     this.setState({
-      isEditing: !this.state.isEditing,
-      editContent: '取消'
+      isEditing: !this.state.isEditing
+    })
+  }
+
+  renderFormItem(item, index) {
+    const { getFieldDecorator } = this.props.form;
+    const formItemLayout = {
+      labelCol: {span: 7},
+      wrapperCol: {span: 14}
+    };
+    switch (this.props.itemTypes[index]) {
+      case 'normal':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <Input />
+            )}
+          </FormItem>
+        );
+        break;
+      case 'number':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <InputNumber min={1}/>
+            )}
+          </FormItem>
+        );
+        break;
+      case 'select':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <Select style={{ width: 120 }}>
+                <Select.Option value={item.value}>{item.value}</Select.Option>
+                <Select.Option value="lucy">Lucy</Select.Option>
+                <Select.Option value="disabled" disabled>Disabled</Select.Option>
+                <Select.Option value="Yiminghe">yiminghe</Select.Option>
+              </Select>
+            )}
+          </FormItem>
+        );
+        break;
+      case 'cascader':
+        let options = [];
+        this.props.cascaderData.map((item, i) => {
+          if (item.index == index) {
+            options = item.datas;
+          }
+        });
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <Cascader options={options} placeholder="请选择" />
+            )}
+          </FormItem>
+        );
+        break;
+      default:
+        break;
+    }
+  }
+
+  isUpdateClick() {
+    this.props.form.validateFields((errors, values) => {
+      if (errors) {
+        return;
+      }
+      if (this.props.updateClick) {
+        this.props.updateClick(values);
+      }
     })
   }
 
   render() {
-    let dataSource = this.props.dataDetail;
-    for (const i in dataSource) {
-      keyMap.push(i);
-      console.log('typeof:::' + typeof dataSource[i]);
-      switch (typeof dataSource[i]) {
-        case 'string':
-          this.renderInput();
-          console.log('string::' + dataSource[i]);
-          break;
-        case 'int':
-          console.log('int::' + dataSource[i]);
-          break;
-        case 'boolean':
-          console.log('int::' + dataSource[i]);
-          break;
-        default:
-          break;
-      }
-    }
-    if (!this.state.isEditing) {
+    if (this.state.isEditing) {
       return (
         <div>
-          {keyMap.map((value, key)=> {
-            return (
-              <div key={key}>
-                <span>{value}:</span>
-                <span>{dataSource[value].toString()}</span>
-              </div>
-            )
-          })}
-          <Button type='primary' onClick={() => this.updateClick()} >编辑</Button>
+          <Row>
+            <Col offset={3}>
+              <Form horizontal={true} style={{ maxWidth: 400 }}>
+                {this.props.dataSource.map((item, index) =>
+                  (
+                    <div key={'row_' + index}>
+                      {this.renderFormItem(item, index)}
+                    </div>
+                  ))}
+              </Form>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="1" offset={5}>
+              <Button type="primary" onClick={() => this.isUpdateClick()}>确认修改</Button>
+            </Col>
+            <Col span="1" offset={1}>
+              <Button type="ghost" onClick={() => this.updateClick()}>取消</Button>
+            </Col>
+          </Row>
         </div>
-      )
+      );
     } else {
       return (
         <div>
-          {this.renderForm(dataSource)}
-          <Button type='ghost' onClick={() => this.updateClick()} >取消</Button>
+          {this.props.dataSource.map((item, index) =>
+            (
+              <Row key={'row_' + index}>
+                <Col span={3} offset={3}>
+                  <span>{item.label}:</span>
+                </Col>
+                <Col span={6}>
+                  <span>{item.value}</span>
+                </Col>
+              </Row>
+            ))}
+          <Row>
+            <Col offset={3}>
+              <Button type="primary" onClick={() => this.updateClick()}>编辑</Button>
+            </Col>
+          </Row>
         </div>
-      )
+      );
     }
-  }
-
-  renderForm(dataSource) {
-
   }
 
 }
