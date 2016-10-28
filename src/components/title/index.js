@@ -5,7 +5,7 @@ import React from 'react';
 import { Icon, Col, Row } from 'mxa';
 import { dispatch } from '../../service/DispatchService';
 import { logout } from '../../actions/session';
-
+import styles from '../../styles/views/title.less';
 /* eslint-disable */
 export default class Title extends React.Component {
 
@@ -21,7 +21,7 @@ export default class Title extends React.Component {
   render() {
     return (
       <Row>
-        <Col span={12}>
+        <Col span={8} className="">
           <h1>快速开发基础平台</h1>
         </Col>
         <Col span={2} offset={10}>
