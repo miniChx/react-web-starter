@@ -7,6 +7,8 @@ import { Form, Button, Row, Col, Input, InputNumber, Select, Cascader } from 'mx
 /* eslint-disable */
 let FormDetail;
 const FormItem = Form.Item;
+const plainOptions = ['Apple', 'Pear', 'Orange'];
+const format = 'YYYY/MM/DD';
 class FormDetailD extends React.Component {
 
   constructor(props) {
@@ -29,7 +31,7 @@ class FormDetailD extends React.Component {
       wrapperCol: {span: 14}
     };
     switch (this.props.itemTypes[index]) {
-      case 'normal':
+      case 'Input':
         return (
           <FormItem label={item.label} {...formItemLayout}>
             {getFieldDecorator('row_' + index, {initialValue: item.value})(
@@ -38,7 +40,7 @@ class FormDetailD extends React.Component {
           </FormItem>
         );
         break;
-      case 'number':
+      case 'InputNumber':
         return (
           <FormItem label={item.label} {...formItemLayout}>
             {getFieldDecorator('row_' + index, {initialValue: item.value})(
@@ -47,7 +49,7 @@ class FormDetailD extends React.Component {
           </FormItem>
         );
         break;
-      case 'select':
+      case 'Select':
         return (
           <FormItem label={item.label} {...formItemLayout}>
             {getFieldDecorator('row_' + index, {initialValue: item.value})(
@@ -61,7 +63,7 @@ class FormDetailD extends React.Component {
           </FormItem>
         );
         break;
-      case 'cascader':
+      case 'Cascader':
         let options = [];
         this.props.cascaderData.map((item, i) => {
           if (item.index == index) {
@@ -79,32 +81,115 @@ class FormDetailD extends React.Component {
       case 'AutoComplete':
         break;
       case 'Checkbox':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: [item.value]})(
+              <CheckboxGroup options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
+            )}
+          </FormItem>
+        );
         break;
-      case 'Cascader':
-        break;
+      // 日期要显示当前数据
       case 'DatePicker':
-        break;
-      case 'Input':
-        break;
-      case 'InputNumber':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: moment('2015/01/01', format)})(
+              <DatePicker defaultValue={moment('2015/01/01', format)} format={format} />
+            )}
+          </FormItem>
+        );
         break;
       case 'Radio':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index)(
+              <RadioGroup onChange={this.onChange} value={this.state.value}>
+                <Radio key="a" value={1}>A</Radio>
+                <Radio key="b" value={2}>B</Radio>
+                <Radio key="c" value={3}>C</Radio>
+                <Radio key="d" value={4}>D</Radio>
+              </RadioGroup>
+            )}
+          </FormItem>
+        );
         break;
       case 'Rate':
-        break;
-      case 'Select':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <Rate allowHalf />
+            )}
+          </FormItem>
+        );
         break;
       case 'Slider':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <Slider />
+            )}
+          </FormItem>
+        );
         break;
       case 'Switch':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <Switch />
+            )}
+          </FormItem>
+        );
         break;
       case 'TimePicker':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <TimePicker />
+            )}
+          </FormItem>
+        );
         break;
       case 'Transfer':
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <TimePicker />
+            )}
+          </FormItem>
+        );
         break;
       case 'TreeSelect':
+
         break;
       case 'Upload':
+        const props = {
+          name: 'file',
+          action: '/upload.do',
+          headers: {
+            authorization: 'authorization-text',
+          },
+          onChange(info) {
+            if (info.file.status !== 'uploading') {
+              console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+              message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+              message.error(`${info.file.name} file upload failed.`);
+            }
+          },
+        };
+        return (
+          <FormItem label={item.label} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+              <Upload {...props}>
+                <Button type="ghost">
+                  <Icon type="upload" /> 点击上传
+                </Button>
+              </Upload>
+            )}
+          </FormItem>
+        );
         break;
       default:
         break;

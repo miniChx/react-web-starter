@@ -83,7 +83,6 @@ export default class ListView extends React.Component {
         showSizeChanger: true
       }
     });
-
   }
 
   handleChangeOfSelect(e) {
