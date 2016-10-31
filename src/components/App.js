@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { routerShape } from 'react-router';
 import Animate from 'rc-animate';
-import assign from 'object-assign';
 
 // import Header from './layout/Header';
 // import Footer from './layout/Footer';
@@ -67,9 +66,7 @@ class App extends React.Component {
   render() {
     const Div = (props) => {
       const { style, show } = props;
-      const newStyle = assign({}, style, {
-        display: show ? '' : 'none',
-      });
+      const newStyle = {...style,  display: show ? '' : 'none' }
       return <Menu {...props} style={newStyle} />;
     };
     if (this.props.isInit) {
