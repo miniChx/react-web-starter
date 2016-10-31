@@ -63,6 +63,7 @@ class FormDetailD extends React.Component {
           </FormItem>
         );
         break;
+      // 需要有options传入  placeholder需要修改
       case 'Cascader':
         let options = [];
         this.props.cascaderData.map((item, i) => {
@@ -80,11 +81,12 @@ class FormDetailD extends React.Component {
         break;
       case 'AutoComplete':
         break;
+      //需要传入plainOptions 确认defaultValue的显示方式
       case 'Checkbox':
         return (
           <FormItem label={item.label} {...formItemLayout}>
             {getFieldDecorator('row_' + index, {initialValue: [item.value]})(
-              <CheckboxGroup options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
+              <CheckboxGroup options={plainOptions} defaultValue={['Apple']} />
             )}
           </FormItem>
         );
