@@ -15,6 +15,7 @@
     "lodash": "^4.16.4",
     "mxa": "^0.1.1",
     "object-assign": "^4.1.0",
+    "qs": "^6.3.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",

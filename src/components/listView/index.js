@@ -60,7 +60,8 @@ export default class ListView extends React.Component {
         this.props.jump(
           item.link,
           param,
-          PAGE_TYPE_DETAIL
+          PAGE_TYPE_DETAIL,
+          'Page',
         );
         return false;
       }
