@@ -8,7 +8,7 @@ import { getValueByKey } from '../../common/utils/MapUtils';
 import { longRunExec } from '../../system/longRunOpt';
 import { CONTAINER_PRE } from '../../router';
 
-const PackDecorator = Wrapper => {
+const PackDecorator = ([Wrapper, splat, query, locationState]) => {
   class WrapperComponent extends React.Component {
     static contextTypes = {
       router: routerShape
@@ -31,18 +31,20 @@ const PackDecorator = Wrapper => {
     @autobind
     _jump(pathname, param, domainType) {
       this.context.router.push({
-        pathname: '/' + CONTAINER_PRE + pathname, query: { ...param, domainType }, state: { param }
+        pathname: '/' + CONTAINER_PRE + pathname, query: { ...param.param, domainType }, state: { ...param }
       });
     }
 
+    /* eslint-disable */
     @autobind
     _query() {
-      return getValueByKey(this.props, {}, 'location', 'query');
+      return query;
     }
 
+    /* eslint-disable */
     @autobind
     _locationState() {
-      return getValueByKey(this.props, {}, 'location', 'state');
+      return locationState;
     }
 
     @autobind
@@ -65,7 +67,7 @@ const PackDecorator = Wrapper => {
     }
   }
 
-  return WrapperComponent;
+  return [WrapperComponent, splat, query, locationState];
 };
 
 export default PackDecorator;
