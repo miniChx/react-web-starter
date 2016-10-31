@@ -6,7 +6,8 @@ import Qs from 'qs';
 /* eslint-disable */
 import MxFetch from '../common/mxfetch/index';
 /* eslint-disable */
-const host = 'http://127.0.0.1:3003';
+// const host = 'http://127.0.0.1:3003';
+const host = 'http://localhost:3003';
 /* eslint-disable */
 const _getHeader = () => {
   return {

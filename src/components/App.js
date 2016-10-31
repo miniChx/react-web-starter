@@ -72,6 +72,7 @@ class App extends React.Component {
       });
       return <Menu {...props} style={newStyle} />;
     };
+    if (this.props.isInit) {
     if (this.props.session.token) {
       return (
         <div>
@@ -95,6 +96,9 @@ class App extends React.Component {
     return (
       <div>{this.props.children}</div>
     );
+    } else {
+      return (<div />);
+    }
   }
 }
 
@@ -103,6 +107,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   routing: state.routing,
   session: state.session,
+  isInit: state.global.isInit
 });
 
 export default connect(mapStateToProps)(App);

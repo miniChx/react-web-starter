@@ -11,6 +11,6 @@ export const initDataFromServerDispatch = createAction(INIT_DATA_FROM_SERVER);
 /* eslint-disable */
 export const initDataFromServer = () => dispatch => {
   return PFetch(links.getMenus, {}).then((d) => {
-    dispatch(initDataFromServerDispatch({menu: d.result}));
+    dispatch(initDataFromServerDispatch({menu: d.menus}));
   });
 };

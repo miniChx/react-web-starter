@@ -1,19 +1,19 @@
 /**
  * Created by baoyinghai on 10/18/16.
  */
-
-const self = {};
+/* eslint-disable */
+var self = {};
 /* eslint-disable */
 (function() {
   'use strict';
 
   function headers(xhr) {
-    const head = new Headers();
+    var head = new Headers();
     var pairs = xhr.getAllResponseHeaders().trim().split('\n');
     pairs.forEach(function(header) {
-      const split = header.trim().split(':')
-      const key = split.shift().trim();
-      const value = split.join(':').trim();
+      var split = header.trim().split(':')
+      var key = split.shift().trim();
+      var value = split.join(':').trim();
       head.append(key, value);
     });
     return head;
@@ -33,8 +33,8 @@ const self = {};
   };
 
   self.fetch = function(input, init, timeout) {
-    let request;
-    let timeoutTimer
+    var request;
+    var timeoutTimer
     if (Request.prototype.isPrototypeOf(input) && !init) {
       request = input;
     } else {
@@ -42,7 +42,7 @@ const self = {};
     }
 
     return new Promise(function(resolve, reject) {
-      const xhr = new XMLHttpRequest();
+      var xhr = new XMLHttpRequest();
 
       function responseURL() {
         if ('responseURL' in xhr) {
@@ -63,18 +63,18 @@ const self = {};
 
       xhr.onload = function() {
         cleanTimeoutTimer();
-        const status = (xhr.status === 1223) ? 204 : xhr.status;
+        var status = (xhr.status === 1223) ? 204 : xhr.status;
         if (status < 100 || status > 599) {
           reject(new TypeError('Network request failed'));
           return;
         }
-        const options = {
+        var options = {
           status: status,
           statusText: xhr.statusText,
           headers: headers(xhr),
           url: responseURL()
         }
-        const body = 'response' in xhr ? xhr.response : xhr.responseText;
+        var body = 'response' in xhr ? xhr.response : xhr.responseText;
         resolve(new Response(body, options));
       };
 
@@ -97,7 +97,7 @@ const self = {};
         xhr.setRequestHeader(name, value);
       });
 
-      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
+      xhr.send(init.body === 'undefined' ? null : init.body);
 
       timeoutTimer = setTimeout(() => {
         xhr.abort();
