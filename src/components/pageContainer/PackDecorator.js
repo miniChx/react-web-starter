@@ -32,14 +32,14 @@ const PackDecorator = ([Wrapper, splat, query, locationState]) => {
     @autobind
     _jump(pathname, param, domainType, modal) {
       if (modal === 'Page') {
-        window.open('/' + CONTAINER_PRE + pathname + '?' + Qs.stringify({ ...param, domainType }));
+        window.open('/' + CONTAINER_PRE + pathname + '?' + Qs.stringify({ ...param.param, domainType }));
       } else {
         this.context.router.push({
-          pathname: '/' + CONTAINER_PRE + pathname, query: { ...param.param, domainType }, state: { ...param }
+          pathname: '/' + CONTAINER_PRE + pathname, query: { ...param.param, domainType }
         });
       }
     }
-
+    /* eslint-disable */
     @autobind
     _query() {
       return query;
