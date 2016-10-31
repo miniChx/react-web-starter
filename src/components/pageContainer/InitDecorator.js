@@ -1,17 +1,8 @@
 /**
  * Created by baoyinghai on 10/28/16.
  */
-import { getValueByKey } from '../../common/utils/MapUtils';
 import PageConfig from './config';
 import { searchMenu } from '../../service/CacheService';
-
-const getSplat = props => {
-  return getValueByKey(props, '', 'params', 'splat');
-};
-
-const getDomainType = props => {
-  return getValueByKey(props, null, 'location', 'query', 'domainType');
-};
 
 const createPage = (link, type) => {
   console.log(PageConfig);
@@ -19,19 +10,19 @@ const createPage = (link, type) => {
   return comp;
 };
 
-const InitDecorator = Props => {
+const InitDecorator = ([splat, query, locationState]) => {
   let page = null;
-  if (getDomainType(Props)) {
-    page = createPage(getSplat(Props), getDomainType(Props));
+  if (query.domainType) {
+    page = createPage(splat, query.domainType);
   } else {
-    const { linkInfo } = searchMenu(getSplat(Props));
+    const { linkInfo } = searchMenu(splat);
     if (linkInfo) {
-      page = createPage(getSplat(Props), linkInfo.domainType);
+      page = createPage(splat, linkInfo.domainType);
     } else {
       page = createPage('', 'default');
     }
   }
-  return page;
+  return [page, splat, query, locationState];
 };
 
 export default InitDecorator;
