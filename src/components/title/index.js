@@ -11,17 +11,30 @@ export default class Title extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      menuIsOpen: true
+    }
     this._logout = this._logout.bind(this);
+    this._switchMenu = this._switchMenu.bind(this)
   }
 
   _logout() {
     dispatch(logout());
   }
 
+  _switchMenu() {
+    if (this.props.switchMenu) {
+      this.props.switchMenu();
+    }
+  }
+
   render() {
     return (
-      <Row className={styles.titleContainer}>
-        <Col span={8} offset={8}>
+      <Row className={styles.titleContainer} type="flex" align="middle">
+        <Col span={1}>
+          <Icon type="bars" className={styles.titleIcon} onClick={this._switchMenu}/>
+        </Col>
+        <Col span={8} offset={7}>
           <h1 className={styles.title_color}>快速开发基础平台</h1>
         </Col>
         <Col span={2} offset={6}>

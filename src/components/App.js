@@ -1,6 +1,9 @@
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import { routerShape } from 'react-router';
+import Animate from 'rc-animate';
+import assign from 'object-assign';
 
 // import Header from './layout/Header';
 // import Footer from './layout/Footer';
@@ -22,6 +25,11 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.switchMenu = this.switchMenu.bind(this);
+    this.state = {
+      menuIsOpen: true,
+      enter: true
+    }
   }
 
   static contextTypes = {
@@ -49,25 +57,47 @@ class App extends React.Component {
     }
   }
 
-  render() {
-    if (this.props.isInit) {
-      if (this.props.session.token) {
-        return (
-          <div>
-            <Title />
-            <Row>
-              <Col span={4} ><Menu /></Col>
-              <Col span={20} >{this.props.children}</Col>
-            </Row>
+  switchMenu() {
+    this.setState({
+      menuIsOpen: !this.state.menuIsOpen,
+      enter: !this.state.enter
+    });
+  }
 
-          </div>
-        );
-      }
+  render() {
+    const Div = (props) => {
+      const { style, show } = props;
+      const newStyle = assign({}, style, {
+        display: show ? '' : 'none',
+      });
+      return <Menu {...props} style={newStyle} />;
+    };
+    if (this.props.isInit) {
+    if (this.props.session.token) {
       return (
-        <div>{this.props.children}</div>
+        <div>
+          <Title switchMenu={this.switchMenu} />
+          <Row className={appStyle.appContent}>
+            <Col span={this.state.menuIsOpen ? 4 : 0} >
+              <Animate
+                component=""
+                showProp="show"
+                transitionName="move-left"
+              >
+                <Div show={this.state.enter}></Div>
+              </Animate>
+            </Col>
+            <Col span={20} >{this.props.children}</Col>
+          </Row>
+
+        </div>
       );
+    }
+    return (
+      <div>{this.props.children}</div>
+    );
     } else {
-     return (<div />);
+      return (<div />);
     }
   }
 }
