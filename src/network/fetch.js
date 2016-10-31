@@ -44,7 +44,7 @@ const rawFetch = (url, param) => {
   console.log('以下打印一次传出去的param:');
   console.log(param);
   console.log('请求地址:' + url);
-  return process(MxFetch.fetch( host + url, param, 61800));
+  return process(MxFetch.fetch( host + url, param, 6180));
 };
 /* eslint-disable */
 export const PFetch = (url, param) => {
