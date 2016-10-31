@@ -5,9 +5,7 @@
 import Qs from 'qs';
 /* eslint-disable */
 import MxFetch from '../common/mxfetch/index';
-/* eslint-disable */
-// const host = 'http://127.0.0.1:3003';
-const host = 'http://localhost:3003';
+import Config from '../config';
 /* eslint-disable */
 const _getHeader = () => {
   return {
@@ -44,7 +42,7 @@ const rawFetch = (url, param) => {
   console.log('以下打印一次传出去的param:');
   console.log(param);
   console.log('请求地址:' + url);
-  return process(MxFetch.fetch( host + url, param, 6180));
+  return process(MxFetch.fetch(Config.host + url, param, 6180));
 };
 /* eslint-disable */
 export const PFetch = (url, param) => {

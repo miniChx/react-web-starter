@@ -41,7 +41,7 @@ const PackDecorator = Wrapper => {
     }
 
     @autobind
-    _state() {
+    _locationState() {
       return getValueByKey(this.props, {}, 'location', 'state');
     }
 
@@ -58,7 +58,7 @@ const PackDecorator = Wrapper => {
           exec={longRunExec}
           jump={this._jump}
           query={this._query}
-          state={this._state}
+          locationState={this._locationState}
           goBack={this._goBack}
         />
       );
