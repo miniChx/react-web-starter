@@ -17,8 +17,8 @@ app.use(allowCrossDomain);
 
 app.post('/*', function (req, res) {
   Redirect(req.url, req.body,  function (chunk) {
-    // console.log('BODY: ' + chunk);
-    res.json(JSON.parse(chunk));
+    console.log('BODY: ' + JSON.stringify(chunk));
+    res.json(chunk);
   });
 });
 
