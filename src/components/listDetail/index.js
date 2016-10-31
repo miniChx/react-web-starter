@@ -40,8 +40,8 @@ export default class ListDetail extends React.Component {
     super(props);
     this.goBack = this.goBack.bind(this);
     this.updateClick = this.updateClick.bind(this);
-    const record = this.props.state().record;
-    const columns = this.props.state().columns;
+    const record = this.props.locationState().record;
+    const columns = this.props.locationState().columns;
     const data = Object.keys(record).map(key => {
       const c = columns && columns.filter(col => col.key === key);
       return { label: c && c[0] && c[0].title, value: record[key] };
