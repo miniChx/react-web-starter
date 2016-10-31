@@ -1,7 +1,6 @@
 /**
  * Created by baoyinghai on 10/18/16.
  */
-/* eslint-disable */
 import Qs from 'qs';
 /* eslint-disable */
 import MxFetch from '../common/mxfetch/index';
