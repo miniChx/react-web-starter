@@ -29,9 +29,9 @@ const PackDecorator = Wrapper => {
     }
 
     @autobind
-    _jump(pathname, query, state) {
+    _jump(pathname, param, domainType) {
       this.context.router.push({
-        pathname: '/' + CONTAINER_PRE + pathname, query, state
+        pathname: '/' + CONTAINER_PRE + pathname, query: { ...param, domainType }, state: { param }
       });
     }
 

@@ -10,7 +10,7 @@ const getSplat = props => {
 };
 
 const getDomainType = props => {
-  return getValueByKey(props, null, 'location', 'state', 'domainType');
+  return getValueByKey(props, null, 'location', 'query', 'domainType');
 };
 
 const createPage = (link, type) => {
