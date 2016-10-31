@@ -1,0 +1,93 @@
+{
+  "menus": [
+    {
+      "menuCode": "systemManagement",
+      "menuValue": "系统管理",
+      "displaySequence": 1,
+      "domainLink": null,
+      "domainType": null,
+      "roleCodes": [
+        "Role1",
+        "Role2",
+        "Role3",
+        "Role4",
+        "Role5"
+      ],
+      "subMenus": [
+        {
+          "menuCode": "orgManagement",
+          "menuValue": "机构管理",
+          "displaySequence": 1,
+          "domainLink": null,
+          "domainType": null,
+          "roleCodes": [
+            "Role1",
+            "Role5"
+          ],
+          "subMenus": [
+            {
+              "menuCode": "orgApplyManagement",
+              "menuValue": "机构申请",
+              "displaySequence": 1,
+              "domainLink": "/OrgApplyList/render",
+              "domainType": "List",
+              "roleCodes": [
+                "Role1"
+              ],
+              "subMenus": null
+            },
+            {
+              "menuCode": "orgApproveManagement",
+              "menuValue": "机构审批",
+              "displaySequence": 2,
+              "domainLink": null,
+              "domainType": null,
+              "roleCodes": [
+                "Role1",
+                "Role5"
+              ],
+              "subMenus": [
+                {
+                  "menuCode": "orgApproveUndo",
+                  "menuValue": "未完成的工作",
+                  "displaySequence": 1,
+                  "domainLink": "/OrgApplyUndoList/render",
+                  "domainType": "List",
+                  "roleCodes": [
+                    "Role1"
+                  ],
+                  "subMenus": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "menuCode": "accountManagement",
+          "menuValue": "用户管理",
+          "displaySequence": 2,
+          "domainLink": "/AccountList/render",
+          "domainType": "List",
+          "roleCodes": [
+            "Role1",
+            "Role2"
+          ],
+          "subMenus": null
+        }
+      ]
+    },
+    {
+      "menuCode": "caseManagement",
+      "menuValue": "案例管理",
+      "displaySequence": 2,
+      "domainLink": "/DemoManageList/render",
+      "domainType": "List",
+      "roleCodes": [
+        "Role1",
+        "Role3",
+        "Role4"
+      ],
+      "subMenus": null
+    }
+  ]
+}

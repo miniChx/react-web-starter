@@ -29,9 +29,9 @@ const PackDecorator = Wrapper => {
     }
 
     @autobind
-    _jump(pathname, query, state) {
+    _jump(pathname, param, domainType) {
       this.context.router.push({
-        pathname: '/' + CONTAINER_PRE + pathname, query, state
+        pathname: '/' + CONTAINER_PRE + pathname, query: { ...param, domainType }, state: { param }
       });
     }
 
@@ -41,7 +41,7 @@ const PackDecorator = Wrapper => {
     }
 
     @autobind
-    _state() {
+    _locationState() {
       return getValueByKey(this.props, {}, 'location', 'state');
     }
 
@@ -58,7 +58,7 @@ const PackDecorator = Wrapper => {
           exec={longRunExec}
           jump={this._jump}
           query={this._query}
-          state={this._state}
+          locationState={this._locationState}
           goBack={this._goBack}
         />
       );
