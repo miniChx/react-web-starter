@@ -76,8 +76,39 @@ class FormDetailD extends React.Component {
           </FormItem>
         );
         break;
+      case 'AutoComplete':
+        break;
+      case 'Checkbox':
+        break;
+      case 'Cascader':
+        break;
+      case 'DatePicker':
+        break;
+      case 'Input':
+        break;
+      case 'InputNumber':
+        break;
+      case 'Radio':
+        break;
+      case 'Rate':
+        break;
+      case 'Select':
+        break;
+      case 'Slider':
+        break;
+      case 'Switch':
+        break;
+      case 'TimePicker':
+        break;
+      case 'Transfer':
+        break;
+      case 'TreeSelect':
+        break;
+      case 'Upload':
+        break;
       default:
         break;
+
     }
   }
 
