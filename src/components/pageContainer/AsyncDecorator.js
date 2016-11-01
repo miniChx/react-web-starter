@@ -1,4 +1,5 @@
 import React from 'react';
+import { trimStart } from 'lodash/string';
 import { getInitData } from '../../actions/pageContainer';
 import { longRunExec } from '../../system/longRunOpt';
 
@@ -13,7 +14,7 @@ const AsyncDecorator = Wrapper => {
 
     componentDidMount() {
       if (this.props.domainLink) {
-        const url = this.getUrlPath('/' + this.props.domainLink);
+        const url = this.getUrlPath('/' + trimStart(this.props.domainLink, '/'));
         longRunExec(() => getInitData(url, this.props.params || {})
           .then(data => {
             this.setState({

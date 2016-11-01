@@ -56,7 +56,7 @@ export default class ListView extends React.Component {
     console.log(record);
     this.state.buttons && this.state.buttons.every((item) => {
       if (item.text === '详情') {
-        this.props.jump(item.link, {param: { id: record.id}}, item.domainType, 'Modal');
+        this.props.jump(item.link, { id: record.id }, item.domainType, 'inline');
         return false;
       }
       return true;

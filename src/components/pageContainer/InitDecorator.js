@@ -2,13 +2,9 @@ import React from 'react';
 
 import { routerShape } from 'react-router';
 import { autobind } from 'core-decorators';
-import Qs from 'qs';
 
 import PageConfig from './config';
-import { getValueByKey } from '../../common/utils/MapUtils';
-
 import { longRunExec } from '../../system/longRunOpt';
-import { CONTAINER_PRE } from '../../router';
 
 const createPage = domainType => {
   // console.log(PageConfig);
@@ -36,22 +32,6 @@ const InitDecorator = () => {
       return ref;
     }
 
-    @autobind
-    _jump(domainLink, param, domainType, modal) {
-      if (modal === 'Page') {
-        window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...param.param, domainType }));
-      } else {
-        this.context.router.push({
-          pathname: '/' + CONTAINER_PRE + domainLink, query: { ...param.param, domainType }
-        });
-      }
-    }
-
-    @autobind
-    _goBack() {
-      this.context.router.goBack();
-    }
-
     render() {
       const Wrapper = createPage(this.props.domainType);
 
@@ -60,8 +40,6 @@ const InitDecorator = () => {
           {...this.props}
           ref={this._createRefs}
           exec={longRunExec}
-          jump={this._jump}
-          goBack={this._goBack}
         />
       );
     }

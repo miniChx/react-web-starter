@@ -7,6 +7,16 @@ import Animate from 'rc-animate';
 // import Header from './layout/Header';
 // import Footer from './layout/Footer';
 
+import { autobind } from 'core-decorators';
+import Qs from 'qs';
+
+import MaskLayer from 'react-mask-layer';
+import 'react-mask-layer/assets/index.css';
+import Compose from '../common/utils/Compose';
+import AsyncDecorator from './pageContainer/AsyncDecorator';
+import InitDecorator from './pageContainer/InitDecorator';
+import { CONTAINER_PRE } from '../router';
+
 import '../styles/global/index.less';
 /* eslint-disable */
 import appStyle from '../styles/views/app.less';
@@ -21,19 +31,19 @@ import { longRunExec } from '../system/longRunOpt';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.switchMenu = this.switchMenu.bind(this);
-    this.state = {
-      menuIsOpen: true,
-      enter: true
-    }
-  }
-
   static contextTypes = {
     router: routerShape
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuIsOpen: true,
+      enter: true,
+      modalContent: null,
+      maskerVisible: false,
+    }
+  }
 
   componentWillReceiveProps(next){
     if (!next.session.token && this.props.session.token) {
@@ -56,11 +66,41 @@ class App extends React.Component {
     }
   }
 
+  @autobind
   switchMenu() {
     this.setState({
       menuIsOpen: !this.state.menuIsOpen,
       enter: !this.state.enter
     });
+  }
+
+  @autobind
+  _maskCancel(e) {
+    this.setState({ maskerVisible: false, modalContent: null });
+  }
+
+  @autobind
+  _jump(domainLink, params, domainType, modal) {
+    if (modal === 'Page') {
+      window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType }));
+    } else if (modal === 'Modal') {
+      const ModalPage = Compose(AsyncDecorator, InitDecorator)();
+      this.setState({
+        maskerVisible: true,
+        // modalContent: (<ModalPage domainType={domainType} domainLink={domainLink} />),
+        modalContent: React.createElement(ModalPage, { domainType, domainLink, params: { ...params, domainType } }),
+      });
+    } else {
+      this.context.router.push({
+        pathname: '/' + CONTAINER_PRE + domainLink,
+        query: { ...params, domainType }
+      });
+    }
+  }
+
+  @autobind
+  _goBack() {
+    this.context.router.goBack();
   }
 
   render() {
@@ -70,29 +110,31 @@ class App extends React.Component {
       return <Menu {...props} style={newStyle} />;
     };
     if (this.props.isInit) {
-    if (this.props.session.token) {
+      if (this.props.session.token) {
+        return (
+          <div>
+            <Title switchMenu={this.switchMenu} />
+            <Row className={appStyle.appContent}>
+              <Col span={this.state.menuIsOpen ? 4 : 0} >
+                <Animate
+                  component=""
+                  showProp="show"
+                  transitionName="move-left"
+                >
+                  <Div show={this.state.enter}></Div>
+                </Animate>
+              </Col>
+              <Col span={20}>{React.cloneElement(this.props.children, { jump: this._jump, goBack: this._goBack })}</Col>
+            </Row>
+            <MaskLayer visible={this.state.maskerVisible} onCancel={this._maskCancel}>
+              {this.state.modalContent}
+            </MaskLayer>
+          </div>
+        );
+      }
       return (
-        <div>
-          <Title switchMenu={this.switchMenu} />
-          <Row className={appStyle.appContent}>
-            <Col span={this.state.menuIsOpen ? 4 : 0} >
-              <Animate
-                component=""
-                showProp="show"
-                transitionName="move-left"
-              >
-                <Div show={this.state.enter}></Div>
-              </Animate>
-            </Col>
-            <Col span={20} >{this.props.children}</Col>
-          </Row>
-
-        </div>
+        <div>{this.props.children}</div>
       );
-    }
-    return (
-      <div>{this.props.children}</div>
-    );
     } else {
       return (<div />);
     }
