@@ -4,18 +4,19 @@
 import React from 'react';
 import Compose from '../../common/utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
+import LoadingDecorator from './LoadingDecorator';
 import InitDecorator from './InitDecorator';
-
+import { getValueByKey } from '../../common/utils/MapUtils';
 import { searchMenu } from '../../service/CacheService';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class PageContainer extends React.Component {
   render() {
-    const domainLink = this.props.params.splat;
+    const domainLink = getValueByKey(this.props, null, 'params', 'splat');
     const { linkInfo } = searchMenu(domainLink);
-    const domainType = linkInfo ? linkInfo.domainType : this.props.location.query.domainType;
+    const domainType = linkInfo ? linkInfo.domainType : getValueByKey(this.props, 'default', 'location', 'query', 'domainType');
 
-    const FinalPage = Compose(AsyncDecorator, InitDecorator)();
+    const FinalPage = Compose(AsyncDecorator, LoadingDecorator, InitDecorator)();
     return (
       <FinalPage {...this.props} domainType={domainType} domainLink={domainLink} />
     );

@@ -30,7 +30,7 @@ const AsyncDecorator = Wrapper => {
       return (
         <Wrapper
           {...this.props}
-          initData={data}
+          dataSource={data}
         />
       );
     }
