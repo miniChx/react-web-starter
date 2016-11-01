@@ -23,13 +23,6 @@ const PackDecorator = ([Wrapper, splat, query, locationState]) => {
     }
 
     @autobind
-    _createRefs() {
-      const ref = 'pageContainer_' + Math.random();
-      this.refStr = ref;
-      return ref;
-    }
-
-    @autobind
     _jump(pathname, param, domainType, modal) {
       if (modal === 'Page') {
         window.open('/' + CONTAINER_PRE + pathname + '?' + Qs.stringify({ ...param.param, domainType }));
@@ -60,7 +53,6 @@ const PackDecorator = ([Wrapper, splat, query, locationState]) => {
       return (
         <Wrapper
           {...this.props}
-          ref={this._createRefs}
           exec={longRunExec}
           jump={this._jump}
           query={this._query}
