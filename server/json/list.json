@@ -301,13 +301,7 @@
       "displayPosition": "top",
       "interactiveType": "Action",
       "actionName": "/AccountDetail/deleteById",
-      "requestParameters": [
-        {
-          name: "Id",
-          type: "Long",
-          length: 8,
-        }
-      ],
+      "requestParameters": [],
       "roles": [
         "Role1",
         "Role2",
@@ -320,13 +314,7 @@
       "interactiveType": "Model",
       "domainLink": "/AccountDetail/render",
       "domainType": "Detail",
-      "requestParameters": [
-        {
-          name: "Id",
-          type: "Long",
-          length: 8,
-        }
-      ],
+      "requestParameters": [],
       "roles": [
         "Role1",
         "Role2",
