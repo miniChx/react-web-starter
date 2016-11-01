@@ -40,15 +40,29 @@ export default class ListDetail extends React.Component {
     super(props);
     this.goBack = this.goBack.bind(this);
     this.updateClick = this.updateClick.bind(this);
-    const record = this.props.state().record;
-    const columns = this.props.state().columns;
-    const data = Object.keys(record).map(key => {
-      const c = columns && columns.filter(col => col.key === key);
-      return { label: c && c[0] && c[0].title, value: record[key] };
-    });
+    //const record = this.props.state().record;
+    //const columns = this.props.state().columns;
+    //const data = Object.keys(record).map(key => {
+    //  const c = columns && columns.filter(col => col.key === key);
+    //  return { label: c && c[0] && c[0].title, value: record[key] };
+    //});
     this.state = {
-      data
+      data: null
     };
+  }
+
+  componentWillReceiveProps(next) {
+    if (next.initData) {
+      this.initComponent(next.initData);
+    }
+  }
+
+  // 跳转到该界面后, 有的界面需要fetch数据, 此方法会被执行
+  initComponent(data) {
+    console.log('fetchData ', data);
+    this.setState({
+      data
+    });
   }
 
   goBack() {
@@ -61,10 +75,13 @@ export default class ListDetail extends React.Component {
 
   render() {
     return (
-      <div>
-        <FormDetail dataSource={this.state.data} itemTypes={itemTypes} updateClick={(values) => this.updateClick(values)} cascaderData={cascaderData}/>
-        <Button type="ghost" onClick={() => this.goBack()} >返回</Button>
-      </div>
+      <span>{JSON.stringify(this.state.data || {desc: '数据加载中...'})}</span>
     );
+    //return (
+    //  <div>
+    //    <FormDetail dataSource={this.state.data} itemTypes={itemTypes} updateClick={(values) => this.updateClick(values)} cascaderData={cascaderData}/>
+    //    <Button type="ghost" onClick={() => this.goBack()} >返回</Button>
+    //  </div>
+    //);
   }
 }

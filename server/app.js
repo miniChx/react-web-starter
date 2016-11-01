@@ -15,20 +15,35 @@ app.use(bodyParder.json());
 app.use(allowCrossDomain);
 // app.use(express.static('../build'));
 
-app.post('/*', function (req, res) {
-  Redirect(req.url, req.body,  function (chunk) {
-    // console.log('BODY: ' + chunk);
-    res.json(JSON.parse(chunk));
-  });
+app.post('/Advice/getMenus', function (req, res) {
+  var menuJson = require('./json/menu.json');
+  res.json(menuJson);
 });
 
-var handler = function() {
+app.post('/AccountList/render', function (req, res) {
+  var listJson = require('./json/list.json');
+  res.json(listJson);
+});
+
+app.post('/AccountDetail/render', function (req, res) {
+  var detailJson = require('./json/detail.json');
+  res.json(detailJson);
+});
+
+// app.post('/*', function (req, res) {
+//   Redirect(req.url, req.body,  function (chunk) {
+//     console.log('BODY: ' + JSON.stringify(chunk));
+//     res.json(chunk);
+//   });
+// });
+
+// var handler = function() {
   var server = app.listen(3003, function () {
     var host = server.address().address;
     var port = server.address().port;
 
     console.log('Example app listening at http://%s:%s', host, port);
   });
-};
-handler();
+// };
+// handler();
 // module.exports = { run: handler };

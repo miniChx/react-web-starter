@@ -2,7 +2,7 @@
   "pageResult": {
     "pageIndex": 1,
     "itemsPerPage": 10,
-    "totalPages": 2,
+    "totalPages": 3,
     "contentList": [
       {
         "id": 1,
@@ -23,7 +23,7 @@
         "mobileNo": "13833333333",
         "password": "12345678",
         "realName": "白小飞",
-        "department": "经理办公室",
+        "department": "z经理办公室",
         "jobTitle": "技术总监",
         "telephoneNo": "333",
         "address": "江西",
@@ -135,12 +135,12 @@
         "age": 14
       }
     ],
-    "totalItems": 20
+    "totalItems": 24
   },
   "itemsPerPage": 10,
   "fields": [
     {
-      "name": "Id",
+      "name": "id",
       "index": 1,
       "entityShortName": "A",
       "type": "Long",
@@ -148,12 +148,12 @@
       "groupId": 1,
       "isVisible": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "Email",
+      "name": "email",
       "index": 2,
       "entityShortName": "A",
       "type": "String",
@@ -161,12 +161,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "MobileNo",
+      "name": "mobileNo",
       "index": 3,
       "entityShortName": "A",
       "type": "String",
@@ -174,12 +174,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "Password",
+      "name": "password",
       "index": 4,
       "entityShortName": "A",
       "type": "String",
@@ -187,12 +187,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "RealName",
+      "name": "realName",
       "index": 5,
       "entityShortName": "A",
       "type": "String",
@@ -200,12 +200,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "Department",
+      "name": "department",
       "index": 6,
       "entityShortName": "A",
       "type": "String",
@@ -213,12 +213,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "JobTitle",
+      "name": "jobTitle",
       "index": 7,
       "entityShortName": "A",
       "type": "String",
@@ -226,12 +226,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "TelephoneNo",
+      "name": "telephoneNo",
       "index": 8,
       "entityShortName": "A",
       "type": "String",
@@ -239,12 +239,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "Address",
+      "name": "address",
       "index": 9,
       "entityShortName": "A",
       "type": "String",
@@ -252,12 +252,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "Status",
+      "name": "status",
       "index": 10,
       "entityShortName": "A",
       "type": "String",
@@ -265,12 +265,12 @@
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
     {
-      "name": "Age",
+      "name": "age",
       "index": 11,
       "entityShortName": "A",
       "type": "Integer",
@@ -278,7 +278,7 @@
       "groupId": 1,
       "isVisible": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     }
@@ -286,9 +286,10 @@
   "buttons": [
     {
       "buttonDescription": "添加",
-      "actionType": "DoAction",
-      "domainLink": null,
-      "actionName": "/Account/render",
+      "displayPosition": "top",
+      "interactiveType": "Model",
+      "domainLink": "/AccountDetail/render",
+      "domainType": "Detail",
       "roles": [
         "Role1",
         "Role2",
@@ -297,9 +298,10 @@
     },
     {
       "buttonDescription": "删除",
-      "actionType": "DoAction",
-      "domainLink": null,
-      "actionName": "/Account/deleteById",
+      "displayPosition": "top",
+      "interactiveType": "Action",
+      "actionName": "/AccountDetail/deleteById",
+      "requestParameters": [],
       "roles": [
         "Role1",
         "Role2",
@@ -308,9 +310,22 @@
     },
     {
       "buttonDescription": "详情",
-      "actionType": "DoAction",
-      "domainLink": "/Account/findById",
-      "actionName": null,
+      "displayPosition": "top",
+      "interactiveType": "Model",
+      "domainLink": "/AccountDetail/render",
+      "domainType": "Detail",
+      "requestParameters": [],
+      "roles": [
+        "Role1",
+        "Role2",
+        "Role3"
+      ]
+    },
+    {
+      "buttonDescription": "筛选",
+      "actionType": "search",
+      "domainLink": null,
+      "actionName": "/AccountList/search",
       "roles": [
         "Role1",
         "Role2",

@@ -62,11 +62,13 @@ export default class ListView extends React.Component {
 
   goToDetail(record) {
     console.log(record);
-    this.props.jump(
-      '/AccountList/detail',
-      { modal: 'i am modal ' },
-      { domainType: PAGE_TYPE_DETAIL, needFetch: false, record, columns: this.state.columns }
-    );
+    this.state.buttons && this.state.buttons.every((item) => {
+      if (item.text === '详情') {
+        this.props.jump(item.link, {param: { id: record.id}}, PAGE_TYPE_DETAIL, 'Page');
+        return false;
+      }
+      return true;
+    });
   }
 
   renderActions(text, record) {

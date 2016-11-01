@@ -6,7 +6,7 @@ var request = require('request');
 describe('order test', function () {
     it('404', function (done) {
         var options = {
-            uri: "http://192.168.64.215:9081/Advice/testRedis",
+            uri: "http://192.168.64.101:9081/Advice/testRedis",
             method: 'POST'
         };
         request(options, function (error, response, body) {
