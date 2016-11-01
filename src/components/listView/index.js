@@ -24,8 +24,6 @@ const setupList = (...props) => {
 /* eslint-disable */
 export default class ListView extends React.Component {
 
-  static loadingSelf = true;
-
   constructor(props){
     super(props);
     this.initComponent = this.initComponent.bind(this);
@@ -58,7 +56,7 @@ export default class ListView extends React.Component {
     console.log(record);
     this.state.buttons && this.state.buttons.every((item) => {
       if (item.text === '详情') {
-        this.props.jump(item.link, {param: { id: record.id}}, item.domainType, 'Modal');
+        this.props.jump(item.link, {param: { id: record.id}}, PAGE_TYPE_DETAIL, 'Page');
         return false;
       }
       return true;
@@ -107,41 +105,41 @@ export default class ListView extends React.Component {
   };
 
   render() {
-    //if (this.state.columns && this.state.columns.length > 0) {
-    //  return (
-    //    <div className={styles.paddingWraper}>
-    //      <div className={styles.paddingWraper}>
-    //        {
-    //          this.state.filterItems.map((filter) => {
-    //            return (
-    //              <span key={filter.fieldName} >
-    //                <span>{' ' + filter.displayName + ': '}</span>
-    //                <Select defaultValue={filter.options[0].displayCode} className={styles.filterSelect} onChange={this.handleChangeOfSelect}>
-    //                  {this.createFilterItem(filter)}
-    //                </Select>
-    //              </span>
-    //            );
-    //          })
-    //        }
-    //      </div>
-    //      <div className={styles.paddingWraper}>
-    //        {this.state.buttons.map((btn) => {
-    //          return (
-    //            <Button key={btn.key} type="ghost" onClick={() => this.buttonClick(btn.text)} >{btn.text}</Button>
-    //          );
-    //        })}
-    //      </div>
-    //      <SearchInput placeholder={"搜索"}/>
-    //      <Table
-    //        columns={this.state.columns}
-    //        dataSource={this.state.data}
-    //        sortOrder={false}
-    //        pagination={this.state.pagination}
-    //        onChange={this.onChange}
-    //      />
-    //    </div>
-    //  );
-    //}
-    return (<div>数据加载中...<span>{JSON.stringify(this.state || {})}</span></div>);
+    if (this.state.columns && this.state.columns.length > 0) {
+      return (
+        <div className={styles.paddingWraper}>
+          <div className={styles.paddingWraper}>
+            {
+              this.state.filterItems.map((filter) => {
+                return (
+                  <span key={filter.fieldName} >
+                    <span>{' ' + filter.displayName + ': '}</span>
+                    <Select defaultValue={filter.options[0].displayCode} className={styles.filterSelect} onChange={this.handleChangeOfSelect}>
+                      {this.createFilterItem(filter)}
+                    </Select>
+                  </span>
+                );
+              })
+            }
+          </div>
+          <div className={styles.paddingWraper}>
+            {this.state.buttons.map((btn) => {
+              return (
+                <Button key={btn.key} type="ghost" onClick={() => this.buttonClick(btn.text)} >{btn.text}</Button>
+              );
+            })}
+          </div>
+          <SearchInput placeholder={"搜索"}/>
+          <Table
+            columns={this.state.columns}
+            dataSource={this.state.data}
+            sortOrder={false}
+            pagination={this.state.pagination}
+            onChange={this.onChange}
+          />
+        </div>
+      );
+    }
+    return null;
   }
 };

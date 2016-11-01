@@ -2,23 +2,41 @@
  * Created by baoyinghai on 10/21/16.
  */
 import React from 'react';
+
+import { autobind } from 'core-decorators';
+
 import Compose from '../../common/utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
-import LoadingDecorator from './LoadingDecorator';
+import PackDecorator from './PackDecorator';
 import InitDecorator from './InitDecorator';
 import { getValueByKey } from '../../common/utils/MapUtils';
-import { searchMenu } from '../../service/CacheService';
 
-// eslint-disable-next-line react/prefer-stateless-function
+const getSplat = props => {
+  return getValueByKey(props, '', 'params', 'splat');
+};
+
+const getQuery = props => {
+  return getValueByKey(props, null, 'location', 'query');
+};
+
+const getBody = props => {
+  return getValueByKey(props, null, 'location', 'state');
+};
+
+/* eslint-disable */
 class PageContainer extends React.Component {
-  render() {
-    const domainLink = getValueByKey(this.props, null, 'params', 'splat');
-    const { linkInfo } = searchMenu(domainLink);
-    const domainType = linkInfo ? linkInfo.domainType : getValueByKey(this.props, 'default', 'location', 'query', 'domainType');
 
-    const FinalPage = Compose(AsyncDecorator, LoadingDecorator, InitDecorator)();
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const splat = getSplat(this.props);
+    const query = getQuery(this.props);
+    const locationState = getBody(this.props);
+    let FinalPage = Compose(AsyncDecorator, PackDecorator, InitDecorator)([splat, query, locationState]);
     return (
-      <FinalPage {...this.props} domainType={domainType} domainLink={domainLink} />
+      <div><FinalPage {...this.props}/></div>
     );
   }
 }

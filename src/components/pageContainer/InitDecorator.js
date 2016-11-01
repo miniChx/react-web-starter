@@ -1,52 +1,28 @@
-import React from 'react';
+/**
+ * Created by baoyinghai on 10/28/16.
+ */
+import PageConfig from './config';
+import { searchMenu } from '../../service/CacheService';
 
-import { routerShape } from 'react-router';
-import { autobind } from 'core-decorators';
-import Qs from 'qs';
+const createPage = (link, type) => {
+  console.log(PageConfig);
+  const comp = type ? PageConfig[type] : PageConfig.default;
+  return comp;
+};
 
-import { longRunExec } from '../../system/longRunOpt';
-import { CONTAINER_PRE } from '../../router';
-
-import { getComponentByDomainType } from './config';
-
-const InitDecorator = () => {
-  class WrapperComponent extends React.Component {
-    static contextTypes = {
-      router: routerShape
-    };
-
-    @autobind
-    _jump(domainLink, param, domainType, modal) {
-      if (modal === 'Modal') {
-        window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...param.param, domainType }));
-      } else {
-        this.context.router.push({
-          pathname: '/' + CONTAINER_PRE + domainLink, query: { ...param.param, domainType }
-        });
-      }
-    }
-
-    @autobind
-    _goBack() {
-      this.context.router.goBack();
-    }
-
-    render() {
-      const Wrapper = getComponentByDomainType(this.props.domainType);
-
-      return (
-        <Wrapper
-          {...this.props}
-          exec={longRunExec}
-          jump={this._jump}
-          goBack={this._goBack}
-        />
-      );
+const InitDecorator = ([splat, query, locationState]) => {
+  let page = null;
+  if (query.domainType) {
+    page = createPage(splat, query.domainType);
+  } else {
+    const { linkInfo } = searchMenu(splat);
+    if (linkInfo) {
+      page = createPage(splat, linkInfo.domainType);
+    } else {
+      page = createPage('', 'default');
     }
   }
-
-  return WrapperComponent;
+  return [page, splat, query, locationState];
 };
 
 export default InitDecorator;
-
