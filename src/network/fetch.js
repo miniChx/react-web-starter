@@ -2,17 +2,15 @@
  * Created by baoyinghai on 10/18/16.
  */
 import Qs from 'qs';
-/* eslint-disable */
 import MxFetch from '../common/mxfetch/index';
 import Config from '../config';
-/* eslint-disable */
-const _getHeader = () => {
-  return {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization': 'Basic  '
-  };
+
+const HEADERS = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  'Authorization': 'Basic  '
 };
+
 /* eslint-disable */
 const process = (_promise) => {
   return new Promise((resolve, reject) => {
@@ -35,20 +33,16 @@ const process = (_promise) => {
       });
   });
 };
-/* eslint-disable */
 const rawFetch = (url, param) => {
   /* eslint-disable no-console */
-  console.log('以下打印一次传出去的param:');
-  console.log(param);
-  console.log('请求地址:' + url);
+  console.log('=========> 数据请求 <=========');
+  console.log('请求地址: ', url);
+  console.log('请求参数: ', param);
   return process(MxFetch.fetch(Config.host + url, param, 6180));
 };
 /* eslint-disable */
 export const PFetch = (url, param) => {
-
-  const headers = {
-    ..._getHeader()
-  };
+  const headers = { ...HEADERS };
   return rawFetch(url, {
     method: 'POST',
     headers,
@@ -57,9 +51,7 @@ export const PFetch = (url, param) => {
 };
 /* eslint-disable */
 export const GFetch = (url, param) => {
-  const headers = {
-    ..._getHeader()
-  };
+  const headers = { ...HEADERS };
   return rawFetch(url + (param ? '?' + Qs.stringify(param) : ''), {
     method: 'GET',
     headers,
