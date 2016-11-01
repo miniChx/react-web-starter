@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Form, Button, Row, Col, Input, InputNumber, Select, Cascader } from 'mxa';
-
+import FormItemType from '../../constant/formItemType';
 /* eslint-disable */
 let FormDetail;
 const FormItem = Form.Item;
@@ -26,35 +26,36 @@ class FormDetailD extends React.Component {
 
   renderFormItem(item, index) {
     const { getFieldDecorator } = this.props.form;
+    const detailResult = this.props.detailResult;
     const formItemLayout = {
       labelCol: {span: 7},
       wrapperCol: {span: 14}
     };
-    switch (this.props.itemTypes[index]) {
-      case 'Input':
+    switch (item.displayComponent.componentType) {
+      case FormItemType.INPUT:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
+          <FormItem label={item.description} {...formItemLayout}>
             {getFieldDecorator('row_' + index, {initialValue: item.value})(
               <Input />
             )}
           </FormItem>
         );
         break;
-      case 'InputNumber':
+      case FormItemType.INPUTNUMBER:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <InputNumber min={1}/>
             )}
           </FormItem>
         );
         break;
-      case 'Select':
+      case FormItemType.SELECT:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Select style={{ width: 120 }}>
-                <Select.Option value={item.value}>{item.value}</Select.Option>
+                <Select.Option value={detailResult[item.name]}>{detailResult[item.name]}</Select.Option>
                 <Select.Option value="lucy">Lucy</Select.Option>
                 <Select.Option value="disabled" disabled>Disabled</Select.Option>
                 <Select.Option value="Yiminghe">yiminghe</Select.Option>
@@ -64,7 +65,7 @@ class FormDetailD extends React.Component {
         );
         break;
       // 需要有options传入  placeholder需要修改
-      case 'Cascader':
+      case FormItemType.CASCADER:
         let options = [];
         this.props.cascaderData.map((item, i) => {
           if (item.index == index) {
@@ -72,38 +73,38 @@ class FormDetailD extends React.Component {
           }
         });
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Cascader options={options} placeholder="请选择" />
             )}
           </FormItem>
         );
         break;
-      case 'AutoComplete':
+      case FormItemType.AUTOCOMPLETE:
         break;
       //需要传入plainOptions 确认defaultValue的显示方式
       case 'Checkbox':
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: [item.value]})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: [detailResult[item.name]]})(
               <CheckboxGroup options={plainOptions} defaultValue={['Apple']} />
             )}
           </FormItem>
         );
         break;
       // 日期要显示当前数据
-      case 'DatePicker':
+      case FormItemType.DATEPICKER:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
+          <FormItem label={item.description} {...formItemLayout}>
             {getFieldDecorator('row_' + index, {initialValue: moment('2015/01/01', format)})(
               <DatePicker defaultValue={moment('2015/01/01', format)} format={format} />
             )}
           </FormItem>
         );
         break;
-      case 'Radio':
+      case FormItemType.RADIO:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
+          <FormItem label={item.description} {...formItemLayout}>
             {getFieldDecorator('row_' + index)(
               <RadioGroup onChange={this.onChange} value={this.state.value}>
                 <Radio key="a" value={1}>A</Radio>
@@ -115,46 +116,46 @@ class FormDetailD extends React.Component {
           </FormItem>
         );
         break;
-      case 'Rate':
+      case FormItemType.RATE:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Rate allowHalf />
             )}
           </FormItem>
         );
         break;
-      case 'Slider':
+      case FormItemType.SLIDER:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Slider />
             )}
           </FormItem>
         );
         break;
-      case 'Switch':
+      case FormItemType.SWITCH:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Switch />
             )}
           </FormItem>
         );
         break;
-      case 'TimePicker':
+      case FormItemType.TIMEPICKER:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <TimePicker />
             )}
           </FormItem>
         );
         break;
-      case 'Transfer':
+      case FormItemType.TRANSFER:
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <TimePicker />
             )}
           </FormItem>
@@ -163,7 +164,7 @@ class FormDetailD extends React.Component {
       case 'TreeSelect':
 
         break;
-      case 'Upload':
+      case FormItemType.UPLOAD:
         const props = {
           name: 'file',
           action: '/upload.do',
@@ -182,8 +183,8 @@ class FormDetailD extends React.Component {
           },
         };
         return (
-          <FormItem label={item.label} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+          <FormItem label={item.description} {...formItemLayout}>
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Upload {...props}>
                 <Button type="ghost">
                   <Icon type="upload" /> 点击上传
@@ -217,7 +218,7 @@ class FormDetailD extends React.Component {
           <Row>
             <Col offset={3}>
               <Form horizontal={true} style={{ maxWidth: 400 }}>
-                {this.props.dataSource.map((item, index) =>
+                {this.props.dataSource.fields.map((item, index) =>
                   (
                     <div key={'row_' + index}>
                       {this.renderFormItem(item, index)}
@@ -239,14 +240,14 @@ class FormDetailD extends React.Component {
     } else {
       return (
         <div>
-          {this.props.dataSource.map((item, index) =>
+          {this.props.dataSource.fields.map((item, index) =>
             (
               <Row key={'row_' + index}>
                 <Col span={3} offset={3}>
-                  <span>{item.label}:</span>
+                  <span>{item.description}:</span>
                 </Col>
                 <Col span={6}>
-                  <span>{item.value}</span>
+                  <span>{this.props.dataSource.detailResult[item.name]}</span>
                 </Col>
               </Row>
             ))}
