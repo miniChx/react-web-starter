@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { getInitData } from '../../actions/pageContainer';
-import { getValueByKey } from '../../common/utils/MapUtils';
 import { longRunExec } from '../../system/longRunOpt';
 
-const AsyncDecorator = ([Wrapper, splat, query, locationState]) => {
+const AsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -14,14 +12,9 @@ const AsyncDecorator = ([Wrapper, splat, query, locationState]) => {
     }
 
     componentDidMount() {
-      if (!this.isNoFetch()) {
-        const url = this.getUrlPath('/' + splat);
-        let param = locationState && locationState.param;
-        if (!param) {
-          param = query;
-        }
-        console.log(param);
-        longRunExec(() => getInitData(url, param || {})
+      if (this.props.domainLink) {
+        const url = this.getUrlPath('/' + this.props.domainLink);
+        longRunExec(() => getInitData(url, this.props.params || {})
           .then(data => {
             this.setState({
               data,
@@ -30,13 +23,7 @@ const AsyncDecorator = ([Wrapper, splat, query, locationState]) => {
       }
     }
 
-    getUrlPath = url => {
-      return url;
-    };
-
-    isNoFetch = () => {
-      return locationState && locationState.noFetch;
-    };
+    getUrlPath = url => url;
 
     render() {
       const { data } = this.state;
