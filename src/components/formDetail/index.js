@@ -26,7 +26,7 @@ class FormDetailD extends React.Component {
 
   renderFormItem(item, index) {
     const { getFieldDecorator } = this.props.form;
-    const detailResult = this.props.detailResult;
+    const detailResult = this.props.dataSource.detailResult;
     const formItemLayout = {
       labelCol: {span: 7},
       wrapperCol: {span: 14}
@@ -35,7 +35,7 @@ class FormDetailD extends React.Component {
       case FormItemType.INPUT:
         return (
           <FormItem label={item.description} {...formItemLayout}>
-            {getFieldDecorator('row_' + index, {initialValue: item.value})(
+            {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Input />
             )}
           </FormItem>
@@ -55,10 +55,10 @@ class FormDetailD extends React.Component {
           <FormItem label={item.description} {...formItemLayout}>
             {getFieldDecorator('row_' + index, {initialValue: detailResult[item.name]})(
               <Select style={{ width: 120 }}>
-                <Select.Option value={detailResult[item.name]}>{detailResult[item.name]}</Select.Option>
-                <Select.Option value="lucy">Lucy</Select.Option>
-                <Select.Option value="disabled" disabled>Disabled</Select.Option>
-                <Select.Option value="Yiminghe">yiminghe</Select.Option>
+                {item.displayComponent.items.map((i, i1) =>
+                  (
+                    <Select.Option value={i}>{i}</Select.Option>
+                  ))}
               </Select>
             )}
           </FormItem>

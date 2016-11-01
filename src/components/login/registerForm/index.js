@@ -4,7 +4,7 @@
 /* eslint-disable */
 import React from 'react';
 
-import { Form, Input, Row, Col } from 'mxa';
+import { Form, Input, Row, Col, Button } from 'mxa';
 let FormItem = Form.Item;
 import validation from '../../../common/utils/validation';
 import classNames from 'classnames';
@@ -14,6 +14,8 @@ function noop() {
 class registerForm extends React.Component {
   constructor(props) {
     super(props);
+    this.buttonClick = this.buttonClick.bind(this);
+    this.completeClick = this.completeClick.bind(this);
     this.state = {
       validatorState: '',
       dirty: false,
@@ -50,6 +52,14 @@ class registerForm extends React.Component {
     }
   }
 
+  buttonClick(e) {
+    // 登陆之后的路由跳转
+    this.props.backClick();
+  }
+
+  completeClick() {
+
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -63,75 +73,72 @@ class registerForm extends React.Component {
     };
     return (
       <div>
-        <Form horizontal style={{ maxWidth: 800 }}>
-          <Row type="flex" align="middle">
-            <Col span={12}>
-              <FormItem label={config.userLabel ? config.userLabel : "手机号"} {...formItemLayout}>
-                {getFieldDecorator('user', {
-                  rules: [
-                    {required: true, message: '请输入手机号'}
-                  ]
-                })(
-                  <Input placeholder={config.userPlaceHolder ? config.userPlaceHolder : "请输入手机号"}
-                         onBlur={this.userExists.bind(this)}
-                  />
-                )}
-              </FormItem>
-            </Col>
-          </Row>
-          <Row type="flex" align="middle">
-            <Col span={12}>
-              <FormItem label="密码" {...formItemLayout}>
-                {getFieldDecorator('pass', {
-                  rules: [
-                    {required: true, whitespace: true, message: '请输入密码'},
-                    {validator: this.checkPass.bind(this)},
-                  ],
-                })(
-                  <Input type="password"
-                         placeholder="请输入密码"
-                         onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop}
-                         autoComplete="off" id="pass"
-                         onChange={(e) => {
+        <Row type="flex" justify="center">
+          <Col span={6}>
+            <Form horizontal>
+
+                  <FormItem label={config.userLabel ? config.userLabel : "手机号"} {...formItemLayout}>
+                    {getFieldDecorator('user', {
+                      rules: [
+                        {required: true, message: '请输入手机号'}
+                      ]
+                    })(
+                      <Input placeholder={config.userPlaceHolder ? config.userPlaceHolder : "请输入手机号"}
+                             onBlur={this.userExists.bind(this)}
+                      />
+                    )}
+                  </FormItem>
+
+
+                  <FormItem label="密码" {...formItemLayout}>
+                    {getFieldDecorator('pass', {
+                      rules: [
+                        {required: true, whitespace: true, message: '请输入密码'},
+                        {validator: this.checkPass.bind(this)},
+                      ],
+                    })(
+                      <Input type="password"
+                             placeholder="请输入密码"
+                             onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop}
+                             autoComplete="off" id="pass"
+                             onChange={(e) => {
                       console.log('Your password is stolen in this way', e.target.value);
                     }}
-                         onBlur={(e) => {
+                             onBlur={(e) => {
                       const value = e.target.value;
                       this.setState({ dirty: this.state.dirty || !!value });
                     }}
-                  />
-                )}
-              </FormItem>
-            </Col>
-            <Col span={12}>
-              {this.state.passBarShow ? this.renderPassStrengthBar('pass') : null}
-            </Col>
-          </Row>
-          <Row type="flex" align="middle">
-            <Col span={12}>
-              <FormItem label="确认密码" {...formItemLayout}>
-                {getFieldDecorator('rePass', {
-                  rules: [{
-                    required: true,
-                    whitespace: true,
-                    message: '请确认输入密码',
-                  }, {
-                    validator: this.checkPass2.bind(this),
-                  }],
-                })(
-                  <Input type="password"
-                         placeholder="请确认输入密码"
-                         onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop}
-                         autoComplete="off" id="rePass"
-                  />
-                )}
-              </FormItem>
-            </Col>
-            <Col span={12}>
-              {this.state.rePassBarShow ? this.renderPassStrengthBar('rePass') : null}
-            </Col>
-          </Row>
-        </Form>
+                      />
+                    )}
+                  </FormItem>
+                  <FormItem label="确认密码" {...formItemLayout}>
+                    {getFieldDecorator('rePass', {
+                      rules: [{
+                        required: true,
+                        whitespace: true,
+                        message: '请确认输入密码',
+                      }, {
+                        validator: this.checkPass2.bind(this),
+                      }],
+                    })(
+                      <Input type="password"
+                             placeholder="请确认输入密码"
+                             onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop}
+                             autoComplete="off" id="rePass"
+                      />
+                    )}
+                  </FormItem>
+            </Form>
+            <Row type="flex" justify="center">
+              <Col>
+                <Button type="primary" onClick={() => this.completeClick()} > 完成注册 </Button>
+              </Col>
+              <Col offset={1}>
+                <Button type="ghost" onClick={() => this.buttonClick()} > 继续登录 </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </div>
     );
   }

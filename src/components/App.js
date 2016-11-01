@@ -35,18 +35,18 @@ class App extends React.Component {
     router: routerShape
   };
 
-  componentWillReceiveProps(next){
+  componentWillReceiveProps(next) {
     if (!next.session.token && this.props.session.token) {
       this.context.router.replace('/login');
     }
     if (next.session.token && !this.props.session.token) {
-      this.context.router.push({ pathname: '/' });
+      this.context.router.push({pathname: '/'});
     }
   }
 
   componentDidMount() {
     if (!this.props.session.token) {
-      this.context.router.push({ pathname: '/login' });
+      this.context.router.push({pathname: '/login'});
     }
     if (!isInitDataFromServer()) {
       longRunExec(() => {
@@ -66,33 +66,35 @@ class App extends React.Component {
   render() {
     const Div = (props) => {
       const { style, show } = props;
-      const newStyle = {...style,  display: show ? '' : 'none' }
-      return <Menu {...props} style={newStyle} />;
+      const newStyle = {...style, display: show ? '' : 'none'}
+      return <Menu {...props} style={newStyle}/>;
     };
     if (this.props.isInit) {
-    if (this.props.session.token) {
-      return (
-        <div>
-          <Title switchMenu={this.switchMenu} />
-          <Row className={appStyle.appContent}>
-            <Col span={this.state.menuIsOpen ? 4 : 0} >
-              <Animate
-                component=""
-                showProp="show"
-                transitionName="move-left"
-              >
-                <Div show={this.state.enter}></Div>
-              </Animate>
-            </Col>
-            <Col span={20} >{this.props.children}</Col>
-          </Row>
+      if (this.props.session.token) {
+        return (
+          <div>
+            <Title switchMenu={this.switchMenu}/>
+            <Row className={appStyle.appContent}
+                 type={this.state.menuIsOpen ? '' : 'flex'}
+                 justify={this.state.menuIsOpen ? '' : 'center'}>
+              <Col span={this.state.menuIsOpen ? 4 : 0}>
+                <Animate
+                  component=""
+                  showProp="show"
+                  transitionName="move-left"
+                >
+                  <Div show={this.state.enter}></Div>
+                </Animate>
+              </Col>
+              <Col span={20}>{this.props.children}</Col>
+            </Row>
 
-        </div>
+          </div>
+        );
+      }
+      return (
+        <div>{this.props.children}</div>
       );
-    }
-    return (
-      <div>{this.props.children}</div>
-    );
     } else {
       return (<div />);
     }
