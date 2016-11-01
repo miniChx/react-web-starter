@@ -15,7 +15,8 @@ const AsyncDecorator = Wrapper => {
     componentDidMount() {
       if (this.props.domainLink) {
         const url = this.getUrlPath('/' + trimStart(this.props.domainLink, '/'));
-        longRunExec(() => getInitData(url, this.props.params || {})
+        const params = { ...this.props.params, ...this.props.location.query };
+        longRunExec(() => getInitData(url, params)
           .then(data => {
             this.setState({
               data,
