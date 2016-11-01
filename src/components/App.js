@@ -1,8 +1,9 @@
-/* eslint-disable */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { routerShape } from 'react-router';
 import Animate from 'rc-animate';
+import { Row, Col } from 'mxa';
 
 // import Header from './layout/Header';
 // import Footer from './layout/Footer';
@@ -10,21 +11,14 @@ import Animate from 'rc-animate';
 import { autobind } from 'core-decorators';
 import Qs from 'qs';
 
-import MaskLayer from 'react-mask-layer';
-import 'react-mask-layer/assets/index.css';
-import Compose from '../common/utils/Compose';
-import AsyncDecorator from './pageContainer/AsyncDecorator';
-import InitDecorator from './pageContainer/InitDecorator';
 import { CONTAINER_PRE } from '../router';
+import { showModal } from './pageContainer/ModalWrapper';
 
 import '../styles/global/index.less';
-/* eslint-disable */
 import appStyle from '../styles/views/app.less';
-import classNames from 'classnames';
 
 import Menu from './menu/index';
 import Title from './title';
-import { Row, Col } from 'mxa';
 import { isInitDataFromServer } from '../service/CacheService';
 import { initDataFromServer } from '../actions/initDataFromServer';
 import { longRunExec } from '../system/longRunOpt';
@@ -40,18 +34,7 @@ class App extends React.Component {
     this.state = {
       menuIsOpen: true,
       enter: true,
-      modalContent: null,
-      maskerVisible: false,
-    }
-  }
-
-  componentWillReceiveProps(next){
-    if (!next.session.token && this.props.session.token) {
-      this.context.router.replace('/login');
-    }
-    if (next.session.token && !this.props.session.token) {
-      this.context.router.push({ pathname: '/' });
-    }
+    };
   }
 
   componentDidMount() {
@@ -62,7 +45,15 @@ class App extends React.Component {
       longRunExec(() => {
         return this.props.dispatch(initDataFromServer());
       });
+    }
+  }
 
+  componentWillReceiveProps(next) {
+    if (!next.session.token && this.props.session.token) {
+      this.context.router.replace('/login');
+    }
+    if (next.session.token && !this.props.session.token) {
+      this.context.router.push({ pathname: '/' });
     }
   }
 
@@ -75,21 +66,11 @@ class App extends React.Component {
   }
 
   @autobind
-  _maskCancel(e) {
-    this.setState({ maskerVisible: false, modalContent: null });
-  }
-
-  @autobind
   _jump(domainLink, params, domainType, modal) {
     if (modal === 'Page') {
       window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType }));
     } else if (modal === 'Modal') {
-      const ModalPage = Compose(AsyncDecorator, InitDecorator)();
-      this.setState({
-        maskerVisible: true,
-        // modalContent: (<ModalPage domainType={domainType} domainLink={domainLink} />),
-        modalContent: React.createElement(ModalPage, { domainType, domainLink, params: { ...params, domainType } }),
-      });
+      showModal(this.props, domainType, domainLink);
     } else {
       this.context.router.push({
         pathname: '/' + CONTAINER_PRE + domainLink,
@@ -104,9 +85,9 @@ class App extends React.Component {
   }
 
   render() {
-    const Div = (props) => {
+    const Div = props => {
       const { style, show } = props;
-      const newStyle = {...style,  display: show ? '' : 'none' }
+      const newStyle = { ...style, display: show ? '' : 'none' };
       return <Menu {...props} style={newStyle} />;
     };
     if (this.props.isInit) {
@@ -121,23 +102,21 @@ class App extends React.Component {
                   showProp="show"
                   transitionName="move-left"
                 >
-                  <Div show={this.state.enter}></Div>
+                  <Div show={this.state.enter} />
                 </Animate>
               </Col>
               <Col span={20}>{React.cloneElement(this.props.children, { jump: this._jump, goBack: this._goBack })}</Col>
             </Row>
-            <MaskLayer visible={this.state.maskerVisible} onCancel={this._maskCancel}>
-              {this.state.modalContent}
-            </MaskLayer>
           </div>
         );
       }
+
       return (
         <div>{this.props.children}</div>
       );
-    } else {
-      return (<div />);
     }
+
+    return (<div />);
   }
 }
 
