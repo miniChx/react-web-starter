@@ -38,7 +38,6 @@ export default class ListDetail extends React.Component {
 
   constructor(props) {
     super(props);
-    this.goBack = this.goBack.bind(this);
     this.updateClick = this.updateClick.bind(this);
     //const record = this.props.state().record;
     //const columns = this.props.state().columns;
@@ -65,23 +64,24 @@ export default class ListDetail extends React.Component {
     });
   }
 
-  goBack() {
-    this.props.goBack();
-  }
-
   updateClick(values) {
     console.log('updateClick' + values);
   }
 
   render() {
-    return (
-      <span>{JSON.stringify(this.state.data || {desc: '数据加载中...'})}</span>
-    );
-    //return (
-    //  <div>
-    //    <FormDetail dataSource={this.state.data} itemTypes={itemTypes} updateClick={(values) => this.updateClick(values)} cascaderData={cascaderData}/>
-    //    <Button type="ghost" onClick={() => this.goBack()} >返回</Button>
-    //  </div>
-    //);
+    if (this.state.data) {
+      return (
+        <div>
+          <FormDetail dataSource={this.state.data} itemTypes={itemTypes}
+                      updateClick={(values) => this.updateClick(values)} cascaderData={cascaderData}/>
+          <Button type="ghost" onClick={() => this.goBack()}>返回</Button>
+        </div>
+      );
+    } else {
+      return (
+        <span>{'数据加载中...'}</span>
+      );
+    }
+
   }
 }

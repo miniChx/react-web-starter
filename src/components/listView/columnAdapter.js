@@ -26,8 +26,10 @@ export const transButtons = (data = []) => {
   return data && data.map((d) => {
       return {
         text: d.buttonDescription,
-        link: d.domainLink || d.actionName,
-        key: d.domainLink || d.actionName
+        link: d.interactiveType === 'Action'? d.actionName : d.domainLink,
+        mode: d.interactiveType,
+        domainType: d.domainType,
+        key: d.buttonDescription,
       }
     });
 };
