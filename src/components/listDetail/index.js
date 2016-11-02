@@ -56,14 +56,19 @@ export default class ListDetail extends React.Component {
   }
 
   render() {
-    return (
-      <span>{JSON.stringify(this.state.data || {desc: '数据加载中...'})}</span>
-    );
-    //return (
-    //  <div>
-    //    <FormDetail dataSource={this.state.data} itemTypes={itemTypes} updateClick={(values) => this.updateClick(values)} cascaderData={cascaderData}/>
-    //    <Button type="ghost" onClick={() => this.goBack()} >返回</Button>
-    //  </div>
-    //);
+    if (this.state.data) {
+      return (
+        <div>
+          <FormDetail dataSource={this.state.data} itemTypes={itemTypes}
+                      updateClick={(values) => this.updateClick(values)} cascaderData={cascaderData}/>
+          <Button type="ghost" onClick={() => this.goBack()}>返回</Button>
+        </div>
+      );
+    } else {
+      return (
+        <span>{'数据加载中...'}</span>
+      );
+    }
+
   }
 }
