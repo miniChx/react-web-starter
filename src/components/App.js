@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import { routerShape } from 'react-router';
@@ -33,18 +33,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       menuIsOpen: true,
-      enter: true,
-    };
-  }
-
-  componentDidMount() {
-    if (!this.props.session.token) {
-      this.context.router.push({ pathname: '/login' });
-    }
-    if (!isInitDataFromServer()) {
-      longRunExec(() => {
-        return this.props.dispatch(initDataFromServer());
-      });
+      enter: true
     }
   }
 
@@ -53,7 +42,19 @@ class App extends React.Component {
       this.context.router.replace('/login');
     }
     if (next.session.token && !this.props.session.token) {
-      this.context.router.push({ pathname: '/' });
+      this.context.router.push({pathname: '/'});
+    }
+
+  }
+
+  componentDidMount() {
+    if (!this.props.session.token) {
+      this.context.router.push({pathname: '/login'});
+    }
+    if (!isInitDataFromServer()) {
+      longRunExec(() => {
+        return this.props.dispatch(initDataFromServer());
+      });
     }
   }
 
@@ -95,7 +96,9 @@ class App extends React.Component {
         return (
           <div>
             <Title switchMenu={this.switchMenu} />
-            <Row className={appStyle.appContent}>
+            <Row className={appStyle.appContent}
+                 type={this.state.menuIsOpen ? '' : 'flex'}
+                 justify={this.state.menuIsOpen ? '' : 'center'}>
               <Col span={this.state.menuIsOpen ? 4 : 0} >
                 <Animate
                   component=""

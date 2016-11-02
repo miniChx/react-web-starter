@@ -5,36 +5,36 @@
 import React from 'react';
 import LoginForm from './loginForm'
 import { routerShape, Link } from 'react-router';
-import { Button, Table, Icon, Select } from 'mxa';
+import { Button, Table, Icon, Select, Row, Col } from 'mxa';
 import { dispatch } from '../../service/DispatchService';
 import { login } from '../../actions/session';
+import styles from '../../styles/views/login.less';
 
 export default class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.buttonClick = this.buttonClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   static contextTypes = {
     router: routerShape
   };
 
-  buttonClick(e) {
+
+  handleSubmit (values) {
     dispatch(login('hahahahah'));
     // 登陆之后的路由跳转
   }
 
-  handleSubmit (values) {
-
-  }
-
   render() {
     return (
-      <div>
-        <LoginForm submitCallback={this.handleSubmit.bind(this)}/>
-        <Button><Link to="/register" >注册</Link></Button>
-        <Button type="ghost" onClick={() => this.buttonClick()} > login </Button>
+      <div className={styles.loginContent_marginTop}>
+        <Row type="flex" justify="center">
+          <Col span={4}>
+            <LoginForm submitCallback={this.handleSubmit} />
+          </Col>
+        </Row>
       </div>
     );
   }

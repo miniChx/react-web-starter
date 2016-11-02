@@ -1,5 +1,17 @@
 {
-  "detailResult": null,
+  "detailResult": {
+    "Id": 1,
+    "Email": "wmge@amarsoft.com",
+    "MobileNo": "18662187892",
+    "Password": "1234567890",
+    "RealName": "葛伟敏",
+    "Department": "资管部",
+    "JobTitle": "董事长",
+    "TelephoneNo": "05129876765",
+    "Address": "江苏苏州",
+    "Status": "ACTIVE",
+    "Age": 18
+  },
   "fields": [
     {
       "name": "Id",
@@ -13,7 +25,7 @@
       "isReadonly": true,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "InputNumber",
         "items": null
       }
     },
@@ -29,7 +41,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
@@ -45,7 +57,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
@@ -61,7 +73,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
@@ -77,7 +89,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
@@ -93,7 +105,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
@@ -109,8 +121,8 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
-        "items": null
+        "componentType": "Select",
+        "items": ["董事长", "总经理", "副总经理", "总裁", "虾兵", "蟹将"]
       }
     },
     {
@@ -125,7 +137,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
@@ -141,7 +153,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "Input",
         "items": null
       }
     },
@@ -157,8 +169,8 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "Text",
-        "items": null
+        "componentType": "Select",
+        "items": ["ACTIVE", "UNACTIVE"]
       }
     },
     {
@@ -173,7 +185,7 @@
       "isReadonly": true,
       "isRequired": true,
       "displayComponent": {
-        "componentType": "Text",
+        "componentType": "InputNumber",
         "items": null
       }
     }

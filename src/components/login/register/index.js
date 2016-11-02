@@ -10,17 +10,11 @@ export default class Register extends React.Component {
 
   constructor(props) {
     super(props);
-    this.buttonClick = this.buttonClick.bind(this);
   }
 
   static contextTypes = {
     router: routerShape
   };
-
-  buttonClick(e) {
-    // 登陆之后的路由跳转
-    this.context.router.push({ pathname: '/login' });
-  }
 
   completeClick () {
 
@@ -29,9 +23,7 @@ export default class Register extends React.Component {
   render() {
     return (
       <div>
-        <RegisterForm />
-        <Button type="primary" onClick={() => this.completeClick()} > 完成注册 </Button>
-        <Button type="ghost" onClick={() => this.buttonClick()} > 跳回登录 </Button>
+        <RegisterForm backClick={() => this.context.router.push({ pathname: '/login' })}/>
       </div>
     );
   }
