@@ -27,25 +27,16 @@ export default class ListView extends React.Component {
   constructor(props){
     super(props);
     this.initComponent = this.initComponent.bind(this);
-    this.state = {
-      data: [],
-      columns: [],
-      buttons: [],
-      filterItems: [],
-      pagination: {},
-    };
+
     this.createFilterItem = this.createFilterItem.bind(this);
     this.handleChangeOfSelect = this.handleChangeOfSelect.bind(this);
     this.buttonClick = this.buttonClick.bind(this);
     this.renderActions = this.renderActions.bind(this);
     this.goToDetail = this.goToDetail.bind(this);
+
+    this.state = this.initComponent(this.props.dataSource);
   }
 
-  componentWillReceiveProps(next) {
-    if (next.initData) {
-      this.initComponent(next.initData);
-    }
-  }
 
   buttonClick(e) {
     // TODO: 按钮类型的判断
@@ -56,8 +47,8 @@ export default class ListView extends React.Component {
     console.log(record);
     this.state.buttons && this.state.buttons.every((item) => {
       if (item.text === '详情') {
-        this.props.jump(item.link, { id: record.id }, item.domainType, item.mode);
-        // this.props.jump(item.link, { id: record.id }, item.domainType);
+        // this.props.jump(item.link, { id: record.id }, item.domainType, item.mode);
+        this.props.jump(item.link, { id: record.id }, item.domainType);
         return false;
       }
       return true;
@@ -76,7 +67,7 @@ export default class ListView extends React.Component {
 
   // 跳转到该界面后, 有的界面需要fetch数据, 此方法会被执行
   initComponent(data) {
-    this.setState({
+    return {
       data: transData(data && data.pageResult && data.pageResult.contentList),
       columns: transColumn(data.fields).concat([{title: '操作', dataIndex: '', key: 'x', render: this.renderActions}]),
       buttons: transButtons(data.buttons),
@@ -85,7 +76,7 @@ export default class ListView extends React.Component {
         total: data && data.pageResult && data.pageResult.totalItems,
         showSizeChanger: true
       }
-    });
+    };
   }
 
   handleChangeOfSelect(e) {
