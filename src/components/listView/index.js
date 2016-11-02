@@ -1,146 +1,187 @@
-/**
- * Created by baoyinghai on 10/24/16.
- */
+/* eslint-disable no-console */
 
 import React from 'react';
-
-import { Button, Table, Icon, Select } from 'mxa';
+import { autobind } from 'core-decorators';
+import { Table, Button, Select, Modal } from 'mxa';
 import SearchInput from '../searchInput/index';
 
+import styles from '../../styles/views/listview.less';
+
 const Option = Select.Option;
-/* eslint-disable */
-import { dispatch } from '../../service/DispatchService';
-/* eslint-disable */
-import { testFetch } from '../../actions/test/fetchTest';
-/* eslint-disable */
-import { transColumn, transData, transButtons, transFilter } from './columnAdapter';
-import styles from '../../styles/views/cps.less';
-import { PAGE_TYPE_DETAIL } from '../../actions/types';
 
-const setupList = (...props) => {
-  return ListView
-};
-
-/* eslint-disable */
-export default class ListView extends React.Component {
-
-  constructor(props){
+class ListView extends React.Component {
+  constructor(props) {
     super(props);
-    this.initComponent = this.initComponent.bind(this);
+    // initial state
     this.state = {
-      data: [],
       columns: [],
-      buttons: [],
-      filterItems: [],
+      dataSource: [],
+      buttons: {},
       pagination: {},
+      filters: [],
     };
-    this.createFilterItem = this.createFilterItem.bind(this);
-    this.handleChangeOfSelect = this.handleChangeOfSelect.bind(this);
-    this.buttonClick = this.buttonClick.bind(this);
-    this.renderActions = this.renderActions.bind(this);
-    this.goToDetail = this.goToDetail.bind(this);
   }
 
-  componentWillReceiveProps(next) {
-    if (next.initData) {
-      this.initComponent(next.initData);
+  @autobind
+  _triggerAction(item, record) {
+    if (item.interactiveType === 'Action') {
+      // TODO. Deal with action
+      Modal.info({
+        title: '提示',
+        content: (
+          <div>确认{item.buttonDescription}{record.realName}吗？</div>
+        ),
+        onOk() {},
+      });
+    } else {
+      this.props.jump(item.domainLink, { id: record.id }, item.domainType, item.interactiveType);
     }
   }
 
-  buttonClick(e) {
-    // TODO: 按钮类型的判断
-    console.log('button click: ', e.key);
-  }
-
-  goToDetail(record) {
-    console.log(record);
-    this.state.buttons && this.state.buttons.every((item) => {
-      if (item.text === '详情') {
-        this.props.jump(item.link, { id: record.id }, item.domainType, item.mode);
-        // this.props.jump(item.link, { id: record.id }, item.domainType);
-        return false;
-      }
-      return true;
-    });
-  }
-
-  renderActions(text, record) {
+  @autobind
+  _renderColumnAction(text, record, buttons) {
+    // console.log('text: ', text);
+    // console.log('record: ', record);
     return (
-      <span>
-        <a href="#">删除</a>
-        <span className="mx-divider" />
-        <a onClick={() => this.goToDetail(record)}>详情</a>
-      </span>
+      <div>
+        {
+          buttons.map(item => (
+            <a
+              key={item.buttonDescription}
+              className={styles.inlineButton}
+              onClick={() => this._triggerAction(item, record)}
+            >{item.buttonDescription}</a>
+          ))
+        }
+      </div>
     );
   }
 
-  // 跳转到该界面后, 有的界面需要fetch数据, 此方法会被执行
-  initComponent(data) {
-    this.setState({
-      data: transData(data && data.pageResult && data.pageResult.contentList),
-      columns: transColumn(data.fields).concat([{title: '操作', dataIndex: '', key: 'x', render: this.renderActions}]),
-      buttons: transButtons(data.buttons),
-      filterItems: transFilter(data.filterItems),
-      pagination: {
-        total: data && data.pageResult && data.pageResult.totalItems,
-        showSizeChanger: true
-      }
-    });
-  }
+  @autobind
+  _processData(data) {
+    const buttons = {
+      inline: data.buttons.filter(item => item.displayPosition === 'inline'),
+      top: data.buttons.filter(item => item.displayPosition === 'top'),
+    };
 
-  handleChangeOfSelect(e) {
-    console.log(e);
-  }
+    // eslint-disable-next-line arrow-body-style
+    const columns = data.fields.map(item => ({
+      key: item.index,
+      title: item.description,
+      dataIndex: item.name,
+    }));
 
-  createFilterItem(filter) {
-    return filter && filter.options &&
-      filter.options.map((item) => {
-        return (
-          <Option key={item.displayCode} value={item.displayCode}>{item.displayName}</Option>
-        );
+    // add operation
+    if (buttons && buttons.inline && buttons.inline.length > 0) {
+      columns.push({
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 100,
+        render: (text, record) => this._renderColumnAction(text, record, buttons.inline),
       });
+    }
+
+    const filters = data.filterItems;
+    // eslint-disable-next-line arrow-body-style
+    const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
+    const pagination = {
+      total: data && data.pageResult && data.pageResult.totalItems,
+      showSizeChanger: true
+    };
+    return { columns, dataSource, buttons, pagination, filters };
   }
 
-  onChange = (pagination, filters, sorter) => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initData) {
+      this.setState({ ...this._processData(nextProps.initData) });
+    }
+  }
+
+  @autobind
+  _onFilterChange(value) { // eslint-disable-line
+    console.log(`selected ${value}`);
+  }
+
+  @autobind
+  _onChange(pagination, filters, sorter) { // eslint-disable-line
     console.log('params', pagination, filters, sorter);
-  };
+  }
+
+  @autobind
+  _renderFilters() {
+    return (
+      <div>
+        {
+          this.state.filters.map(filter => {
+            const selectedValues = filter.options.filter(option => option.isSelected);
+            const defaultOption = selectedValues.length > 0 ? selectedValues[0] : filter.options[0];
+            return (
+              <div key={filter.displaySeq} className={styles.filter}>
+                <span>{' ' + filter.displayName + ': '}</span>
+                <Select
+                  className={styles.select}
+                  defaultValue={defaultOption.displayCode}
+                  onChange={this._onFilterChange}
+                >
+                  {
+                    filter.options.map(option => (
+                      <Option key={option.displaySeq} value={option.displayCode}>{option.displayName}</Option>
+                    ))
+                  }
+                </Select>
+              </div>
+            );
+          })
+        }
+      </div>
+    );
+  }
+
+  @autobind
+  _renderTopButtons() {
+    // TODO. Get select row record
+    const record = {};
+    return (
+      <div>
+        {
+          this.state.buttons.top.map(item => (
+            <Button
+              key={item.buttonDescription}
+              type="ghost"
+              className={styles.topButton}
+              onClick={() => this._triggerAction(item, record)}
+            >{item.buttonDescription}</Button>
+          ))
+        }
+      </div>
+    );
+  }
 
   render() {
     if (this.state.columns && this.state.columns.length > 0) {
       return (
-        <div className={styles.paddingWraper}>
-          <div className={styles.paddingWraper}>
-            {
-              this.state.filterItems.map((filter) => {
-                return (
-                  <span key={filter.fieldName} >
-                    <span>{' ' + filter.displayName + ': '}</span>
-                    <Select defaultValue={filter.options[0].displayCode} className={styles.filterSelect} onChange={this.handleChangeOfSelect}>
-                      {this.createFilterItem(filter)}
-                    </Select>
-                  </span>
-                );
-              })
-            }
+        <div className={styles.listview}>
+          {this._renderFilters()}
+          <div className={styles.toolbar}>
+            {this._renderTopButtons()}
+            <div className={styles.search}>
+              <SearchInput placeholder="搜索" />
+            </div>
           </div>
-          <div className={styles.paddingWraper}>
-            {this.state.buttons.map((btn) => {
-              return (
-                <Button key={btn.key} type="ghost" onClick={() => this.buttonClick(btn.text)} >{btn.text}</Button>
-              );
-            })}
-          </div>
-          <SearchInput placeholder={"搜索"}/>
           <Table
             columns={this.state.columns}
-            dataSource={this.state.data}
+            dataSource={this.state.dataSource}
             sortOrder={false}
             pagination={this.state.pagination}
-            onChange={this.onChange}
+            onChange={this._onChange}
           />
         </div>
       );
     }
+
     return null;
   }
-};
+}
+
+export default ListView;

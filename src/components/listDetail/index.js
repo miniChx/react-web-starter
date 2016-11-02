@@ -2,9 +2,10 @@
  * Created by baoyinghai on 10/25/16.
  */
 import React from 'react';
-import { Button, Row, Col } from 'mxa';
+import { Button } from 'mxa';
 import FormDetail from '../formDetail';
 
+// eslint-disable-next-line max-len
 const itemTypes = ['number', 'normal', 'normal', 'normal', 'normal', 'select', 'select', 'normal', 'cascader', 'select', 'number'];
 const options = [{
   value: 'zhejiang',
