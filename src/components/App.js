@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import { routerShape } from 'react-router';
@@ -37,10 +37,6 @@ class App extends React.Component {
     }
   }
 
-  static contextTypes = {
-    router: routerShape
-  };
-
   componentWillReceiveProps(next) {
     if (!next.session.token && this.props.session.token) {
       this.context.router.replace('/login');
@@ -48,25 +44,17 @@ class App extends React.Component {
     if (next.session.token && !this.props.session.token) {
       this.context.router.push({pathname: '/'});
     }
-      enter: true,
-    };
+
   }
 
   componentDidMount() {
     if (!this.props.session.token) {
-      this.context.router.push({ pathname: '/login' });
+      this.context.router.push({pathname: '/login'});
     }
     if (!isInitDataFromServer()) {
       longRunExec(() => {
         return this.props.dispatch(initDataFromServer());
       });
-
-  componentWillReceiveProps(next) {
-    if (!next.session.token && this.props.session.token) {
-      this.context.router.replace('/login');
-    }
-    if (next.session.token && !this.props.session.token) {
-      this.context.router.push({ pathname: '/' });
     }
   }
 
@@ -107,20 +95,20 @@ class App extends React.Component {
       if (this.props.session.token) {
         return (
           <div>
-            <Title switchMenu={this.switchMenu}/>
+            <Title switchMenu={this.switchMenu} />
             <Row className={appStyle.appContent}
                  type={this.state.menuIsOpen ? '' : 'flex'}
                  justify={this.state.menuIsOpen ? '' : 'center'}>
-              <Col span={this.state.menuIsOpen ? 4 : 0}>
+              <Col span={this.state.menuIsOpen ? 4 : 0} >
                 <Animate
                   component=""
                   showProp="show"
                   transitionName="move-left"
                 >
-                  <Div show={this.state.enter}></Div>
+                  <Div show={this.state.enter} />
                 </Animate>
               </Col>
-              <Col span={20}>{(this.props.children, { jump: this._jump, goBack: this._goBack })}</Col>
+              <Col span={20}>{React.cloneElement(this.props.children, { jump: this._jump, goBack: this._goBack })}</Col>
             </Row>
           </div>
         );
