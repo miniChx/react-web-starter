@@ -38,7 +38,6 @@ export default class ListDetail extends React.Component {
 
   constructor(props) {
     super(props);
-    this.goBack = this.goBack.bind(this);
     this.updateClick = this.updateClick.bind(this);
     //const record = this.props.state().record;
     //const columns = this.props.state().columns;
@@ -63,10 +62,6 @@ export default class ListDetail extends React.Component {
     this.setState({
       data
     });
-  }
-
-  goBack() {
-    this.props.goBack();
   }
 
   updateClick(values) {
