@@ -13,6 +13,7 @@
     "history": "^3.0.0",
     "local-storage": "^1.4.2",
     "lodash": "^4.16.4",
+    "moment": "^2.15.2",
     "mxa": "^0.1.1",
     "object-assign": "^4.1.0",
     "qs": "^6.3.0",
