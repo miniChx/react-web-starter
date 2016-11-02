@@ -27,6 +27,7 @@ export const transButtons = (data = []) => {
       return {
         text: d.buttonDescription,
         link: d.interactiveType === 'Action'? d.actionName : d.domainLink,
+        mode: d.interactiveType,
         domainType: d.domainType,
         key: d.buttonDescription,
       }
