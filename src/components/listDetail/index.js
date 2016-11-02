@@ -47,23 +47,10 @@ export default class ListDetail extends React.Component {
     //  return { label: c && c[0] && c[0].title, value: record[key] };
     //});
     this.state = {
-      data: null
+      data: this.props.dataSource
     };
   }
 
-  componentWillReceiveProps(next) {
-    if (next.initData) {
-      this.initComponent(next.initData);
-    }
-  }
-
-  // 跳转到该界面后, 有的界面需要fetch数据, 此方法会被执行
-  initComponent(data) {
-    console.log('fetchData ', data);
-    this.setState({
-      data
-    });
-  }
 
   updateClick(values) {
     console.log('updateClick' + values);

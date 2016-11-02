@@ -29,12 +29,15 @@ const AsyncDecorator = Wrapper => {
 
     render() {
       const { data } = this.state;
-      return (
-        <Wrapper
-          {...this.props}
-          initData={data}
-        />
-      );
+      if (data) {
+        return (
+          <Wrapper
+            {...this.props}
+            dataSource={data}
+          />
+        );
+      }
+      return (<div />);
     }
   }
 

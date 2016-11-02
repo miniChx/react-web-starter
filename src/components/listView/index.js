@@ -13,13 +13,7 @@ class ListView extends React.Component {
   constructor(props) {
     super(props);
     // initial state
-    this.state = {
-      columns: [],
-      dataSource: [],
-      buttons: {},
-      pagination: {},
-      filters: [],
-    };
+    this.state = this._processData(this.props.dataSource);
   }
 
   @autobind
@@ -90,12 +84,6 @@ class ListView extends React.Component {
       showSizeChanger: true
     };
     return { columns, dataSource, buttons, pagination, filters };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.initData) {
-      this.setState({ ...this._processData(nextProps.initData) });
-    }
   }
 
   @autobind
