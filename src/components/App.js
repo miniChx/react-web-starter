@@ -67,10 +67,10 @@ class App extends React.Component {
   }
 
   @autobind
-  _jump(domainLink, params, domainType, modal) {
-    if (modal === 'Page') {
+  _jump(domainLink, params, domainType, mode) {
+    if (mode === 'Page') {
       window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType }));
-    } else if (modal === 'Modal') {
+    } else if (mode === 'Modal') {
       showModal(this.props, domainType, domainLink);
     } else {
       this.context.router.push({
