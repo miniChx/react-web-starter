@@ -1,0 +1,41 @@
+{
+  "displayFields": [
+    {
+      "order": 0,
+      "fieldText": "流程名",
+      "fieldName":"processName",
+      "valueType":"String",
+      "displayStyle":"None"
+    },
+    {
+      "order": 1,
+      "fieldText": "流程描述",
+      "fieldName":"description",
+      "valueType":"String",
+      "displayStyle":"Block"
+    },
+    {
+      "order": 2,
+      "fieldText": "流程图",
+      "fieldName":"statusGraph",
+      "valueType":"image",
+      "displayStyle":"Hyperlink",
+      "displayText":"查看流程图"
+    },
+    {
+      "order": 3,
+      "fieldText":"操作",
+      "fieldName":"operation.text",
+      "valueType":"Object",
+      "displayStyle":"Button"
+    }
+  ],
+  "data":[
+    {
+      "processName":"请假…",
+      "description":"请假分为年假，事假等等",
+      "statusGraph": "http://localhost:8080/…",
+      "operation": { "text": "启动", "actionUrl":"http://localhost:8080/…" }
+    }
+  ]
+}
