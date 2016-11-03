@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { routerShape } from 'react-router';
 import { push, replace, goBack } from 'react-router-redux';
 import Animate from 'rc-animate';
 import { Row, Col } from 'mxa';
@@ -22,10 +21,6 @@ import { longRunExec } from '../system/longRunOpt';
 
 
 class App extends React.Component {
-  static contextTypes = {
-    router: routerShape
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -36,18 +31,15 @@ class App extends React.Component {
 
   componentWillReceiveProps(next) {
     if (!next.session.token && this.props.session.token) {
-      // this.context.router.replace('/login');
       this.props.dispatch(replace('/login'));
     }
     if (next.session.token && !this.props.session.token) {
-      // this.context.router.push({ pathname: '/' });
       this.props.dispatch(push('/'));
     }
   }
 
   componentDidMount() {
     if (!this.props.session.token) {
-      // this.context.router.push({ pathname: '/login' });
       this.props.dispatch(push('/login'));
     }
     if (!isInitDataFromServer()) {
@@ -65,7 +57,6 @@ class App extends React.Component {
 
   @autobind
   _goBack() {
-    // this.context.router.goBack();
     this.props.dispatch(goBack());
   }
 
