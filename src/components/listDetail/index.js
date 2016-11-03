@@ -46,9 +46,9 @@ const uploadProps = {
       console.log(info.file, info.fileList);
     }
     if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
+      message.success(`${info.file.name} 文件上传成功`);
     } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
+      message.error(`${info.file.name} 文件上传失败.`);
     }
   },
 };
@@ -63,23 +63,9 @@ class ListDetailD extends React.Component {
     this.updateClick = this.updateClick.bind(this);
     this.isUpdateClick = this.isUpdateClick.bind(this);
     this.state = {
-      data: null,
+      data: this.props.dataSource,
       isEditing: false
     };
-  }
-
-  componentWillReceiveProps(next) {
-    if (next.initData) {
-      this.initComponent(next.initData);
-    }
-  }
-
-  // 跳转到该界面后, 有的界面需要fetch数据, 此方法会被执行
-  initComponent(data) {
-    console.log('fetchData ', data);
-    this.setState({
-      data
-    });
   }
 
   updateClick(values) {
