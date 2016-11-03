@@ -4,7 +4,6 @@
 import NotMatchType from '../notMatchType';
 import ListView from '../listView';
 import ListDetail from '../listDetail';
-import Foo from '../Foo';
 import {
   StartProcess,
   ToDoProcess,
@@ -22,7 +21,7 @@ import {
 } from '../../actions/types';
 
 const defStr = 'default';
-console.log(NotMatchType);
+// console.log(NotMatchType);
 
 export default {
   [defStr]: NotMatchType,
@@ -32,5 +31,4 @@ export default {
   [PAGE_TYPE_PROCESS_TODO]: ToDoProcess,
   [PAGE_TYPE_PROCESS_FINISHED]: UnfinishedProcess,
   [PAGE_TYPE_PROCESS_UNFINISHED]: FinishedProcess,
-  foo: Foo,
 };

@@ -5,7 +5,7 @@ import { routerShape } from 'react-router';
 import { autobind } from 'core-decorators';
 import { Button, Modal, Tooltip } from 'mxa';
 import Qs from 'qs';
-import { CONTAINER_PRE } from '../../router';
+import { CONTAINER_PRE } from '../../routes';
 import { showModal } from '../pageContainer/ModalWrapper';
 import { PFetch } from '../../network/fetch';
 
@@ -114,4 +114,3 @@ class ExtendButton extends React.Component {
 }
 
 export default ExtendButton;
-
