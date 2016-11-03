@@ -9,7 +9,7 @@ import Compose from '../../common/utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
 import InitDecorator from './InitDecorator';
 
-const showModal = (props, domainType, domainLink) => {
+const showModal = (params, domainType, domainLink) => {
   const maskDiv = document.createElement('div');
   document.body.appendChild(maskDiv);
 
@@ -23,7 +23,7 @@ const showModal = (props, domainType, domainLink) => {
   const ModalPage = Compose(AsyncDecorator, InitDecorator)();
   const maskModal = (
     <MaskLayer visible={true} onCancel={_close}>
-      <ModalPage {...props} domainType={domainType} domainLink={domainLink} />
+      <ModalPage params={params} domainType={domainType} domainLink={domainLink} />
     </MaskLayer>
   );
 

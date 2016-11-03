@@ -9,10 +9,6 @@ import { Row, Col } from 'mxa';
 // import Footer from './layout/Footer';
 
 import { autobind } from 'core-decorators';
-import Qs from 'qs';
-
-import { CONTAINER_PRE } from '../router';
-import { showModal } from './pageContainer/ModalWrapper';
 
 import '../styles/global/index.less';
 import appStyle from '../styles/views/app.less';
@@ -67,20 +63,6 @@ class App extends React.Component {
   }
 
   @autobind
-  _jump(domainLink, params, domainType, mode) {
-    if (mode === 'Page') {
-      window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType }));
-    } else if (mode === 'Modal') {
-      showModal(this.props, domainType, domainLink);
-    } else {
-      this.context.router.push({
-        pathname: '/' + CONTAINER_PRE + domainLink,
-        query: { ...params, domainType }
-      });
-    }
-  }
-
-  @autobind
   _goBack() {
     this.context.router.goBack();
   }
@@ -108,7 +90,7 @@ class App extends React.Component {
                   <Div show={this.state.enter} />
                 </Animate>
               </Col>
-              <Col span={20}>{React.cloneElement(this.props.children, { jump: this._jump, goBack: this._goBack })}</Col>
+              <Col span={20}>{React.cloneElement(this.props.children, { goBack: this._goBack })}</Col>
             </Row>
           </div>
         );

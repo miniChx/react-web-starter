@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Select, Modal } from 'mxa';
+import { Table, Button, Select } from 'mxa';
 import SearchInput from '../searchInput/index';
+import ExtendButton from '../button';
 
 import styles from '../../styles/views/listview.less';
 
@@ -17,34 +18,19 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _triggerAction(item, record) {
-    if (item.interactiveType === 'Action') {
-      // TODO. Deal with action
-      Modal.info({
-        title: '提示',
-        content: (
-          <div>确认{item.buttonDescription}{record.realName}吗？</div>
-        ),
-        onOk() {},
-      });
-    } else {
-      this.props.jump(item.domainLink, { id: record.id }, item.domainType, item.interactiveType);
-    }
-  }
-
-  @autobind
-  _renderColumnAction(text, record, buttons) {
+  _renderColumnAction(text, record, buttons) { // eslint-disable-line class-methods-use-this
     // console.log('text: ', text);
     // console.log('record: ', record);
     return (
       <div>
         {
           buttons.map(item => (
-            <a
+            <ExtendButton
+              {...item}
               key={item.buttonDescription}
+              record={record}
               className={styles.inlineButton}
-              onClick={() => this._triggerAction(item, record)}
-            >{item.buttonDescription}</a>
+            />
           ))
         }
       </div>
@@ -134,12 +120,16 @@ class ListView extends React.Component {
       <div>
         {
           this.state.buttons.top.map(item => (
-            <Button
+            <ExtendButton
+              type="button"
+              buttonProps={{
+                type: 'ghost',
+              }}
+              {...item}
               key={item.buttonDescription}
-              type="ghost"
+              record={record}
               className={styles.topButton}
-              onClick={() => this._triggerAction(item, record)}
-            >{item.buttonDescription}</Button>
+            />
           ))
         }
       </div>
