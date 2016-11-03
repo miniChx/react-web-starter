@@ -7,9 +7,9 @@ import PageConfig from './config';
 import { longRunExec } from '../../system/longRunOpt';
 
 const createPage = domainType => {
-  // console.log(PageConfig, domainType);
+  console.log(PageConfig, domainType);
   const Page = domainType ? PageConfig[domainType] : PageConfig.default;
-  return Page;
+  return Page || PageConfig.default;
 };
 
 const InitDecorator = () => {
