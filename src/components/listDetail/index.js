@@ -16,7 +16,7 @@ export default class ListDetail extends React.Component {
   }
 
   @autobind
-  switchPage(values) {
+  switchPage() {
     this.setState({
       isEditing: !this.state.isEditing
     });
