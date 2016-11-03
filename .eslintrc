@@ -22,7 +22,7 @@
     "global-require": ["warn"],
     "import/no-unresolved": ["error", { ignore: ['\.img$', '\.png$'] }],
     "max-len": ["warn", 120, 2],
-    "new-cap": ["error", { "capIsNewExceptions": [ "Compose" ] }],
+    "new-cap": ["error", { "capIsNewExceptions": [ "Compose", "PFetch" ] }],
     "no-param-reassign": ["error", { "props": false }],
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "no-underscore-dangle": ["off", { "allowAfterThis": true }],
