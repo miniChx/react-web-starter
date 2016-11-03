@@ -298,7 +298,7 @@
     },
     {
       "buttonDescription": "删除",
-      "displayPosition": "top",
+      "displayPosition": "inline",
       "interactiveType": "Action",
       "actionName": "/AccountDetail/deleteById",
       "requestParameters": [],
@@ -310,7 +310,7 @@
     },
     {
       "buttonDescription": "详情",
-      "displayPosition": "top",
+      "displayPosition": "inline",
       "interactiveType": "Modal",
       "domainLink": "/AccountDetail/render",
       "domainType": "Detail",
@@ -362,7 +362,7 @@
     {
       "fieldName": "Age",
       "displayName": "年龄",
-      "displaySeq": 1,
+      "displaySeq": 2,
       "options": [
         {
           "displayName": "全部",
