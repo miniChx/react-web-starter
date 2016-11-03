@@ -24,11 +24,13 @@ import {
 import moment from 'moment';
 import { autobind } from 'core-decorators';
 import FormItemType from '../../constant/formItemType';
+import ExtendButton from '../button';
 
 const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
 const format = 'YYYY/MM/DD';
+
 class EditorPage extends React.Component {
 
   static propTypes = {
@@ -66,13 +68,13 @@ class EditorPage extends React.Component {
               <Select style={{ width: 120 }}>
                 {item.displayComponent.items.map((i, i1) =>
                   (
-                    <Select.Option value={i}>{i}</Select.Option>
+                    <Select.Option key={'select_' + i1} value={i}>{i}</Select.Option>
                   ))}
               </Select>
             )}
           </FormItem>
         );
-      // 需要有options传入  placeholder需要修改
+      // TODO:需要有options传入  placeholder需要修改
       case FormItemType.CASCADER:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -81,9 +83,10 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.AUTOCOMPLETE:
         return null;
-      // 需要传入plainOptions 确认defaultValue的显示方式
+      // TODO:需要传入plainOptions 确认defaultValue的显示方式
       case FormItemType.CHECKBOX:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -92,7 +95,7 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
-      // 日期要显示当前数据
+      // TODO:日期要显示当前数据
       case FormItemType.DATEPICKER:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -101,6 +104,7 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.RADIO:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -114,6 +118,7 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.RATE:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -122,6 +127,7 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.SLIDER:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -130,6 +136,7 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.SWITCH:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -138,6 +145,7 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.TIMEPICKER:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -146,6 +154,7 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.TRANSFER:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -154,9 +163,10 @@ class EditorPage extends React.Component {
             )}
           </FormItem>
         );
+      // TODO: 根据后台数据创建
       case FormItemType.TREESELECT:
-
         return null;
+      // TODO: 根据后台数据创建
       case FormItemType.UPLOAD:
         return (
           <FormItem label={item.description} {...formItemLayout}>
@@ -183,6 +193,7 @@ class EditorPage extends React.Component {
   }
 
   render() {
+    const record = {};
     return (
       <div>
         <Row type="flex" justify="center">
@@ -202,7 +213,17 @@ class EditorPage extends React.Component {
         </Row>
         <Row type="flex" justify="center">
           <Col span="1">
-            <Button type="primary" onClick={() => this._updateClick()}>确认修改</Button>
+            {
+              this.props.dataSource.buttons.map(item => (
+                <ExtendButton
+                  type="button"
+                  buttonProps={{ type: 'primary' }}
+                  {...item}
+                  key={item.buttonDescription}
+                  record={record}
+                />
+              ))
+            }
           </Col>
           <Col span="1" offset={2}>
             <Button type="ghost" onClick={() => this.props.onFinished && this.props.onFinished()}>取消</Button>
