@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'mxa';
 import { autobind } from 'core-decorators';
-import { getValueByKey } from '../../common/utils/MapUtils';
+import renderCreator from './displayStyleAnalyse';
 
 /* eslint-disable */
 export default class StartProcess extends React.Component {
@@ -18,26 +18,7 @@ export default class StartProcess extends React.Component {
         title: item.fieldText,
         dataIndex: item.fieldName.split('.')[0],
         key: item.fieldName,
-        render:(text, record) => {
-          switch(item.displayStyle) {
-            case 'Block':
-              return (<span>{text}</span>);
-              break;
-            case 'Hyperlink':
-              return (<a href="#">{item.displayText}</a>);
-              break;
-            case 'Button':
-              return ( <Button
-                type="ghost"
-                onClick={() => console.log(item)}
-              >
-                {getValueByKey(record, '', ...item.fieldName.split('.'))}
-              </Button>);
-              break;
-            default:
-              return (<span>{text}</span>);
-          }
-        }
+        render:(text, record, index) => renderCreator(item.displayStyle)(item, text, record, index)
       }
     }) || [];
   }
