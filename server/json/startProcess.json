@@ -16,11 +16,10 @@
     },
     {
       "order": 2,
-      "fieldText": "流程图",
-      "fieldName":"statusGraph",
-      "valueType":"image",
-      "displayStyle":"Hyperlink",
-      "displayText":"查看流程图"
+      "fieldText": "当前节点",
+      "fieldName":"taskStatus.text",
+      "valueType":"Object",
+      "displayStyle":"Hyperlink"
     },
     {
       "order": 3,
@@ -34,8 +33,11 @@
     {
       "processName":"请假…",
       "description":"请假分为年假，事假等等",
-      "statusGraph": "http://localhost:8080/…",
-      "operation": { "text": "启动", "actionUrl":"http://localhost:8080/…" }
+      "taskStatus": { "text": "经理审批", "actionUrl": "http://localhost:8080/…" },
+      "operation": { "text": "启动", "actionUrl":"http://localhost:8080/…", "requestParams": ["processDefinitionKey"] }
+    },
+    {
+
     }
   ]
 }
