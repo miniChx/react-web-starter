@@ -64,13 +64,13 @@ class ExtendButton extends React.Component {
         confirm({
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}{this.props.record.realName}吗？</div>),
-          onOk() {
-            this._processAction(this.props.domainLink, { id: this.props.record.id });
+          onOk: () => {
+            this._processAction(this.props.actionName, { id: this.props.record.id });
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.domainLink, { id: this.props.record.id });
+        this._processAction(this.props.actionName, { id: this.props.record.id });
       }
     } else {
       // eslint-disable-next-line max-len
@@ -78,6 +78,7 @@ class ExtendButton extends React.Component {
     }
   }
 
+  @autobind
   _renderButton() {
     if (this.props.type === 'button') {
       return (
