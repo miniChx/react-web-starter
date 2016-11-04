@@ -1,7 +1,6 @@
 /**
  * Created by geweimin on 16/10/25.
  */
-/* eslint-disable */
 import React from 'react';
 import { Form, Button, Input, Row, Col, Checkbox } from 'mxa';
 import { Link } from 'react-router';
@@ -38,10 +37,10 @@ class LoginForm extends React.Component {
       }
       // 模拟登录信息出错的错误提示
       if (values.user === '1234') {
-        this.props.form.setFields({user: {errors: [{field: 'user', message: '用户名不存在'}]}});
+        this.props.form.setFields({ user: { errors: [{ field: 'user', message: '用户名不存在' }] } });
         return;
       } else if (values.user === '12345' && values.pass === '11111') {
-        this.props.form.setFields({pass: {errors: [{field: 'pass', message: '密码不正确'}]}});
+        this.props.form.setFields({ pass: { errors: [{ field: 'pass', message: '密码不正确' }] } });
         return;
       }
 
@@ -57,8 +56,8 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const config = this.props.config ? this.props.config : {};
     const formItemLayout = {
-      labelCol: {span: 7},
-      wrapperCol: {span: 14}
+      labelCol: { span: 7 },
+      wrapperCol: { span: 14 }
     };
     return (
       <div>
@@ -67,17 +66,17 @@ class LoginForm extends React.Component {
           <FormItem label={config.userLabel ? config.userLabel : '手机号'} {...formItemLayout}>
             {getFieldDecorator('user', {
               rules: [
-                {required: true, message: '请输入用户名'}
+                { required: true, message: '请输入用户名' }
               ]
             })(
-              <Input placeholder={config.userPlaceHolder ? config.userPlaceHolder : '手机号'}/>
+              <Input placeholder={config.userPlaceHolder ? config.userPlaceHolder : '手机号'} />
             )}
           </FormItem>
 
           <FormItem label={config.passLabel ? config.passLabel : '密码'} {...formItemLayout}>
             {getFieldDecorator('pass', {
               rules: [
-                {required: true, message: '请输入密码'}
+                { required: true, message: '请输入密码' }
               ]
             })(
               <Input
@@ -117,6 +116,6 @@ class LoginForm extends React.Component {
 
 
 }
-/* eslint-disable */
-export default LoginForm = Form.create()(LoginForm);
+
+export default Form.create()(LoginForm);
 
