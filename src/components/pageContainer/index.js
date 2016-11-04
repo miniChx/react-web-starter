@@ -9,7 +9,6 @@ import InitDecorator from './InitDecorator';
 
 import { searchMenu } from '../../service/CacheService';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class PageContainer extends React.Component {
   constructor(props) {
     super(props);

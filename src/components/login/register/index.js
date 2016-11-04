@@ -1,30 +1,19 @@
 /**
  * Created by baoyinghai on 10/26/16.
  */
-/* eslint-disable */
 import React from 'react';
-import { Button, Table, Icon, Select } from 'mxa';
-import { routerShape } from 'react-router';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import RegisterForm from '../registerForm';
-export default class Register extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-  static contextTypes = {
-    router: routerShape
-  };
-
-  completeClick () {
-
-  }
-
+class Register extends React.Component {
   render() {
     return (
       <div>
-        <RegisterForm backClick={() => this.context.router.push({ pathname: '/login' })}/>
+        <RegisterForm backClick={() => this.props.dispatch(push('/login'))} />
       </div>
     );
   }
 }
+
+export default connect()(Register);

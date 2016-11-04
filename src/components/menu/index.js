@@ -2,38 +2,27 @@
  * Created by baoyinghai on 10/18/16.
  */
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import { Link } from 'react-router';
-
+import { autobind } from 'core-decorators';
 import { Menu } from 'mxa';
-
 import { searchMenu } from '../../service/CacheService';
-
 import { getValueByKey } from '../../common/utils/MapUtils';
-
-import { CONTAINER_PRE } from '../../router';
+import { CONTAINER_PRE } from '../../routes';
 
 const SubMenu = Menu.SubMenu;
 
-/* eslint-disable */
 class MenuCreator extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-    this.subMenuClick = this.subMenuClick.bind(this);
-    this.getMenuInfo = this.getMenuInfo.bind(this);
-    this.getOpenKeys = this.getOpenKeys.bind(this);
     let state = {
       current: '',
       openKeys: []
     };
     const { linkInfo, indexPath } = this.getMenuInfo(this.props.routing);
     if (linkInfo) {
-      const openKeys = this.getOpenKeys(indexPath, this.props.menu)
+      const openKeys = this.getOpenKeys(indexPath, this.props.menu);
       state = {
         current: linkInfo.menuCode,
         openKeys
@@ -43,6 +32,7 @@ class MenuCreator extends React.Component {
   }
 
   // 根据路由变化, 获得路由信息
+  @autobind
   getMenuInfo(routing) {
     const path = getValueByKey(routing, null, 'locationBeforeTransitions', 'pathname');
     const start = ('/' + CONTAINER_PRE + '/').length;
@@ -52,11 +42,12 @@ class MenuCreator extends React.Component {
   }
 
   // 获取要展开的菜单key数组
+  @autobind
   getOpenKeys(indexPath, menu) {
     indexPath.pop();
     const openKeys = [];
     let temp = menu;
-    indexPath.every((index) => {
+    indexPath.every(index => {
       openKeys.push(temp[index] && temp[index].menuCode);
       temp = temp[index] && temp[index].subMenus;
       return temp;
@@ -65,6 +56,7 @@ class MenuCreator extends React.Component {
   }
 
   // 控制选中的菜单项
+  @autobind
   handleClick(e) {
     this.setState({
       current: e.key,
@@ -72,6 +64,7 @@ class MenuCreator extends React.Component {
   }
 
   // 控制菜单的展开和闭合
+  @autobind
   subMenuClick(e) {
     const index = this.state.openKeys.lastIndexOf(e.key);
     if (index === -1) {
@@ -85,10 +78,10 @@ class MenuCreator extends React.Component {
     }
   }
 
-  componentWillReceiveProps(next){
+  componentWillReceiveProps(next) {
     const { linkInfo, indexPath } = this.getMenuInfo(next.routing);
     if (linkInfo) {
-      const openKeys = this.getOpenKeys(indexPath, this.props.menu)
+      const openKeys = this.getOpenKeys(indexPath, this.props.menu);
       this.setState({
         current: linkInfo.menuCode,
         openKeys
@@ -96,13 +89,12 @@ class MenuCreator extends React.Component {
     }
   }
 
+  @autobind
   renderMenuItem(item) {
     if (item && item.subMenus && item.subMenus.length > 0) {
       return (
         <SubMenu key={item.menuCode} title={<span>{item.menuValue}</span>} onTitleClick={this.subMenuClick}>
-          {item.subMenus.map((subItem) => {
-            return this.renderMenuItem(subItem);
-          })}
+          {item.subMenus.map(subItem => this.renderMenuItem(subItem))}
         </SubMenu>
       );
     }
@@ -117,12 +109,12 @@ class MenuCreator extends React.Component {
 
   render() {
     return (
-      <Menu onClick={this.handleClick}
-            defaultOpenKeys={this.state.openKeys}
-            selectedKeys={[this.state.current]}
-            ref="mainMenu"
-            openKeys={this.state.openKeys}
-            mode="inline"
+      <Menu
+        onClick={this.handleClick}
+        defaultOpenKeys={this.state.openKeys}
+        selectedKeys={[this.state.current]}
+        openKeys={this.state.openKeys}
+        mode="inline"
       >
         {this.props.menu && this.props.menu.map((item => this.renderMenuItem(item)))}
       </Menu>
@@ -130,11 +122,10 @@ class MenuCreator extends React.Component {
   }
 }
 
+// eslint-disable-next-line arrow-body-style
 const mapStateToProps = state => ({
   menu: state.menu,
   routing: state.routing
 });
 
 export default connect(mapStateToProps)(MenuCreator);
-
-
