@@ -18,9 +18,7 @@ export default class StartProcess extends React.Component {
         title: item.fieldText,
         dataIndex: item.fieldName.split('.')[0],
         key: item.fieldName,
-        render:(text, record, index) => {
-          renderCreator(item.displayStyle)(item, text, record, index);
-        }
+        render:(text, record, index) => renderCreator(item.displayStyle)(item, text, record, index)
       }
     }) || [];
   }
