@@ -24,14 +24,21 @@
     },
     {
       "order": 3,
-      "fieldText": "流程状态图",
-      "fieldName":"statusGraph",
-      "valueType":"image",
-      "displayStyle":"Hyperlink",
-      "displayText":"当前状态图"
+      "fieldText":"流程已停滞 /小时",
+      "fieldName":"stagnationPeriod",
+      "valueType":"String",
+      "displayStyle":"None",
+      "pattern":"PTH"
     },
     {
       "order": 4,
+      "fieldText": "当前节点",
+      "fieldName":"statusGraph.text",
+      "valueType":"Object",
+      "displayStyle":"Hyperlink"
+    },
+    {
+      "order": 5,
       "fieldText": "操作",
       "fieldName":"operation.text",
       "valueType":"Object",
@@ -43,8 +50,9 @@
       "processName":"请假…",
       "priority":"高/中/低",
       "startTime":"2016-10-11 10:30",
-      "statusGraph": "http://localhost:8080/…",
-      "operation": { "text": "操作/办理", "actionUrl":"http://localhost:8080" }
+      "stagnationPeriod":"2016-10-11 10:30",
+      "statusGraph": { "text": "经理审批", "actionUrl": "http://localhost:8080/…" },
+      "operation": { "text": "操作/办理", "actionUrl":"http://localhost:8080", "requestParams": ["processInstanceId", "taskId", "bizKey"] }
     },
     {
 

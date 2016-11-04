@@ -6,13 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'mxa';
 
-/* eslint-disable */
 class Loading extends React.Component {
-
-  constructor(prop){
-    super(prop);
-  }
-
   render() {
     if (this.props.showLoading) {
       return (
@@ -21,7 +15,7 @@ class Loading extends React.Component {
         </div>
       );
     }
-    return <div /> ;
+    return <div />;
   }
 }
 

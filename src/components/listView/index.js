@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Select } from 'mxa';
+import { Table, Select } from 'mxa';
 import SearchInput from '../searchInput/index';
 import ExtendButton from '../button';
 

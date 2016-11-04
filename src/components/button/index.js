@@ -1,21 +1,18 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import { routerShape } from 'react-router';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
 import { Button, Modal, Tooltip } from 'mxa';
 import Qs from 'qs';
-import { CONTAINER_PRE } from '../../router';
+import { CONTAINER_PRE } from '../../routes';
 import { showModal } from '../pageContainer/ModalWrapper';
 import { PFetch } from '../../network/fetch';
 
 const confirm = Modal.confirm;
 
 class ExtendButton extends React.Component {
-  static contextTypes = {
-    router: routerShape,
-  };
-
   static propTypes = {
     record: React.PropTypes.object,
     type: React.PropTypes.oneOf(['button', 'link']),
@@ -28,10 +25,10 @@ class ExtendButton extends React.Component {
     } else if (mode === 'Modal') {
       showModal(params, domainType, domainLink);
     } else {
-      this.context.router.push({
+      this.props.dispatch(push({
         pathname: '/' + CONTAINER_PRE + domainLink,
         query: { ...params, domainType }
-      });
+      }));
     }
   }
 
@@ -67,13 +64,13 @@ class ExtendButton extends React.Component {
         confirm({
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}{this.props.record.realName}吗？</div>),
-          onOk() {
-            this._processAction(this.props.domainLink, { id: this.props.record.id });
+          onOk: () => {
+            this._processAction(this.props.actionName, { id: this.props.record.id });
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.domainLink, { id: this.props.record.id });
+        this._processAction(this.props.actionName, { id: this.props.record.id });
       }
     } else {
       // eslint-disable-next-line max-len
@@ -81,6 +78,7 @@ class ExtendButton extends React.Component {
     }
   }
 
+  @autobind
   _renderButton() {
     if (this.props.type === 'button') {
       return (
@@ -113,5 +111,4 @@ class ExtendButton extends React.Component {
   }
 }
 
-export default ExtendButton;
-
+export default connect()(ExtendButton);
