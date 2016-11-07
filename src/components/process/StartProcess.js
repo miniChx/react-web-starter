@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'mxa';
 import { autobind } from 'core-decorators';
-import renderCreator from './displayStyleAnalyse';
+import renderCreator from './DisplayStyleAnalyser';
 
 /* eslint-disable */
 export default class StartProcess extends React.Component {
