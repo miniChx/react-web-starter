@@ -300,6 +300,7 @@
       "buttonDescription": "删除",
       "displayPosition": "inline",
       "interactiveType": "Action",
+      "messagePromptType": "confirm",
       "actionName": "/AccountDetail/deleteById",
       "requestParameters": [],
       "roles": [
