@@ -7,19 +7,7 @@ export const getButtonsActionNameWithActionType = (buttonsBean, actionType) => {
   if (buttonsBean && actionType) {
     buttonsBean.forEach((item) => {
       if (item.actionType === actionType) {
-        actionUrl = item.key;
-      }
-    });
-  }
-  return actionUrl;
-};
-
-export const getButtonsActionNameWithActionText = (buttonsBean, actionText) => {
-  let actionUrl = null;
-  if (buttonsBean && actionText) {
-    buttonsBean.forEach((item) => {
-      if (item.text === actionText) {
-        actionUrl = item.key;
+        actionUrl = item.actionName;
       }
     });
   }
