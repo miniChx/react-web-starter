@@ -8,6 +8,7 @@ import {
   Col,
   Button
 } from 'mxa';
+import sha256 from 'sha256';
 
 export default class InfoPage extends React.Component {
 
@@ -38,7 +39,14 @@ export default class InfoPage extends React.Component {
         }
         <Row type="flex" justify="center">
           <Col>
-            <Button type="primary" onClick={() => this.props.onEdit && this.props.onEdit()}>编辑</Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                this.props.onEdit && this.props.onEdit();
+              }}
+            >
+              编辑
+            </Button>
           </Col>
         </Row>
       </div>
