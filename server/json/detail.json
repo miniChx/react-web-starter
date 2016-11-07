@@ -193,9 +193,11 @@
   "buttons": [
     {
       "buttonDescription": "保存",
-      "actionType": "DoAction",
-      "domainLink": null,
-      "actionName": "/Account/update",
+      "displayPosition": "inline",
+      "interactiveType": "Modal",
+      "domainLink": "/AccountDetail/render",
+      "domainType": "Detail",
+      "requestParameters": [],
       "roles": [
         "Role1",
         "Role2",

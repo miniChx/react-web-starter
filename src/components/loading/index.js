@@ -5,24 +5,17 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Spin } from 'mxa';
-import styles from '../../styles/views/cps.less';
 
-/* eslint-disable */
 class Loading extends React.Component {
-
-  constructor(prop){
-    super(prop);
-  }
-
   render() {
     if (this.props.showLoading) {
       return (
-        <div className={styles.mask}>
+        <div className="loading-mask">
           <Spin size="large" />
         </div>
       );
     }
-    return <div /> ;
+    return <div />;
   }
 }
 

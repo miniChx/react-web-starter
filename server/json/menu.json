@@ -78,16 +78,59 @@
     },
     {
       "menuCode": "caseManagement",
-      "menuValue": "案例管理",
+      "menuValue": "流程管理",
       "displaySequence": 2,
-      "domainLink": "/DemoManageList/render",
-      "domainType": "List",
       "roleCodes": [
         "Role1",
         "Role3",
         "Role4"
       ],
-      "subMenus": null
+      "subMenus": [
+        {
+          "menuCode": "start",
+          "menuValue": "发起流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/start",
+          "domainType": "ProcessStart",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "todo",
+          "menuValue": "待办的流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/todo",
+          "domainType": "ProcessTodo",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "unfinished",
+          "menuValue": "未完成的流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/unfinished",
+          "domainType": "ProcessUnFinished",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "finished",
+          "menuValue": "已完成的流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/finished",
+          "domainType": "ProcessFinished",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        }
+      ]
     }
   ]
 }

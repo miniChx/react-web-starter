@@ -1,0 +1,61 @@
+{
+  "displayFields": [
+    {
+      "order": 0,
+      "fieldText": "流程名",
+      "fieldName":"processName",
+      "valueType":"String",
+      "displayStyle":"None"
+    },
+    {
+      "order": 1,
+      "fieldText": "等级",
+      "fieldName":"priority",
+      "valueType":"String",
+      "displayStyle":"None"
+    },
+    {
+      "order": 2,
+      "fieldText": "流程开始时间",
+      "fieldName":"startTime",
+      "valueType":"Date",
+      "displayStyle":"None",
+      "pattern":"yyyy-MM-dd hh:mm"
+    },
+    {
+      "order": 3,
+      "fieldText":"流程已停滞 /小时",
+      "fieldName":"stagnationPeriod",
+      "valueType":"String",
+      "displayStyle":"None",
+      "pattern":"PTH"
+    },
+    {
+      "order": 4,
+      "fieldText": "当前节点",
+      "fieldName":"statusGraph.text",
+      "valueType":"Object",
+      "displayStyle":"Hyperlink"
+    },
+    {
+      "order": 5,
+      "fieldText": "操作",
+      "fieldName":"operation.text",
+      "valueType":"Object",
+      "displayStyle":"Button"
+    }
+  ],
+  "data":[
+    {
+      "processName":"请假…",
+      "priority":"高/中/低",
+      "startTime":"2016-10-11 10:30",
+      "stagnationPeriod":"2016-10-11 10:30",
+      "statusGraph": { "text": "经理审批", "actionUrl": "http://localhost:8080/…" },
+      "operation": { "text": "操作/办理", "actionUrl":"http://localhost:8080", "requestParams": ["processInstanceId", "taskId", "bizKey"] }
+    },
+    {
+
+    }
+  ]
+}

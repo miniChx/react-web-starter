@@ -160,10 +160,11 @@ module.exports = {
   },
 
   eslint: {
-    emitWarning: true,
-    emitError: true,
+    emitWarning: false,
+    emitError: false,
     quiet: true,
     failOnWarning: false,
+    failOnError: false,
   },
 
   // We use PostCSS for autoprefixing only.

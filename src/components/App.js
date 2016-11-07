@@ -1,7 +1,7 @@
-/* eslint-disable */
+
 import React from 'react';
 import { connect } from 'react-redux';
-import { routerShape } from 'react-router';
+import { push, replace, goBack } from 'react-router-redux';
 import Animate from 'rc-animate';
 import { Row, Col } from 'mxa';
 
@@ -9,10 +9,6 @@ import { Row, Col } from 'mxa';
 // import Footer from './layout/Footer';
 
 import { autobind } from 'core-decorators';
-import Qs from 'qs';
-
-import { CONTAINER_PRE } from '../router';
-import { showModal } from './pageContainer/ModalWrapper';
 
 import '../styles/global/index.less';
 import appStyle from '../styles/views/app.less';
@@ -23,38 +19,31 @@ import { isInitDataFromServer } from '../service/CacheService';
 import { initDataFromServer } from '../actions/initDataFromServer';
 import { longRunExec } from '../system/longRunOpt';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class App extends React.Component {
-  static contextTypes = {
-    router: routerShape
-  };
 
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       menuIsOpen: true,
       enter: true
-    }
+    };
   }
 
   componentWillReceiveProps(next) {
     if (!next.session.token && this.props.session.token) {
-      this.context.router.replace('/login');
+      this.props.dispatch(replace('/login'));
     }
     if (next.session.token && !this.props.session.token) {
-      this.context.router.push({pathname: '/'});
+      this.props.dispatch(push('/'));
     }
-
   }
 
   componentDidMount() {
     if (!this.props.session.token) {
-      this.context.router.push({pathname: '/login'});
+      this.props.dispatch(push('/login'));
     }
     if (!isInitDataFromServer()) {
-      longRunExec(() => {
-        return this.props.dispatch(initDataFromServer());
-      });
+      longRunExec(() => this.props.dispatch(initDataFromServer()));
     }
   }
 
@@ -67,26 +56,12 @@ class App extends React.Component {
   }
 
   @autobind
-  _jump(domainLink, params, domainType, mode) {
-    if (mode === 'Page') {
-      window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType }));
-    } else if (mode === 'Modal') {
-      showModal(this.props, domainType, domainLink);
-    } else {
-      this.context.router.push({
-        pathname: '/' + CONTAINER_PRE + domainLink,
-        query: { ...params, domainType }
-      });
-    }
-  }
-
-  @autobind
   _goBack() {
-    this.context.router.goBack();
+    this.props.dispatch(goBack());
   }
 
   render() {
-    const Div = props => {
+    const MenuModule = props => {
       const { style, show } = props;
       const newStyle = { ...style, display: show ? '' : 'none' };
       return <Menu {...props} style={newStyle} />;
@@ -96,19 +71,21 @@ class App extends React.Component {
         return (
           <div>
             <Title switchMenu={this.switchMenu} />
-            <Row className={appStyle.appContent}
-                 type={this.state.menuIsOpen ? '' : 'flex'}
-                 justify={this.state.menuIsOpen ? '' : 'center'}>
+            <Row
+              className={appStyle.appContent}
+              type={this.state.menuIsOpen ? '' : 'flex'}
+              justify={this.state.menuIsOpen ? '' : 'center'}
+            >
               <Col span={this.state.menuIsOpen ? 4 : 0} >
                 <Animate
                   component=""
                   showProp="show"
                   transitionName="move-left"
                 >
-                  <Div show={this.state.enter} />
+                  <MenuModule show={this.state.enter} />
                 </Animate>
               </Col>
-              <Col span={20}>{React.cloneElement(this.props.children, { jump: this._jump, goBack: this._goBack })}</Col>
+              <Col span={20}>{React.cloneElement(this.props.children, { goBack: this._goBack })}</Col>
             </Row>
           </div>
         );
@@ -122,7 +99,6 @@ class App extends React.Component {
     return (<div />);
   }
 }
-
 
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = state => ({

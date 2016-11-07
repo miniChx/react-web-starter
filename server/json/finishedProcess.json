@@ -1,0 +1,54 @@
+{
+  "displayFields": [
+    {
+      "order": 0,
+      "fieldText": "流程名",
+      "fieldName":"processName",
+      "valueType":"String",
+      "displayStyle":"None"
+    },
+    {
+      "order": 1,
+      "fieldText": "流程开始时间",
+      "fieldName":"startTime",
+      "valueType":"Date",
+      "displayStyle":"None",
+      "pattern":"yyyy-MM-dd hh:mm"
+    },
+    {
+      "order": 2,
+      "fieldText": "流程结束时间",
+      "fieldName":"endTime",
+      "valueType":"Date",
+      "displayStyle":"None",
+      "pattern":"yyyy-MM-dd hh:mm"
+    },
+    {
+      "order": 3,
+      "fieldText": "流程用时",
+      "fieldName":"duration",
+      "valueType":"String",
+      "displayStyle":"None",
+      "pattern":"PTH"
+    },
+    {
+      "order": 4,
+      "fieldText": "当前节点",
+      "fieldName":"taskStatus.text",
+      "valueType":"Object",
+      "displayStyle":"Hyperlink"
+    }
+  ],
+  "data":[
+    {
+      "processName":"请假…",
+      "startTime":"2016-10-11 10:30",
+      "endTime": "2016-10-11 12:30",
+      "duration": "12h",
+      "statusGraph": "http://localhost:8080/…"
+    },
+    {
+
+    }
+  ]
+}

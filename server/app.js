@@ -30,6 +30,26 @@ app.post('/AccountDetail/render', function (req, res) {
   res.json(detailJson);
 });
 
+app.post('/Process/start', function (req, res) {
+  var detailJson = require('./json/startProcess.json');
+  res.json(detailJson);
+});
+
+app.post('/Process/todo', function (req, res) {
+  var detailJson = require('./json/toDoProcess.json');
+  res.json(detailJson);
+});
+
+app.post('/Process/finished', function (req, res) {
+  var detailJson = require('./json/finishedProcess.json');
+  res.json(detailJson);
+});
+
+app.post('/Process/unfinished', function (req, res) {
+  var detailJson = require('./json/unfinishedProcess.json');
+  res.json(detailJson);
+});
+
 // app.post('/*', function (req, res) {
 //   Redirect(req.url, req.body,  function (chunk) {
 //     console.log('BODY: ' + JSON.stringify(chunk));

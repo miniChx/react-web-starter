@@ -1,0 +1,61 @@
+{
+  "displayFields": [
+    {
+      "order": 0,
+      "fieldText": "流程名",
+      "fieldName":"processName",
+      "valueType":"String",
+      "displayStyle":"None"
+    },
+    {
+      "order": 1,
+      "fieldText": "等级",
+      "fieldName":"priority",
+      "valueType":"String",
+      "displayStyle":"None"
+    },
+    {
+      "order": 2,
+      "fieldText": "流程开始时间",
+      "fieldName":"startTime",
+      "valueType":"Date",
+      "displayStyle":"None",
+      "pattern":"yyyy-MM-dd hh:mm"
+    },
+    {
+      "order": 3,
+      "fieldText": "当前节点",
+      "fieldName":"taskStatus.text",
+      "valueType":"Object",
+      "displayStyle":"Hyperlink"
+    },
+    {
+      "order": 4,
+      "fieldText": "详情",
+      "fieldName": "entityDetail",
+      "valueType": "Object",
+      "displayStyle": "Button",
+      "displayText":"查看"
+    },
+    {
+      "order": 5,
+      "fieldText": "操作",
+      "fieldName":"operation.text",
+      "valueType":"Object",
+      "displayStyle":"Button"
+    }
+  ],
+  "data":[
+    {
+      "processName":"请假…",
+      "priority":"高/中/低",
+      "startTime":"2016-10-11 10:30",
+      "taskStatus": { "text": "经理审批", "actionUrl": "http://localhost:8080/…" },
+      "entityDetail": { "text": "", "actionUrl": "http://localhost:8080", "requestParams": ["processInstanceId","bizKey"] },
+      "operation": { "text": "挂起/激活", "actionUrl":"http://localhost:8080", "requestParams": ["processInstanceId"] }
+    },
+    {
+
+    }
+  ]
+}

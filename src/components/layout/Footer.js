@@ -1,7 +1,7 @@
 import React from 'react';
 import { version as mxaVersion } from 'mxa/package.json';
 
-// eslint-disable-next-line react/prefer-stateless-function
+
 class Footer extends React.Component {
   render() {
     return (
