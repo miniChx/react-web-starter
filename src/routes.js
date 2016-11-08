@@ -7,6 +7,7 @@ import {
   Login,
   Register,
   FindPwd,
+  Role
 } from './components';
 import { getToken } from './service/CacheService';
 
@@ -26,6 +27,7 @@ const routes = {
   indexRoute: { component: Home },
   childRoutes: [
     { path: '/home', component: Home },
+    { path: '/role', component: Role },
     { path: '/login', component: Login, onEnter: userIsInATeam },
     { path: '/register', component: Register, onEnter: userIsInATeam },
     { path: '/findPwd', component: FindPwd, onEnter: userIsInATeam },
