@@ -10,4 +10,3 @@ export PageContainer from './pageContainer';
 export Login from './login';
 export Register from './login/register';
 export FindPwd from './login/findPwd';
-export Role from './role';

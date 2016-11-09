@@ -6,6 +6,8 @@ import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Button } from 'mxa';
 
+import styles from '../../styles/views/listview.less';
+
 export default class Role extends React.Component {
 
   constructor(props) {
@@ -13,21 +15,19 @@ export default class Role extends React.Component {
   }
 
   @autobind
-  columnAdapter() {
-    return this.props.dataSource && this.props.dataSource.displayFields && this.props.dataSource.displayFields.map((item) => {
-        return {
-          ...item,
-          title: item.fieldText,
-          dataIndex: item.fieldName.split('.')[0],
-          key: item.fieldName,
-          render:(text, record, index) => renderCreator(item.displayStyle)(item, text, record, index)
-        }
-      }) || [];
+  _renderColumnAction() {
+    return (
+      <div>
+        <a className={styles.inlineButton}>详情</a>
+        <a className={styles.inlineButton}>编辑</a>
+        <a className={styles.inlineButton}>删除</a>
+      </div>
+    );
   }
 
   @autobind
-  dataSourceAdapter() {
-    return this.props.dataSource && this.props.dataSource.data && this.props.dataSource.data.map((item, index) => {
+  _dataSourceAdapter() {
+    return this.props.dataSource && this.props.dataSource.roles && this.props.dataSource.roles.map((item, index) => {
         return {
           ...item,
           key: index
@@ -44,28 +44,21 @@ export default class Role extends React.Component {
       title: '角色名称',
       dataIndex: 'roleValue',
       key: 'roleValue',
+    }, {
+      title: '操作',
+      key: 'operation',
+      fixed: 'right',
+      width: 200,
+      render: () => this._renderColumnAction(),
     }];
-
-    const dataSource = [
-      {
-        "roleCode": "Role1",
-        "roleValue": "角色1"
-      },
-      {
-        "roleCode": "Role10",
-        "roleValue": "角色10"
-      },
-      {
-        "roleCode": "Role11",
-        "roleValue": "角色11"
-      }
-    ];
 
     return (
       <div>
+        <Button className={styles.topButton}>添加角色</Button>
+        <Button className={styles.topButton}>角色授权</Button>
         <Table
           columns={columns}
-          dataSource={dataSource}
+          dataSource={this._dataSourceAdapter()}
         />
       </div>
     );

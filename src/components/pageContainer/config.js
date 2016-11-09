@@ -4,6 +4,7 @@
 import NotMatchType from '../notMatchType';
 import ListView from '../listView';
 import ListDetail from '../listDetail';
+import Role from '../role';
 import {
   StartProcess,
   ToDoProcess,
@@ -14,6 +15,7 @@ import {
 import {
   PAGE_TYPE_LIST,
   PAGE_TYPE_DETAIL,
+  PAGE_TYPE_ROLE,
   PAGE_TYPE_PROCESS_START,
   PAGE_TYPE_PROCESS_TODO,
   PAGE_TYPE_PROCESS_FINISHED,
@@ -27,6 +29,7 @@ export default {
   [defStr]: NotMatchType,
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
+  [PAGE_TYPE_ROLE]: Role,
   [PAGE_TYPE_PROCESS_START]: StartProcess,
   [PAGE_TYPE_PROCESS_TODO]: StartProcess,
   [PAGE_TYPE_PROCESS_FINISHED]: StartProcess,
