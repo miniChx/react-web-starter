@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import { Button } from 'mxa';
-import { getValueByKey } from '../../common/utils/MapUtils';
+import { getValueByKey } from '../../../common/utils/MapUtils';
 import actionTrigger from './ActionAnalyser';
 
-
+// TODO: 份文件
 const BlockAnalyser = (item, text, record, index) => (<span>{text}</span>);
 
 const HyperlinkAnalyser = (item, text, record, index) => {

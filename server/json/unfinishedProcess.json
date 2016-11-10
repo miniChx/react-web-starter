@@ -9,13 +9,6 @@
     },
     {
       "order": 1,
-      "fieldText": "等级",
-      "fieldName":"priority",
-      "valueType":"String",
-      "displayStyle":"None"
-    },
-    {
-      "order": 2,
       "fieldText": "流程开始时间",
       "fieldName":"startTime",
       "valueType":"Date",
@@ -23,14 +16,14 @@
       "pattern":"yyyy-MM-dd hh:mm"
     },
     {
-      "order": 3,
+      "order": 2,
       "fieldText": "当前节点",
       "fieldName":"taskStatus.text",
       "valueType":"Object",
       "displayStyle":"Hyperlink"
     },
     {
-      "order": 4,
+      "order": 3,
       "fieldText": "详情",
       "fieldName": "entityDetail",
       "valueType": "Object",
@@ -38,7 +31,7 @@
       "displayText":"查看"
     },
     {
-      "order": 5,
+      "order": 4,
       "fieldText": "操作",
       "fieldName":"operation.text",
       "valueType":"Object",
@@ -48,7 +41,6 @@
   "data":[
     {
       "processName":"请假…",
-      "priority":"高/中/低",
       "startTime":"2016-10-11 10:30",
       "taskStatus": { "text": "经理审批", "actionUrl": "http://localhost:8080/…" },
       "entityDetail": { "text": "", "actionUrl": "http://localhost:8080", "requestParams": ["processInstanceId","bizKey"] },
@@ -56,6 +48,26 @@
     },
     {
 
+    }
+  ],
+  "filters":[
+    {
+      "order": 0,
+      "label": "流程名",
+      "valueType": "String",
+      "formProperty0": "processDefinitionKey",
+      "displayStyle": "DropDownList",
+      "acceptInput": false,
+      "optionalValues":[{ "itemText": "A", "itemValue": "a" }]
+    },
+    {
+      "order": 1,
+      "label": "任务结束于",
+      "formProperty0": "taskCommitDate",
+      "valueType": "Date",
+      "displayStyle": "DropDownList",
+      "acceptInput": true,
+      "optionalValues":[{"itemText":"不限", "itemValue": null}, {"itemText": "24小时","itemValue":"${ var itemVar = new Date(); itemVar.setDate(itemVar.getDate()-1);}"}]
     }
   ]
 }
