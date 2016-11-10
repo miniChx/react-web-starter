@@ -73,6 +73,18 @@
             "Role2"
           ],
           "subMenus": null
+        },
+        {
+          "menuCode": "roleManagement",
+          "menuValue": "角色管理",
+          "displaySequence": 3,
+          "domainLink": "/RoleManagement",
+          "domainType": "Custom",
+          "roleCodes": [
+            "Role1",
+            "Role2"
+          ],
+          "subMenus": null
         }
       ]
     },

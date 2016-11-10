@@ -5,10 +5,12 @@ import NotMatchType from '../notMatchType';
 import ListView from '../listView';
 import ListDetail from '../listDetail';
 import Process from '../process';
+import Role from '../role';
 
 import {
   PAGE_TYPE_LIST,
   PAGE_TYPE_DETAIL,
+  PAGE_TYPE_ROLE,
   PAGE_TYPE_PROCESS,
 } from '../../constant/dictActions';
 
@@ -19,5 +21,6 @@ export default {
   [defStr]: NotMatchType,
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
+  [PAGE_TYPE_ROLE]: Role,
   [PAGE_TYPE_PROCESS]: Process,
 };
