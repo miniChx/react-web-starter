@@ -4,10 +4,10 @@ import { push } from 'react-router-redux';
 
 import homeStyle from '../styles/views/home.less';
 
-class Home extends React.Component {
+export class Home extends React.Component {
   render() {
     return (
-      <div>
+      <div className="home">
         <div className={homeStyle.jump}>
           <a onClick={() => this.props.dispatch(push('/page_container/AccountList/render'))}>跳转到用户管理</a>
         </div>
