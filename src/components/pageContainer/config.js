@@ -4,20 +4,12 @@
 import NotMatchType from '../notMatchType';
 import ListView from '../listView';
 import ListDetail from '../listDetail';
-import {
-  StartProcess,
-  ToDoProcess,
-  UnfinishedProcess,
-  FinishedProcess
-} from '../process';
+import Process from '../process';
 
 import {
   PAGE_TYPE_LIST,
   PAGE_TYPE_DETAIL,
-  PAGE_TYPE_PROCESS_START,
-  PAGE_TYPE_PROCESS_TODO,
-  PAGE_TYPE_PROCESS_FINISHED,
-  PAGE_TYPE_PROCESS_UNFINISHED
+  PAGE_TYPE_PROCESS,
 } from '../../actions/types';
 
 const defStr = 'default';
@@ -27,8 +19,5 @@ export default {
   [defStr]: NotMatchType,
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
-  [PAGE_TYPE_PROCESS_START]: StartProcess,
-  [PAGE_TYPE_PROCESS_TODO]: StartProcess,
-  [PAGE_TYPE_PROCESS_FINISHED]: StartProcess,
-  [PAGE_TYPE_PROCESS_UNFINISHED]: StartProcess,
+  [PAGE_TYPE_PROCESS]: Process,
 };
