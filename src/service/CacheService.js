@@ -9,7 +9,7 @@ export const init = store => {
 
 export const isInitDataFromServer = () => _store.getState().global.isInit;
 
-export const getToken = () => _store.getState().session.token;
+export const getToken = () => _store.getState().global.token;
 
 export const getMenu = () => _store.getState().menu;
 

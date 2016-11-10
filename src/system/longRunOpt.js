@@ -4,7 +4,7 @@
 import co from 'co';
 import { Modal } from 'mxa';
 import { dispatch } from '../service/DispatchService';
-import { fetchStart, fetchEnd } from '../actions/showLoading';
+import { fetchStart, fetchEnd } from '../actions/global';
 /* eslint-disable */
 export const longRunExec = (bizHandler, needLoding = true) => {
 

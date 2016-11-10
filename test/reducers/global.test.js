@@ -1,14 +1,16 @@
+
 import expect from 'expect';
 import reducer from '../../src/reducers/global';
 
-describe('count reducer', () => {
+describe('global reducer', () => {
 
   before(() => {});
 
   it('should return the initial state', () => {
     const expectedReducer = {
       showLoading: false,
-      isInit: false
+      isInit: false,
+      token: '',
     };
     expect(reducer(undefined, {})).toEqual(expectedReducer);
   });

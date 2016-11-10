@@ -3,41 +3,55 @@
     {
       "order": 0,
       "fieldText": "流程名",
-      "fieldName":"processName",
-      "valueType":"String",
-      "displayStyle":"None"
+      "fieldName": "processName",
+      "valueType": "String",
+      "displayStyle": "None"
     },
     {
       "order": 1,
       "fieldText": "流程描述",
-      "fieldName":"description",
-      "valueType":"String",
-      "displayStyle":"Block"
+      "fieldName": "description",
+      "valueType": "String",
+      "displayStyle": "Block"
     },
     {
       "order": 2,
-      "fieldText": "当前节点",
-      "fieldName":"taskStatus.text",
-      "valueType":"Object",
-      "displayStyle":"Hyperlink"
-    },
-    {
-      "order": 3,
-      "fieldText":"操作",
-      "fieldName":"operation.text",
-      "valueType":"Object",
-      "displayStyle":"Button"
+      "fieldText": "操作",
+      "fieldName": "operation",
+      "valueType": "Object",
+      "displayStyle": "Button",
+      "displayText": "开启新流程"
     }
   ],
-  "data":[
+  "data": [
     {
-      "processName":"请假…",
-      "description":"请假分为年假，事假等等",
-      "taskStatus": { "text": "经理审批", "actionUrl": "http://localhost:8080/…" },
-      "operation": { "text": "启动", "actionUrl":"http://localhost:8080/…", "requestParams": ["processDefinitionKey"] }
+      "processName": "请假…",
+      "description": "请假分为年假，事假等等",
+      "operation": {
+        "text": "启动",
+        "actionUrl": "http://localhost:8080/…",
+        "requestParams": [
+          "processDefinitionKey"
+        ]
+      }
     },
     {
-
+    }
+  ],
+  "filters": [
+    {
+      "order": 0,
+      "label": "流程名",
+      "valueType": "String",
+      "formProperty0": "processDefinitionKey",
+      "displayStyle": "DropDownList",
+      "acceptInput": false,
+      "optionalValues": [
+        {
+          "itemText": "A",
+          "itemValue": "a"
+        }
+      ]
     }
   ]
 }

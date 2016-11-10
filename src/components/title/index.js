@@ -4,7 +4,7 @@
 import React from 'react';
 import { Icon, Col, Row } from 'mxa';
 import { dispatch } from '../../service/DispatchService';
-import { logout } from '../../actions/session';
+import { logout } from '../../actions/global';
 import styles from '../../styles/views/title.less';
 /* eslint-disable */
 export default class Title extends React.Component {

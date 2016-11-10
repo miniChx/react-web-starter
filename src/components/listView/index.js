@@ -9,7 +9,7 @@ import ExtendButton from '../button';
 import styles from '../../styles/views/listview.less';
 
 import { constructOrderFields, constructFilterFieldCodes } from './SelectUtils';
-import { getInitData } from '../../actions/pageContainer';
+import { PFetch } from '../../system/fetch';
 import { longRunExec } from '../../system/longRunOpt';
 
 const Option = Select.Option;
@@ -68,7 +68,6 @@ class ListView extends React.Component {
     }
 
     const filters = data.filterItems;
-
     // eslint-disable-next-line arrow-body-style
     const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
     const pagination = {
@@ -130,7 +129,7 @@ class ListView extends React.Component {
       filterFieldCodes: this.state.filterFieldCodes,
       orderFields: this.state.orderFields
     };
-    longRunExec(() => getInitData(url, param)
+    longRunExec(() => PFetch(url, param)
       .then(data => {
         let contentList;
         switch (this.state.pageIndex) {
