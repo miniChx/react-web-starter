@@ -1,6 +1,7 @@
 import React from 'react';
 import { trimStart } from 'lodash/string';
-import { getInitData } from '../../actions/pageContainer';
+
+import { PFetch } from '../../system/fetch';
 import { longRunExec } from '../../system/longRunOpt';
 
 const AsyncDecorator = Wrapper => {
@@ -19,7 +20,7 @@ const AsyncDecorator = Wrapper => {
         if (this.props.location) {
           Object.assign(params, this.props.location.query);
         }
-        longRunExec(() => getInitData(url, params)
+        longRunExec(() => PFetch(url, params)
           .then(data => {
             this.setState({
               data,

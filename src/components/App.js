@@ -16,7 +16,7 @@ import appStyle from '../styles/views/app.less';
 import Menu from './menu/index';
 import Title from './title';
 import { isInitDataFromServer } from '../service/CacheService';
-import { initDataFromServer } from '../actions/initDataFromServer';
+import { initDataFromServer } from '../actions/global';
 import { longRunExec } from '../system/longRunOpt';
 
 

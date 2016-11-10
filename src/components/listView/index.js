@@ -10,7 +10,7 @@ import styles from '../../styles/views/listview.less';
 
 import { constructOrderFields, constructFilterFieldCodes } from '../../common/utils/SelectUtils';
 import { getButtonsActionNameWithActionType } from '../../common/utils/ButtonsUtils';
-import { getInitData } from '../../actions/pageContainer';
+import { PFetch } from '../../system/fetch';
 import { longRunExec } from '../../system/longRunOpt';
 
 const Option = Select.Option;
@@ -124,7 +124,7 @@ class ListView extends React.Component {
       filterFieldCodes: this.state.filterFieldCodes,
       orderFields: this.state.orderFields
     };
-    longRunExec(() => getInitData(url, param)
+    longRunExec(() => PFetch(url, param)
       .then(data => {
         let contentList;
         switch (this.state.pageIndex) {

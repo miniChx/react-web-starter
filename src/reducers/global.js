@@ -1,7 +1,7 @@
 /**
  * Created by baoyinghai on 10/18/16.
  */
-import { FETCH_END, FETCH_START, INIT_DATA_FROM_SERVER } from '../actions/types';
+import { FETCH_END, FETCH_START, INIT_DATA_FROM_SERVER } from '../constant/dictActions';
 
 const initialState = {
   showLoading: false,

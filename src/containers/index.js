@@ -5,7 +5,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 // import 'mxa/dist/mxa.less';
 
 import configureStore from '../store/configureStore';
-import analytics from '../actions/analytics';
+import analytics from '../service/analytics';
 import { executeInit } from '../service/ServiceInitHelper';
 
 import routes from '../routes';

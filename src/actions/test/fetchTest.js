@@ -1,7 +1,7 @@
 /**
  * Created by baoyinghai on 10/18/16.
  */
-import { GFetch } from '../../network/fetch';
+import { GFetch } from '../../system/fetch';
 
 /* eslint-disable */
 export const testFetch = () => (dispatch, getState) => {

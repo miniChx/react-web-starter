@@ -95,7 +95,8 @@
     "stylelint": "stylelint \"src/styles/**/*.less\" --syntax less",
     "lint": "npm run eslint",
     "validate": "npm ls",
-    "test": "mocha --compilers js:babel-register --recursive"
+    "test": "mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch"
   },
   "author": "ge_yangyang@126.com",
   "pre-commit": [

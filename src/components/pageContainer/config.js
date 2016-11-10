@@ -18,7 +18,7 @@ import {
   PAGE_TYPE_PROCESS_TODO,
   PAGE_TYPE_PROCESS_FINISHED,
   PAGE_TYPE_PROCESS_UNFINISHED
-} from '../../actions/types';
+} from '../../constant/dictActions';
 
 const defStr = 'default';
 // console.log(NotMatchType);
