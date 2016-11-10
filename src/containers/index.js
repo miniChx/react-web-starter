@@ -10,9 +10,11 @@ import { executeInit } from '../service/ServiceInitHelper';
 
 import routes from '../routes';
 import { Loading } from '../components';
+import { initApp } from '../actions/global';
 
 const setup = () => {
   const store = configureStore({});
+  store.dispatch(initApp());
   executeInit(store);
   const history = syncHistoryWithStore(browserHistory, store);
   history.listen(location => analytics.track(location.pathname));

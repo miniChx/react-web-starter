@@ -3,8 +3,6 @@
  */
 import { MENU_RESET, INIT_DATA_FROM_SERVER } from '../constant/dictActions';
 
-// TODO: 本地页面
-/* eslint-disable */
 const initialState = [];
 
 export default function update(state = initialState, action) {
@@ -12,7 +10,7 @@ export default function update(state = initialState, action) {
     case MENU_RESET:
       return [...action.payload];
     case INIT_DATA_FROM_SERVER: {
-      return [...action.payload.menu]
+      return [...action.payload.menu];
     }
     default:
       return state;
