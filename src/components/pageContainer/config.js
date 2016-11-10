@@ -10,7 +10,7 @@ import {
   PAGE_TYPE_LIST,
   PAGE_TYPE_DETAIL,
   PAGE_TYPE_PROCESS,
-} from '../../actions/types';
+} from '../../constant/dictActions';
 
 const defStr = 'default';
 // console.log(NotMatchType);

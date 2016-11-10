@@ -3,15 +3,16 @@
  */
 /* eslint-disable */
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import LoginForm from './loginForm'
 import { routerShape, Link } from 'react-router';
 import { Button, Table, Icon, Select, Row, Col } from 'mxa';
-import { dispatch } from '../../service/DispatchService';
-import { login } from '../../actions/session';
+import { login } from '../../actions/global';
+import { longRunExec } from '../../system/longRunOpt';
 import styles from '../../styles/views/login.less';
 
-export default class Login extends React.Component {
-
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,8 +24,7 @@ export default class Login extends React.Component {
 
 
   handleSubmit (values) {
-    dispatch(login('hahahahah'));
-    // 登陆之后的路由跳转
+    longRunExec(() => this.props.actions.login(values.user));
   }
 
   render() {
@@ -39,3 +39,11 @@ export default class Login extends React.Component {
     );
   }
 }
+
+// eslint-disable-next-line arrow-body-style
+const mapDispatchToProps = () => dispatch => ({
+  actions: {
+    ...bindActionCreators({ login }, dispatch)
+  }
+})
+export default connect(null, mapDispatchToProps)(Login);
