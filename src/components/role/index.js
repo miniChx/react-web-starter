@@ -4,7 +4,8 @@
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button } from 'mxa';
+import { Table, Button, Modal, Input } from 'mxa';
+import ModalPage from './modalPage';
 
 import styles from '../../styles/views/listview.less';
 
@@ -12,15 +13,32 @@ export default class Role extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      visible: false
+    }
   }
 
   @autobind
-  _renderColumnAction() {
+  _renderDeleteRole(text, record) {
+    Modal.confirm({
+      title: '删除该角色?',
+      onOk() {
+        console.log(record);
+        Modal.success({
+          title: '删除成功',
+        });
+      },
+      onCancel() {},
+    });
+  }
+
+  @autobind
+  _renderColumnAction(text, record) {
     return (
-      <div>
-        <a className={styles.inlineButton}>详情</a>
-        <a className={styles.inlineButton}>编辑</a>
-        <a className={styles.inlineButton}>删除</a>
+      <div className={styles.toolbar}>
+        <ModalPage title="详情" className={styles.topButton} record={record} />
+        <ModalPage title="授权" className={styles.topButton} record={record} />
+        <Button className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</Button>
       </div>
     );
   }
@@ -49,13 +67,12 @@ export default class Role extends React.Component {
       key: 'operation',
       fixed: 'right',
       width: 200,
-      render: () => this._renderColumnAction(),
+      render: (text, record) => this._renderColumnAction(text, record),
     }];
 
     return (
       <div>
-        <Button className={styles.topButton}>添加角色</Button>
-        <Button className={styles.topButton}>角色授权</Button>
+        <ModalPage title="添加角色" className={styles.topButton} />
         <Table
           columns={columns}
           dataSource={this._dataSourceAdapter()}
