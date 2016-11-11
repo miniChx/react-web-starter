@@ -73,6 +73,18 @@
             "Role2"
           ],
           "subMenus": null
+        },
+        {
+          "menuCode": "roleManagement",
+          "menuValue": "角色管理",
+          "displaySequence": 3,
+          "domainLink": "/RoleManagement",
+          "domainType": "Custom",
+          "roleCodes": [
+            "Role1",
+            "Role2"
+          ],
+          "subMenus": null
         }
       ]
     },
@@ -91,7 +103,7 @@
           "menuValue": "发起流程",
           "displaySequence": 1,
           "domainLink": "/Process/start",
-          "domainType": "ProcessStart",
+          "domainType": "Process",
           "roleCodes": [
             "Role1"
           ],
@@ -102,7 +114,7 @@
           "menuValue": "待办的流程",
           "displaySequence": 1,
           "domainLink": "/Process/todo",
-          "domainType": "ProcessTodo",
+          "domainType": "Process",
           "roleCodes": [
             "Role1"
           ],
@@ -113,7 +125,7 @@
           "menuValue": "未完成的流程",
           "displaySequence": 1,
           "domainLink": "/Process/unfinished",
-          "domainType": "ProcessUnFinished",
+          "domainType": "Process",
           "roleCodes": [
             "Role1"
           ],
@@ -124,7 +136,7 @@
           "menuValue": "已完成的流程",
           "displaySequence": 1,
           "domainLink": "/Process/finished",
-          "domainType": "ProcessFinished",
+          "domainType": "Process",
           "roleCodes": [
             "Role1"
           ],

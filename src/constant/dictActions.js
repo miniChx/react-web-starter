@@ -17,7 +17,5 @@ export const PAGE_TYPE_LIST = 'List';
 export const PAGE_TYPE_DETAIL = 'Detail';
 
 // process
-export const PAGE_TYPE_PROCESS_START = 'ProcessStart';
-export const PAGE_TYPE_PROCESS_TODO = 'ProcessTodo';
-export const PAGE_TYPE_PROCESS_UNFINISHED = 'ProcessUnFinished';
-export const PAGE_TYPE_PROCESS_FINISHED = 'ProcessFinished';
+export const PAGE_TYPE_PROCESS = 'Process';
+

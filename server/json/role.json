@@ -1,0 +1,52 @@
+{
+  "roles": [
+    {
+      "roleCode": "Role1",
+      "roleValue": "角色1"
+    },
+    {
+      "roleCode": "Role10",
+      "roleValue": "角色10"
+    },
+    {
+      "roleCode": "Role11",
+      "roleValue": "角色11"
+    },
+    {
+      "roleCode": "Role12",
+      "roleValue": "角色12"
+    },
+    {
+      "roleCode": "Role2",
+      "roleValue": "角色3"
+    },
+    {
+      "roleCode": "Role3",
+      "roleValue": "角色3"
+    },
+    {
+      "roleCode": "Role4",
+      "roleValue": "角色4"
+    },
+    {
+      "roleCode": "Role5",
+      "roleValue": "角色5"
+    },
+    {
+      "roleCode": "Role6",
+      "roleValue": "角色6"
+    },
+    {
+      "roleCode": "Role7",
+      "roleValue": "角色7"
+    },
+    {
+      "roleCode": "Role8",
+      "roleValue": "角色8"
+    },
+    {
+      "roleCode": "Role9",
+      "roleValue": "角色90"
+    }
+  ]
+}

@@ -33,22 +33,64 @@
     },
     {
       "order": 4,
-      "fieldText": "当前节点",
-      "fieldName":"taskStatus.text",
+      "fieldText": "流程图",
+      "fieldName":"taskStatus",
       "valueType":"Object",
-      "displayStyle":"Hyperlink"
+      "displayStyle":"Hyperlink",
+      "displayText": "查看"
+    },
+    {
+      "order": 5,
+      "fieldText": "详情",
+      "fieldName": "entityDetail",
+      "valueType": "Object",
+      "displayStyle": "Button",
+      "displayText":"查看"
     }
   ],
   "data":[
     {
-      "processName":"请假…",
-      "startTime":"2016-10-11 10:30",
-      "endTime": "2016-10-11 12:30",
-      "duration": "12h",
-      "statusGraph": "http://localhost:8080/…"
+
     },
     {
 
+    }
+  ],
+  "filters": [
+    {
+      "order": 0,
+      "label": "流程名",
+      "valueType": "String",
+      "formProperty0": "processDefinitionKey",
+      "displayStyle": "DropDownList",
+      "acceptInput": false,
+      "optionalValues":[{ "itemText": "A", "itemValue": "a" }]
+    },
+    {
+      "order": 1,
+      "label": "流程启动时间",
+      "valueType": "Date",
+      "formProperty0": "processStartTime",
+      "displayStyle": "DropDownList",
+      "acceptInput": true,
+      "optionalValues":[{"itemText":"不限", "itemValue": null}, {"itemText": "24小时","itemValue":"${ var itemVar = new Date(); itemVar.setDate(itemVar.getDate()-1);}"}]
+    },
+    {
+      "order": 2,
+      "label": "流程结束时间",
+      "valueType": "Date",
+      "formProperty0": "processFinishTime",
+      "displayStyle": "DropDownList",
+      "acceptInput": true,
+      "optionalValues":[{"itemText":"不限", "itemValue": null}, {"itemText": "24小时","itemValue":"${ var itemVar = new Date(); itemVar.setDate(itemVar.getDate()-1);}"}]
+    },
+    {
+      "order": 3,
+      "label": "流程由谁发起",
+      "valueType": "Date",
+      "formProperty0": "processStarter",
+      "displayStyle": "Text",
+      "acceptInput": true
     }
   ]
 }

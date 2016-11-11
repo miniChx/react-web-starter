@@ -16,7 +16,7 @@
     },
     {
       "order": 2,
-      "fieldText": "流程开始时间",
+      "fieldText": "流程启动时间",
       "fieldName":"startTime",
       "valueType":"Date",
       "displayStyle":"None",
@@ -33,7 +33,7 @@
     {
       "order": 4,
       "fieldText": "当前节点",
-      "fieldName":"statusGraph.text",
+      "fieldName":"taskStatus.text",
       "valueType":"Object",
       "displayStyle":"Hyperlink"
     },
@@ -50,12 +50,53 @@
       "processName":"请假…",
       "priority":"高/中/低",
       "startTime":"2016-10-11 10:30",
-      "stagnationPeriod":"2016-10-11 10:30",
       "statusGraph": { "text": "经理审批", "actionUrl": "http://localhost:8080/…" },
       "operation": { "text": "操作/办理", "actionUrl":"http://localhost:8080", "requestParams": ["processInstanceId", "taskId", "bizKey"] }
     },
     {
 
+    }
+  ],
+  "filters":[
+    {
+      "order": 0,
+      "label": "流程名",
+      "valueType": "String",
+      "formProperty0": "processDefinitionKey",
+      "displayStyle": "DropDownList",
+      "acceptInput": false,
+      "optionalValues":[{ "itemText": "A", "itemValue": "a" }]
+    },
+    {
+      "order": 1,
+      "label": "任务等级",
+      "formProperty0": "priorityMin",
+      "formProperty1":"priorityMax",
+      "valueType": "Integer",
+      "displayStyle": "BetweenAnd",
+      "acceptInput": true
+    },
+    {
+      "order": 2,
+      "label": "任务到期",
+      "formProperty0": "taskDueDateOption",
+      "valueType": "Integer",
+      "displayStyle": "DropDownList",
+      "acceptInput": false,
+      "optionalValues":[{"itemText": "不限", "itemIndex": 0 },{"itemText": "当天", "itemIndex": 1 }]
+    },
+    {
+      "order": 3,
+      "label": "任务名",
+      "formProperty0": "taskName",
+      "formProperty1": "taskLike",
+      "valueType": "String",
+      "displayStyle": "Text",
+      "acceptInput": true,
+      "checkBoxAttached": {
+        "label": "是否模糊匹配",
+        "defaultValue": true
+      }
     }
   ]
 }
