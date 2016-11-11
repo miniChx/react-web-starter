@@ -7,19 +7,16 @@ var request = require('request');
 
 var config = require('../config');
 
-function getData(url, param, callback) {
-
+function getData(url, param, callback, headers) {
+  console.log(headers);
   var options = {
     uri: "http://" + config.host + ":" + config.port + url,
     method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic  '
-    },
+    headers,
     json: param
   };
   request(options, function (error, response, body) {
+    console.log(body);
     callback(body);
   });
 }

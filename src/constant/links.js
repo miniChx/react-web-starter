@@ -4,5 +4,7 @@
 
 
 export default {
-  getMenus: '/Advice/getMenus'
+  getMenus: '/Advice/getMenus',
+  // getMenus: '/Api/Account/getMenus',
+  login: '/Pub/Account/login'
 };

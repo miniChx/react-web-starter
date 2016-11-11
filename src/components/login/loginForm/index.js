@@ -2,8 +2,13 @@
  * Created by geweimin on 16/10/25.
  */
 import React from 'react';
+import { connect } from 'react-redux';
 import { Form, Button, Input, Row, Col, Checkbox } from 'mxa';
 import { Link } from 'react-router';
+import sha256 from 'sha256';
+// import { loginServer } from '../../../actions/login';
+// import { longRunExec } from '../../../system/longRunOpt';
+import { loginRemember } from '../../../actions/session';
 
 const FormItem = Form.Item;
 
@@ -45,10 +50,13 @@ class LoginForm extends React.Component {
       }
 
       // 网络请求
-      if (this.props.submitCallback) {
-        this.props.submitCallback(values);
-        // 处理网络请求错误信息
-      }
+      // longRunExec(() => {
+      //   return this.props.dispatch(loginServer(
+      //       values.remember,
+      //       { userName: values.user, password: sha256(values.pass) }
+      //     ));
+      // });
+      this.props.dispatch(loginRemember('hahahahaha'));
     });
   }
 
@@ -61,7 +69,7 @@ class LoginForm extends React.Component {
     };
     return (
       <div>
-        <Form horizontal={true}>
+        <Form horizontal={true} style={{ maxWidth: 400 }}>
 
           <FormItem label={config.userLabel ? config.userLabel : '手机号'} {...formItemLayout}>
             {getFieldDecorator('user', {
@@ -90,8 +98,8 @@ class LoginForm extends React.Component {
           <Row type="flex" align="middle">
             <Col span={7} offset={7}>
               <FormItem>
-                {!config.noNeedRememberLogin && getFieldDecorator('remember')(
-                  <Checkbox defaultChecked={config.isRemember}>记住登录</Checkbox>
+                {!config.noNeedRememberLogin && getFieldDecorator('remember', { initialValue: false })(
+                  <Checkbox>记住登录</Checkbox>
                 )}
               </FormItem>
             </Col>
@@ -99,9 +107,6 @@ class LoginForm extends React.Component {
           <Row type="flex" justify="center">
             <Col>
               <Button type="primary" onClick={this.handleSubmit}>登录</Button>
-            </Col>
-            <Col offset={1}>
-              <Button><Link to="/register" >注册</Link></Button>
             </Col>
           </Row>
           <Row>
@@ -113,9 +118,7 @@ class LoginForm extends React.Component {
       </div>
     );
   }
-
-
 }
 
-export default Form.create()(LoginForm);
+export default connect()(Form.create()(LoginForm));
 

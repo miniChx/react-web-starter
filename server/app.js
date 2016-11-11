@@ -51,9 +51,14 @@ app.post('/Process/unfinished', function (req, res) {
 });
 
 // app.post('/*', function (req, res) {
+//   let header = req.headers || {};
 //   Redirect(req.url, req.body,  function (chunk) {
 //     console.log('BODY: ' + JSON.stringify(chunk));
 //     res.json(chunk);
+//   }, {
+//     'Accept': header.accept,
+//     'Content-Type': header['content-type'],
+//     'Authorization': header['authorization']
 //   });
 // });
 

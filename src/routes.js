@@ -4,6 +4,7 @@ import {
   Home,
   NotFound,
   PageContainer,
+  CustomPageContainer,
   Login,
   Register,
   FindPwd,
@@ -11,6 +12,7 @@ import {
 import { getToken } from './service/CacheService';
 
 export const CONTAINER_PRE = 'page_container';
+export const CUSTOM_CONTAINER_PRE = 'custom_page_container';
 
 // 登录后不可见页面的控制.
 const userIsInATeam = (nextState, replace, callback) => {
@@ -30,6 +32,7 @@ const routes = {
     { path: '/register', component: Register, onEnter: userIsInATeam },
     { path: '/findPwd', component: FindPwd, onEnter: userIsInATeam },
     { path: '/' + CONTAINER_PRE + '/**', component: PageContainer },
+    { path: '/' + CUSTOM_CONTAINER_PRE + '/**', component: CustomPageContainer },
     { path: '*', component: NotFound },
   ],
 };

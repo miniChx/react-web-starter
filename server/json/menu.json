@@ -131,6 +131,18 @@
           "subMenus": null
         }
       ]
+    },
+    {
+      "menuCode": "accountManagement1",
+      "menuValue": "用户管理1",
+      "displaySequence": 3,
+      "domainLink": null,
+      "domainType": "Custom",
+      "roleCodes": [
+        "Role1",
+        "Role2"
+      ],
+      "subMenus": null
     }
   ]
 }

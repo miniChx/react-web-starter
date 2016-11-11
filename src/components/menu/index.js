@@ -8,7 +8,7 @@ import { autobind } from 'core-decorators';
 import { Menu } from 'mxa';
 import { searchMenu } from '../../service/CacheService';
 import { getValueByKey } from '../../common/utils/MapUtils';
-import { CONTAINER_PRE } from '../../routes';
+import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../routes';
 
 const SubMenu = Menu.SubMenu;
 
@@ -98,6 +98,17 @@ class MenuCreator extends React.Component {
         </SubMenu>
       );
     }
+
+    if (item.domainType === 'Custom') {
+      return (
+        <Menu.Item key={item.menuCode} >
+          <Link to={'/' + CUSTOM_CONTAINER_PRE + item.domainLink}>
+            {item.menuValue}
+          </Link>
+        </Menu.Item>
+      );
+    }
+
     return (
       <Menu.Item key={item.menuCode} >
         <Link to={'/' + CONTAINER_PRE + item.domainLink}>
