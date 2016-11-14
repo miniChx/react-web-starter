@@ -36,7 +36,7 @@ export default class Role extends React.Component {
   _renderColumnAction(text, record) {
     return (
       <div className={styles.toolbar}>
-        <ModalPage title="详情" className={styles.topButton} record={record} />
+        <ModalPage title="详情" className={styles.topButton} record={record} mode="detail" />
         <ModalPage title="授权" className={styles.topButton} record={record} />
         <Button className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</Button>
       </div>
@@ -72,7 +72,7 @@ export default class Role extends React.Component {
 
     return (
       <div>
-        <ModalPage title="添加角色" className={styles.topButton} />
+        <ModalPage title="添加角色" className={styles.topButton} mode="add" />
         <Table
           columns={columns}
           dataSource={this._dataSourceAdapter()}
