@@ -15,7 +15,7 @@ export const MENU_RESET = 'MENU_RESET';
 
 export const PAGE_TYPE_LIST = 'List';
 export const PAGE_TYPE_DETAIL = 'Detail';
-export const PAGE_TYPE_ROLE = 'Custom';
+export const PAGE_TYPE_CUSTOM = 'Custom';
 
 // process
 export const PAGE_TYPE_PROCESS = 'Process';

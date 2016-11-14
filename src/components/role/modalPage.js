@@ -4,7 +4,7 @@
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Modal, Button, Input, Row } from 'mxa';
+import { Modal, Button, Input, Row, Col } from 'mxa';
 
 import styles from '../../styles/views/listview.less';
 
@@ -58,13 +58,23 @@ export default class ModalPage extends React.Component {
                  onOk={this.handleOk} onCancel={this.handleCancel}
                  okText="保存"
           >
-            <Row type="flex" justify="space-start">
-              <p>{'角色编号: '}</p>
-              <Input defaultValue={this.props.record.roleCode}/>
+            <Row type="flex" justify="space-start" align="middle">
+              <Col>角色编号: </Col>
+              <Col>
+                <Input defaultValue={this.props.record.roleCode}/>
+              </Col>
             </Row>
-            <Row type="flex" justify="space-start">
-              <p>{'角色名称: '}</p>
-              <Input defaultValue={this.props.record.roleValue}/>
+            <Row type="flex" justify="space-start" align="middle">
+              <Col>角色名称: </Col>
+              <Col>
+                <Input defaultValue={this.props.record.roleValue}/>
+              </Col>
+            </Row>
+            <Row type="flex" justify="space-start" align="middle">
+              <Col>角色权限: </Col>
+              <Col>
+                灌灌灌灌灌
+              </Col>
             </Row>
           </Modal>
         </div>
@@ -77,13 +87,17 @@ export default class ModalPage extends React.Component {
                  onOk={this.handleOk} onCancel={this.handleCancel}
                  okText="增加"
           >
-            <Row type="flex" justify="space-start">
-              <p>{'角色编号: '}</p>
-              <Input />
+            <Row type="flex" justify="space-start" align="middle">
+              <Col>角色编号: </Col>
+              <Col>
+                <Input />
+              </Col>
             </Row>
-            <Row type="flex" justify="space-start">
-              <p>{'角色名称: '}</p>
-              <Input />
+            <Row type="flex" justify="space-start" align="middle">
+              <Col>角色名称: </Col>
+              <Col>
+                <Input />
+              </Col>
             </Row>
           </Modal>
         </div>
