@@ -18,4 +18,5 @@ export const PAGE_TYPE_DETAIL = 'Detail';
 
 // process
 export const PAGE_TYPE_PROCESS = 'Process';
+export const PAGE_TYPE_PROCESS_DETAIL = 'ProcessDetail';
 
