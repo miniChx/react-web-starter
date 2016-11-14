@@ -27,23 +27,21 @@ const authLogout = createAction(types.AUTH_LOGOUT);
 
 export const resetMenu = createAction(types.MENU_RESET);
 
-
-export const login = phone => dispatch => {
-  return new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
-    setTimeout(() => {
-      resolve({
-        token: phone + '_ti',
-      });
-      // reject({
-      //   message: 'token 获取失败'
-      // });
-    }, 1000);
-  })
-    .then(response => {
-      LocalStorage.set(STORAGE_KEY_PROFILE, { token: response.token });
-      dispatch(authLogin(response.token));
+// eslint-disable-next-line no-unused-vars
+export const login = phone => dispatch => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({
+      token: phone + '_ti',
     });
-};
+    // reject({
+    //   message: 'token 获取失败'
+    // });
+  }, 1000);
+})
+  .then(response => {
+    LocalStorage.set(STORAGE_KEY_PROFILE, { token: response.token });
+    dispatch(authLogin(response.token));
+  });
 
 export const logout = () => {
   LocalStorage.set(STORAGE_KEY_PROFILE, { token: '' });
