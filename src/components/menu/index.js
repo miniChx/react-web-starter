@@ -99,16 +99,6 @@ class MenuCreator extends React.Component {
       );
     }
 
-    if (item.domainType === 'Custom') {
-      return (
-        <Menu.Item key={item.menuCode} >
-          <Link to={'/' + CUSTOM_CONTAINER_PRE + item.domainLink}>
-            {item.menuValue}
-          </Link>
-        </Menu.Item>
-      );
-    }
-
     return (
       <Menu.Item key={item.menuCode} >
         <Link to={'/' + CONTAINER_PRE + item.domainLink}>

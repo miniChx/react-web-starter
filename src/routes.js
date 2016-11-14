@@ -32,7 +32,6 @@ const routes = {
     { path: '/register', component: Register, onEnter: userIsInATeam },
     { path: '/findPwd', component: FindPwd, onEnter: userIsInATeam },
     { path: '/' + CONTAINER_PRE + '/**', component: PageContainer },
-    { path: '/' + CUSTOM_CONTAINER_PRE + '/**', component: CustomPageContainer },
     { path: '*', component: NotFound },
   ],
 };

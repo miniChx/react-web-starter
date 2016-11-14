@@ -20,6 +20,11 @@ class PageContainer extends React.Component {
     const { linkInfo } = searchMenu(domainLink);
     const domainType = linkInfo ? linkInfo.domainType : this.props.location.query.domainType;
 
+    // if (domainType === 'Custom') {
+    //   return (
+    //     null
+    //   );
+    // }
     const FinalPage = Compose(AsyncDecorator, InitDecorator)();
     return (
       <FinalPage {...this.props} domainType={domainType} domainLink={domainLink} />
