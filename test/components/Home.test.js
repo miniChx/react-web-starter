@@ -5,18 +5,18 @@ import { expect } from 'chai';
 import { Home } from '../../src/components/Home';
 
 describe('<Home />', () => {
-  const wrapper = shallow(<Home />);
+  const shallowWrapper = shallow(<Home />);
+  const mountWrapper = mount(<Home />);
 
   it('contains home spec', () => {
-    expect(wrapper.is('.home')).to.equal(true);
+    expect(shallowWrapper.is('.home')).to.equal(true);
   });
 
   it('contains spec with an expectation', () => {
-    const wrapper = mount(<Home />);
-    expect(wrapper.find('.jump').length).to.equal(0);
+    expect(mountWrapper.find('.jump').length).to.equal(0);
   });
 
   it('App\'s title should be Todos', () => {
-    expect(wrapper.find('a').text()).to.equal('跳转到用户管理');
+    expect(shallowWrapper.find('a').text()).to.equal('跳转到用户管理');
   });
 });
