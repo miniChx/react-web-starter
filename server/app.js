@@ -25,6 +25,11 @@ app.post('/AccountList/render', function (req, res) {
   res.json(listJson);
 });
 
+app.post('/AccountList/search', function (req, res) {
+  var searchJson = require('./json/search.json');
+  res.json(searchJson);
+});
+
 app.post('/AccountDetail/render', function (req, res) {
   var detailJson = require('./json/detail.json');
   res.json(detailJson);
@@ -47,6 +52,11 @@ app.post('/Process/finished', function (req, res) {
 
 app.post('/Process/unfinished', function (req, res) {
   var detailJson = require('./json/unfinishedProcess.json');
+  res.json(detailJson);
+});
+
+app.post('/RoleManagement', function (req, res) {
+  var detailJson = require('./json/role.json');
   res.json(detailJson);
 });
 

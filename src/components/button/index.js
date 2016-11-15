@@ -8,7 +8,7 @@ import { Button, Modal, Tooltip } from 'mxa';
 import Qs from 'qs';
 import { CONTAINER_PRE } from '../../routes';
 import { showModal } from '../pageContainer/ModalWrapper';
-import { PFetch } from '../../network/fetch';
+import { PFetch } from '../../system/fetch';
 
 const confirm = Modal.confirm;
 

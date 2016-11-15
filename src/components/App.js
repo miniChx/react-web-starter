@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push, replace, goBack } from 'react-router-redux';
 import Animate from 'rc-animate';
@@ -16,7 +17,7 @@ import appStyle from '../styles/views/app.less';
 import Menu from './menu/index';
 import Title from './title';
 import { isInitDataFromServer } from '../service/CacheService';
-import { initDataFromServer } from '../actions/initDataFromServer';
+import { initDataFromServer } from '../actions/global';
 import { longRunExec } from '../system/longRunOpt';
 
 
@@ -30,21 +31,21 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps(next) {
-    if (!next.session.token && this.props.session.token) {
-      this.props.dispatch(replace('/login'));
+    if (!next.token && this.props.token) {
+      this.props.actions.replace('/login');
     }
-    if (next.session.token && !this.props.session.token) {
-      this.props.dispatch(push('/'));
+    if (next.token && !this.props.token) {
+      this.props.actions.push('/');
     }
   }
 
   componentDidMount() {
-    if (!this.props.session.token) {
-      this.props.dispatch(push('/login'));
+    if (!this.props.token) {
+      this.props.actions.push('/login');
     }
     // if (this.props.session.token && !isInitDataFromServer()) {
     if (!isInitDataFromServer()) {
-      longRunExec(() => this.props.dispatch(initDataFromServer()));
+      longRunExec(() => this.props.actions.initDataFromServer());
     }
   }
 
@@ -58,7 +59,7 @@ class App extends React.Component {
 
   @autobind
   _goBack() {
-    this.props.dispatch(goBack());
+    this.props.actions.goBack();
   }
 
   render() {
@@ -68,7 +69,7 @@ class App extends React.Component {
       return <Menu {...props} style={newStyle} />;
     };
     if (this.props.isInit) {
-      if (this.props.session.token) {
+      if (this.props.token) {
         return (
           <div>
             <Title switchMenu={this.switchMenu} />
@@ -97,9 +98,7 @@ class App extends React.Component {
       );
     }
 
-    return (
-      <div>{this.props.children}</div>
-    );
+    return (<div />);
   }
 }
 
@@ -107,8 +106,15 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   routing: state.routing,
   session: state.session,
+  token: state.global.token,
   isInit: state.global.isInit,
   menu: state.menu
 });
 
-export default connect(mapStateToProps)(App);
+// eslint-disable-next-line arrow-body-style
+const mapDispatchToProps = () => dispatch => ({
+  actions: {
+    ...bindActionCreators({ push, replace, goBack, initDataFromServer }, dispatch)
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(App);

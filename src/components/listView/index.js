@@ -8,6 +8,10 @@ import ExtendButton from '../button';
 
 import styles from '../../styles/views/listview.less';
 
+import { constructOrderFields, constructFilterFieldCodes } from './SelectUtils';
+import { PFetch } from '../../system/fetch';
+import { longRunExec } from '../../system/longRunOpt';
+
 const Option = Select.Option;
 
 class ListView extends React.Component {
@@ -42,6 +46,7 @@ class ListView extends React.Component {
     const buttons = {
       inline: data.buttons.filter(item => item.displayPosition === 'inline'),
       top: data.buttons.filter(item => item.displayPosition === 'top'),
+      search: data.buttons.filter(item => item.actionType === 'search'),
     };
 
     // eslint-disable-next-line arrow-body-style
@@ -69,17 +74,80 @@ class ListView extends React.Component {
       total: data && data.pageResult && data.pageResult.totalItems,
       showSizeChanger: true
     };
-    return { columns, dataSource, buttons, pagination, filters };
+
+    const pageIndex = data && data.pageResult && data.pageResult.pageIndex;
+    const itemsPerPage = data && data.pageResult && data.pageResult.itemsPerPage;
+    const filterFieldCodes = [];
+    const orderFields = constructOrderFields(data.filterItems);
+
+    return {
+      columns,
+      dataSource,
+      buttons,
+      pagination,
+      filters,
+      pageIndex,
+      itemsPerPage,
+      filterFieldCodes,
+      orderFields
+    };
   }
 
   @autobind
   _onFilterChange(value) { // eslint-disable-line
     console.log(`selected ${value}`);
+    this.setState({
+      filterFieldCodes: constructFilterFieldCodes(this.state.filters, this.state.filterFieldCodes, value)
+    }, () => {
+      this._onSearch();
+    });
   }
 
   @autobind
   _onChange(pagination, filters, sorter) { // eslint-disable-line
     console.log('params', pagination, filters, sorter);
+    this.setState({
+      pageIndex: pagination.current,
+      itemsPerPage: pagination.pageSize
+    }, () => {
+      this._onSearch();
+    });
+  }
+
+  @autobind
+  _onSearch() {
+    let url = null;
+    this.state.buttons.search.forEach((item) => { // eslint-disable-line
+      if (item.actionType === 'search') {
+        url = item.actionName;
+      }
+    });
+
+    const param = {
+      pageIndex: this.state.pageIndex,
+      itemsPerPage: this.state.itemsPerPage,
+      filterFieldCodes: this.state.filterFieldCodes,
+      orderFields: this.state.orderFields
+    };
+    longRunExec(() => PFetch(url, param)
+      .then(data => {
+        let contentList;
+        switch (this.state.pageIndex) {
+          case 1:
+            contentList = 'contentList';
+            break;
+          case 2:
+            contentList = 'contentList2';
+            break;
+          case 3:
+            contentList = 'contentList3';
+            break;
+          default: contentList = 'contentList';
+        }
+        this.setState({
+          dataSource: data[contentList],
+        });
+      }));
   }
 
   @autobind

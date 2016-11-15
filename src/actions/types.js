@@ -30,3 +30,4 @@ export const INIT_DATA_FROM_SERVER = 'INIT_DATA_FROM_SERVER';
 
 
 export const PAGE_DOMAINLINK_USER_LIST = '/UserList/render';
+export const ADD_ACCOUNT = 'ADD_ACCOUNT';

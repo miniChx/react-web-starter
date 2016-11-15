@@ -7,5 +7,6 @@ export default {
   getMenus: '/Advice/getMenus',
   // getMenus: '/Api/Account/getMenus',
   login: '/Pub/Account/login',
-  logout: '/Api/Account/logout'
+  logout: '/Api/Account/logout',
+  addAccount: 'Api/Account/add'
 };
