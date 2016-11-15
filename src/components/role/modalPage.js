@@ -5,6 +5,7 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Modal, Button, Input, Row, Col } from 'mxa';
+import RoleAuthentication from './authentication';
 
 import styles from '../../styles/views/listview.less';
 
@@ -24,7 +25,7 @@ export default class ModalPage extends React.Component {
     super(props);
     this.state = {
       visible: false
-    }
+    };
   }
 
   @autobind
@@ -51,31 +52,32 @@ export default class ModalPage extends React.Component {
 
   render() {
     if (this.props.record) {
+      if (this.props.mode === 'detail') {
+        return (
+          <div>
+            <Button className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</Button>
+            <Modal title={this.props.title} visible={this.state.visible}
+                   onOk={this.handleOk} onCancel={this.handleCancel}
+            >
+              <Row type="flex" justify="space-start" align="middle">
+                <Col>角色编号: </Col>
+                <Col>{this.props.record.roleCode}</Col>
+              </Row>
+              <Row type="flex" justify="space-start" align="middle">
+                <Col>角色名称: </Col>
+                <Col>{this.props.record.roleValue}</Col>
+              </Row>
+            </Modal>
+          </div>
+        );
+      }
       return (
         <div>
           <Button className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</Button>
           <Modal title={this.props.title} visible={this.state.visible}
                  onOk={this.handleOk} onCancel={this.handleCancel}
-                 okText="保存"
           >
-            <Row type="flex" justify="space-start" align="middle">
-              <Col>角色编号: </Col>
-              <Col>
-                <Input defaultValue={this.props.record.roleCode}/>
-              </Col>
-            </Row>
-            <Row type="flex" justify="space-start" align="middle">
-              <Col>角色名称: </Col>
-              <Col>
-                <Input defaultValue={this.props.record.roleValue}/>
-              </Col>
-            </Row>
-            <Row type="flex" justify="space-start" align="middle">
-              <Col>角色权限: </Col>
-              <Col>
-                灌灌灌灌灌
-              </Col>
-            </Row>
+            <RoleAuthentication mode={this.props.mode}/>
           </Modal>
         </div>
       );
