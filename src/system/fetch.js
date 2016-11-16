@@ -4,12 +4,13 @@
 import Qs from 'qs';
 import MxFetch from '../common/mxfetch/index';
 import Config from '../config';
+import { getToken } from '../service/CacheService';
 
-const HEADERS = {
+const getHeader = () => ({
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'Authorization': 'Basic  '
-};
+  'Authorization': 'Basic  ' + getToken()
+});
 
 /* eslint-disable */
 const process = (_promise) => {
@@ -38,11 +39,14 @@ const rawFetch = (url, param) => {
   console.log('=========> 数据请求 <=========');
   console.log('请求地址: ', url);
   console.log('请求参数: ', param);
+  // if (url.indexOf('http') < 0) {
+  //   url = Config.host + url;
+  // };
   return process(MxFetch.fetch(Config.host + url, param, 6180));
 };
 /* eslint-disable */
 export const PFetch = (url, param) => {
-  const headers = { ...HEADERS };
+  const headers = getHeader();
   return rawFetch(url, {
     method: 'POST',
     headers,
@@ -51,7 +55,7 @@ export const PFetch = (url, param) => {
 };
 /* eslint-disable */
 export const GFetch = (url, param) => {
-  const headers = { ...HEADERS };
+  const headers = getHeader();
   return rawFetch(url + (param ? '?' + Qs.stringify(param) : ''), {
     method: 'GET',
     headers,

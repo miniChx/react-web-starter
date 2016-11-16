@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "userCode": 1,
+      "userValue": "用户1",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 2,
+      "userValue": "用户2",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 3,
+      "userValue": "用户3",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 4,
+      "userValue": "用户4",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 5,
+      "userValue": "用户5",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 6,
+      "userValue": "用户6",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 7,
+      "userValue": "用户7",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 8,
+      "userValue": "用户8",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 9,
+      "userValue": "用户9",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 10,
+      "userValue": "用户10",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 11,
+      "userValue": "用户11",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    },
+    {
+      "userCode": 20,
+      "userValue": "用户12",
+      "userPass": "2341233243",
+      "userEmail": "wmge@amarsoft.com"
+    }
+  ]
+}

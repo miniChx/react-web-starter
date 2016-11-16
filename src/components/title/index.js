@@ -6,6 +6,8 @@ import { Icon, Col, Row } from 'mxa';
 import { dispatch } from '../../service/DispatchService';
 import { logout } from '../../actions/global';
 import styles from '../../styles/views/title.less';
+import { longRunExec } from '../../system/longRunOpt';
+
 /* eslint-disable */
 export default class Title extends React.Component {
 
@@ -20,6 +22,12 @@ export default class Title extends React.Component {
 
   _logout() {
     dispatch(logout());
+    longRunExec(() => {
+      return this.props.dispatch(loginServer(
+          values.remember,
+          { userName: values.user, password: sha256(values.pass) }
+        ));
+    });
   }
 
   _switchMenu() {

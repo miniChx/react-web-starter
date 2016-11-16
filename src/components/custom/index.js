@@ -4,6 +4,7 @@
 import React from 'react';
 
 import Role from '../role';
+import UserList from '../user';
 
 export default class Custom extends React.Component {
 
@@ -12,6 +13,12 @@ export default class Custom extends React.Component {
       return (
         <div>
           <Role dataSource={this.props.dataSource} />
+        </div>
+      );
+    } else if (this.props.domainLink === 'UserList/render') {
+      return (
+        <div>
+          <UserList dataSource={this.props.dataSource} />
         </div>
       );
     }
