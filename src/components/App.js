@@ -43,6 +43,7 @@ class App extends React.Component {
     if (!this.props.token) {
       this.props.actions.push('/login');
     }
+    // if (this.props.session.token && !isInitDataFromServer()) {
     if (!isInitDataFromServer()) {
       longRunExec(() => this.props.actions.initDataFromServer());
     }
@@ -104,8 +105,10 @@ class App extends React.Component {
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = state => ({
   routing: state.routing,
+  session: state.session,
   token: state.global.token,
-  isInit: state.global.isInit
+  isInit: state.global.isInit,
+  menu: state.menu
 });
 
 // eslint-disable-next-line arrow-body-style

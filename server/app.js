@@ -55,10 +55,20 @@ app.post('/Process/unfinished', function (req, res) {
   res.json(detailJson);
 });
 
+app.post('/RoleManagement', function (req, res) {
+  var detailJson = require('./json/role.json');
+  res.json(detailJson);
+});
+
 // app.post('/*', function (req, res) {
+//   let header = req.headers || {};
 //   Redirect(req.url, req.body,  function (chunk) {
 //     console.log('BODY: ' + JSON.stringify(chunk));
 //     res.json(chunk);
+//   }, {
+//     'Accept': header.accept,
+//     'Content-Type': header['content-type'],
+//     'Authorization': header['authorization']
 //   });
 // });
 

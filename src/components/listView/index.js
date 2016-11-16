@@ -8,8 +8,7 @@ import ExtendButton from '../button';
 
 import styles from '../../styles/views/listview.less';
 
-import { constructOrderFields, constructFilterFieldCodes } from '../../common/utils/SelectUtils';
-import { getButtonsActionNameWithActionType } from '../../common/utils/ButtonsUtils';
+import { constructOrderFields, constructFilterFieldCodes } from './SelectUtils';
 import { PFetch } from '../../system/fetch';
 import { longRunExec } from '../../system/longRunOpt';
 
@@ -117,7 +116,13 @@ class ListView extends React.Component {
 
   @autobind
   _onSearch() {
-    const url = getButtonsActionNameWithActionType(this.state.buttons.search, 'search');
+    let url = null;
+    this.state.buttons.search.forEach((item) => { // eslint-disable-line
+      if (item.actionType === 'search') {
+        url = item.actionName;
+      }
+    });
+
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,

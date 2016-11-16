@@ -97,6 +97,13 @@ var self = {};
         xhr.setRequestHeader(name, value);
       });
 
+      // Object.getOwnPropertyNames(init.headers).forEach(function(name) {
+      //   xhr.setRequestHeader(name, init.headers[name]);
+      // })
+
+      // xhr.setRequestHeader('Accept', 'application/json');
+      // xhr.setRequestHeader('Content-Type', 'application/json');
+
       xhr.send(init.body === 'undefined' ? null : init.body);
 
       timeoutTimer = setTimeout(() => {

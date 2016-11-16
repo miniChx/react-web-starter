@@ -29,10 +29,10 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className={styles.loginContent_marginTop}>
+      <div>
         <Row type="flex" justify="center">
-          <Col span={4}>
-            <LoginForm submitCallback={this.handleSubmit} />
+          <Col xs={{span: 14}} sm={{span: 12}} md={{span: 10}} lg={{span: 8}} className={styles.loginContent_marginTop}>
+            <LoginForm />
           </Col>
         </Row>
       </div>
