@@ -15,67 +15,67 @@ app.use(bodyParder.json());
 app.use(allowCrossDomain);
 // app.use(express.static('../build'));
 
-app.post('/Advice/getMenus', function (req, res) {
-  var menuJson = require('./json/menu.json');
-  res.json(menuJson);
-});
-
-app.post('/AccountList/render', function (req, res) {
-  var listJson = require('./json/list.json');
-  res.json(listJson);
-});
-
-app.post('/AccountList/search', function (req, res) {
-  var searchJson = require('./json/search.json');
-  res.json(searchJson);
-});
-
-app.post('/AccountDetail/render', function (req, res) {
-  var detailJson = require('./json/detail.json');
-  res.json(detailJson);
-});
-
-app.post('/Process/start', function (req, res) {
-  var detailJson = require('./json/startProcess.json');
-  res.json(detailJson);
-});
-
-app.post('/Process/todo', function (req, res) {
-  var detailJson = require('./json/toDoProcess.json');
-  res.json(detailJson);
-});
-
-app.post('/Process/finished', function (req, res) {
-  var detailJson = require('./json/finishedProcess.json');
-  res.json(detailJson);
-});
-
-app.post('/Process/unfinished', function (req, res) {
-  var detailJson = require('./json/unfinishedProcess.json');
-  res.json(detailJson);
-});
-
-app.post('/RoleManagement', function (req, res) {
-  var detailJson = require('./json/role.json');
-  res.json(detailJson);
-});
-
-app.post('/UserList/render', function (req, res) {
-  var detailJson = require('./json/user.json');
-  res.json(detailJson);
-});
-
-// app.post('/*', function (req, res) {
-//   let header = req.headers || {};
-//   Redirect(req.url, req.body,  function (chunk) {
-//     console.log('BODY: ' + JSON.stringify(chunk));
-//     res.json(chunk);
-//   }, {
-//     'Accept': header.accept,
-//     'Content-Type': header['content-type'],
-//     'Authorization': header['authorization']
-//   });
+// app.post('/Advice/getMenus', function (req, res) {
+//   var menuJson = require('./json/menu.json');
+//   res.json(menuJson);
 // });
+//
+// app.post('/AccountList/render', function (req, res) {
+//   var listJson = require('./json/list.json');
+//   res.json(listJson);
+// });
+//
+// app.post('/AccountList/search', function (req, res) {
+//   var searchJson = require('./json/search.json');
+//   res.json(searchJson);
+// });
+//
+// app.post('/AccountDetail/render', function (req, res) {
+//   var detailJson = require('./json/detail.json');
+//   res.json(detailJson);
+// });
+//
+// app.post('/Process/start', function (req, res) {
+//   var detailJson = require('./json/startProcess.json');
+//   res.json(detailJson);
+// });
+//
+// app.post('/Process/todo', function (req, res) {
+//   var detailJson = require('./json/toDoProcess.json');
+//   res.json(detailJson);
+// });
+//
+// app.post('/Process/finished', function (req, res) {
+//   var detailJson = require('./json/finishedProcess.json');
+//   res.json(detailJson);
+// });
+//
+// app.post('/Process/unfinished', function (req, res) {
+//   var detailJson = require('./json/unfinishedProcess.json');
+//   res.json(detailJson);
+// });
+//
+// app.post('/RoleManagement', function (req, res) {
+//   var detailJson = require('./json/role.json');
+//   res.json(detailJson);
+// });
+//
+// app.post('/UserList/render', function (req, res) {
+//   var detailJson = require('./json/user.json');
+//   res.json(detailJson);
+// });
+
+app.post('/*', function (req, res) {
+  let header = req.headers || {};
+  Redirect(req.url, req.body,  function (chunk) {
+    console.log('BODY: ' + JSON.stringify(chunk));
+    res.json(chunk);
+  }, {
+    'Accept': header.accept,
+    'Content-Type': header['content-type'],
+    'Authorization': header['authorization']
+  });
+});
 
 // var handler = function() {
   var server = app.listen(3003, function () {

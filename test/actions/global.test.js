@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import * as actions from '../../src/actions/global';
 import * as types from '../../src/constant/dictActions';
 
-const mockStore = configureMockStore([ thunkMiddleware ]);
+const mockStore = configureMockStore([thunkMiddleware]);
 
 describe('global action', () => {
   after(() => {
