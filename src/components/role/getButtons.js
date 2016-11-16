@@ -6,102 +6,37 @@ import React from 'react';
 import { autobind } from 'core-decorators';
 import { Tree } from 'mxa';
 
-import { PFetch } from '../../../system/fetch';
-import { longRunExec } from '../../../system/longRunOpt';
+import { PFetch } from '../../system/fetch';
+import { longRunExec } from '../../system/longRunOpt';
 
 const TreeNode = Tree.TreeNode;
-
-const gData =  [
-  {
-    "domainName": "Demo",
-    "domainType": "List",
-    "simpleButtons": [
-      {
-        "buttonDescription": "添加",
-        "buttonCode": "Demo_Detail_add_In_Demo_List",
-        "isSelected": true
-      },
-      {
-        "buttonDescription": "删除",
-        "buttonCode": "Demo_Detail_deleteById_In_Demo_List",
-        "isSelected": false
-      },
-      {
-        "buttonDescription": "详情",
-        "buttonCode": "Demo_Detail_render_In_Demo_List",
-        "isSelected": true
-      },
-      {
-        "buttonDescription": "筛选",
-        "buttonCode": "Demo_List_search_In_Demo_List",
-        "isSelected": true
-      }
-    ]
-  },
-  {
-    "domainName": "Demo",
-    "domainType": "Detail",
-    "simpleButtons": [
-      {
-        "buttonDescription": "保存",
-        "buttonCode": "Demo_Detail_update_In_Demo_Detail",
-        "isSelected": false
-      }
-    ]
-  },
-  {
-    "domainName": "processes",
-    "domainType": "List",
-    "simpleButtons": []
-  },
-  {
-    "domainName": "processes",
-    "domainType": "Detail",
-    "simpleButtons": [
-      {
-        "buttonDescription": "申请转正",
-        "buttonCode": "processes_Detail_userApply_In_processes_Detail",
-        "isSelected": true
-      },
-      {
-        "buttonDescription": "通过申请",
-        "buttonCode": "processes_Detail_agreeApply_In_processes_Detail",
-        "isSelected": false
-      },
-      {
-        "buttonDescription": "邮件提醒",
-        "buttonCode": "processes_Detail_sendEmail_In_processes_Detail",
-        "isSelected": false
-      },
-      {
-        "buttonDescription": "处理信息",
-        "buttonCode": "processes_Detail_registUserInfo_In_processes_Detail",
-        "isSelected": false
-      }
-    ]
-  }
-];
-
 
 export default class roleAuthentication extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      expandedKeys: this.constructCheckedKeys(gData),
+      allDomainButtons: [],
+      expandedKeys: [],
       autoExpandParent: true,
-      checkedKeys: this.constructCheckedKeys(gData),
+      checkedKeys: [],
       selectedKeys: [],
     };
   }
 
   componentWillMount() {
-    const  url = '/Advice/getMenus';
-    const param = {};
-
-    longRunExec(() => PFetch(url, param)
-      .then(data => {
-      }));
+    longRunExec(() => {
+      return this.props.actions.findButtonsByRoleCode({
+          roleCode: this.props.record.roleCode
+        })
+        .then((data) => {
+          this.setState({
+            allDomainButtons: data.allDomainButtons,
+            expandedKeys: this.constructCheckedKeys(data.allDomainButtons),
+            checkedKeys: this.constructCheckedKeys(data.allDomainButtons),
+          })
+        });
+    })
   }
 
   @autobind
@@ -140,7 +75,7 @@ export default class roleAuthentication extends React.Component {
         checkedKeys.push(item.buttonDescription);
       }
     });
-    loop(gData);
+    loop(this.state.allDomainButtons);
     return checkedKeys;
   }
 
@@ -172,7 +107,7 @@ export default class roleAuthentication extends React.Component {
         onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
         onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
       >
-        {loop(gData)}
+        {loop(this.state.allDomainButtons)}
       </Tree>
     );
   }

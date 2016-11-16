@@ -7,6 +7,9 @@ import { autobind } from 'core-decorators';
 import { Table, Modal, Input } from 'mxa';
 import ModalPage from './modalPage';
 
+import { longRunExec } from '../../system/longRunOpt';
+import * as RoleActions from '../../actions/role';
+
 import styles from '../../styles/views/listview.less';
 
 export default class Role extends React.Component {
@@ -19,13 +22,21 @@ export default class Role extends React.Component {
   }
 
   @autobind
-  _renderDeleteRole(text, record) {
+  _renderDeleteRole(record) {
     Modal.confirm({
       title: '删除该角色?',
       onOk() {
-        console.log(record);
-        Modal.success({
-          title: '删除成功',
+        longRunExec(() => {
+          return RoleActions.deleteRole({
+            roleCode: record.roleCode
+          })
+            .then(
+              Modal.success({
+                title: '删除成功'
+              }, () => {
+                this._refreshRole();
+              })
+            )
         });
       },
       onCancel() {},
@@ -33,12 +44,24 @@ export default class Role extends React.Component {
   }
 
   @autobind
-  _renderColumnAction(text, record) {
+  _renderColumnAction(record) {
     return (
       <div className={styles.toolbar}>
         <ModalPage title="详情" className={styles.inlineButton} record={record} mode="detail"/>
-        <ModalPage title="菜单" className={styles.inlineButton} record={record} mode="menu"/>
-        <ModalPage title="按钮" className={styles.inlineButton} record={record} mode="button"/>
+        <ModalPage
+          title="菜单"
+          className={styles.inlineButton}
+          record={record}
+          mode="menu"
+          actions={RoleActions}
+        />
+        <ModalPage
+          title="按钮"
+          className={styles.inlineButton}
+          record={record}
+          mode="button"
+          actions={RoleActions}
+        />
         <a className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</a>
       </div>
     );
@@ -68,12 +91,14 @@ export default class Role extends React.Component {
       key: 'operation',
       fixed: 'right',
       width: 200,
-      render: (text, record) => this._renderColumnAction(text, record),
+      render: (record) => this._renderColumnAction(record),
     }];
 
     return (
       <div>
-        <ModalPage title="添加角色" className={styles.topButton} mode="add" />
+        <ModalPage
+          title="添加角色" className={styles.topButton} mode="add" actions={RoleActions}
+        />
         <Table
           columns={columns}
           dataSource={this._dataSourceAdapter()}

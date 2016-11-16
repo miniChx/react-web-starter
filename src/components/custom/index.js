@@ -9,7 +9,7 @@ import UserList from '../user';
 export default class Custom extends React.Component {
 
   render() {
-    if (this.props.domainLink === 'RoleManagement') {
+    if (this.props.domainLink === 'Role/render') {
       return (
         <div>
           <Role dataSource={this.props.dataSource} />

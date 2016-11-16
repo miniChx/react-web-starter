@@ -13,11 +13,11 @@ export default {
   // role
   addRole: '/Api/Role/add',
   deleteRole: '/Api/Role/delete',
-  findAllRole: '/Api/Role/findAll',
+  findAllRole: '/Api/Role/render',
   relateRolesAndUsers: '/Api/RoleRela/relateRolesToUser',
   relateMenusToRole: '/Api/RoleRela/relateMenusToRole',
   relateButtonsToRole: '/Api/RoleRela/relateButtonsToRole',
   findButtonsByRoleCode: '/Api/RoleRela/findButtonsByRoleCode',
   findMenusByRoleCode: '/Api/RoleRela/findMenusByRoleCode',
-  
+
 };
