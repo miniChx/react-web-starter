@@ -36,8 +36,9 @@ export default class Role extends React.Component {
   _renderColumnAction(text, record) {
     return (
       <div className={styles.toolbar}>
-        <ModalPage title="详情" className={styles.topButton} record={record} mode="detail" />
-        <ModalPage title="授权" className={styles.topButton} record={record} />
+        <ModalPage title="详情" className={styles.topButton} record={record} mode="detail"/>
+        <ModalPage title="菜单" className={styles.topButton} record={record} mode="menu"/>
+        <ModalPage title="按钮" className={styles.topButton} record={record} mode="button"/>
         <Button className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</Button>
       </div>
     );
