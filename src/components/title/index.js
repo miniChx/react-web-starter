@@ -22,12 +22,6 @@ export default class Title extends React.Component {
 
   _logout() {
     dispatch(logout());
-    longRunExec(() => {
-      return this.props.dispatch(loginServer(
-          values.remember,
-          { userName: values.user, password: sha256(values.pass) }
-        ));
-    });
   }
 
   _switchMenu() {

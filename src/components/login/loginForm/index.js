@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Form, Button, Input, Row, Col, Checkbox } from 'mxa';
 import { Link } from 'react-router';
-// import sha256 from 'sha256';
+import sha256 from 'sha256';
 import { loginServer } from '../../../actions/global';
 import { longRunExec } from '../../../system/longRunOpt';
 // import { loginRemember } from '../../../actions/session';

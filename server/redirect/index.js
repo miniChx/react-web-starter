@@ -9,6 +9,9 @@ var config = require('../config');
 
 function getData(url, param, callback, headers) {
   console.log(headers);
+  if (url.indexOf('Pub') < 0 && url.indexOf('Api') < 0) {
+    url = '/Api' + url;
+  }
   var options = {
     uri: "http://" + config.host + ":" + config.port + url,
     method: 'POST',
