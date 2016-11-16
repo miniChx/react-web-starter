@@ -1,19 +1,19 @@
 {
   "users": [
     {
-      "userCode": 1,
+      "userCode": "15212480608",
       "userValue": "用户1",
       "userPass": "2341233243",
       "userEmail": "wmge@amarsoft.com"
     },
     {
-      "userCode": 2,
+      "userCode": "18118396298",
       "userValue": "用户2",
       "userPass": "2341233243",
       "userEmail": "wmge@amarsoft.com"
     },
     {
-      "userCode": 3,
+      "userCode": "1866218892",
       "userValue": "用户3",
       "userPass": "2341233243",
       "userEmail": "wmge@amarsoft.com"
