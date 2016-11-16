@@ -43,8 +43,8 @@ class App extends React.Component {
     if (!this.props.token) {
       this.props.actions.push('/login');
     }
-    // if (this.props.session.token && !isInitDataFromServer()) {
-    if (!isInitDataFromServer()) {
+    if (this.props.token && !isInitDataFromServer()) {
+    // if (!isInitDataFromServer()) {
       longRunExec(() => this.props.actions.initDataFromServer());
     }
   }
@@ -68,38 +68,36 @@ class App extends React.Component {
       const newStyle = { ...style, display: show ? '' : 'none' };
       return <Menu {...props} style={newStyle} />;
     };
-    if (this.props.isInit) {
-      if (this.props.token) {
-        return (
-          <div>
-            <Title switchMenu={this.switchMenu} />
-            <Row
-              className={appStyle.appContent}
-              type={this.state.menuIsOpen ? '' : 'flex'}
-              justify={this.state.menuIsOpen ? '' : 'center'}
-            >
-              <Col span={this.state.menuIsOpen ? 4 : 0} >
-                <Animate
-                  component=""
-                  showProp="show"
-                  transitionName="move-left"
-                >
-                  <MenuModule show={this.state.enter} />
-                </Animate>
-              </Col>
-              <Col span={20}>{React.cloneElement(this.props.children, { goBack: this._goBack })}</Col>
-            </Row>
-          </div>
-        );
-      }
 
+    if (this.props.token) {
       return (
-        <div>{this.props.children}</div>
+        <div>
+          <Title switchMenu={this.switchMenu} />
+          <Row
+            className={appStyle.appContent}
+            type={this.state.menuIsOpen ? '' : 'flex'}
+            justify={this.state.menuIsOpen ? '' : 'center'}
+          >
+            <Col span={this.state.menuIsOpen ? 4 : 0} >
+              <Animate
+                component=""
+                showProp="show"
+                transitionName="move-left"
+              >
+                <MenuModule show={this.state.enter} />
+              </Animate>
+            </Col>
+            <Col span={20}>{React.cloneElement(this.props.children, { goBack: this._goBack })}</Col>
+          </Row>
+        </div>
       );
     }
 
-    return (<div />);
+    return (
+      <div>{this.props.children}</div>
+    );
   }
+
 }
 
 // eslint-disable-next-line arrow-body-style

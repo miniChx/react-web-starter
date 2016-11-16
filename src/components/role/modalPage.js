@@ -7,8 +7,6 @@ import { autobind } from 'core-decorators';
 import { Modal, Button, Input, Row, Col } from 'mxa';
 import RoleAuthentication from './authentication';
 
-import styles from '../../styles/views/listview.less';
-
 export default class ModalPage extends React.Component {
 
   static propTypes = {
@@ -55,7 +53,7 @@ export default class ModalPage extends React.Component {
       if (this.props.mode === 'detail') {
         return (
           <div>
-            <Button className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</Button>
+            <a className={this.props.className} onClick={this.showModal}>{this.props.title}</a>
             <Modal title={this.props.title} visible={this.state.visible}
                    onOk={this.handleOk} onCancel={this.handleCancel}
             >
@@ -73,9 +71,10 @@ export default class ModalPage extends React.Component {
       }
       return (
         <div>
-          <Button className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</Button>
+          <a className={this.props.className} onClick={this.showModal}>{this.props.title}</a>
           <Modal title={this.props.title} visible={this.state.visible}
                  onOk={this.handleOk} onCancel={this.handleCancel}
+                 okText="保存"
           >
             <RoleAuthentication mode={this.props.mode}/>
           </Modal>
@@ -84,7 +83,7 @@ export default class ModalPage extends React.Component {
     } else if (this.props.mode === 'add'){
       return (
         <div>
-          <Button className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</Button>
+          <Button className={this.props.className} onClick={this.showModal}>{this.props.title}</Button>
           <Modal title={this.props.title} visible={this.state.visible}
                  onOk={this.handleOk} onCancel={this.handleCancel}
                  okText="增加"

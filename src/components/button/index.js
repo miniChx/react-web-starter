@@ -12,7 +12,7 @@ import { PFetch } from '../../system/fetch';
 
 const confirm = Modal.confirm;
 
-class ExtendButton extends React.Component {
+export class ExtendButton extends React.Component {
   static propTypes = {
     record: React.PropTypes.object,
     type: React.PropTypes.oneOf(['button', 'link']),
