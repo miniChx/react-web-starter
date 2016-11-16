@@ -5,10 +5,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Form, Button, Input, Row, Col, Checkbox } from 'mxa';
 import { Link } from 'react-router';
-import sha256 from 'sha256';
-// import { loginServer } from '../../../actions/login';
-// import { longRunExec } from '../../../system/longRunOpt';
-import { loginRemember } from '../../../actions/session';
+// import sha256 from 'sha256';
+import { loginServer } from '../../../actions/login';
+import { longRunExec } from '../../../system/longRunOpt';
+// import { loginRemember } from '../../../actions/session';
 
 const FormItem = Form.Item;
 
@@ -50,13 +50,13 @@ class LoginForm extends React.Component {
       }
 
       // 网络请求
-      // longRunExec(() => {
-      //   return this.props.dispatch(loginServer(
-      //       values.remember,
-      //       { userName: values.user, password: sha256(values.pass) }
-      //     ));
-      // });
-      this.props.dispatch(loginRemember('hahahahaha'));
+      longRunExec(() => {
+        return this.props.dispatch(loginServer(
+            values.remember,
+            { userName: values.user, password: values.pass }
+          ));
+      });
+      // this.props.dispatch(loginRemember('hahahahaha'));
     });
   }
 

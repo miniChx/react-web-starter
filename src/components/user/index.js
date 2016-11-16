@@ -64,7 +64,7 @@ export default class Role extends React.Component {
 
   render() {
     const columns = [{
-      title: '用户编号',
+      title: '手机号',
       dataIndex: 'userCode',
       key: 'userCode',
     }, {
