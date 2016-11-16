@@ -4,7 +4,7 @@
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Modal, Input } from 'mxa';
+import { Table, Modal, Input } from 'mxa';
 import ModalPage from './modalPage';
 
 import styles from '../../styles/views/listview.less';
@@ -36,10 +36,10 @@ export default class Role extends React.Component {
   _renderColumnAction(text, record) {
     return (
       <div className={styles.toolbar}>
-        <ModalPage title="详情" className={styles.topButton} record={record} mode="detail"/>
-        <ModalPage title="菜单" className={styles.topButton} record={record} mode="menu"/>
-        <ModalPage title="按钮" className={styles.topButton} record={record} mode="button"/>
-        <Button className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</Button>
+        <ModalPage title="详情" className={styles.inlineButton} record={record} mode="detail"/>
+        <ModalPage title="菜单" className={styles.inlineButton} record={record} mode="menu"/>
+        <ModalPage title="按钮" className={styles.inlineButton} record={record} mode="button"/>
+        <a className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</a>
       </div>
     );
   }
