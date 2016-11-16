@@ -4,6 +4,7 @@ import LocalStorage from 'local-storage';
 import * as types from '../constant/dictActions';
 import { PFetch } from '../system/fetch';
 import links from '../constant/links';
+import { LoginServer } from './login';
 
 const STORAGE_KEY_PROFILE = '@AS:profile';
 
@@ -28,20 +29,18 @@ const authLogout = createAction(types.AUTH_LOGOUT);
 export const resetMenu = createAction(types.MENU_RESET);
 
 // eslint-disable-next-line no-unused-vars
-export const login = phone => dispatch => new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve({
-      token: phone + '_ti',
+export const loginServer = (isRemember, params) => dispatch => {
+  return PFetch(links.login, params).then(d => {
+    if (isRemember) {
+      LocalStorage.set(STORAGE_KEY_PROFILE, { token: d.userToken });
+    }
+    dispatch(authLogin(d.userToken));
+  }).then(() => {
+    PFetch(links.getMenus, {}).then(menusData => {
+      dispatch(initDataFromServerDispatch({ menu: menusData.menus }));
     });
-    // reject({
-    //   message: 'token 获取失败'
-    // });
-  }, 1000);
-})
-  .then(response => {
-    LocalStorage.set(STORAGE_KEY_PROFILE, { token: response.token });
-    dispatch(authLogin(response.token));
   });
+};
 
 export const logout = () => {
   LocalStorage.set(STORAGE_KEY_PROFILE, { token: '' });
