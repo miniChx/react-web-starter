@@ -2,6 +2,8 @@
  * Created by baoyinghai on 11/4/16.
  */
 import { push } from 'react-router-redux';
+import { dispatch } from '../../../service/DispatchService';
+import { CONTAINER_PRE } from '../../../routes';
 
 const actionTrigger = (record, keyName) => {
   const operation = record[keyName] || {};
@@ -13,6 +15,10 @@ const actionTrigger = (record, keyName) => {
     return true;
   });
   console.log('param:', param);
+  dispatch(push({
+    pathname: '/' + CONTAINER_PRE + '/',
+    query: { ...param, domainType: 'ProcessDetail' }
+  }));
 };
 
 export default actionTrigger;

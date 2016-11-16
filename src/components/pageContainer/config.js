@@ -22,5 +22,5 @@ export default {
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
   [PAGE_TYPE_PROCESS]: Process,
-  PAGE_TYPE_PROCESS_DETAIL: ProcessDetail
+  [PAGE_TYPE_PROCESS_DETAIL]: ProcessDetail
 };

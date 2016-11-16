@@ -5,7 +5,7 @@ import React from 'react';
 import { Button, Collapse } from 'mxa';
 import { autobind } from 'core-decorators';
 
-import filterCreator from './FilterDisplayStyleAnalyser';
+import filterCreator from './analysers';
 import styles from '../../../styles/views/listview.less';
 
 const Panel = Collapse.Panel;

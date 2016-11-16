@@ -167,4 +167,22 @@ describe('order test', function () {
         });
     })
 
+  it('ProcessesDetail render', function (done) {
+    var options = {
+      uri: host + "/ProcessesDetail/render",
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        "Authorization": "Basic  " + tokens
+      },
+      json: {
+        "id": 1
+      }
+    };
+    request(options, function (error, response, body) {
+      console.log(body);
+      done()
+    });
+  });
+
 })
