@@ -9,8 +9,8 @@ const  line = {
 
 
 const wifi = {
-  host: '192.168.64.101',
-  port: 9081
+  host: '192.168.64.152',
+  port: 9802
 };
 
 module.exports = wifi;
