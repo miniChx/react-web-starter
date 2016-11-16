@@ -155,6 +155,15 @@
           "subMenus": null
         }
       ]
+    },
+    {
+      "menuCode": "ProfileManager",
+      "menuValue": "个人信息",
+      "displaySequence": 3,
+      "domainLink": "/Profile",
+      "domainType": "Custom",
+      "roleCodes": null,
+      "subMenus": null
     }
   ]
 }
