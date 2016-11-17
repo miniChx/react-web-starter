@@ -98,7 +98,7 @@ export default class ModalPage extends React.Component {
           })
           .then(() => {
             Modal.success({
-              title: '保存成功'
+              title: '关联成功'
             });
             this.props.refreshRole();
           });
@@ -111,7 +111,7 @@ export default class ModalPage extends React.Component {
           })
           .then(() => {
             Modal.success({
-              title: '保存成功'
+              title: '关联成功'
             });
             this.props.refreshRole();
           });
@@ -167,7 +167,7 @@ export default class ModalPage extends React.Component {
               <a className={this.props.className} onClick={this.showModal}>{this.props.title}</a>
               <Modal title={this.props.title} visible={this.state.visible}
                      onOk={this.handleOk} onCancel={this.handleCancel}
-                     okText="保存"
+                     okText="关联菜单"
               >
                 <GetMenus
                   actions={this.props.actions}
@@ -183,7 +183,7 @@ export default class ModalPage extends React.Component {
               <a className={this.props.className} onClick={this.showModal}>{this.props.title}</a>
               <Modal title={this.props.title} visible={this.state.visible}
                      onOk={this.handleOk} onCancel={this.handleCancel}
-                     okText="保存"
+                     okText="关联按钮"
               >
                 <GetButtons
                   actions={this.props.actions}
