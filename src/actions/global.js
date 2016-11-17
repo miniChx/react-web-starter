@@ -41,7 +41,9 @@ export const loginServer = (isRemember, params) => dispatch => {
   });
 };
 
-export const logout = () => {
-  LocalStorage.set(STORAGE_KEY_PROFILE, { token: '' });
-  return authLogout();
+export const logout = () => dispatch => {
+  return PFetch(links.logout, {}).then(() => {
+    LocalStorage.set(STORAGE_KEY_PROFILE, { token: '' });
+    dispatch(authLogout());
+  });
 };
