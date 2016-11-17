@@ -17,12 +17,26 @@ export default class Role extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      dataSource: this.props.dataSource
     }
   }
 
   @autobind
+  _refreshRole() {
+    longRunExec(() => {
+      return RoleActions.findAllRole()
+        .then((dataSource) => {
+          this.setState({
+            dataSource
+          });
+        })
+    })
+  }
+
+  @autobind
   _renderDeleteRole(record) {
+    const self = this;
     Modal.confirm({
       title: '删除该角色?',
       onOk() {
@@ -30,13 +44,12 @@ export default class Role extends React.Component {
           return RoleActions.deleteRole({
             roleCode: record.roleCode
           })
-            .then(
-              Modal.success({
-                title: '删除成功'
-              }, () => {
-                this._refreshRole();
-              })
-            )
+            .then(() => {
+                Modal.success({
+                  title: '删除成功'
+                });
+                self._refreshRole();
+            })
         });
       },
       onCancel() {},
@@ -54,6 +67,7 @@ export default class Role extends React.Component {
           record={record}
           mode="menu"
           actions={RoleActions}
+          refreshRole={this._refreshRole}
         />
         <ModalPage
           title="按钮"
@@ -61,6 +75,7 @@ export default class Role extends React.Component {
           record={record}
           mode="button"
           actions={RoleActions}
+          refreshRole={this._refreshRole}
         />
         <a className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</a>
       </div>
@@ -69,7 +84,7 @@ export default class Role extends React.Component {
 
   @autobind
   _dataSourceAdapter() {
-    return this.props.dataSource && this.props.dataSource.roles && this.props.dataSource.roles.map((item, index) => {
+    return this.state.dataSource && this.state.dataSource.roles && this.state.dataSource.roles.map((item, index) => {
         return {
           ...item,
           key: index
@@ -97,7 +112,7 @@ export default class Role extends React.Component {
     return (
       <div>
         <ModalPage
-          title="添加角色" className={styles.topButton} mode="add" actions={RoleActions}
+          title="添加角色" className={styles.topButton} mode="add" actions={RoleActions} refreshRole={this._refreshRole}
         />
         <Table
           columns={columns}

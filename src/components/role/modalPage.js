@@ -82,11 +82,12 @@ export default class ModalPage extends React.Component {
               roleCode: values.roleCode,
               roleValue: values.roleValue
             })
-            .then(
+            .then(() => {
               Modal.success({
                 title: '添加成功'
-              })
-            );
+              });
+              this.props.refreshRole();
+            });
         });
       });
     } else if (this.props.mode === 'menu') {
@@ -95,11 +96,12 @@ export default class ModalPage extends React.Component {
             roleCode: this.props.record.roleCode,
             menuCodes: this.state.codes
           })
-          .then(
+          .then(() => {
             Modal.success({
               title: '保存成功'
-            })
-          );
+            });
+            this.props.refreshRole();
+          });
       });
     } else if (this.props.mode === 'button') {
       longRunExec(() => {
@@ -107,11 +109,12 @@ export default class ModalPage extends React.Component {
             roleCode: this.props.record.roleCode,
             buttonCodes: this.state.codes
           })
-          .then(
+          .then(() => {
             Modal.success({
               title: '保存成功'
-            })
-          );
+            });
+            this.props.refreshRole();
+          });
       });
     }
   }
