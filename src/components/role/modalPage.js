@@ -56,6 +56,7 @@ export default class ModalPage extends React.Component {
       visible: false,
       roleCode: '',
       roleValue: '',
+      codes: [],
     };
   }
 
@@ -76,7 +77,6 @@ export default class ModalPage extends React.Component {
           roleCode: values.roleCode,
           roleValue: values.roleValue
         });
-
         longRunExec(() => {
           return this.props.actions.addRole({
               roleCode: values.roleCode,
@@ -90,7 +90,29 @@ export default class ModalPage extends React.Component {
         });
       });
     } else if (this.props.mode === 'menu') {
-
+      longRunExec(() => {
+        return this.props.actions.relateMenusToRole({
+            roleCode: this.props.record.roleCode,
+            menuCodes: this.state.codes
+          })
+          .then(
+            Modal.success({
+              title: '保存成功'
+            })
+          );
+      });
+    } else if (this.props.mode === 'button') {
+      longRunExec(() => {
+        return this.props.actions.relateButtonsToRole({
+            roleCode: this.props.record.roleCode,
+            buttonCodes: this.state.codes
+          })
+          .then(
+            Modal.success({
+              title: '保存成功'
+            })
+          );
+      });
     }
   }
 
@@ -104,9 +126,11 @@ export default class ModalPage extends React.Component {
 
   @autobind
   callbackCodes(type, codes) {
-    console.log(type + codes);
+    this.setState({
+      codes
+    });
   }
-  
+
   @autobind
   _saveFormRef(form) {
     this.form = form;
@@ -145,6 +169,7 @@ export default class ModalPage extends React.Component {
                 <GetMenus
                   actions={this.props.actions}
                   record={this.props.record}
+                  callbackCodes={this.callbackCodes}
                 />
               </Modal>
             </div>
@@ -160,6 +185,7 @@ export default class ModalPage extends React.Component {
                 <GetButtons
                   actions={this.props.actions}
                   record={this.props.record}
+                  callbackCodes={this.callbackCodes}
                 />
               </Modal>
             </div>

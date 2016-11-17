@@ -25,17 +25,20 @@ export default class roleAuthentication extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     longRunExec(() => {
       return this.props.actions.findMenusByRoleCode({
         roleCode: this.props.record.roleCode
       })
         .then(data => {
+          const a = this.constructCheckedKeys(data.allMenus);
           this.setState({
             roleMenus: data.allMenus,
             expandedKeys: this.constructCheckedKeys(data.allMenus).checkedKeys,
             checkedKeys: this.constructCheckedKeys(data.allMenus).checkedKeys,
             menuCodes: this.constructCheckedKeys(data.allMenus).menuCodes,
+          }, () => {
+            this.props.callbackCodes('menu', this.state.menuCodes);
           });
         })
     });
@@ -53,10 +56,12 @@ export default class roleAuthentication extends React.Component {
 
   @autobind
   onCheck(checkedKeys) {
-    console.log(checkedKeys);
     this.setState({
       checkedKeys,
+      menuCodes: this.constructMenuCodes(checkedKeys),
       selectedKeys: [],
+    }, () => {
+      this.props.callbackCodes('menu', this.state.menuCodes);
     });
   }
 
@@ -67,7 +72,7 @@ export default class roleAuthentication extends React.Component {
   }
 
   @autobind
-  constructCheckedKeys() {
+  constructCheckedKeys(allMenus) {
     const checkedKeys = [];
     const menuCodes = [];
     const loop = data => data.map((item) => {
@@ -79,11 +84,28 @@ export default class roleAuthentication extends React.Component {
         menuCodes.push(item.menuCode);
       }
     });
-    loop(this.state.roleMenus);
+    loop(allMenus);
     return {
       checkedKeys,
       menuCodes
     };
+  }
+
+  @autobind
+  constructMenuCodes(checkedKeys) {
+    const menuCodes = [];
+    const loop = data => data.map((item) => {
+      if (item.subMenus) {
+        loop(item.subMenus);
+      }
+      checkedKeys.map((menuValue) => {
+        if (menuValue === item.menuValue) {
+          menuCodes.push(item.menuCode);
+        }
+      })
+    });
+    loop(this.state.roleMenus);
+    return menuCodes;
   }
 
   render() {

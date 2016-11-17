@@ -32,8 +32,11 @@ export default class roleAuthentication extends React.Component {
         .then((data) => {
           this.setState({
             allDomainButtons: data.allDomainButtons,
-            expandedKeys: this.constructCheckedKeys(data.allDomainButtons),
-            checkedKeys: this.constructCheckedKeys(data.allDomainButtons),
+            expandedKeys: this.constructCheckedKeys(data.allDomainButtons).checkedKeys,
+            checkedKeys: this.constructCheckedKeys(data.allDomainButtons).checkedKeys,
+            buttonCodes: this.constructCheckedKeys(data.allDomainButtons).buttonCodes
+          }, () => {
+            this.props.callbackCodes('button', this.state.buttonCodes)
           })
         });
     })
@@ -51,10 +54,12 @@ export default class roleAuthentication extends React.Component {
 
   @autobind
   onCheck(checkedKeys) {
-    console.log(checkedKeys);
     this.setState({
       checkedKeys,
+      buttonCodes: this.constructMenuCodes(checkedKeys),
       selectedKeys: [],
+    }, () => {
+      this.props.callbackCodes('button', this.state.buttonCodes)
     });
   }
 
@@ -65,18 +70,40 @@ export default class roleAuthentication extends React.Component {
   }
 
   @autobind
-  constructCheckedKeys() {
+  constructCheckedKeys(allDomainButtons) {
     const checkedKeys = [];
+    const buttonCodes = [];
     const loop = data => data.map((item) => {
       if (item.simpleButtons) {
         loop(item.simpleButtons);
       }
       if (item.isSelected) {
         checkedKeys.push(item.buttonDescription);
+        buttonCodes.push(item.buttonCode);
       }
     });
+    loop(allDomainButtons);
+    return {
+      checkedKeys,
+      buttonCodes
+    };
+  }
+
+  @autobind
+  constructMenuCodes(checkedKeys) {
+    const buttonCodes = [];
+    const loop = data => data.map((item) => {
+      if (item.simpleButtons) {
+        loop(item.simpleButtons);
+      }
+      checkedKeys.map((menuValue) => {
+        if (menuValue === item.buttonDescription) {
+          buttonCodes.push(item.buttonCode);
+        }
+      })
+    });
     loop(this.state.allDomainButtons);
-    return checkedKeys;
+    return buttonCodes;
   }
 
   render() {
