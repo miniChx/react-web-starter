@@ -12,7 +12,7 @@ export default {
   // role
   addRole: '/Api/Role/add',
   deleteRole: '/Api/Role/delete',
-  findAllRole: '/Api/Role/findAll',
+  findAllRole: '/Api/Role/render',
   relateRolesAndUsers: '/Api/RoleRela/relateRolesToUser',
   relateMenusToRole: '/Api/RoleRela/relateMenusToRole',
   relateButtonsToRole: '/Api/RoleRela/relateButtonsToRole',

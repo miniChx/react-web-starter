@@ -4,7 +4,6 @@ import LocalStorage from 'local-storage';
 import * as types from '../constant/dictActions';
 import { PFetch } from '../system/fetch';
 import links from '../constant/links';
-import { LoginServer } from './login';
 
 const STORAGE_KEY_PROFILE = '@AS:profile';
 
