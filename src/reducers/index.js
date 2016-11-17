@@ -6,5 +6,5 @@ import menu from './menu';
 export default combineReducers({
   routing: routerReducer,
   global,
-  menu,
+  menu
 });

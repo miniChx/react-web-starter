@@ -28,18 +28,4 @@ describe('global action', () => {
     expect(actions.fetchEnd(payload)).to.eql(expectedAction);
   });
 
-  it('should dispatch login action', () => {
-    const store = mockStore({});
-    const phone = '13312341234';
-
-    const expectedAction = [{
-      type: types.AUTH_LOGIN,
-      payload: phone + '_ti',
-    }];
-
-    return store.dispatch(actions.login(phone)).then(() => {
-      console.log(store.getActions());
-      expect(store.getActions()).to.eql(expectedAction);
-    });
-  });
 });

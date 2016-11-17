@@ -6,7 +6,10 @@ import React from 'react';
 export default class ProcessDetail extends React.Component {
   render() {
     return (
-      <span>敬请期待!</span>
+      <div>
+        <span>敬请期待!</span>
+        <span>{this.props.dataSource && JSON.stringify(this.props.dataSource)}</span>
+      </div>
     );
   }
 }

@@ -16,7 +16,7 @@ const actionTrigger = (record, keyName) => {
   });
   console.log('param:', param);
   dispatch(push({
-    pathname: '/' + CONTAINER_PRE + '/',
+    pathname: '/' + CONTAINER_PRE + operation.actionUrl,
     query: { ...param, domainType: 'ProcessDetail' }
   }));
 };
