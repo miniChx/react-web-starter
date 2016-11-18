@@ -26,10 +26,21 @@ export default class roleAuthentication extends React.Component {
   }
 
   componentWillMount() {
+    this.initData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.reloadMenusOrButtons != nextProps.reloadMenusOrButtons) {
+      this.initData();
+    }
+  }
+
+  @autobind
+  initData() {
     longRunExec(() => {
       return this.props.actions.findMenusByRoleCode({
-        roleCode: this.props.record.roleCode
-      })
+          roleCode: this.props.record.roleCode
+        })
         .then(data => {
           const a = this.constructCheckedKeys(data.allMenus);
           this.setState({
@@ -119,17 +130,20 @@ export default class roleAuthentication extends React.Component {
       }
       return <TreeNode key={item.menuValue} title={item.menuValue} />;
     });
-    return (
-      <Tree
-        checkable={true}
-        onExpand={this.onExpand} expandedKeys={this.state.expandedKeys}
-        autoExpandParent={this.state.autoExpandParent}
-        onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
-        onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
-      >
-        {loop(this.state.roleMenus)}
-      </Tree>
-    );
+    if (this.state.roleMenus.length !== 0) {
+      return (
+        <Tree
+          checkable={true}
+          onExpand={this.onExpand} expandedKeys={this.state.expandedKeys}
+          autoExpandParent={this.state.autoExpandParent}
+          onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
+          onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
+        >
+          {loop(this.state.roleMenus)}
+        </Tree>
+      );
+    }
+    return null;
   }
 
 }

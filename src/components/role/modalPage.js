@@ -52,10 +52,9 @@ export default class ModalPage extends React.Component {
 
   constructor(props) {
     super(props);
+    this.reloadMenusOrButtons = true;
     this.state = {
       visible: false,
-      roleCode: '',
-      roleValue: '',
       codes: [],
     };
   }
@@ -75,11 +74,6 @@ export default class ModalPage extends React.Component {
     if (this.props.mode === 'add') {
       const form = this.form;
       form.validateFields((err, values) => {
-        this.setState({
-          // visible: false,
-          roleCode: values.roleCode,
-          roleValue: values.roleValue
-        });
         longRunExec(() => {
           return this.props.actions.addRole({
               roleCode: values.roleCode,
@@ -90,6 +84,7 @@ export default class ModalPage extends React.Component {
                 title: '添加成功'
               });
               this.props.refreshRole();
+              form.resetFields();
             });
         });
       });
@@ -128,6 +123,11 @@ export default class ModalPage extends React.Component {
     this.setState({
       visible: false,
     });
+    this.reloadMenusOrButtons = !this.reloadMenusOrButtons;
+    if (this.props.mode === 'add') {
+      const form = this.form;
+      form.resetFields();
+    }
   }
 
   @autobind
@@ -176,6 +176,7 @@ export default class ModalPage extends React.Component {
                   actions={this.props.actions}
                   record={this.props.record}
                   callbackCodes={this.callbackCodes}
+                  reloadMenusOrButtons={this.reloadMenusOrButtons}
                 />
               </Modal>
             </div>
@@ -192,6 +193,7 @@ export default class ModalPage extends React.Component {
                   actions={this.props.actions}
                   record={this.props.record}
                   callbackCodes={this.callbackCodes}
+                  reloadMenusOrButtons={this.reloadMenusOrButtons}
                 />
               </Modal>
             </div>
