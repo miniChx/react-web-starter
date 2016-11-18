@@ -21,7 +21,7 @@ const process = (_promise) => {
           resolve({});
         } else {
           const json = JSON.parse(response);
-          // TODO: 与后台沟通, 获得json格式
+          console.log('返回结果: ', json);
           if (json.msgContent || json.errMsg || json.code === 'version upgrade') {
             reject(json);
           } else {

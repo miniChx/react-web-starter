@@ -1,5 +1,6 @@
 import React from 'react';
 import { trimStart } from 'lodash/string';
+import { autobind } from 'core-decorators';
 
 import { PFetch } from '../../system/fetch';
 import { longRunExec } from '../../system/longRunOpt';
@@ -35,6 +36,13 @@ const AsyncDecorator = Wrapper => {
 
     getUrlPath = url => url;
 
+    @autobind
+    freshData(data) {
+      this.setState({
+        data
+      });
+    }
+
     render() {
       const { data } = this.state;
       if (data) {
@@ -42,6 +50,7 @@ const AsyncDecorator = Wrapper => {
           <Wrapper
             {...this.props}
             dataSource={data}
+            freshData={this.freshData}
           />
         );
       }

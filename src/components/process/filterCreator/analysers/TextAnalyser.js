@@ -18,6 +18,11 @@ export default class TextAnalyser extends AbstractAnalyser {
     this.updateFilterParam(filter.formProperty0, e.target.value);
   };
 
+  handleCheckBox = e => {
+    const filter = this.args[0];
+    this.updateFilterParam(filter.formProperty1, e.target.checked);
+  };
+
   @override
   render() {
     const filter = this.args[0];
@@ -26,7 +31,7 @@ export default class TextAnalyser extends AbstractAnalyser {
         <span>{' ' + filter.label + ': '}</span>
         <Input className={styles.input} onChange={this.handleInputChange} />
         {filter.checkBoxAttached &&
-        (<Checkbox className={styles.input} defaultChecked={filter.checkBoxAttached.defaultValue}>
+        (<Checkbox className={styles.input} onChange={this.handleCheckBox} defaultChecked={filter.checkBoxAttached.defaultValue}>
           {filter.checkBoxAttached.label}
         </Checkbox>)
         }

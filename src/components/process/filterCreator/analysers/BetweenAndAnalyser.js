@@ -16,7 +16,7 @@ export default class BetweenAndAnalyser extends AbstractAnalyser {
 
   handleChange = e => {
     // dispatch(replace);
-    if (e && e.indexOf('${') >= 0) {
+    if (e && e.indexOf && e.indexOf('${') >= 0) {
       console.log('is a function');
       const itemVar = executeJS(e);
       console.log(itemVar);
@@ -25,15 +25,27 @@ export default class BetweenAndAnalyser extends AbstractAnalyser {
     }
   };
 
+  handleMixChange = e => {
+    const mix = e.target.value;
+    const filter = this.args[0];
+    this.updateFilterParam(filter.formProperty0, mix);
+  };
+
+  handleMaxChange = e => {
+    const max = e.target.value;
+    const filter = this.args[0];
+    this.updateFilterParam(filter.formProperty0, max);
+  };
+
   @override
   render() {
     const filter = this.args[0];
     return (
       <div key={filter.order} className={styles.filter}>
         <span>{' ' + filter.label + ': '}</span>
-        <Input className={styles.input} placeholder={'较小值'} onChange={this.handleInputChange} />
+        <Input className={styles.input} placeholder={'较小值'} onChange={this.handleMixChange} />
         <span> 和</span>
-        <Input className={styles.input} placeholder={'较大值'} onChange={this.handleInputChange} />
+        <Input className={styles.input} placeholder={'较大值'} onChange={this.handleMaxChange} />
         <span> 之间</span>
       </div>
     );
