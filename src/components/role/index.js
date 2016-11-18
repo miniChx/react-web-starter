@@ -7,6 +7,9 @@ import { autobind } from 'core-decorators';
 import { Table, Modal, Input } from 'mxa';
 import ModalPage from './modalPage';
 
+import { longRunExec } from '../../system/longRunOpt';
+import * as RoleActions from '../../actions/role';
+
 import styles from '../../styles/views/listview.less';
 
 export default class Role extends React.Component {
@@ -14,18 +17,39 @@ export default class Role extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      dataSource: this.props.dataSource
     }
   }
 
   @autobind
-  _renderDeleteRole(text, record) {
+  _refreshRole() {
+    longRunExec(() => {
+      return RoleActions.findAllRole()
+        .then((dataSource) => {
+          this.setState({
+            dataSource
+          });
+        })
+    })
+  }
+
+  @autobind
+  _renderDeleteRole(record) {
+    const self = this;
     Modal.confirm({
       title: '删除该角色?',
       onOk() {
-        console.log(record);
-        Modal.success({
-          title: '删除成功',
+        longRunExec(() => {
+          return RoleActions.deleteRole({
+            roleCode: record.roleCode
+          })
+            .then(() => {
+                Modal.success({
+                  title: '删除成功'
+                });
+                self._refreshRole();
+            })
         });
       },
       onCancel() {},
@@ -33,12 +57,26 @@ export default class Role extends React.Component {
   }
 
   @autobind
-  _renderColumnAction(text, record) {
+  _renderColumnAction(record) {
     return (
       <div className={styles.toolbar}>
         <ModalPage title="详情" className={styles.inlineButton} record={record} mode="detail"/>
-        <ModalPage title="菜单" className={styles.inlineButton} record={record} mode="menu"/>
-        <ModalPage title="按钮" className={styles.inlineButton} record={record} mode="button"/>
+        <ModalPage
+          title="菜单"
+          className={styles.inlineButton}
+          record={record}
+          mode="menu"
+          actions={RoleActions}
+          refreshRole={this._refreshRole}
+        />
+        <ModalPage
+          title="按钮"
+          className={styles.inlineButton}
+          record={record}
+          mode="button"
+          actions={RoleActions}
+          refreshRole={this._refreshRole}
+        />
         <a className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</a>
       </div>
     );
@@ -46,7 +84,7 @@ export default class Role extends React.Component {
 
   @autobind
   _dataSourceAdapter() {
-    return this.props.dataSource && this.props.dataSource.roles && this.props.dataSource.roles.map((item, index) => {
+    return this.state.dataSource && this.state.dataSource.roles && this.state.dataSource.roles.map((item, index) => {
         return {
           ...item,
           key: index
@@ -68,12 +106,14 @@ export default class Role extends React.Component {
       key: 'operation',
       fixed: 'right',
       width: 200,
-      render: (text, record) => this._renderColumnAction(text, record),
+      render: (record) => this._renderColumnAction(record),
     }];
 
     return (
       <div>
-        <ModalPage title="添加角色" className={styles.topButton} mode="add" />
+        <ModalPage
+          title="添加角色" className={styles.topButton} mode="add" actions={RoleActions} refreshRole={this._refreshRole}
+        />
         <Table
           columns={columns}
           dataSource={this._dataSourceAdapter()}

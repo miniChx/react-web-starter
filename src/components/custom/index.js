@@ -4,21 +4,21 @@
 import React from 'react';
 
 import Role from '../role';
-import UserList from '../user';
+import AccountList from '../user';
 
 export default class Custom extends React.Component {
 
   render() {
-    if (this.props.domainLink === 'RoleManagement') {
+    if (this.props.domainLink === 'Role/render') {
       return (
         <div>
           <Role dataSource={this.props.dataSource} />
         </div>
       );
-    } else if (this.props.domainLink === 'UserList/render') {
+    } else if (this.props.domainLink === 'AccountList/render') {
       return (
         <div>
-          <UserList dataSource={this.props.dataSource} />
+          <AccountList dataSource={this.props.dataSource} />
         </div>
       );
     }
