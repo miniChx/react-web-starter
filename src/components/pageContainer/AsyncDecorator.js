@@ -15,7 +15,7 @@ const AsyncDecorator = Wrapper => {
 
     componentDidMount() {
       if (this.props.domainLink) {
-        const url = this.getUrlPath('/Api/' + trimStart(this.props.domainLink, '/'));
+        const url = this.getUrlPath('/' + trimStart(this.props.domainLink, '/'));
         const params = { ...this.props.params };
         if (this.props.location) {
           Object.assign(params, this.props.location.query);
