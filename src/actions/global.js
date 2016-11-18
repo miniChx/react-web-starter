@@ -1,11 +1,12 @@
-
 import { createAction } from 'redux-actions';
 import LocalStorage from 'local-storage';
+import { replace } from 'react-router-redux';
 import * as types from '../constant/dictActions';
 import { PFetch } from '../system/fetch';
 import links from '../constant/links';
 import { LoginServer } from './login';
 import SessionStorage from '../common/session-storage';
+
 
 const STORAGE_KEY_PROFILE = '@AS:profile';
 
@@ -26,7 +27,7 @@ export const fetchEnd = createAction(types.FETCH_END);
 
 const authLogin = createAction(types.AUTH_LOGIN);
 const authLogout = createAction(types.AUTH_LOGOUT);
-export const forceLogout = createAction(types.AUTH_FORCE_LOGOUT);
+const forceLogoutAction = createAction(types.AUTH_FORCE_LOGOUT);
 
 export const resetMenu = createAction(types.MENU_RESET);
 
@@ -49,6 +50,14 @@ export const logout = () => dispatch => {
   return PFetch(links.logout, {}).then(() => {
     LocalStorage.set(STORAGE_KEY_PROFILE, { token: '' });
     SessionStorage.set(STORAGE_KEY_PROFILE, { token: '' });
+    dispatch(replace('/login'));
     dispatch(authLogout());
   });
+};
+
+export const forceLogout = () => dispatch => {
+  LocalStorage.set(STORAGE_KEY_PROFILE, { token: '' });
+  SessionStorage.set(STORAGE_KEY_PROFILE, { token: '' });
+  dispatch(replace('/login'));
+  dispatch(forceLogoutAction());
 };
