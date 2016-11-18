@@ -69,11 +69,14 @@ export default class ModalPage extends React.Component {
 
   @autobind
   handleOk() {
+    this.setState({
+      visible: false
+    });
     if (this.props.mode === 'add') {
       const form = this.form;
       form.validateFields((err, values) => {
         this.setState({
-          visible: false,
+          // visible: false,
           roleCode: values.roleCode,
           roleValue: values.roleValue
         });
