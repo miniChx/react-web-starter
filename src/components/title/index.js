@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { Icon, Col, Row } from 'mxa';
+import { replace } from 'react-router-redux';
 import { dispatch } from '../../service/DispatchService';
 import { logout, loginServer } from '../../actions/global';
 import styles from '../../styles/views/title.less';
@@ -21,7 +22,7 @@ export default class Title extends React.Component {
   }
 
   _logout() {
-    dispatch(logout());
+    dispatch(logout())
   }
 
   _switchMenu() {

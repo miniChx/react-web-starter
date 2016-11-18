@@ -1,13 +1,9 @@
-
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push, replace, goBack } from 'react-router-redux';
 import Animate from 'rc-animate';
 import { Row, Col } from 'mxa';
-
-// import Header from './layout/Header';
-// import Footer from './layout/Footer';
 
 import { autobind } from 'core-decorators';
 
@@ -20,7 +16,6 @@ import { isInitDataFromServer } from '../service/CacheService';
 import { initDataFromServer } from '../actions/global';
 import { longRunExec } from '../system/longRunOpt';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,15 +23,6 @@ class App extends React.Component {
       menuIsOpen: true,
       enter: true
     };
-  }
-
-  componentWillReceiveProps(next) {
-    if (!next.token && this.props.token) {
-      this.props.actions.replace('/login');
-    }
-    if (next.token && !this.props.token) {
-      this.props.actions.push('/');
-    }
   }
 
   componentDidMount() {
@@ -63,7 +49,7 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.props.token) {
+    if (this.props.token && this.props.menu && this.props.menu.length > 0) {
       return (
         <div>
           <Title switchMenu={this.switchMenu} />

@@ -15,19 +15,15 @@ class PageContainer extends React.Component {
     // initial state
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
+
   render() {
     const domainLink = this.props.params.splat;
     const { linkInfo } = searchMenu(domainLink);
     const domainType = linkInfo ? linkInfo.domainType : this.props.location.query.domainType;
 
-    // if (domainType === 'Custom') {
-    //   return (
-    //     null
-    //   );
-    // }
     const FinalPage = Compose(AsyncDecorator, InitDecorator)();
     return (
-      <FinalPage {...this.props} domainType={domainType} domainLink={domainLink} />
+      <FinalPage key="key_page_container" {...this.props} domainType={domainType} domainLink={domainLink} />
     );
   }
 }
