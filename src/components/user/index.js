@@ -4,14 +4,16 @@
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Modal, Input, Row, Col, Select } from 'mxa';
+import { Table, Button, Modal, Input, Row, Col, Select, Radio } from 'mxa';
 import { ModalPage } from './modalPage';
 
 import styles from '../../styles/views/listview.less';
-import { deleteAccountServer, findAccountById, searchAccountServer } from '../../actions/account';
+import { deleteAccountServer, findAccountById, searchAccountServer, updateAccountServer, findAllRolesByUserId } from '../../actions/account';
 import { longRunExec } from '../../system/longRunOpt';
 
 const Option = Select.Option;
+const RadioGroup = Radio.Group;
+
 export default class AccountList extends React.Component {
 
   constructor(props) {
@@ -21,14 +23,14 @@ export default class AccountList extends React.Component {
       visible: false,
       status: 'ACCOUNT_STATUS_ALL',
       currentPage: 1,
-      orderField: {orderField: "id", orderType: "Asc"}
+      orderField: {orderField: "id", orderType: "Asc"},
+      roleList: []
     }
   }
 
   @autobind
-  _renderDeleteRole(record) {
+  _renderDelete(record) {
     const that = this;
-    const state = this.state;
     Modal.confirm({
       title: '删除该用户?',
       onOk() {
@@ -51,18 +53,46 @@ export default class AccountList extends React.Component {
             Modal.success({
               title: '删除成功',
             });
-            return searchAccountServer({
-              filterFieldCodes: [state.status],
-              orderFields: [
-                state.orderField
-              ],
-              pageIndex: state.currentPage,
-              itemsPerPage: 10
-            }).then(d => {
-              that.setState({
-                dataSource: d
-              });
+            that._searchItem();
+          });
+        });
+      },
+      onCancel() {},
+    });
+  }
+
+  @autobind
+  _renderFreezing(record) {
+    const that = this;
+    let title = '冻结该用户？';
+    let successTitle = '冻结成功';
+    if (record.status === 'FREEZING') {
+      title = '解冻该用户？';
+      successTitle = '解冻成功';
+    }
+    Modal.confirm({
+      title: title,
+      onOk() {
+        //TODO: 联调删除用户的接口
+        longRunExec(() => {
+          return findAccountById({
+            id: record.id
+          }).then((data) => {
+            return updateAccountServer(
+              {
+                id: record.id,
+                userName: record.userName,
+                mobileNo: record.mobileNo,
+                email: record.email,
+                password: data.password,
+                status: record.status === 'FREEZING' ? 'ACTIVE' : 'FREEZING'
+              }
+            );
+          }).then(() => {
+            Modal.success({
+              title: successTitle,
             });
+            that._searchItem();
           });
         });
       },
@@ -75,9 +105,15 @@ export default class AccountList extends React.Component {
     return (
       <div className={styles.toolbar}>
         <ModalPage title="详情" className={styles.inlineButton} record={record} mode="detail" renderResult={this._searchItem} />
+        <ModalPage title="设置角色" className={styles.inlineButton} record={record} mode="setRole" renderResult={this._searchItem} roleList={this.state.roleList} />
         <a disabled={record.status === 'DELETE' ? true : false}
            className={styles.inlineButton}
-           onClick={record.status === 'DELETE' ? null : () => this._renderDeleteRole(record)}>
+           onClick={record.status === 'DELETE' ? null : () => this._renderFreezing(record)}>
+          {record.status === 'FREEZING' ? '解冻' : '冻结'}
+        </a>
+        <a disabled={record.status === 'DELETE' ? true : false}
+           className={styles.inlineButton}
+           onClick={record.status === 'DELETE' ? null : () => this._renderDelete(record)}>
           删除
         </a>
       </div>
@@ -108,8 +144,7 @@ export default class AccountList extends React.Component {
   @autobind
   _selectChange(value) {
     this.setState({
-      status: value,
-      currentPage: 1
+      status: value
     })
 
     this._searchItem({
@@ -117,7 +152,7 @@ export default class AccountList extends React.Component {
       orderFields: [
         this.state.orderField
       ],
-      pageIndex: 1,
+      pageIndex: this.state.currentPage,
       itemsPerPage: 10
     });
   }
@@ -145,6 +180,7 @@ export default class AccountList extends React.Component {
     });
   }
 
+  @autobind
   _changePage(current) {
     this._searchItem({
       filterFieldCodes: [this.state.status],
@@ -156,19 +192,40 @@ export default class AccountList extends React.Component {
     })
   }
 
+  @autobind
+  _handleTableChange(pagination, filters, sorter) {
+    console.log('sorter:' + sorter.field);
+    console.log('sorter:' + sorter.order);
+    if (typeof(sorter.order) === "undefined") {
+      return;
+    }
+    this._searchItem({
+      filterFieldCodes: [this.state.status],
+      orderFields: [
+        {
+          orderField: sorter.field,
+          orderType: sorter.order === 'descend' ? 'Desc' : 'Asc'
+        }
+      ],
+      pageIndex: this.state.currentPage,
+      itemsPerPage: 10
+    });
+  }
+
   render() {
     // eslint-disable-next-line arrow-body-style
     let columns = this.props.dataSource.fields.map(item => ({
       key: item.index,
       title: item.description,
       dataIndex: item.name,
+      sorter: item.name === 'id' || item.name === 'status' ? true : false
     }));
 
     columns.push({
       title: '操作',
       key: 'operation',
       fixed: 'right',
-      width: 100,
+      width: 200,
       render: (text, record) => this._renderColumnAction(text, record),
     });
 
@@ -206,6 +263,7 @@ export default class AccountList extends React.Component {
           columns={columns}
           dataSource={this._dataSourceAdapter()}
           pagination={pagination}
+          onChange={this._handleTableChange}
         />
       </div>
     );
