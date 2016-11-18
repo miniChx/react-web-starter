@@ -44,7 +44,7 @@ const AddUserForm = Form.create()(
             {getFieldDecorator('userName', { initialValue: '' })(
               <div>
                 <input style={{display: 'none'}} />
-                <Input autocomplete="off"/>
+                <Input />
               </div>
             )}
           </FormItem>
@@ -52,7 +52,7 @@ const AddUserForm = Form.create()(
             {getFieldDecorator('password', { initialValue: '' })(
               <div>
                 <input style={{display: 'none'}} />
-                <Input type="password" autocomplete="off"/>
+                <Input type="password" />
               </div>
             )}
           </FormItem>

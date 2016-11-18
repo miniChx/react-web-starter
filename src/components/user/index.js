@@ -144,8 +144,7 @@ export default class AccountList extends React.Component {
   @autobind
   _selectChange(value) {
     this.setState({
-      status: value,
-      currentPage: 1
+      status: value
     })
 
     this._searchItem({
@@ -153,7 +152,7 @@ export default class AccountList extends React.Component {
       orderFields: [
         this.state.orderField
       ],
-      pageIndex: 1,
+      pageIndex: this.state.currentPage,
       itemsPerPage: 10
     });
   }
