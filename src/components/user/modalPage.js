@@ -3,21 +3,29 @@
  */
 /* eslint-disable */
 import React from 'react';
-import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
-import { Modal, Form, Button, Input, Row, Col, message } from 'mxa';
+import {connect} from 'react-redux';
+import {autobind} from 'core-decorators';
+import {Modal, Form, Button, Input, Row, Col, message, Checkbox} from 'mxa';
 import sha256 from 'sha256';
 
 import styles from '../../styles/views/listview.less';
-import { addAccountServer, findAccountById, updateAccountServer } from '../../actions/account';
-import { longRunExec } from '../../system/longRunOpt';
+import {
+  addAccountServer,
+  findAccountById,
+  updateAccountServer,
+  relateRolesAndUsers,
+  findAllRolesByUserId
+} from '../../actions/account';
+import {longRunExec} from '../../system/longRunOpt';
+import validation from '../../common/utils/validation';
 
 const FormItem = Form.Item;
+const CheckboxGroup = Checkbox.Group;
 
 const AddUserForm = Form.create()(
   (props) => {
-    const { visible, onCancel, onCreate, form, title, userCode } = props;
-    const { getFieldDecorator } = form;
+    const {visible, onCancel, onCreate, form, title, userCode} = props;
+    const {getFieldDecorator} = form;
     return (
       <Modal
         visible={visible}
@@ -28,18 +36,28 @@ const AddUserForm = Form.create()(
       >
         <Form horizontal={true}>
           <FormItem label="手机号">
-            {getFieldDecorator('mobileNo')(
+            {getFieldDecorator('mobileNo', { initialValue: '' })(
               <Input />
             )}
           </FormItem>
           <FormItem label="用户名">
-            {getFieldDecorator('userName')(<Input />)}
+            {getFieldDecorator('userName', { initialValue: '' })(
+              <div>
+                <input style={{display: 'none'}} />
+                <Input />
+              </div>
+            )}
           </FormItem>
           <FormItem label="用户密码">
-            {getFieldDecorator('password')(<Input />)}
+            {getFieldDecorator('password', { initialValue: '' })(
+              <div>
+                <input style={{display: 'none'}} />
+                <Input type="password" />
+              </div>
+            )}
           </FormItem>
           <FormItem label="邮箱">
-            {getFieldDecorator('email')(<Input />)}
+            {getFieldDecorator('email', { initialValue: '' })(<Input />)}
           </FormItem>
         </Form>
       </Modal>
@@ -49,8 +67,8 @@ const AddUserForm = Form.create()(
 
 const EditUserForm = Form.create()(
   (props) => {
-    const { visible, onCancel, onCreate, form, title, dataSource } = props;
-    const { getFieldDecorator } = form;
+    const {visible, onCancel, onCreate, form, title, dataSource} = props;
+    const {getFieldDecorator} = form;
     return (
       <Modal
         visible={visible}
@@ -61,18 +79,62 @@ const EditUserForm = Form.create()(
       >
         <Form horizontal={true}>
           <FormItem label="手机号">
-            {getFieldDecorator('mobileNo', { initialValue: dataSource.mobileNo })(
+            {getFieldDecorator('mobileNo', {initialValue: dataSource.mobileNo})(
               <Input />
             )}
           </FormItem>
           <FormItem label="用户名">
-            {getFieldDecorator('userName', { initialValue: dataSource.userName })(<Input />)}
+            {getFieldDecorator('userName', {initialValue: dataSource.userName})(<Input />)}
           </FormItem>
           <FormItem label="用户密码">
-            {getFieldDecorator('password')(<Input placeholder='********' />)}
+            {getFieldDecorator('password')(<Input placeholder='********' type="password"/>)}
           </FormItem>
           <FormItem label="邮箱">
-            {getFieldDecorator('email', { initialValue: dataSource.email })(<Input />)}
+            {getFieldDecorator('email', {initialValue: dataSource.email})(<Input />)}
+          </FormItem>
+        </Form>
+      </Modal>
+    );
+  }
+);
+
+const SetRoleForm = Form.create()(
+  (props) => {
+    const {
+      visible,
+      onCancel,
+      onCreate,
+      form,
+      title,
+      roleList
+    } = props;
+    const {getFieldDecorator} = form;
+    let plainOptions = [];
+    let checkedList = [];
+    if (roleList) {
+      roleList.map((item, index) => {
+        plainOptions.push({
+          label: item.roleValue,
+          value: item.roleCode
+        });
+        if (item.isSelected) {
+          checkedList.push(item.roleCode);
+        }
+      })
+    }
+    return (
+      <Modal
+        visible={visible}
+        title={title}
+        okText="修改"
+        onCancel={onCancel}
+        onOk={onCreate}
+      >
+        <Form horizontal={true}>
+          <FormItem>
+            {getFieldDecorator('roles', {initialValue: checkedList})(
+              <CheckboxGroup options={plainOptions}/>
+            )}
           </FormItem>
         </Form>
       </Modal>
@@ -85,7 +147,7 @@ export class ModalPage extends React.Component {
   static propTypes = {
     title: React.PropTypes.string,
     mode: React.PropTypes.string,
-    record: React.PropTypes.object,
+    record: React.PropTypes.object
   };
 
   static defaultProps = {
@@ -95,7 +157,8 @@ export class ModalPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      roleList: []
     }
   }
 
@@ -104,6 +167,17 @@ export class ModalPage extends React.Component {
     this.setState({
       visible: true,
     });
+    if (this.props.mode === 'setRole') {
+      longRunExec(() => {
+        return findAllRolesByUserId({
+          id: this.props.record.id
+        }).then(d => {
+          this.setState({
+            roleList: d.roles
+          });
+        });
+      });
+    }
   }
 
   @autobind
@@ -115,40 +189,67 @@ export class ModalPage extends React.Component {
       }
       console.log('Received values of form: ', values);
       // form.resetFields();
-      if (this.props.record) {
-        longRunExec(() => {
-          return findAccountById({
-            id: this.props.record.id
-          }).then((data) => {
-            return updateAccountServer(
-              {
-                id: this.props.record.id,
-                userName: values.userName,
-                mobileNo: values.mobileNo,
-                email: values.email,
-                password: values.password === '' ? data.password : sha256(values.password),
-                status: this.props.record.status
-              }
-            );
-          }).then(() => {
-            this.setState({ visible: false });
-            message.success('修改成功');
-            this.props.renderResult();
+      if (this.props.mode === 'detail') {
+        if (!values.mobileNo || !values.userName || !values.password || !values.email) {
+          message.error('信息不能为空');
+        } else if (!validation.isMobile(values.mobileNo)) {
+          message.error('请输入正确的手机号');
+        } else if (!validation.isEmail(values.email)) {
+          message.error('请输入正确的邮箱地址');
+        } else {
+          longRunExec(() => {
+            return findAccountById({
+              id: this.props.record.id
+            }).then((data) => {
+              return updateAccountServer(
+                {
+                  id: this.props.record.id,
+                  userName: values.userName,
+                  mobileNo: values.mobileNo,
+                  email: values.email,
+                  password: values.password === '' ? data.password : sha256(values.password),
+                  status: this.props.record.status
+                }
+              );
+            }).then(() => {
+              this.setState({visible: false});
+              message.success('修改成功');
+              this.props.renderResult();
+            });
           });
-        });
-      } else {
+        }
+      } else if (this.props.mode === 'add') {
+        if (!values.mobileNo || !values.userName || !values.password || !values.email) {
+          message.error('信息不能为空');
+        } else if (!validation.isMobile(values.mobileNo)) {
+          message.error('请输入正确的手机号');
+        } else if (!validation.isEmail(values.email)) {
+          message.error('请输入正确的邮箱地址');
+        } else {
+          longRunExec(() => {
+            return addAccountServer(
+              {
+                userName: values.userName,
+                password: sha256(values.password),
+                mobileNo: values.mobileNo,
+                email: values.email
+              }
+            ).then(() => {
+              this.setState({visible: false});
+              message.success('添加成功');
+              this.props.renderResult();
+            });
+          });
+        }
+      } else if (this.props.mode === 'setRole') {
         longRunExec(() => {
-          return addAccountServer(
-            {
-              userName: values.userName,
-              password: sha256(values.password),
-              mobileNo: values.mobileNo,
-              email: values.email
-            }
-          ).then(() => {
-            this.setState({ visible: false });
-            message.success('添加成功');
-            this.props.renderResult();
+          return relateRolesAndUsers({
+            userId: this.props.record.id,
+            //TODO: 获取数据
+            roleCodes: values.roles
+          }).then(() => {
+            this.setState({visible: false});
+            message.success('设置成功');
           });
         });
       }
@@ -159,6 +260,8 @@ export class ModalPage extends React.Component {
   @autobind
   handleCancel(e) {
     console.log(e);
+    const form = this.form;
+    form.resetFields();
     this.setState({
       visible: false,
     });
@@ -169,8 +272,17 @@ export class ModalPage extends React.Component {
     this.form = form;
   }
 
+  @autobind
+  _onCheckAllChange(e) {
+    this.setState({
+      checkedList: e.target.checked ? this.state.plainOptions : [],
+      indeterminate: false,
+      checkAll: e.target.checked,
+    });
+  }
+
   render() {
-    if (this.props.record) {
+    if (this.props.mode === 'detail') {
       return (
         <div>
           <a className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</a>
@@ -184,7 +296,7 @@ export class ModalPage extends React.Component {
           />
         </div>
       );
-    } else if (this.props.mode === 'add'){
+    } else if (this.props.mode === 'add') {
       return (
         <div>
           <Button className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</Button>
@@ -195,6 +307,20 @@ export class ModalPage extends React.Component {
             onCreate={this.handleOk}
             title={this.props.title}
             userCode={this.props.userCode}
+          />
+        </div>
+      );
+    } else if (this.props.mode === 'setRole') {
+      return (
+        <div>
+          <a className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</a>
+          <SetRoleForm
+            ref={this._saveFormRef}
+            visible={this.state.visible}
+            onCancel={this.handleCancel}
+            onCreate={this.handleOk}
+            title={this.props.title}
+            roleList={this.state.roleList}
           />
         </div>
       );

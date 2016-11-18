@@ -29,3 +29,13 @@ export const searchAccountServer = (params) => {
     return d;
   });
 };
+
+export const findAllRolesByUserId = (params) => {
+  return PFetch(links.findAllRolesByUserId, params).then(d => {
+    return d;
+  });
+};
+
+export const relateRolesAndUsers = (params) => {
+  return PFetch(links.relateRolesAndUsers, params);
+};
