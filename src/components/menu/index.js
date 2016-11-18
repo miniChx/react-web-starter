@@ -82,6 +82,7 @@ class MenuCreator extends React.Component {
     const { linkInfo, indexPath } = this.getMenuInfo(next.routing);
     if (linkInfo) {
       const openKeys = this.getOpenKeys(indexPath, this.props.menu);
+      console.log('open keys', openKeys);
       this.setState({
         current: linkInfo.menuCode,
         openKeys

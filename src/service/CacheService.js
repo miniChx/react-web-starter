@@ -49,3 +49,7 @@ export const searchMenu = (id) => {
 
   return { linkInfo: tag, indexPath };
 };
+
+export const getRouting = () => {
+  return _store.getState().routing || {};
+}

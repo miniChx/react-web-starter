@@ -63,12 +63,6 @@ class App extends React.Component {
   }
 
   render() {
-    const MenuModule = props => {
-      const { style, show } = props;
-      const newStyle = { ...style, display: show ? '' : 'none' };
-      return <Menu {...props} style={newStyle} />;
-    };
-
     if (this.props.token) {
       return (
         <div>
@@ -84,7 +78,7 @@ class App extends React.Component {
                 showProp="show"
                 transitionName="move-left"
               >
-                <MenuModule show={this.state.enter} />
+                <Menu />
               </Animate>
             </Col>
             <Col span={20}>{React.cloneElement(this.props.children, { goBack: this._goBack })}</Col>

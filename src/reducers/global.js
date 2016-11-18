@@ -30,6 +30,11 @@ export default function update(state = initialState, action) {
         ...state,
         token: ''
       };
+    case types.AUTH_FORCE_LOGOUT:
+      return {
+        ...state,
+        token: ''
+      };
     default:
       return state;
   }

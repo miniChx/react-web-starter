@@ -4,7 +4,7 @@
 import co from 'co';
 import { Modal } from 'mxa';
 import { dispatch } from '../service/DispatchService';
-import { fetchStart, fetchEnd } from '../actions/global';
+import { fetchStart, fetchEnd, forceLogout } from '../actions/global';
 /* eslint-disable */
 export const longRunExec = (bizHandler, needLoding = true) => {
 
@@ -26,6 +26,9 @@ export const longRunExec = (bizHandler, needLoding = true) => {
           title: '网络请求异常',
           content: errorData.message ? errorData.message : errorData.msgContent + '(' + errorData.ex + ')',
         });
+        if (errorData.msgCode === 'SYSTEM_AUTH_HEADER_INVALID' || errorData.msgCode === 'SYSTEM_AUTH_HEADER_NOTMATCHED') {
+          dispatch(forceLogout());
+        }
       });
   }).catch((e) => {
     console.log(e);

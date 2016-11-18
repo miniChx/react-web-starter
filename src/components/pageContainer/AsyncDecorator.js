@@ -26,6 +26,10 @@ const AsyncDecorator = Wrapper => {
               data,
             });
           }));
+      } else {
+        setTimeout(() => this.setState({
+          data: []
+        }));
       }
     }
 

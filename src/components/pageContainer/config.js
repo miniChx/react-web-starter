@@ -6,12 +6,14 @@ import ListView from '../listView';
 import ListDetail from '../listDetail';
 import Process from '../process';
 import Custom from '../custom';
+import ProcessDetail from '../processDetail';
 
 import {
   PAGE_TYPE_LIST,
   PAGE_TYPE_DETAIL,
   PAGE_TYPE_CUSTOM,
   PAGE_TYPE_PROCESS,
+  PAGE_TYPE_PROCESS_DETAIL
 } from '../../constant/dictActions';
 
 const defStr = 'default';
@@ -23,4 +25,5 @@ export default {
   [PAGE_TYPE_DETAIL]: ListDetail,
   [PAGE_TYPE_CUSTOM]: Custom,
   [PAGE_TYPE_PROCESS]: Process,
+  [PAGE_TYPE_PROCESS_DETAIL]: ProcessDetail
 };

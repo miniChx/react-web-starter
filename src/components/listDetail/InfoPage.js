@@ -31,7 +31,7 @@ export default class InfoPage extends React.Component {
                   <span>{item.description}:</span>
                 </Col>
                 <Col offset={2} span={10}>
-                  <span>{this.props.dataSource.detailResult[item.name]}</span>
+                  <span>{this.props.dataSource.detailResult && this.props.dataSource.detailResult[item.name]}</span>
                 </Col>
               </Row>
             )

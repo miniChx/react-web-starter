@@ -40,7 +40,7 @@ export class ExtendButton extends React.Component {
         if (this.props.messagePromptType === 'message') {
           Modal.info({
             title: '提示',
-            content: (<div>您已成功{this.props.buttonDescription}{this.props.record.realName}！</div>),
+            content: (<div>您已成功{this.props.buttonDescription}{this.props.record && this.props.record.realName}！</div>),
             onOk() {},
           });
         }
@@ -49,7 +49,7 @@ export class ExtendButton extends React.Component {
         console.log(errorData);
         Modal.error({
           title: '提示',
-          content: (<div>{this.props.buttonDescription}{this.props.record.realName}失败！</div>),
+          content: (<div>{this.props.buttonDescription}{this.props.record && this.props.record.realName}失败！</div>),
           onOk() {},
         });
       });

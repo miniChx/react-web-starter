@@ -4,7 +4,7 @@
 import React from 'react';
 import { Icon, Col, Row } from 'mxa';
 import { dispatch } from '../../service/DispatchService';
-import { logout } from '../../actions/global';
+import { logout, loginServer } from '../../actions/global';
 import styles from '../../styles/views/title.less';
 import { longRunExec } from '../../system/longRunOpt';
 
@@ -37,11 +37,12 @@ export default class Title extends React.Component {
           <Icon type="bars" className={styles.titleIcon} onClick={this._switchMenu}/>
         </Col>
         <Col span={8} offset={7}>
-          <h1 className={styles.title_color}>快速开发基础平台</h1>
+          <h1 className={styles.title_color}>基础开发平台</h1>
         </Col>
         <Col span={2} offset={6}>
           <span className={styles.title_color} style={{cursor:'pointer'}} onClick={this._logout}>
-            <Icon type="logout" className={styles.title_color} />{' 退出'}
+            <Icon type="logout" className={styles.title_color} />
+            {' 退出'}
           </span>
         </Col>
       </Row>
