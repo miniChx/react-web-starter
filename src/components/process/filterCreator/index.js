@@ -29,7 +29,8 @@ export default class FilterBar extends React.Component {
     console.log(searchUrl);
     this.props.exec(() => {
       return PFetch('/' + searchUrl, param).then(response => {
-        console.log(response);
+        console.log('', response);
+        this.props.freshData && this.props.freshData(response);
       });
     });
   }
