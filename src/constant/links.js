@@ -24,6 +24,7 @@ export default {
   updateAccount: '/Api/AccountDetail/update',
   renderAccount: '/Api/AccountList/render',
   searchAccount: '/Api/AccountList/search',
-  findAccountById: '/Api/AccountDetail/findById'
+  findAccountById: '/Api/AccountDetail/findById',
+  findAllRolesByUserId: '/Api/RoleRela/findAllRolesByUserId'
 
 };

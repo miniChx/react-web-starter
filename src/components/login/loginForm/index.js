@@ -53,7 +53,7 @@ class LoginForm extends React.Component {
       longRunExec(() => {
         return this.props.dispatch(loginServer(
             values.remember,
-            { userName: values.user, password: values.pass }
+            { userName: values.user, password: sha256(values.pass) }
           ));
       });
       // this.props.dispatch(loginRemember('hahahahaha'));
