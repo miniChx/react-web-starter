@@ -82,11 +82,12 @@ export default class ModalPage extends React.Component {
               roleCode: values.roleCode,
               roleValue: values.roleValue
             })
-            .then(
+            .then(() => {
               Modal.success({
                 title: '添加成功'
-              })
-            );
+              });
+              this.props.refreshRole();
+            });
         });
       });
     } else if (this.props.mode === 'menu') {
@@ -95,11 +96,12 @@ export default class ModalPage extends React.Component {
             roleCode: this.props.record.roleCode,
             menuCodes: this.state.codes
           })
-          .then(
+          .then(() => {
             Modal.success({
-              title: '保存成功'
-            })
-          );
+              title: '关联成功'
+            });
+            this.props.refreshRole();
+          });
       });
     } else if (this.props.mode === 'button') {
       longRunExec(() => {
@@ -107,11 +109,12 @@ export default class ModalPage extends React.Component {
             roleCode: this.props.record.roleCode,
             buttonCodes: this.state.codes
           })
-          .then(
+          .then(() => {
             Modal.success({
-              title: '保存成功'
-            })
-          );
+              title: '关联成功'
+            });
+            this.props.refreshRole();
+          });
       });
     }
   }
@@ -164,7 +167,7 @@ export default class ModalPage extends React.Component {
               <a className={this.props.className} onClick={this.showModal}>{this.props.title}</a>
               <Modal title={this.props.title} visible={this.state.visible}
                      onOk={this.handleOk} onCancel={this.handleCancel}
-                     okText="保存"
+                     okText="关联菜单"
               >
                 <GetMenus
                   actions={this.props.actions}
@@ -180,7 +183,7 @@ export default class ModalPage extends React.Component {
               <a className={this.props.className} onClick={this.showModal}>{this.props.title}</a>
               <Modal title={this.props.title} visible={this.state.visible}
                      onOk={this.handleOk} onCancel={this.handleCancel}
-                     okText="保存"
+                     okText="关联按钮"
               >
                 <GetButtons
                   actions={this.props.actions}
