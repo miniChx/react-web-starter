@@ -19,6 +19,12 @@ function noop() {
   return false;
 }
 
+const isAddSha = true;
+
+function addSha(pass) {
+  return isAddSha ? sha256(pass) : pass;
+}
+
 class LoginForm extends React.Component {
 
   constructor(props) {
@@ -53,7 +59,7 @@ class LoginForm extends React.Component {
       longRunExec(() => {
         return this.props.dispatch(loginServer(
             values.remember,
-            { userName: values.user, password: sha256(values.pass) }
+            { userName: values.user, password: addSha(values.pass) }
           )).then(() => {
             this.props.dispatch(replace('/'));
           });

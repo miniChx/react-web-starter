@@ -12,6 +12,7 @@ function getData(url, param, callback, headers) {
   if (url.indexOf('Pub') < 0 && url.indexOf('Api') < 0) {
     url = '/Api' + url;
   }
+  console.log(url);
   var options = {
     uri: "http://" + config.host + ":" + config.port + url,
     method: 'POST',
