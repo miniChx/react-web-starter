@@ -14,8 +14,8 @@ const Option = Select.Option;
 export default class TextAnalyser extends AbstractAnalyser {
 
   handleInputChange = e => {
-    // dispatch();
-    console.log(e);
+    const filter = this.args[0];
+    this.updateFilterParam(filter.formProperty0, e.target.value);
   };
 
   @override

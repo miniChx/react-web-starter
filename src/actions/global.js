@@ -5,6 +5,7 @@ import * as types from '../constant/dictActions';
 import { PFetch } from '../system/fetch';
 import links from '../constant/links';
 import { LoginServer } from './login';
+import SessionStorage from '../common/session-storage';
 
 const STORAGE_KEY_PROFILE = '@AS:profile';
 
@@ -16,7 +17,7 @@ export const initDataFromServer = () => dispatch => PFetch(links.getMenus, {})
   });
 
 export const initApp = () => {
-  const payload = LocalStorage.get(STORAGE_KEY_PROFILE) || {};
+  const payload = SessionStorage.get(STORAGE_KEY_PROFILE) || LocalStorage.get(STORAGE_KEY_PROFILE) || {};
   return createAction(types.INIT_APP)(payload);
 };
 
@@ -25,6 +26,7 @@ export const fetchEnd = createAction(types.FETCH_END);
 
 const authLogin = createAction(types.AUTH_LOGIN);
 const authLogout = createAction(types.AUTH_LOGOUT);
+export const forceLogout = createAction(types.AUTH_FORCE_LOGOUT);
 
 export const resetMenu = createAction(types.MENU_RESET);
 
@@ -34,6 +36,7 @@ export const loginServer = (isRemember, params) => dispatch => {
     if (isRemember) {
       LocalStorage.set(STORAGE_KEY_PROFILE, { token: d.userToken });
     }
+    SessionStorage.set(STORAGE_KEY_PROFILE, { token: d.userToken });
     dispatch(authLogin(d.userToken));
   }).then(() => {
     PFetch(links.getMenus, {}).then(menusData => {
@@ -44,5 +47,6 @@ export const loginServer = (isRemember, params) => dispatch => {
 
 export const logout = () => {
   LocalStorage.set(STORAGE_KEY_PROFILE, { token: '' });
+  SessionStorage.set(STORAGE_KEY_PROFILE, { token: '' });
   return authLogout();
 };

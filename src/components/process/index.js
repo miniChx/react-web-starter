@@ -31,7 +31,7 @@ export default class StartProcess extends React.Component {
   render() {
     return (
       <div>
-        <FilterCreator data={this.props.dataSource && this.props.dataSource.filters} />
+        <FilterCreator {...this.props} data={this.props.dataSource && this.props.dataSource.filters} />
         <Table
           columns={this.columnAdapter()}
           dataSource={this.dataSourceAdapter()}

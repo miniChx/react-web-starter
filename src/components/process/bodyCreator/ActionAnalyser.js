@@ -4,6 +4,7 @@
 import { push } from 'react-router-redux';
 import { dispatch } from '../../../service/DispatchService';
 import { CONTAINER_PRE } from '../../../routes';
+import { PAGE_TYPE_PROCESS_DETAIL } from '../../../constant/dictActions';
 
 const actionTrigger = (record, keyName) => {
   const operation = record[keyName] || {};
@@ -16,8 +17,8 @@ const actionTrigger = (record, keyName) => {
   });
   console.log('param:', param);
   dispatch(push({
-    pathname: '/' + CONTAINER_PRE + operation.actionUrl,
-    query: { ...param, domainType: 'ProcessDetail' }
+    pathname: '/' + CONTAINER_PRE + '/Api' + operation.actionUrl,
+    query: { ...param, domainType: PAGE_TYPE_PROCESS_DETAIL }
   }));
 };
 

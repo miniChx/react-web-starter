@@ -41,7 +41,7 @@ class EditorPage extends React.Component {
   @autobind
   _renderFormItem(item, index) {
     const { getFieldDecorator } = this.props.form;
-    const detailResult = this.props.dataSource.detailResult;
+    const detailResult = this.props.dataSource.detailResult || {};
     const formItemLayout = {
       labelCol: { span: 7 },
       wrapperCol: { span: 14 }
