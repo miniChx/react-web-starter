@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
 
-import AppContainer from './containers';
+import AppContainer from './framework/system/appContainer';
 
 function initComponent() {
   ReactDOM.render(
