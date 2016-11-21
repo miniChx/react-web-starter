@@ -5,6 +5,7 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Button, Modal, Input, Row, Col, Select, Radio } from 'mxa';
+import sha256 from 'sha256';
 import { ModalPage } from './modalPage';
 
 import styles from '../../styles/views/listview.less';
@@ -84,7 +85,7 @@ export default class AccountList extends React.Component {
                 userName: record.userName,
                 mobileNo: record.mobileNo,
                 email: record.email,
-                password: data.password,
+                password: sha256(data.password),
                 status: record.status === 'FREEZING' ? 'ACTIVE' : 'FREEZING'
               }
             );

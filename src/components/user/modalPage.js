@@ -190,7 +190,7 @@ export class ModalPage extends React.Component {
       console.log('Received values of form: ', values);
       // form.resetFields();
       if (this.props.mode === 'detail') {
-        if (!values.mobileNo || !values.userName || !values.password || !values.email) {
+        if (!values.mobileNo || !values.userName || !values.email) {
           message.error('信息不能为空');
         } else if (!validation.isMobile(values.mobileNo)) {
           message.error('请输入正确的手机号');
@@ -207,7 +207,7 @@ export class ModalPage extends React.Component {
                   userName: values.userName,
                   mobileNo: values.mobileNo,
                   email: values.email,
-                  password: values.password === '' ? data.password : sha256(values.password),
+                  password: !values.password ? data.password : sha256(values.password),
                   status: this.props.record.status
                 }
               );
@@ -215,6 +215,7 @@ export class ModalPage extends React.Component {
               this.setState({visible: false});
               message.success('修改成功');
               this.props.renderResult();
+              form.resetFields();
             });
           });
         }
@@ -238,6 +239,7 @@ export class ModalPage extends React.Component {
               this.setState({visible: false});
               message.success('添加成功');
               this.props.renderResult();
+              form.resetFields();
             });
           });
         }
