@@ -21,3 +21,4 @@ export const PAGE_TYPE_CUSTOM = 'Custom';
 // process
 export const PAGE_TYPE_PROCESS = 'Process';
 export const PAGE_TYPE_PROCESS_DETAIL = 'ProcessDetail';
+export const PAGE_TYPE_PROCESS_IMG = 'ProcessImg';

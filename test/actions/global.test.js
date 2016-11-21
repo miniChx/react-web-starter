@@ -2,7 +2,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
 import { expect } from 'chai';
-import * as actions from '../../src/actions/global';
+import * as actions from '../../src/framework/actions/global';
 import * as types from '../../src/constant/dictActions';
 
 const mockStore = configureMockStore([thunkMiddleware]);
