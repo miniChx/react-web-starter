@@ -25,4 +25,36 @@ function getClientEnvironment(publicUrl) {
   return {'process.env': processEnv};
 }
 
-module.exports = getClientEnvironment;
+function getAppConfig() {
+  var appConfig = {};
+// console.log(process.env);
+  var npmArgv = JSON.parse(process && process.env && process.env.npm_config_argv);
+  var argsArray = npmArgv && npmArgv.cooked;
+  if (argsArray) {
+    for(var index=0; index < argsArray.length; index++) {
+      var item = argsArray[index];
+      if (item === '--host') {
+        appConfig.host = argsArray[index + 1];
+      }
+      if (item === '--imgPath') {
+        appConfig.imgPath = argsArray[index + 1];
+      }
+    }
+
+    if (!appConfig.imgPath && appConfig.host) {
+      appConfig.imgPath = appConfig.host
+    }
+  } else {
+    console.log('no host insert!!!');
+  }
+
+  return appConfig;
+}
+
+
+module.exports = {
+  getAppConfig: getAppConfig,
+  getClientEnvironment: getClientEnvironment
+};
+
+

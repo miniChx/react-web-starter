@@ -7,7 +7,8 @@ var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var url = require('url');
 var paths = require('./paths');
-var getClientEnvironment = require('./env');
+var getClientEnvironment = require('./env').getClientEnvironment;
+var appConfig = require('./env').getAppConfig();
 
 function ensureSlash(path, needsSlash) {
   var hasSlash = path.endsWith('/');
@@ -19,6 +20,7 @@ function ensureSlash(path, needsSlash) {
     return path;
   }
 }
+
 
 // We use "homepage" field to infer "public path" at which the app is served.
 // Webpack needs to know it to put the right <script> hrefs into HTML even in
@@ -165,6 +167,10 @@ module.exports = {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
         }
+      },
+      {
+        test:require.resolve('../src/config'),
+        loader: "imports-loader?baseUrl=>'" + appConfig.host + "'&baseImgUrl=>'" + appConfig.imgPath + "'"
       }
     ]
   },
