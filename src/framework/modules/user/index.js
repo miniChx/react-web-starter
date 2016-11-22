@@ -46,7 +46,6 @@ export default class AccountList extends React.Component {
                 userName: record.userName,
                 mobileNo: record.mobileNo,
                 email: record.email,
-                password: data.password,
                 status: 'DELETE'
               }
             );
@@ -85,7 +84,6 @@ export default class AccountList extends React.Component {
                 userName: record.userName,
                 mobileNo: record.mobileNo,
                 email: record.email,
-                password: sha256(data.password),
                 status: record.status === 'FREEZING' ? 'ACTIVE' : 'FREEZING'
               }
             );
@@ -107,14 +105,15 @@ export default class AccountList extends React.Component {
       <div className={styles.toolbar}>
         <ModalPage title="详情" className={styles.inlineButton} record={record} mode="detail" renderResult={this._searchItem} />
         <ModalPage title="设置角色" className={styles.inlineButton} record={record} mode="setRole" renderResult={this._searchItem} roleList={this.state.roleList} />
+        <ModalPage title="修改密码" className={styles.inlineButton} record={record} mode="updatePass" renderResult={this._searchItem} />
         <a disabled={record.status === 'DELETE' ? true : false}
-           className={styles.inlineButton}
+           className={record.status === 'FREEZING' ? styles.inlineButton_error : styles.inlineButton}
            onClick={record.status === 'DELETE' ? null : () => this._renderFreezing(record)}>
           {record.status === 'FREEZING' ? '解冻' : '冻结'}
         </a>
-        <a disabled={record.status === 'DELETE' ? true : false}
+        <a disabled={record.status !== 'ACTIVE' ? true : false}
            className={styles.inlineButton}
-           onClick={record.status === 'DELETE' ? null : () => this._renderDelete(record)}>
+           onClick={record.status !== 'ACTIVE' ? null : () => this._renderDelete(record)}>
           删除
         </a>
       </div>
@@ -226,7 +225,7 @@ export default class AccountList extends React.Component {
       title: '操作',
       key: 'operation',
       fixed: 'right',
-      width: 200,
+      width: 280,
       render: (text, record) => this._renderColumnAction(text, record),
     });
 

@@ -14,7 +14,8 @@ import {
   findAccountById,
   updateAccountServer,
   relateRolesAndUsers,
-  findAllRolesByUserId
+  findAllRolesByUserId,
+  updatPasswordServer
 } from '../../actions/account';
 import {longRunExec} from '../../system/longRunOpt';
 import validation from '../../../common/utils/validation';
@@ -86,9 +87,6 @@ const EditUserForm = Form.create()(
           <FormItem label="用户名">
             {getFieldDecorator('userName', {initialValue: dataSource.userName})(<Input />)}
           </FormItem>
-          <FormItem label="用户密码">
-            {getFieldDecorator('password')(<Input placeholder='********' type="password"/>)}
-          </FormItem>
           <FormItem label="邮箱">
             {getFieldDecorator('email', {initialValue: dataSource.email})(<Input />)}
           </FormItem>
@@ -134,6 +132,39 @@ const SetRoleForm = Form.create()(
           <FormItem>
             {getFieldDecorator('roles', {initialValue: checkedList})(
               <CheckboxGroup options={plainOptions}/>
+            )}
+          </FormItem>
+        </Form>
+      </Modal>
+    );
+  }
+);
+const UpdatePassForm = Form.create()(
+  (props) => {
+    const {
+      visible,
+      onCancel,
+      onCreate,
+      form,
+      title,
+      dataSource
+    } = props;
+    const {getFieldDecorator} = form;
+    return (
+      <Modal
+        visible={visible}
+        title={title}
+        okText="修改"
+        onCancel={onCancel}
+        onOk={onCreate}
+      >
+        <Form horizontal={true}>
+          <FormItem>
+            {getFieldDecorator('repass', {initialValue: ''})(
+              <div>
+                <input style={{display: 'none'}} />
+                <Input type="password" />
+              </div>
             )}
           </FormItem>
         </Form>
@@ -207,7 +238,6 @@ export class ModalPage extends React.Component {
                   userName: values.userName,
                   mobileNo: values.mobileNo,
                   email: values.email,
-                  password: !values.password ? data.password : sha256(values.password),
                   status: this.props.record.status
                 }
               );
@@ -247,11 +277,21 @@ export class ModalPage extends React.Component {
         longRunExec(() => {
           return relateRolesAndUsers({
             userId: this.props.record.id,
-            //TODO: 获取数据
             roleCodes: values.roles
           }).then(() => {
             this.setState({visible: false});
             message.success('设置成功');
+          });
+        });
+      } else if (this.props.mode === 'updatePass') {
+        const pass = sha256(values.repass);
+        longRunExec(() => {
+          return updatPasswordServer({
+            id: this.props.record.id,
+            password: pass
+          }).then(() => {
+            this.setState({visible: false});
+            message.success('修改成功');
           });
         });
       }
@@ -287,7 +327,12 @@ export class ModalPage extends React.Component {
     if (this.props.mode === 'detail') {
       return (
         <div>
-          <a className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</a>
+          <a
+            className={styles.inlineButton}
+            onClick={this.props.record.status !== 'ACTIVE' ? null : this.showModal}
+            disabled={this.props.record.status !== 'ACTIVE' ? true : false}>
+            {this.props.title}
+          </a>
           <EditUserForm
             ref={this._saveFormRef}
             visible={this.state.visible}
@@ -315,7 +360,10 @@ export class ModalPage extends React.Component {
     } else if (this.props.mode === 'setRole') {
       return (
         <div>
-          <a className={styles.inlineButton} onClick={this.showModal}>{this.props.title}</a>
+          <a
+            onClick={this.props.record.status !== 'ACTIVE' ? null : this.showModal}
+            disabled={this.props.record.status !== 'ACTIVE' ? true : false}
+            className={styles.inlineButton}>{this.props.title}</a>
           <SetRoleForm
             ref={this._saveFormRef}
             visible={this.state.visible}
@@ -323,6 +371,23 @@ export class ModalPage extends React.Component {
             onCreate={this.handleOk}
             title={this.props.title}
             roleList={this.state.roleList}
+          />
+        </div>
+      );
+    } else if (this.props.mode === 'updatePass') {
+      return (
+        <div>
+          <a
+            onClick={this.props.record.status !== 'ACTIVE' ? null : this.showModal}
+            disabled={this.props.record.status !== 'ACTIVE' ? true : false}
+            className={styles.inlineButton}>{this.props.title}</a>
+          <UpdatePassForm
+            ref={this._saveFormRef}
+            visible={this.state.visible}
+            onCancel={this.handleCancel}
+            onCreate={this.handleOk}
+            title={this.props.title}
+            dataSource={this.props.record}
           />
         </div>
       );

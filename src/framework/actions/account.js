@@ -39,3 +39,7 @@ export const findAllRolesByUserId = (params) => {
 export const relateRolesAndUsers = (params) => {
   return PFetch(links.relateRolesAndUsers, params);
 };
+
+export const updatPasswordServer = (params) => {
+  return PFetch(links.updatPassword, params);
+};
