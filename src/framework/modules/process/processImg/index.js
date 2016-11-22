@@ -4,11 +4,14 @@
 import React from 'react';
 import Config from '../../../../config';
 
+const IFrame = require('react-iframe');
+
 export default class ProcessImg extends React.Component {
   render() {
-    console.log(this.props.params.imgUrl);
+    // console.log('img source url', this.props.params.imgUrl || this.props.location.query.imgUrl);
+    const imgUrl = this.props.params.imgUrl || this.props.location.query.imgUrl;
     return (
-      <img src={Config.host + '/' + this.props.params.imgUrl} alt="Smiley face" />
+      <IFrame url={Config.imgPath + '/' + imgUrl} />
     );
   }
 }
