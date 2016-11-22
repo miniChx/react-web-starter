@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import { Home } from '../../src/components/Home';
+import { Home } from '../../src/framework/modules/home';
 
 describe('<Home />', () => {
   const shallowWrapper = shallow(<Home />);

@@ -1,7 +1,7 @@
 
 import { expect } from 'chai';
-import reducer from '../../src/reducers/global';
-import * as actions from '../../src/actions/global';
+import reducer from '../../src/framework/reducers/global';
+import * as actions from '../../src/framework/actions/global';
 
 describe('global reducer', () => {
   const initReducer = {
