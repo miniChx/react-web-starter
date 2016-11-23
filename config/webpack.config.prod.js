@@ -136,13 +136,13 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: path.resolve(__dirname, '../src/styles/views'),
+        exclude: [paths.appStyleGlobal, paths.appStyleCustom],
         loader: ExtractTextPlugin.extract('style', 'css?importLoaders=2&-autoprefixer!postcss!less')
       },
       {
         test: /\.less$/,
         // loader: 'style!css?importLoaders=1!postcss!less'
-        include: path.resolve(__dirname, '../src/styles/views'),
+        include: [paths.appStyleGlobal, paths.appStyleCustom],
         loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[hash:base64:4]&importLoaders=2&-autoprefixer!postcss!less')
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
