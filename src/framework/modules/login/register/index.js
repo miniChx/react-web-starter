@@ -4,7 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import RegisterForm from '../registerForm';
+import RegisterForm from './RegisterForm';
 
 class Register extends React.Component {
   render() {

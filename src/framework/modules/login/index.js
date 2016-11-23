@@ -5,7 +5,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import LoginForm from './loginForm'
+import LoginForm from './LoginForm';
 import { routerShape, Link } from 'react-router';
 import { Button, Table, Icon, Select, Row, Col } from 'mxa';
 import { longRunExec } from '../../system/longRunOpt';
