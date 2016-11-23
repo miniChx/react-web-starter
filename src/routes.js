@@ -3,7 +3,7 @@ import Login from './framework/modules/login';
 import Register from './framework/modules/login/register';
 import FindPwd from './framework/modules/login/findPwd';
 // import PageContainer from './framework/pageContainer';
-import NotFound from './framework/modules/excep/404';
+import NotFound from './framework/modules/exception/404';
 import App from './framework/index';
 
 // import { getToken } from './framework/service/CacheService';

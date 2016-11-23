@@ -1,13 +1,14 @@
 /**
  * Created by baoyinghai on 10/24/16.
  */
-import NotMatchType from '../modules/excep/NotMatch';
+import NotMatchType from '../modules/exception/NotMatch';
 import ListView from '../modules/list/listView';
 import ListDetail from '../modules/list/listDetail';
 import Process from '../modules/process/processList';
-import Custom from '../modules/custom';
 import ProcessDetail from '../modules/process/processDetail';
 import ProcessImg from '../modules/process/processImg';
+
+import CustomWrapper from '../modules/CustomWrapper';
 
 import {
   PAGE_TYPE_LIST,
@@ -25,8 +26,8 @@ export default {
   [defStr]: NotMatchType,
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
-  [PAGE_TYPE_CUSTOM]: Custom,
   [PAGE_TYPE_PROCESS]: Process,
   [PAGE_TYPE_PROCESS_DETAIL]: ProcessDetail,
-  [PAGE_TYPE_PROCESS_IMG]: ProcessImg
+  [PAGE_TYPE_PROCESS_IMG]: ProcessImg,
+  [PAGE_TYPE_CUSTOM]: CustomWrapper,
 };
