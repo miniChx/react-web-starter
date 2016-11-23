@@ -16,7 +16,7 @@ const AsyncDecorator = Wrapper => {
 
     @autobind
     fetchDataFromServer() {
-      if (this.props.domainLink && this.props.domainLink !== 'imageView' && this.props.domainLink !== 'test/hello') {
+      if (this.props.domainLink && this.props.domainLink !== 'imageView' && this.props.domainLink.indexOf('example') !== 0) {
         const url = this.getUrlPath('/' + trimStart(this.props.domainLink, '/'));
         const params = { ...this.props.params };
         if (this.props.location) {

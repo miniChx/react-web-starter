@@ -1,12 +1,7 @@
-/**
- * Created by baoyinghai on 11/20/16.
- */
-import React from 'react';
+import tab from './tab';
+import modalInput from './modalInput';
 
-export default class Hello extends React.Component {
-  render() {
-    return (
-      <span>hello world</span>
-    );
-  }
-}
+export default {
+  tab,
+  modalInput
+};

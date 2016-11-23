@@ -1,4 +1,4 @@
-const defaultHost = 'http://localhost:3003/bdp';
+const defaultHost = 'http://localhost:3003/';
 const defaultImgPath = 'http://192.168.64.98:9081/bdp';
 /* eslint-disable */
 const Config = {

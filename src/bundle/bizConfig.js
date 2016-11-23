@@ -2,8 +2,9 @@
  * bind your biz module on domainLink
  */
 
-import Hello from './biz';
+import example from './biz';
 
 export default {
-  'test/hello': Hello
+  'example/tab': example.tab,
+  'example/modalInput': example.modalInput
 };

@@ -18,7 +18,8 @@ export const initDataFromServer = () => dispatch => PFetch(links.getMenus, {})
   });
 
 export const initApp = () => {
-  const payload = SessionStorage.get(STORAGE_KEY_PROFILE) || LocalStorage.get(STORAGE_KEY_PROFILE) || {};
+  // const payload = SessionStorage.get(STORAGE_KEY_PROFILE) || LocalStorage.get(STORAGE_KEY_PROFILE) || {};
+  const payload = LocalStorage.get(STORAGE_KEY_PROFILE) || {};
   return createAction(types.INIT_APP)(payload);
 };
 
