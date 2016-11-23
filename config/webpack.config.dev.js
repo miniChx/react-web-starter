@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
@@ -6,7 +8,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-var getClientEnvironment = require('./env');
+var getClientEnvironment = require('./env').getClientEnvironment;
 var paths = require('./paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -121,13 +123,13 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: path.resolve(__dirname, '../src/styles/views'),
+        exclude: [paths.appStyleGlobal, paths.appStyleCustom],
         loader: 'style!css?sourceMap&importLoaders=2!postcss!less'
       },
       {
         test: /\.less$/,
         // loader: 'style!css?importLoaders=1!postcss!less'
-        include: path.resolve(__dirname, '../src/styles/views'),
+        include: [paths.appStyleGlobal, paths.appStyleCustom],
         loader: 'style!css?sourceMap&modules&localIdentName=[name]_[local]_[hash:base64:3]&importLoaders=2!postcss!less'
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
@@ -155,6 +157,10 @@ module.exports = {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
         }
+      },
+      {
+        test:require.resolve('../src/config'),
+        loader: "imports-loader?baseUrl=>''&baseImgUrl=>''"
       }
     ]
   },

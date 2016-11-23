@@ -3,31 +3,31 @@
  */
 import React from 'react';
 import { Button } from 'mxa';
-import { getValueByKey } from '../../../../../common/utils/MapUtils';
+import { getValueByKey } from '../../../../utils/MapUtils';
 import actionTrigger from './ActionAnalyser';
 
 // TODO: 份文件
-const BlockAnalyser = (item, text, record, index) => (<span>{text}</span>);
+const BlockAnalyser = (item, text, record, index, props) => (<span>{text}</span>);
 
-const HyperlinkAnalyser = (item, text, record, index) => {
+const HyperlinkAnalyser = (item, text, record, index, props) => {
   const keys = item.fieldName.split('.');
   return (
-    <a onClick={() => actionTrigger(record, keys[0])}>
+    <a onClick={() => actionTrigger(record, keys[0], props)}>
       {item.displayText || getValueByKey(record, '', ...keys)}
     </a>);
 };
 
 
-const ButtonAnalyser = (item, text, record, index) => {
+const ButtonAnalyser = (item, text, record, index, props) => {
   const keys = item.fieldName.split('.') || [];
   return (
-    <Button type="ghost" onClick={() => actionTrigger(record, keys[0])}>
+    <Button type="ghost" onClick={() => actionTrigger(record, keys[0], props)}>
       {item.displayText || getValueByKey(record, '', ...keys)}
     </Button>
   );
 };
 
-const DefaultAnalyser = (item, text, record, index) => (<span>{text}</span>);
+const DefaultAnalyser = (item, text, record, index, props) => (<span>{text}</span>);
 
 const renderFucMap = {
   BlockAnalyser,
@@ -38,5 +38,5 @@ const renderFucMap = {
 
 export default type => {
   const handle = renderFucMap[type + 'Analyser'] || renderFucMap.DefaultAnalyser;
-  return (item, text, record, index) => handle(item, text, record, index);
+  return (item, text, record, index, props) => handle(item, text, record, index, props);
 };

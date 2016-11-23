@@ -6,7 +6,7 @@ import { Button, Collapse } from 'mxa';
 import { autobind } from 'core-decorators';
 
 import filterCreator from './analysers';
-import styles from '../../../../../styles/views/listview.less';
+import styles from '../../../../styles/views/listview.less';
 import { clearParam, getParam } from './filterParam';
 import { PFetch } from '../../../../system/fetch';
 
@@ -30,7 +30,11 @@ export default class FilterBar extends React.Component {
     this.props.exec(() => {
       return PFetch('/' + searchUrl, param).then(response => {
         console.log('', response);
-        this.props.freshData && this.props.freshData(response);
+        // this.props.freshData && this.props.freshData(response);
+        if (this.props.freshData) {
+          const state = { ...this.props.freshData.state, data: response };
+          this.props.freshData.setState && this.props.freshData.setState(state);
+        }
       });
     });
   }
@@ -43,7 +47,7 @@ export default class FilterBar extends React.Component {
         <Button
           type="button"
           className={styles.topButton}
-          onClick={this.filterData}
+          onClick={this.props.filterData}
         >
           筛选
         </Button>

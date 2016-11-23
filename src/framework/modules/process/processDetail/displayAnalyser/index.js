@@ -13,7 +13,7 @@ import SelectAnalyser from './SelectAnalyser';
 import CascaderAnalyser from './CascaderAnalyser';
 import CheckboxAnalyser from './CheckboxAnalyser';
 import RadioAnalyser from './RadioAnalyser';
-import { getValueByKey } from '../../../../../common/utils/MapUtils';
+import { getValueByKey } from '../../../../utils/MapUtils';
 
 const FormItem = Form.Item;
 

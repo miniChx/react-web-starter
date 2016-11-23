@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
 import LocalStorage from 'local-storage';
 import { replace } from 'react-router-redux';
-import * as types from '../../constant/dictActions';
+import * as types from '../constant/dictActions';
 import { PFetch } from '../system/fetch';
-import links from '../../constant/links';
+import links from '../constant/links';
 // import { LoginServer } from './login';
-import SessionStorage from '../../common/session-storage';
+import SessionStorage from '../utils/session-storage';
 
 
 const STORAGE_KEY_PROFILE = '@AS:profile';

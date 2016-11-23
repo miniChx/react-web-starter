@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
@@ -7,7 +9,8 @@ var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var url = require('url');
 var paths = require('./paths');
-var getClientEnvironment = require('./env');
+var getClientEnvironment = require('./env').getClientEnvironment;
+var appConfig = require('./env').getAppConfig();
 
 function ensureSlash(path, needsSlash) {
   var hasSlash = path.endsWith('/');
@@ -19,6 +22,7 @@ function ensureSlash(path, needsSlash) {
     return path;
   }
 }
+
 
 // We use "homepage" field to infer "public path" at which the app is served.
 // Webpack needs to know it to put the right <script> hrefs into HTML even in
@@ -132,13 +136,13 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: path.resolve(__dirname, '../src/styles/views'),
+        exclude: [paths.appStyleGlobal, paths.appStyleCustom],
         loader: ExtractTextPlugin.extract('style', 'css?importLoaders=2&-autoprefixer!postcss!less')
       },
       {
         test: /\.less$/,
         // loader: 'style!css?importLoaders=1!postcss!less'
-        include: path.resolve(__dirname, '../src/styles/views'),
+        include: [paths.appStyleGlobal, paths.appStyleCustom],
         loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[hash:base64:4]&importLoaders=2&-autoprefixer!postcss!less')
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
@@ -165,6 +169,10 @@ module.exports = {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
         }
+      },
+      {
+        test:require.resolve('../src/config'),
+        loader: "imports-loader?baseUrl=>'" + appConfig.host + "'&baseImgUrl=>'" + appConfig.imgPath + "'"
       }
     ]
   },

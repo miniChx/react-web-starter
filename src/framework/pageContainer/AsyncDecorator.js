@@ -14,7 +14,8 @@ const AsyncDecorator = Wrapper => {
       };
     }
 
-    componentDidMount() {
+    @autobind
+    fetchDataFromServer() {
       if (this.props.domainLink && this.props.domainLink !== 'imageView' && this.props.domainLink !== 'test/hello') {
         const url = this.getUrlPath('/' + trimStart(this.props.domainLink, '/'));
         const params = { ...this.props.params };
@@ -34,13 +35,22 @@ const AsyncDecorator = Wrapper => {
       }
     }
 
+    componentDidMount() {
+      this.fetchDataFromServer();
+    }
+
     getUrlPath = url => url;
 
     @autobind
-    freshData(data) {
-      this.setState({
-        data
-      });
+    freshData() {
+      // this.state.data.data = data.data;
+      // this.setState({
+      //   ...this.state,
+      // });
+      return {
+        setState: this.setState,
+        state: this.state
+      };
     }
 
     render() {

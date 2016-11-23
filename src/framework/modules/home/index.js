@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import homeStyle from '../../../styles/views/home.less';
+import homeStyle from '../../styles/views/home.less';
 
 export class Home extends React.Component {
   render() {
