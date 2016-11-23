@@ -5,7 +5,7 @@ import MaskLayer from 'react-mask-layer';
 import 'react-mask-layer/assets/index.css';
 
 
-import Compose from '../../common/utils/Compose';
+import Compose from '../utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
 import InitDecorator from './InitDecorator';
 

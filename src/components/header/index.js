@@ -6,7 +6,7 @@ import { Icon, Col, Row } from 'mxa';
 import { replace } from 'react-router-redux';
 import { dispatch } from '../../framework/service/DispatchService';
 import { logout, loginServer } from '../../framework/actions/global';
-import styles from '../../styles/views/title.less';
+import styles from '../../framework/styles/views/title.less';
 import { longRunExec } from '../../framework/system/longRunOpt';
 
 /* eslint-disable */

@@ -17,7 +17,7 @@ import {
   PAGE_TYPE_PROCESS,
   PAGE_TYPE_PROCESS_DETAIL,
   PAGE_TYPE_PROCESS_IMG
-} from '../../constant/dictActions';
+} from '../constant/dictActions';
 
 const defStr = 'default';
 // console.log(NotMatchType);

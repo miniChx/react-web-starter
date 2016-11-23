@@ -7,8 +7,8 @@ import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
 import { Menu } from 'mxa';
 import { searchMenu } from '../../framework/service/CacheService';
-import { getValueByKey } from '../../common/utils/MapUtils';
-import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../routes';
+import { getValueByKey } from '../../framework/utils/MapUtils';
+import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../framework/routes';
 
 const SubMenu = Menu.SubMenu;
 

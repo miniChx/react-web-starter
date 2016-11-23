@@ -6,7 +6,7 @@ import { Button, Collapse } from 'mxa';
 import { autobind } from 'core-decorators';
 
 import filterCreator from './analysers';
-import styles from '../../../../../styles/views/listview.less';
+import styles from '../../../../styles/views/listview.less';
 import { clearParam, getParam } from './filterParam';
 import { PFetch } from '../../../../system/fetch';
 

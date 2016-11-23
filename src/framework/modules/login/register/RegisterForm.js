@@ -6,7 +6,7 @@ import React from 'react';
 
 import { Form, Input, Row, Col, Button } from 'mxa';
 let FormItem = Form.Item;
-import validation from '../../../../common/utils/validation';
+import validation from '../../../utils/validation';
 import classNames from 'classnames';
 function noop() {
   return false;

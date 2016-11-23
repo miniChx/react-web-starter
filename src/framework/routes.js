@@ -1,10 +1,10 @@
-import Home from './framework/modules/home';
-import Login from './framework/modules/login';
-import Register from './framework/modules/login/register';
-import FindPwd from './framework/modules/login/findPwd';
+import Home from './modules/home';
+import Login from './modules/login';
+import Register from './modules/login/register';
+import FindPwd from './modules/login/findPwd';
 // import PageContainer from './framework/pageContainer';
-import NotFound from './framework/modules/exception/404';
-import App from './framework/index';
+import NotFound from './modules/exception/404';
+import App from './App';
 
 // import { getToken } from './framework/service/CacheService';
 
@@ -34,7 +34,7 @@ const routes = {
       path: '/' + CONTAINER_PRE + '/**',
       getComponents(nextState, callback) {
         require.ensure([], require => {
-          callback(null, require('./framework/pageContainer').default);
+          callback(null, require('./pageContainer/index').default);
         }, 'container');
       }
     },

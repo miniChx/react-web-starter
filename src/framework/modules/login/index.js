@@ -9,7 +9,7 @@ import LoginForm from './LoginForm';
 import { routerShape, Link } from 'react-router';
 import { Button, Table, Icon, Select, Row, Col } from 'mxa';
 import { longRunExec } from '../../system/longRunOpt';
-import styles from '../../../styles/views/login.less';
+import styles from '../../styles/views/login.less';
 
 class Login extends React.Component {
   constructor(props) {
