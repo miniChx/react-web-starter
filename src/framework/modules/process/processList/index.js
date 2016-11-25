@@ -33,11 +33,7 @@ export default class StartProcess extends React.Component {
     this.props.exec(() => {
       return PFetch('/' + searchUrl, param).then(response => {
         console.log('', response);
-        if (this.props.freshData) {
-          const state = { ...this.props.freshData.state, data: response };
-          this.props.freshData.setState && this.props.freshData.setState(state);
-        }
-        // this.props.freshData && this.props.freshData(response);
+        this.props.freshData && this.props.freshData({ ...this.props.dataSource, data: response.data });
       });
     });
   }

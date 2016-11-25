@@ -113,10 +113,11 @@ class MenuCreator extends React.Component {
     return (
       <Menu
         onClick={this.handleClick}
-        defaultOpenKeys={this.state.openKeys}
+        // defaultOpenKeys={this.state.openKeys}
         selectedKeys={[this.state.current]}
-        openKeys={this.state.openKeys}
-        mode="inline"
+        // openKeys={this.state.openKeys}
+        mode="horizontal"
+        style={{ borderBottom: '0px' }}
       >
         {this.props.menu && this.props.menu.map((item => this.renderMenuItem(item)))}
       </Menu>

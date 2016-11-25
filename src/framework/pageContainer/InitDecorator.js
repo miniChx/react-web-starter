@@ -4,12 +4,13 @@ import { routerShape } from 'react-router';
 import { autobind } from 'core-decorators';
 
 import PageConfig from './config';
-import BizConfig from '../../bundle/bizConfig';
+// import BizConfig from '../../bundle/bizConfig';
+import customConfig from './customConfig';
 import { longRunExec } from '../system/longRunOpt';
+import { PFetch } from '../system/fetch';
 
 const createPage = (domainType, domainLink) => {
-  // console.log(PageConfig, domainType);
-  const page = domainType ? PageConfig[domainType] : BizConfig[domainLink];
+  const page = PageConfig[domainType] ? PageConfig[domainType] : customConfig(domainLink);
   return page || PageConfig.default;
 };
 
@@ -41,6 +42,7 @@ const InitDecorator = () => {
           {...this.props}
           ref={this._createRefs}
           exec={longRunExec}
+          fetch={PFetch}
         />
       );
     }

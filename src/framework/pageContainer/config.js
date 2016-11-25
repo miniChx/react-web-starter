@@ -8,8 +8,6 @@ import Process from '../modules/process/processList';
 import ProcessDetail from '../modules/process/processDetail';
 import ProcessImg from '../modules/process/processImg';
 
-import CustomWrapper from '../modules/CustomWrapper';
-
 import {
   PAGE_TYPE_LIST,
   PAGE_TYPE_DETAIL,
@@ -28,6 +26,5 @@ export default {
   [PAGE_TYPE_DETAIL]: ListDetail,
   [PAGE_TYPE_PROCESS]: Process,
   [PAGE_TYPE_PROCESS_DETAIL]: ProcessDetail,
-  [PAGE_TYPE_PROCESS_IMG]: ProcessImg,
-  [PAGE_TYPE_CUSTOM]: CustomWrapper,
+  [PAGE_TYPE_PROCESS_IMG]: ProcessImg
 };

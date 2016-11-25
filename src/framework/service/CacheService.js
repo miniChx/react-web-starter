@@ -53,3 +53,11 @@ export const searchMenu = (id) => {
 export const getRouting = () => {
   return _store.getState().routing || {};
 }
+
+const _cach = {};
+
+export const savePageData = (data) => {
+  _cach.data = data;
+};
+
+export const getPageData = () => _cach.data;
