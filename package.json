@@ -1,5 +1,5 @@
 {
-  "name": "react-starter-boilerplate",
+  "name": "mx-web-boilerplate",
   "version": "0.0.1",
   "description": "Boilerplate to start react project.",
   "private": true,
@@ -15,7 +15,7 @@
     "local-storage": "^1.4.2",
     "lodash": "^4.16.4",
     "moment": "^2.15.2",
-    "mxa": "^0.1.1",
+    "mxa": "^0.1.4",
     "object-assign": "^4.1.0",
     "qs": "^6.3.0",
     "rc-animate": "^2.3.1",
