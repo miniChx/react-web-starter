@@ -8,7 +8,7 @@ import { goBack } from 'react-router-redux';
 
 import renderFuc from './displayAnalyser/index';
 import styles from '../../../styles/views/listview.less';
-import ExtendButton from '../../../../components/button';
+// import { ExtendButton } from '../../../../components';
 import { PFetch } from '../../../system/fetch';
 import { dispatch } from '../../../service/DispatchService';
 

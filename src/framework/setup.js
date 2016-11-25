@@ -10,7 +10,6 @@ import analytics from './service/analytics';
 import { executeInit } from './service/ServiceInitHelper';
 
 import routes from './routes';
-// import Loading from '../components/loading';
 import { initApp } from './actions/global';
 import appStyle from './styles/views/app.less';
 

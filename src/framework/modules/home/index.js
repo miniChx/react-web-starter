@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
-import District from '../../../components/district';
+import { District } from '../../../components';
 
 import styles from '../../styles/views/home.less';
 
@@ -29,7 +29,7 @@ export class Home extends React.Component {
           <a onClick={() => this.props.dispatch(push('/page_container/AccountList/render'))}>跳转到用户管理</a>
         </div>
         <div className={styles.district}>
-          <District onChange={this._onChange} />
+          <District onChange={this._onChange} width={150} />
           <div>{'省： ' + this.state.province}</div>
           <div>{'市： ' + this.state.municipality}</div>
           <div>{'区： ' + this.state.district}</div>

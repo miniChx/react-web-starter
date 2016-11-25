@@ -10,7 +10,7 @@ import { autobind } from 'core-decorators';
 import './styles/global/index.less';
 import appStyle from './styles/views/app.less';
 
-import Header from '../components/header';
+import { Header } from '../components';
 import { isInitDataFromServer } from './service/CacheService';
 import { initDataFromServer } from './actions/global';
 import { longRunExec } from './system/longRunOpt';

@@ -12,6 +12,7 @@ const DISPLAY_TEXT = '-- 请选择 --';
 export default class District extends React.Component {
   static propTypes = {
     onChange: React.PropTypes.func,
+    width: React.PropTypes.number,
   };
 
   constructor(props) {
@@ -85,21 +86,21 @@ export default class District extends React.Component {
       <div>
         <Select
           value={this.state.provinceValue || DISPLAY_TEXT}
-          // style={{ width: 190 }}
+          style={{ width: this.props.width }}
           onSelect={this._handleProvinceChange}
         >
           {provinceOptions}
         </Select>
         <Select
           value={this.state.municipalityValue || DISPLAY_TEXT}
-          // style={{ width: 190 }}
+          style={{ width: this.props.width }}
           onSelect={this._handleMunicipalityChange}
         >
           {municipalityOptions}
         </Select>
         <Select
           value={this.state.districtValue || DISPLAY_TEXT}
-          // style={{ width: 190 }}
+          style={{ width: this.props.width }}
           onSelect={this._handleDistrictChange}
         >
           {districtOptions}

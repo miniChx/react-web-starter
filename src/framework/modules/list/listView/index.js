@@ -3,8 +3,7 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Select } from 'mxa';
-import SearchInput from '../../../../components/searchInput/index';
-import ExtendButton from '../../../../components/button';
+import { ExtendButton, SearchInput } from '../../../../components';
 
 import styles from '../../../styles/views/listview.less';
 

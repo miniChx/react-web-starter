@@ -24,7 +24,7 @@ import {
 import moment from 'moment';
 import { autobind } from 'core-decorators';
 import FormItemType from '../../../constant/formItemType';
-import { ExtendButton } from '../../../../components/button';
+import { ExtendButton } from '../../../../components';
 
 const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;
