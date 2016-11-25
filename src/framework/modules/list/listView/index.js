@@ -9,8 +9,6 @@ import ExtendButton from '../../../../components/button';
 import styles from '../../../styles/views/listview.less';
 
 import { constructOrderFields, constructFilterFieldCodes } from './SelectUtils';
-import { PFetch } from '../../../system/fetch';
-import { longRunExec } from '../../../system/longRunOpt';
 
 const Option = Select.Option;
 
@@ -129,7 +127,7 @@ class ListView extends React.Component {
       filterFieldCodes: this.state.filterFieldCodes,
       orderFields: this.state.orderFields
     };
-    longRunExec(() => PFetch(url, param)
+    this.props.exec(() => this.props.fetch(url, param)
       .then(data => {
         let contentList;
         switch (this.state.pageIndex) {
@@ -155,7 +153,7 @@ class ListView extends React.Component {
     return (
       <div>
         {
-          this.state.filters.map(filter => {
+          this.state.filters && this.state.filters.map(filter => {
             const selectedValues = filter.options.filter(option => option.isSelected);
             const defaultOption = selectedValues.length > 0 ? selectedValues[0] : filter.options[0];
             return (
@@ -187,7 +185,7 @@ class ListView extends React.Component {
     return (
       <div>
         {
-          this.state.buttons.top.map(item => (
+          this.state.buttons && this.state.buttons.top.map(item => (
             <ExtendButton
               type="button"
               buttonProps={{

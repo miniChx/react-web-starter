@@ -8,7 +8,6 @@ import { CONTAINER_PRE } from '../../../../routes';
 import { PAGE_TYPE_PROCESS_DETAIL, PAGE_TYPE_PROCESS_IMG, PAGE_TYPE_PROCESS } from '../../../../constant/dictActions';
 import { showModal } from '../../../../pageContainer/ModalWrapper';
 import { PFetch } from '../../../../system/fetch';
-import { longRunExec } from '../../../../system/longRunOpt';
 
 const actionTrigger = (record, keyName, props) => {
   const operation = record[keyName] || {};
@@ -29,7 +28,7 @@ const actionTrigger = (record, keyName, props) => {
       query: { ...param, domainType: PAGE_TYPE_PROCESS_IMG, imgUrl: operation.actionUrl }
     }));
   } else if (operation.needPostBack) {
-    longRunExec(() => {
+    props.exec(() => {
       return PFetch('/Api' + operation.actionUrl, param).then(() => {
         props.filterData();
       });

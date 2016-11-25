@@ -17,7 +17,6 @@ import {
   findAllRolesByUserId,
   updatPasswordServer
 } from '../../actions/account';
-import {longRunExec} from '../../system/longRunOpt';
 import validation from '../../utils/validation';
 
 const FormItem = Form.Item;
@@ -199,7 +198,7 @@ export class ModalPage extends React.Component {
       visible: true,
     });
     if (this.props.mode === 'setRole') {
-      longRunExec(() => {
+      this.props.exec(() => {
         return findAllRolesByUserId({
           id: this.props.record.id
         }).then(d => {
@@ -228,7 +227,7 @@ export class ModalPage extends React.Component {
         } else if (!validation.isEmail(values.email)) {
           message.error('请输入正确的邮箱地址');
         } else {
-          longRunExec(() => {
+          this.props.exec(() => {
             return findAccountById({
               id: this.props.record.id
             }).then((data) => {
@@ -257,7 +256,7 @@ export class ModalPage extends React.Component {
         } else if (!validation.isEmail(values.email)) {
           message.error('请输入正确的邮箱地址');
         } else {
-          longRunExec(() => {
+          this.props.exec(() => {
             return addAccountServer(
               {
                 userName: values.userName,
@@ -274,7 +273,7 @@ export class ModalPage extends React.Component {
           });
         }
       } else if (this.props.mode === 'setRole') {
-        longRunExec(() => {
+        this.props.exec(() => {
           return relateRolesAndUsers({
             userId: this.props.record.id,
             roleCodes: values.roles
@@ -285,7 +284,7 @@ export class ModalPage extends React.Component {
         });
       } else if (this.props.mode === 'updatePass') {
         const pass = sha256(values.repass);
-        longRunExec(() => {
+        this.props.exec(() => {
           return updatPasswordServer({
             id: this.props.record.id,
             password: pass
@@ -388,6 +387,7 @@ export class ModalPage extends React.Component {
             onCreate={this.handleOk}
             title={this.props.title}
             dataSource={this.props.record}
+            {...this.props}
           />
         </div>
       );

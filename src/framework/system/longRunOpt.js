@@ -3,14 +3,17 @@
  */
 import co from 'co';
 import { Modal } from 'mxa';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 import { dispatch } from '../service/DispatchService';
-import { fetchStart, fetchEnd, forceLogout } from '../actions/global';
+import { forceLogout } from '../actions/global';
+
 /* eslint-disable */
 export const longRunExec = (bizHandler, needLoding = true) => {
 
   const self = this;
   if (needLoding) {
-    dispatch(fetchStart());
+    dispatch(showLoading());
   }
   co(function* () {
     yield bizHandler()
@@ -38,7 +41,7 @@ export const longRunExec = (bizHandler, needLoding = true) => {
     });
   }).then(() => {
     if (needLoding) {
-      dispatch(fetchEnd());
+      dispatch(hideLoading())
     }
   });
 };

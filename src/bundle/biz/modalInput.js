@@ -60,7 +60,7 @@ export default class modalInput extends React.Component {
             onPressEnter={this.handleSearch}
           />
           <div className="mx-input-group-wrap">
-            <Button icon="bars" className={btnCls} size={size} onClick={() => this.setModal2Visible(true)} />
+            <Button icon="bars" className={btnCls} onClick={() => this.setModal2Visible(true)} />
             <Modal
               title="Vertically centered modal dialog"
               wrapClassName="vertical-center-modal"

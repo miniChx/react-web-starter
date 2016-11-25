@@ -10,7 +10,6 @@ import { ModalPage } from './modalPage';
 
 import styles from '../../styles/views/listview.less';
 import { deleteAccountServer, findAccountById, searchAccountServer, updateAccountServer, findAllRolesByUserId } from '../../actions/account';
-import { longRunExec } from '../../system/longRunOpt';
 
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
@@ -36,7 +35,7 @@ export default class AccountList extends React.Component {
       title: '删除该用户?',
       onOk() {
         //TODO: 联调删除用户的接口
-        longRunExec(() => {
+        that.props.exec(() => {
           return findAccountById({
             id: record.id
           }).then((data) => {
@@ -74,7 +73,7 @@ export default class AccountList extends React.Component {
       title: title,
       onOk() {
         //TODO: 联调删除用户的接口
-        longRunExec(() => {
+        that.props.exec(() => {
           return findAccountById({
             id: record.id
           }).then((data) => {
@@ -170,7 +169,7 @@ export default class AccountList extends React.Component {
       }
     }
     //TODO: 筛选
-    longRunExec(()=> {
+    this.props.exec(()=> {
       return searchAccountServer(params).then(d => {
         // TODO： 更新数据
         this.setState({
@@ -258,7 +257,7 @@ export default class AccountList extends React.Component {
             })}
           </Select>
         </div>
-        <ModalPage title="添加用户" mode="add" userCode={this._getAddUserCode()} renderResult={this._searchItem} />
+        <ModalPage {...this.props} title="添加用户" mode="add" userCode={this._getAddUserCode()} renderResult={this._searchItem} />
         <Table
           columns={columns}
           dataSource={this._dataSourceAdapter()}

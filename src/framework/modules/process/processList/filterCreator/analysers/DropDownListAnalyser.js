@@ -34,7 +34,7 @@ export default class DropDownListAnalyser extends AbstractAnalyser {
         <Select onChange={this.handleChange} placeholder="请选择" className={styles.select} >
           {filter.optionalValues
             && filter.optionalValues.map((opt, index) =>
-             (<Option key={index} value={opt.itemValue || opt.itemIndex} >{opt.itemText}</Option>))
+             (<Option key={index} value={opt.itemIndex + ''} >{opt.itemText}</Option>))
           }
         </Select>
       </div>

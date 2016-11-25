@@ -7,7 +7,6 @@ import { autobind } from 'core-decorators';
 import { Modal, Button, Input, Row, Col, Form } from 'mxa';
 import GetMenus from './getMenus';
 import GetButtons from './getButtons';
-import { longRunExec } from '../../system/longRunOpt';
 
 const FormItem = Form.Item;
 
@@ -80,7 +79,7 @@ export default class ModalPage extends React.Component {
           roleCode: values.roleCode,
           roleValue: values.roleValue
         });
-        longRunExec(() => {
+        this.props.exec(() => {
           return this.props.actions.addRole({
               roleCode: values.roleCode,
               roleValue: values.roleValue
@@ -94,7 +93,7 @@ export default class ModalPage extends React.Component {
         });
       });
     } else if (this.props.mode === 'menu') {
-      longRunExec(() => {
+      this.props.exec(() => {
         return this.props.actions.relateMenusToRole({
             roleCode: this.props.record.roleCode,
             menuCodes: this.state.codes
@@ -107,7 +106,7 @@ export default class ModalPage extends React.Component {
           });
       });
     } else if (this.props.mode === 'button') {
-      longRunExec(() => {
+      this.props.exec(() => {
         return this.props.actions.relateButtonsToRole({
             roleCode: this.props.record.roleCode,
             buttonCodes: this.state.codes
@@ -176,6 +175,7 @@ export default class ModalPage extends React.Component {
                   actions={this.props.actions}
                   record={this.props.record}
                   callbackCodes={this.callbackCodes}
+                  {...this.props}
                 />
               </Modal>
             </div>
@@ -192,6 +192,7 @@ export default class ModalPage extends React.Component {
                   actions={this.props.actions}
                   record={this.props.record}
                   callbackCodes={this.callbackCodes}
+                  {...this.props}
                 />
               </Modal>
             </div>

@@ -7,7 +7,6 @@ import { autobind } from 'core-decorators';
 import { Tree } from 'mxa';
 
 import { PFetch } from '../../system/fetch';
-import { longRunExec } from '../../system/longRunOpt';
 
 const TreeNode = Tree.TreeNode;
 
@@ -25,7 +24,7 @@ export default class roleAuthentication extends React.Component {
   }
 
   componentWillMount() {
-    longRunExec(() => {
+    this.props.exec(() => {
       return this.props.actions.findButtonsByRoleCode({
           roleCode: this.props.record.roleCode
         })

@@ -20,26 +20,6 @@ export default class FilterBar extends React.Component {
   }
 
   @autobind
-  filterData() {
-    const param = getParam();
-    const urlAry = this.props.domainLink.split('/');
-    urlAry.pop();
-    urlAry.push('search');
-    const searchUrl = urlAry.join('/');
-    console.log(searchUrl);
-    this.props.exec(() => {
-      return PFetch('/' + searchUrl, param).then(response => {
-        console.log('', response);
-        // this.props.freshData && this.props.freshData(response);
-        if (this.props.freshData) {
-          const state = { ...this.props.freshData.state, data: response };
-          this.props.freshData.setState && this.props.freshData.setState(state);
-        }
-      });
-    });
-  }
-
-  @autobind
   _renderTopButtons() {
     const record = {};
     return (
