@@ -14,32 +14,12 @@ export default class roleAuthentication extends React.Component {
     console.log('constructor');
     super(props);
     this.state = {
-      roleMenus: [],
-      expandedKeys: [],
+      expandedKeys: this.constructCheckedKeys(this.props.allMenus).checkedKeys,
       autoExpandParent: true,
-      checkedKeys: [],
+      checkedKeys: this.constructCheckedKeys(this.props.allMenus).checkedKeys,
       selectedKeys: [],
-      menuCodes: []
+      menuCodes: this.constructCheckedKeys(this.props.allMenus).menuCodes
     };
-  }
-
-  componentWillMount() {
-    this.props.exec(() => {
-      return this.props.actions.findMenusByRoleCode({
-        roleCode: this.props.record.roleCode
-      })
-        .then(data => {
-          const a = this.constructCheckedKeys(data.allMenus);
-          this.setState({
-            roleMenus: data.allMenus,
-            expandedKeys: this.constructCheckedKeys(data.allMenus).checkedKeys,
-            checkedKeys: this.constructCheckedKeys(data.allMenus).checkedKeys,
-            menuCodes: this.constructCheckedKeys(data.allMenus).menuCodes,
-          }, () => {
-            this.props.callbackCodes('menu', this.state.menuCodes);
-          });
-        })
-    });
   }
 
   @autobind
@@ -102,7 +82,7 @@ export default class roleAuthentication extends React.Component {
         }
       })
     });
-    loop(this.state.roleMenus);
+    loop(this.props.allMenus);
     return menuCodes;
   }
 
@@ -117,17 +97,21 @@ export default class roleAuthentication extends React.Component {
       }
       return <TreeNode key={item.menuValue} title={item.menuValue} />;
     });
-    return (
-      <Tree
-        checkable={true}
-        onExpand={this.onExpand} expandedKeys={this.state.expandedKeys}
-        autoExpandParent={this.state.autoExpandParent}
-        onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
-        onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
-      >
-        {loop(this.state.roleMenus)}
-      </Tree>
-    );
+    if (this.props.allMenus.length !== 0) {
+      this.props.callbackCodes('menu', this.state.menuCodes);
+      return (
+        <Tree
+          checkable={true}
+          onExpand={this.onExpand} expandedKeys={this.state.expandedKeys}
+          autoExpandParent={this.state.autoExpandParent}
+          onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
+          onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
+        >
+          {loop(this.props.allMenus)}
+        </Tree>
+      );
+    }
+    return null;
   }
 
 }

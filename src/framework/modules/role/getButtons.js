@@ -15,30 +15,13 @@ export default class roleAuthentication extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allDomainButtons: [],
-      expandedKeys: [],
+      expandedKeys: this.constructCheckedKeys(this.props.allDomainButtons).checkedKeys,
       autoExpandParent: true,
-      checkedKeys: [],
+      checkedKeys: this.constructCheckedKeys(this.props.allDomainButtons).checkedKeys,
       selectedKeys: [],
+      buttonCodes: this.constructCheckedKeys(this.props.allDomainButtons).buttonCodes
     };
-  }
-
-  componentWillMount() {
-    this.props.exec(() => {
-      return this.props.actions.findButtonsByRoleCode({
-          roleCode: this.props.record.roleCode
-        })
-        .then((data) => {
-          this.setState({
-            allDomainButtons: data.allDomainButtons,
-            expandedKeys: this.constructCheckedKeys(data.allDomainButtons).checkedKeys,
-            checkedKeys: this.constructCheckedKeys(data.allDomainButtons).checkedKeys,
-            buttonCodes: this.constructCheckedKeys(data.allDomainButtons).buttonCodes
-          }, () => {
-            this.props.callbackCodes('button', this.state.buttonCodes)
-          })
-        });
-    })
+    this.props.callbackCodes('button', this.state.buttonCodes)
   }
 
   @autobind
@@ -101,7 +84,7 @@ export default class roleAuthentication extends React.Component {
         }
       })
     });
-    loop(this.state.allDomainButtons);
+    loop(this.props.allDomainButtons);
     return buttonCodes;
   }
 
@@ -125,17 +108,20 @@ export default class roleAuthentication extends React.Component {
       }
       return <TreeNode key={item.buttonDescription} title={item.buttonDescription}/>;
     });
-    return (
-      <Tree
-        checkable={true}
-        onExpand={this.onExpand} expandedKeys={this.state.expandedKeys}
-        autoExpandParent={this.state.autoExpandParent}
-        onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
-        onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
-      >
-        {loop(this.state.allDomainButtons)}
-      </Tree>
-    );
+    if (this.props.allDomainButtons.length !== 0) {
+      return (
+        <Tree
+          checkable={true}
+          onExpand={this.onExpand} expandedKeys={this.state.expandedKeys}
+          autoExpandParent={this.state.autoExpandParent}
+          onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
+          onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
+        >
+          {loop(this.props.allDomainButtons)}
+        </Tree>
+      );
+    }
+    return null;
   }
 
 }

@@ -51,19 +51,46 @@ export default class ModalPage extends React.Component {
 
   constructor(props) {
     super(props);
+    this.codes = [];
     this.state = {
       visible: false,
-      roleCode: '',
-      roleValue: '',
       codes: [],
+      allMenus: [],
+      allDomainButtons: []
     };
   }
 
   @autobind
   showModal() {
-    this.setState({
-      visible: true,
-    });
+    if (this.props.mode === 'menu') {
+      this.props.exec(() => {
+        return this.props.actions.findMenusByRoleCode({
+            roleCode: this.props.record.roleCode
+          })
+          .then(data => {
+            this.setState({
+              visible: true,
+              allMenus: data.allMenus
+            });
+          })
+      });
+    } else if (this.props.mode === 'button') {
+      longRunExec(() => {
+        return this.props.actions.findButtonsByRoleCode({
+            roleCode: this.props.record.roleCode
+          })
+          .then((data) => {
+            this.setState({
+              visible: true,
+              allDomainButtons: data.allDomainButtons
+            });
+          });
+      })
+    } else if (this.props.mode === 'detail') {
+      this.setState({
+        visible: true,
+      });
+    }
   }
 
   @autobind
@@ -74,12 +101,7 @@ export default class ModalPage extends React.Component {
     if (this.props.mode === 'add') {
       const form = this.form;
       form.validateFields((err, values) => {
-        this.setState({
-          // visible: false,
-          roleCode: values.roleCode,
-          roleValue: values.roleValue
-        });
-        this.props.exec(() => {
+        longRunExec(() => {
           return this.props.actions.addRole({
               roleCode: values.roleCode,
               roleValue: values.roleValue
@@ -89,6 +111,7 @@ export default class ModalPage extends React.Component {
                 title: '添加成功'
               });
               this.props.refreshRole();
+              form.resetFields();
             });
         });
       });
@@ -96,7 +119,7 @@ export default class ModalPage extends React.Component {
       this.props.exec(() => {
         return this.props.actions.relateMenusToRole({
             roleCode: this.props.record.roleCode,
-            menuCodes: this.state.codes
+            menuCodes: this.codes
           })
           .then(() => {
             Modal.success({
@@ -109,7 +132,7 @@ export default class ModalPage extends React.Component {
       this.props.exec(() => {
         return this.props.actions.relateButtonsToRole({
             roleCode: this.props.record.roleCode,
-            buttonCodes: this.state.codes
+            buttonCodes: this.codes
           })
           .then(() => {
             Modal.success({
@@ -127,13 +150,15 @@ export default class ModalPage extends React.Component {
     this.setState({
       visible: false,
     });
+    if (this.props.mode === 'add') {
+      const form = this.form;
+      form.resetFields();
+    }
   }
 
   @autobind
   callbackCodes(type, codes) {
-    this.setState({
-      codes
-    });
+    this.codes = codes;
   }
 
   @autobind
@@ -174,6 +199,7 @@ export default class ModalPage extends React.Component {
                 <GetMenus
                   actions={this.props.actions}
                   record={this.props.record}
+                  allMenus={this.state.allMenus}
                   callbackCodes={this.callbackCodes}
                   {...this.props}
                 />
@@ -191,6 +217,7 @@ export default class ModalPage extends React.Component {
                 <GetButtons
                   actions={this.props.actions}
                   record={this.props.record}
+                  allDomainButtons={this.state.allDomainButtons}
                   callbackCodes={this.callbackCodes}
                   {...this.props}
                 />
