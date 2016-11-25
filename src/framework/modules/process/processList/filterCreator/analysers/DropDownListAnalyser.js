@@ -6,7 +6,7 @@ import { Select, Input, Radio, Row, Col, Checkbox } from 'mxa';
 import { override } from 'core-decorators';
 
 import AbstractAnalyser from './AbstractAnalyser';
-import styles from '../../../../../../styles/views/listview.less';
+import styles from '../../../../../styles/views/listview.less';
 import executeJS from '../JSExecutor';
 import { dispatch } from '../../../../../service/DispatchService';
 
@@ -34,7 +34,7 @@ export default class DropDownListAnalyser extends AbstractAnalyser {
         <Select onChange={this.handleChange} placeholder="请选择" className={styles.select} >
           {filter.optionalValues
             && filter.optionalValues.map((opt, index) =>
-             (<Option value={opt.itemValue || opt.itemIndex} >{opt.itemText}</Option>))
+             (<Option key={index} value={opt.itemValue || opt.itemIndex} >{opt.itemText}</Option>))
           }
         </Select>
       </div>

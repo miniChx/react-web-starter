@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import Compose from '../../common/utils/Compose';
+import Compose from '../utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
 import InitDecorator from './InitDecorator';
 

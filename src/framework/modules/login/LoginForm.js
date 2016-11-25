@@ -7,8 +7,8 @@ import { Form, Button, Input, Row, Col, Checkbox } from 'mxa';
 import { Link } from 'react-router';
 import sha256 from 'sha256';
 import { replace } from 'react-router-redux';
-import { loginServer } from '../../../actions/global';
-import { longRunExec } from '../../../system/longRunOpt';
+import { loginServer } from '../../actions/global';
+import { longRunExec } from '../../system/longRunOpt';
 
 const FormItem = Form.Item;
 
@@ -58,11 +58,11 @@ class LoginForm extends React.Component {
       // 网络请求
       longRunExec(() => {
         return this.props.dispatch(loginServer(
-            values.remember,
-            { userName: values.user, password: addSha(values.pass) }
-          )).then(() => {
-            this.props.dispatch(replace('/'));
-          });
+          values.remember,
+          { userName: values.user, password: addSha(values.pass) }
+        )).then(() => {
+          this.props.dispatch(replace('/'));
+        });
       });
       // this.props.dispatch(loginRemember('hahahahaha'));
     });

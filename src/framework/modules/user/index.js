@@ -8,7 +8,7 @@ import { Table, Button, Modal, Input, Row, Col, Select, Radio } from 'mxa';
 import sha256 from 'sha256';
 import { ModalPage } from './modalPage';
 
-import styles from '../../../styles/views/listview.less';
+import styles from '../../styles/views/listview.less';
 import { deleteAccountServer, findAccountById, searchAccountServer, updateAccountServer, findAllRolesByUserId } from '../../actions/account';
 import { longRunExec } from '../../system/longRunOpt';
 

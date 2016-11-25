@@ -3,7 +3,7 @@
  */
 import { createAction } from 'redux-actions';
 import { PFetch } from '../system/fetch';
-import links from '../../constant/links';
+import links from '../constant/links';
 
 export const addRole = p => PFetch(links.addRole, p);
 

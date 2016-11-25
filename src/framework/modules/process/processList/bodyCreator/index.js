@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Button } from 'mxa';
-import { getValueByKey } from '../../../../../common/utils/MapUtils';
+import { getValueByKey } from '../../../../utils/MapUtils';
 import actionTrigger from './ActionAnalyser';
 
 // TODO: 份文件

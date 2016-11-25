@@ -8,7 +8,7 @@ import {autobind} from 'core-decorators';
 import {Modal, Form, Button, Input, Row, Col, message, Checkbox} from 'mxa';
 import sha256 from 'sha256';
 
-import styles from '../../../styles/views/listview.less';
+import styles from '../../styles/views/listview.less';
 import {
   addAccountServer,
   findAccountById,
@@ -18,7 +18,7 @@ import {
   updatPasswordServer
 } from '../../actions/account';
 import {longRunExec} from '../../system/longRunOpt';
-import validation from '../../../common/utils/validation';
+import validation from '../../utils/validation';
 
 const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;

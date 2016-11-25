@@ -6,7 +6,7 @@ import { Select, Input, Radio, Row, Col, Checkbox } from 'mxa';
 import { override } from 'core-decorators';
 
 import AbstractAnalyser from './AbstractAnalyser';
-import styles from '../../../../../../styles/views/listview.less';
+import styles from '../../../../../styles/views/listview.less';
 
 const Option = Select.Option;
 

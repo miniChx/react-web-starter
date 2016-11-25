@@ -4,8 +4,8 @@
 import { push } from 'react-router-redux';
 import Qs from 'qs';
 import { dispatch } from '../../../../service/DispatchService';
-import { CONTAINER_PRE } from '../../../../../routes';
-import { PAGE_TYPE_PROCESS_DETAIL, PAGE_TYPE_PROCESS_IMG, PAGE_TYPE_PROCESS } from '../../../../../constant/dictActions';
+import { CONTAINER_PRE } from '../../../../routes';
+import { PAGE_TYPE_PROCESS_DETAIL, PAGE_TYPE_PROCESS_IMG, PAGE_TYPE_PROCESS } from '../../../../constant/dictActions';
 import { showModal } from '../../../../pageContainer/ModalWrapper';
 import { PFetch } from '../../../../system/fetch';
 import { longRunExec } from '../../../../system/longRunOpt';

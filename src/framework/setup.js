@@ -4,13 +4,13 @@ import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 // import 'mxa/dist/mxa.less';
 
-import configureStore from '../store/configureStore';
-import analytics from '../service/analytics';
-import { executeInit } from '../service/ServiceInitHelper';
+import configureStore from './store/configureStore';
+import analytics from './service/analytics';
+import { executeInit } from './service/ServiceInitHelper';
 
-import routes from '../../routes';
-import Loading from '../../comp/loading';
-import { initApp } from '../actions/global';
+import routes from './routes';
+import Loading from '../components/loading';
+import { initApp } from './actions/global';
 
 const setup = () => {
   const store = configureStore({});

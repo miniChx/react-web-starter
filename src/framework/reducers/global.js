@@ -1,5 +1,5 @@
 
-import * as types from '../../constant/dictActions';
+import * as types from '../constant/dictActions';
 
 const initialState = {
   showLoading: false,

@@ -2,7 +2,7 @@
  * Created by baoyinghai on 10/18/16.
  */
 import Qs from 'qs';
-import MxFetch from '../../common/mxfetch/index';
+import MxFetch from '../utils/MxFetch';
 import Config from '../../config';
 import { getToken } from '../service/CacheService';
 

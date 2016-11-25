@@ -10,7 +10,7 @@ import ModalPage from './modalPage';
 import { longRunExec } from '../../system/longRunOpt';
 import * as RoleActions from '../../actions/role';
 
-import styles from '../../../styles/views/listview.less';
+import styles from '../../styles/views/listview.less';
 
 export default class Role extends React.Component {
 

@@ -22,3 +22,6 @@ export const PAGE_TYPE_CUSTOM = 'Custom';
 export const PAGE_TYPE_PROCESS = 'Process';
 export const PAGE_TYPE_PROCESS_DETAIL = 'ProcessDetail';
 export const PAGE_TYPE_PROCESS_IMG = 'ProcessImg';
+
+
+// export const PAGE_DOMAINLINK_USER_LIST = '/UserList/render';

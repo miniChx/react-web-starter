@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
 import { Button, Modal, Tooltip } from 'mxa';
 import Qs from 'qs';
-import { CONTAINER_PRE } from '../../routes';
+import { CONTAINER_PRE } from '../../framework/routes';
 import { showModal } from '../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../framework/system/fetch';
 

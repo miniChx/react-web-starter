@@ -23,8 +23,8 @@ import {
 } from 'mxa';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
-import FormItemType from '../../../../constant/formItemType';
-import { ExtendButton } from '../../../../comp/button';
+import FormItemType from '../../../constant/formItemType';
+import { ExtendButton } from '../../../../components/button';
 
 const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;
