@@ -1,14 +1,11 @@
-/**
- * Created by baoyinghai on 11/20/16.
- */
-import React from 'react';
+import tab from './tab';
+import modalInput from './modalInput';
+import hello from './hello';
+import layout from './layout';
 
-import styles from '../../styles/views/biz.less';
-
-export default class Hello extends React.Component {
-  render() {
-    return (
-      <span className={styles.content}>hello world</span>
-    );
-  }
-}
+export default {
+  tab,
+  modalInput,
+  hello,
+  layout
+};

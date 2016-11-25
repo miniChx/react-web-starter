@@ -7,7 +7,6 @@ import { autobind } from 'core-decorators';
 import { Table, Modal, Input } from 'mxa';
 import ModalPage from './modalPage';
 
-import { longRunExec } from '../../system/longRunOpt';
 import * as RoleActions from '../../actions/role';
 
 import styles from '../../styles/views/listview.less';
@@ -24,7 +23,7 @@ export default class Role extends React.Component {
 
   @autobind
   _refreshRole() {
-    longRunExec(() => {
+    this.props.exec(() => {
       return RoleActions.findAllRole()
         .then((dataSource) => {
           this.setState({
@@ -40,7 +39,7 @@ export default class Role extends React.Component {
     Modal.confirm({
       title: '删除该角色?',
       onOk() {
-        longRunExec(() => {
+        self.props.exec(() => {
           return RoleActions.deleteRole({
             roleCode: record.roleCode
           })
@@ -68,6 +67,7 @@ export default class Role extends React.Component {
           mode="menu"
           actions={RoleActions}
           refreshRole={this._refreshRole}
+          {...this.props}
         />
         <ModalPage
           title="按钮"
@@ -76,6 +76,7 @@ export default class Role extends React.Component {
           mode="button"
           actions={RoleActions}
           refreshRole={this._refreshRole}
+          {...this.props}
         />
         <a className={styles.inlineButton} onClick={() => this._renderDeleteRole(record)}>删除</a>
       </div>
@@ -112,7 +113,7 @@ export default class Role extends React.Component {
     return (
       <div>
         <ModalPage
-          title="添加角色" className={styles.topButton} mode="add" actions={RoleActions} refreshRole={this._refreshRole}
+          title="添加角色" className={styles.topButton} mode="add" actions={RoleActions} refreshRole={this._refreshRole} {...this.props}
         />
         <Table
           columns={columns}

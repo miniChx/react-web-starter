@@ -1,3 +1,5 @@
+import { trimStart } from 'lodash/string';
+
 import Home from './modules/home';
 import Login from './modules/login';
 import Register from './modules/login/register';
@@ -5,19 +7,37 @@ import FindPwd from './modules/login/findPwd';
 // import PageContainer from './framework/pageContainer';
 import NotFound from './modules/exception/404';
 import App from './App';
-
+import exclusive from './pageContainer/exclusive';
+import { PFetch } from './system/fetch';
+import { longRunExec } from './system/longRunOpt';
+import { savePageData, getPageData } from './service/CacheService';
 // import { getToken } from './framework/service/CacheService';
 
 export const CONTAINER_PRE = 'page_container';
 export const CUSTOM_CONTAINER_PRE = 'custom_page_container';
 
-// 登录后不可见页面的控制.
-// const userIsInATeam = (nextState, replace, callback) => {
-//  // if (getToken()) {
-//  //   replace('/');
-//  // }
-//  callback();
-// };
+const getUrlPath = url => url;
+
+// 要初始化数据的页面
+const userIsInATeam = (nextState, replace, callback) => {
+  const domainLink = nextState.params.splat;
+  if (domainLink && !exclusive.some(f => f(domainLink))) {
+    const url = getUrlPath('/' + trimStart(domainLink, '/'));
+    const params = { ...nextState.params };
+    if (nextState.location) {
+      Object.assign(params, nextState.location.query);
+    }
+    longRunExec(() => PFetch(url, params)
+      .then(data => {
+        // nextState.fetchData = data;
+        savePageData(data);
+        callback();
+      }));
+  } else {
+    savePageData([]);
+    callback();
+  }
+};
 
 /* eslint-disable global-require */
 const routes = {
@@ -36,7 +56,8 @@ const routes = {
         require.ensure([], require => {
           callback(null, require('./pageContainer/index').default);
         }, 'container');
-      }
+      },
+      onEnter: userIsInATeam
     },
     { path: '*', component: NotFound },
   ],
