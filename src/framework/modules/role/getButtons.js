@@ -16,43 +16,15 @@ export default class roleAuthentication extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allDomainButtons: [],
-      expandedKeys: [],
+      expandedKeys: this.constructCheckedKeys(this.props.allDomainButtons).checkedKeys,
       autoExpandParent: true,
-      checkedKeys: [],
+      checkedKeys: this.constructCheckedKeys(this.props.allDomainButtons).checkedKeys,
       selectedKeys: [],
+      buttonCodes: this.constructCheckedKeys(this.props.allDomainButtons).buttonCodes
     };
+    this.props.callbackCodes('button', this.state.buttonCodes)
   }
-
-  componentWillMount() {
-    this.initData();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.reloadMenusOrButtons != nextProps.reloadMenusOrButtons) {
-      this.initData();
-    }
-  }
-
-  @autobind
-  initData() {
-    longRunExec(() => {
-      return this.props.actions.findButtonsByRoleCode({
-          roleCode: this.props.record.roleCode
-        })
-        .then((data) => {
-          this.setState({
-            allDomainButtons: data.allDomainButtons,
-            expandedKeys: this.constructCheckedKeys(data.allDomainButtons).checkedKeys,
-            checkedKeys: this.constructCheckedKeys(data.allDomainButtons).checkedKeys,
-            buttonCodes: this.constructCheckedKeys(data.allDomainButtons).buttonCodes
-          }, () => {
-            this.props.callbackCodes('button', this.state.buttonCodes)
-          })
-        });
-    })
-  }
-
+  
   @autobind
   onExpand(expandedKeys) {
     // if not set autoExpandParent to false, if children expanded, parent can not collapse.
@@ -113,7 +85,7 @@ export default class roleAuthentication extends React.Component {
         }
       })
     });
-    loop(this.state.allDomainButtons);
+    loop(this.props.allDomainButtons);
     return buttonCodes;
   }
 
@@ -137,7 +109,7 @@ export default class roleAuthentication extends React.Component {
       }
       return <TreeNode key={item.buttonDescription} title={item.buttonDescription}/>;
     });
-    if (this.state.allDomainButtons.length !== 0) {
+    if (this.props.allDomainButtons.length !== 0) {
       return (
         <Tree
           checkable={true}
@@ -146,7 +118,7 @@ export default class roleAuthentication extends React.Component {
           onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
           onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
         >
-          {loop(this.state.allDomainButtons)}
+          {loop(this.props.allDomainButtons)}
         </Tree>
       );
     }
