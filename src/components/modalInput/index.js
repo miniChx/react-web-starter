@@ -61,11 +61,10 @@ export default class modalInput extends React.Component {
           <div className="mx-input-group-wrap">
             <Button icon="bars" className={btnCls} onClick={() => this.setModal2Visible(true)} />
             <Modal
-              title="Vertically centered modal dialog"
-              wrapClassName="vertical-center-modal"
               visible={this.state.modal2Visible}
-              onOk={() => this.setModal2Visible(false)}
-              onCancel={() => this.setModal2Visible(false)}
+              // onOk={() => this.setModal2Visible(false)}
+              // onCancel={() => this.setModal2Visible(false)}
+              footer={[]}
             >
               <p>some contents...</p>
               <p>some contents...</p>
