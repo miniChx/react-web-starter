@@ -21,8 +21,6 @@ const actionTrigger = (record, keyName, props) => {
   console.log('param:', param);
 
   if (operation.actionUrl && operation.actionUrl.indexOf('diagram-viewer') >= 0) {
-    // showModal({ imgUrl: operation.actionUrl, ...param }, PAGE_TYPE_PROCESS_IMG, 'imageView');
-    // window.open('/' + CONTAINER_PRE + '/imageView?' + Qs.stringify({ imgUrl: operation.actionUrl, ...param, domainType: PAGE_TYPE_PROCESS_IMG }));
     dispatch(push({
       pathname: '/' + CONTAINER_PRE + '/imageView',
       query: { ...param, domainType: PAGE_TYPE_PROCESS_IMG, imgUrl: operation.actionUrl }
