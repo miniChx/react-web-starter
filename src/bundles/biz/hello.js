@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-import styles from '../../styles/views/biz.less';
+import styles from '../styles/views/biz.less';
 
 export default class Hello extends React.Component {
   render() {

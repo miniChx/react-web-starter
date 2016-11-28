@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Menu, Icon, Switch, Form, Input, Button, BackTop, Affix } from 'mxa';
+import { autobind } from 'core-decorators';
 
 import ModalInput from '../../components/modalInput';
 import Anchor, { ArchorLink } from '../../components/anchor';
@@ -14,6 +15,13 @@ const MenuItemGroup = Menu.ItemGroup;
 
 
 class Tab extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showMenuBtn: false
+    };
+  }
 
   renderMenu() {
     return (
@@ -102,7 +110,9 @@ class Tab extends React.Component {
         <Col span={12} key={i}>
           <FormItem {...formItemLayout} label={`Field ${i}`}>
             {getFieldDecorator(`field-${i}`)(
-              <ModalInput />
+              <ModalInput>
+                <span>123123</span>
+              </ModalInput>
             )}
           </FormItem>
         </Col>
@@ -150,6 +160,18 @@ class Tab extends React.Component {
     if (window.scrollTo) {
       window.scrollTo({"behavior": "smooth", "top": anchorLink.offsetTop});
     }
+  }
+
+  showMenu() {
+    return (
+      <div>123</div>
+    );
+  }
+
+  @autobind
+  showList(affixed) {
+    console.log(affixed);
+   this.setState({showMenuBtn: affixed});
   }
 
   /* eslint-disable */

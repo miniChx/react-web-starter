@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button, Modal } from 'mxa';
+import { Input, Button, Modal, Icon } from 'mxa';
 import classNames from 'classnames';
 
 const InputGroup = Input.Group;
@@ -37,41 +37,26 @@ export default class modalInput extends React.Component {
     this.setState({ modal2Visible });
   }
 
-  render() {
-    const { style, size, placeholder } = this.props;
-    const btnCls = classNames({
-      'mx-search-btn': true,
-      'mx-search-btn-noempty': !!this.state.value.trim(),
-    });
-    const searchCls = classNames({
-      'mx-search-input': true,
-      'mx-search-input-focus': this.state.focus,
-    });
+  renderModal() {
     return (
-      <div className="mx-search-input-wrapper" style={style}>
-        <InputGroup className={searchCls}>
-          <Input
-            placeholder={placeholder}
-            value={this.state.value}
-            onChange={this.handleInputChange}
-            onFocus={this.handleFocusBlur}
-            onBlur={this.handleFocusBlur}
-            onPressEnter={this.handleSearch}
-          />
-          <div className="mx-input-group-wrap">
-            <Button icon="bars" className={btnCls} onClick={() => this.setModal2Visible(true)} />
-            <Modal
-              visible={this.state.modal2Visible}
-              // onOk={() => this.setModal2Visible(false)}
-              // onCancel={() => this.setModal2Visible(false)}
-              footer={[]}
-            >
-              <p>some contents...</p>
-              <p>some contents...</p>
-              <p>some contents...</p>
-            </Modal>
-          </div>
-        </InputGroup>
+      <Icon type="bars" onClick={() => this.setModal2Visible(true)} />
+    );
+  }
+
+  render() {
+    // const parentProps = Object.assign({}, this.props, { children: null });
+    return (
+      <div style={{ marginBottom: 16 }} >
+        <Input addonAfter={this.renderModal()} />
+        <Modal
+          maskClosable={false}
+          visible={this.state.modal2Visible}
+          onOk={() => this.setModal2Visible(false)}
+          onCancel={() => this.setModal2Visible(false)}
+          footer={[]}
+        >
+          {this.props.children}
+        </Modal>
       </div>
     );
   }

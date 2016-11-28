@@ -75,7 +75,7 @@ export default class ModalPage extends React.Component {
           })
       });
     } else if (this.props.mode === 'button') {
-      longRunExec(() => {
+      this.props.exec(() => {
         return this.props.actions.findButtonsByRoleCode({
             roleCode: this.props.record.roleCode
           })
@@ -86,7 +86,7 @@ export default class ModalPage extends React.Component {
             });
           });
       })
-    } else if (this.props.mode === 'detail') {
+    } else {
       this.setState({
         visible: true,
       });
@@ -101,7 +101,7 @@ export default class ModalPage extends React.Component {
     if (this.props.mode === 'add') {
       const form = this.form;
       form.validateFields((err, values) => {
-        longRunExec(() => {
+        this.props.exec(() => {
           return this.props.actions.addRole({
               roleCode: values.roleCode,
               roleValue: values.roleValue

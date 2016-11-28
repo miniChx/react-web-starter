@@ -33,7 +33,7 @@ module.exports = {
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appStyleGlobal: resolveApp('src/framework/styles/views'),
-  appStyleCustom: resolveApp('src/styles/views'),
+  appStyleCustom: resolveApp('src/bundles/styles/views'),
   testsSetup: resolveApp('src/setupTests.js'),
   appNodeModules: resolveApp('node_modules'),
   ownNodeModules: resolveApp('node_modules'),
