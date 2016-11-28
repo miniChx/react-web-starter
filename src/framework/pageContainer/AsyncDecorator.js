@@ -9,19 +9,13 @@ const AsyncDecorator = Wrapper => {
     constructor(props) {
       super(props);
       this.state = {
-        data: getPageData()
+        data: this.props.dataSource || getPageData()
       };
     }
-
-    getUrlPath = url => url;
 
     @autobind
     freshData(data) {
       this.setState({ data });
-      // return {
-      //  setState: this.setState,
-      //  state: this.state
-      // };
     }
 
     render() {

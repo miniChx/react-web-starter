@@ -3,7 +3,7 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Select } from 'mxa';
-import { ExtendButton, SearchInput } from '../../../../components';
+import { Button, SearchInput } from '../../../../components';
 
 import styles from '../../../styles/views/listview.less';
 
@@ -26,7 +26,7 @@ class ListView extends React.Component {
       <div>
         {
           buttons.map(item => (
-            <ExtendButton
+            <Button
               {...item}
               key={item.buttonDescription}
               record={record}
@@ -185,7 +185,7 @@ class ListView extends React.Component {
       <div>
         {
           this.state.buttons && this.state.buttons.top.map(item => (
-            <ExtendButton
+            <Button
               type="button"
               buttonProps={{
                 type: 'ghost',

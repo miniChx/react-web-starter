@@ -10,3 +10,4 @@ export { default as Menu } from './menu';
 export { default as ModalInput } from './modalInput';
 export { default as SearchInput } from './searchInput';
 export { default as District } from './district';
+export { default as layout } from './layout';
