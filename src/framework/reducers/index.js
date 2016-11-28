@@ -4,7 +4,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar';
 
 import global from './global';
 import menu from './menu';
-import bizReducers from '../../bundle/reducer';
+import bizReducers from '../../bundles/reducer';
 
 export default combineReducers({
   routing: routerReducer,
