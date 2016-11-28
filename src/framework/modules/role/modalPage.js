@@ -88,7 +88,7 @@ export default class ModalPage extends React.Component {
       })
     } else {
       this.setState({
-        visible: true,
+        visible: true
       });
     }
   }

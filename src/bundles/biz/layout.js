@@ -2,8 +2,7 @@ import React from 'react';
 import { Row, Col, Menu, Icon, Switch, Form, Input, Button, BackTop, Affix } from 'mxa';
 import { autobind } from 'core-decorators';
 
-import ModalInput from '../../components/modalInput';
-import Anchor, { ArchorLink } from '../../components/anchor';
+import { ModalInput, Anchor, AnchorLink } from '../../components';
 
 import appStyle from '../../framework/styles/views/app.less';
 
@@ -183,11 +182,11 @@ class Tab extends React.Component {
           <Col span={18}>{this.renderMain()}</Col>
           <Col span={2}>
             <Anchor>
-              <ArchorLink title="基本信息1" href="#components-anchor-demo-basic1"/>
-              <ArchorLink title="基本信息2" href="#components-anchor-demo-basic2"/>
-              <ArchorLink title="基本信息3" href="#components-anchor-demo-basic3"/>
-              <ArchorLink title="基本信息4" href="#components-anchor-demo-basic4"/>
-              <ArchorLink title="基本信息5" href="#components-anchor-demo-basic5"/>
+              <AnchorLink title="基本信息1" href="#components-anchor-demo-basic1"/>
+              <AnchorLink title="基本信息2" href="#components-anchor-demo-basic2"/>
+              <AnchorLink title="基本信息3" href="#components-anchor-demo-basic3"/>
+              <AnchorLink title="基本信息4" href="#components-anchor-demo-basic4"/>
+              <AnchorLink title="基本信息5" href="#components-anchor-demo-basic5"/>
             </Anchor>
           </Col>
         </Row>
