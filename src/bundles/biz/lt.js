@@ -10,6 +10,8 @@ import appStyle from '../../framework/styles/views/app.less';
 import Simple from '../../components/simpleMenu';
 import { getMenu } from '../../framework/service/CacheService';
 
+import SelectableModal from './SelectableModal';
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const FormItem = Form.Item;
@@ -34,8 +36,8 @@ class Lt extends React.Component {
         <Col span={12} key={i}>
           <FormItem {...formItemLayout} label={`Field ${i}`}>
             {getFieldDecorator(`field-${i}`)(
-              <ModalInput>
-                <span>123123</span>
+              <ModalInput mapper={value => value + 'mapper'}>
+                <SelectableModal />
               </ModalInput>
             )}
           </FormItem>
