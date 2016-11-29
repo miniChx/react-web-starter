@@ -25,3 +25,5 @@ FastClick.attach(document.body);
 if (module.hot) {
   module.hot.accept();
 }
+
+import './utils/smoothscroll'; // eslint-disable-line import/imports-first

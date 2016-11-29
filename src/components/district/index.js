@@ -37,6 +37,7 @@ export default class District extends React.Component {
       provinceValue: data[value].label,
       municipalityValue: '',
       municipalityList: data[value].children,
+      districtList: [],
       districtValue: '',
     }, () => {
       if (this.props.onChange) {
