@@ -79,23 +79,6 @@ class ListView extends React.Component {
     const orderFields = constructOrderFields(data.filterItems);
 
     const selectedType = 'checkbox'; // 'radio' or 'checkbox';
-    // const selectedRows = [];
-    const rowSelection = {
-      type: selectedType,
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log('onChange ==> ', `selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        this.setState({ selectedRows });
-      },
-      onSelect: (record, selected, selectedRows) => {
-        console.log('onSelect ==> ', record, selected, selectedRows);
-        this.setState({ selectedRows });
-      },
-      onSelectAll: (selected, selectedRows, changeRows) => {
-        console.log('onSelectAll ==> ', selected, selectedRows, changeRows);
-        this.setState({ selectedRows });
-      },
-    };
-
     return {
       columns,
       dataSource,
@@ -106,9 +89,9 @@ class ListView extends React.Component {
       itemsPerPage,
       filterFieldCodes,
       orderFields,
-      rowSelection,
       selectedType,
-      // selectedRows,
+      selectedRowKeys: [],
+      selectedRows: [],
     };
   }
 
@@ -211,7 +194,7 @@ class ListView extends React.Component {
                 type: 'ghost',
               }}
               {...item}
-              disabled={!(this.state.selectedType && this.state.selectedType.length > 0)}
+              disabled={!(this.state.selectedType && this.state.selectedRowKeys.length > 0)}
               key={item.buttonDescription}
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
@@ -223,7 +206,43 @@ class ListView extends React.Component {
     );
   }
 
+  @autobind
+  _onRowClick(record, index) {
+    console.log('onRowClick ==> ', record, index);
+
+    const selectedIndex = this.state.selectedRowKeys.indexOf(record.key);
+    if (selectedIndex > -1) {
+      this.setState({
+        selectedRowKeys: this.state.selectedRowKeys.filter(item => item !== record.key),
+        selectedRows: this.state.selectedRows.filter(item => item.key !== record.key),
+      });
+    } else {
+      this.setState({
+        selectedRowKeys: this.state.selectedRowKeys.concat(record.key),
+        selectedRows: this.state.selectedRows.concat(record),
+      });
+    }
+  }
+
   render() {
+    // const selectedRows = [];
+    const rowSelection = {
+      type: this.state.selectedType,
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log('onChange ==> ', `selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.setState({ selectedRowKeys, selectedRows });
+      },
+      onSelect: (record, selected) => {
+        console.log('onSelect ==> ', record, selected);
+        // this.setState({ selectedRows });
+      },
+      onSelectAll: (selected, selectedRows, changeRows) => {
+        console.log('onSelectAll ==> ', selected, selectedRows, changeRows);
+        this.setState({ selectedRows });
+      },
+      selectedRowKeys: this.state.selectedRowKeys,
+    };
+
     if (this.state.columns && this.state.columns.length > 0) {
       return (
         <div className={styles.listview}>
@@ -235,12 +254,13 @@ class ListView extends React.Component {
             </div>
           </div>
           <Table
-            rowSelection={this.state.rowSelection}
+            rowSelection={rowSelection}
             columns={this.state.columns}
             dataSource={this.state.dataSource}
             sortOrder={false}
             pagination={this.state.pagination}
             onChange={this._onChange}
+            onRowClick={this._onRowClick}
           />
         </div>
       );
