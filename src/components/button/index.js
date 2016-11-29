@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
@@ -14,8 +14,14 @@ const confirm = Modal.confirm;
 
 export class ExtendButton extends React.Component {
   static propTypes = {
-    record: React.PropTypes.object,
-    type: React.PropTypes.oneOf(['button', 'link']),
+    disabled: PropTypes.bool,
+    record: PropTypes.object,
+    type: PropTypes.oneOf(['button', 'link']),
+    selectedType: PropTypes.oneOf(['inline', 'radio', 'checkbox']),
+  };
+
+  static defaultProps = {
+    selectedType: 'inline'
   };
 
   @autobind
@@ -55,26 +61,35 @@ export class ExtendButton extends React.Component {
       });
   }
 
-
   @autobind
   _triggerAction() {
+    let activeData = this.props.record;
+    if (this.props.selectedType === 'radio') {
+      activeData = this.props.record[0];
+    }
     if (this.props.interactiveType === 'Action') {
+      let params;
+      if (this.props.selectedType === 'checkbox') {
+        params = this.props.record.map(item => item.id);
+      } else {
+        params = { id: activeData.id };
+      }
       // message|confirm|tooltip
-      if (this.props.messagePromptType === 'confirm') {
+      if (this.props.selectedType !== 'checkbox' && this.props.messagePromptType === 'confirm') {
         confirm({
           title: '提示',
-          content: (<div>确认{this.props.buttonDescription}{this.props.record.realName}吗？</div>),
+          content: (<div>确认{this.props.buttonDescription}{activeData.realName}吗？</div>),
           onOk: () => {
-            this._processAction(this.props.actionName, { id: this.props.record.id });
+            this._processAction(this.props.actionName, params);
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.actionName, { id: this.props.record.id });
+        this._processAction(this.props.actionName, params);
       }
     } else {
       // eslint-disable-next-line max-len
-      this._jump(this.props.domainLink, { id: this.props.record.id }, this.props.domainType, this.props.interactiveType);
+      this._jump(this.props.domainLink, { id: activeData.id }, this.props.domainType, this.props.interactiveType);
     }
   }
 
@@ -86,6 +101,7 @@ export class ExtendButton extends React.Component {
           {...this.props.buttonProps}
           className={this.props.className}
           onClick={() => this._triggerAction()}
+          disabled={this.props.disabled}
         >{this.props.buttonDescription}</Button>
       );
     }

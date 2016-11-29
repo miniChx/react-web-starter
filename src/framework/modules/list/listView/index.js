@@ -40,11 +40,12 @@ class ListView extends React.Component {
 
   @autobind
   _processData(data) {
-    const buttons = {
-      inline: data.buttons.filter(item => item.displayPosition === 'inline'),
-      top: data.buttons.filter(item => item.displayPosition === 'top'),
-      search: data.buttons.filter(item => item.actionType === 'search'),
-    };
+    const buttons = { inline: [], top: [], search: [] };
+    if (data.buttons) {
+      buttons.inline = data.buttons.filter(item => item.displayPosition === 'inline');
+      buttons.top = data.buttons.filter(item => item.displayPosition === 'top');
+      buttons.search = data.buttons.filter(item => item.actionType === 'search');
+    }
 
     // eslint-disable-next-line arrow-body-style
     const columns = data.fields.map(item => ({
@@ -77,6 +78,24 @@ class ListView extends React.Component {
     const filterFieldCodes = [];
     const orderFields = constructOrderFields(data.filterItems);
 
+    const selectedType = 'checkbox'; // 'radio' or 'checkbox';
+    // const selectedRows = [];
+    const rowSelection = {
+      type: selectedType,
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log('onChange ==> ', `selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.setState({ selectedRows });
+      },
+      onSelect: (record, selected, selectedRows) => {
+        console.log('onSelect ==> ', record, selected, selectedRows);
+        this.setState({ selectedRows });
+      },
+      onSelectAll: (selected, selectedRows, changeRows) => {
+        console.log('onSelectAll ==> ', selected, selectedRows, changeRows);
+        this.setState({ selectedRows });
+      },
+    };
+
     return {
       columns,
       dataSource,
@@ -86,7 +105,10 @@ class ListView extends React.Component {
       pageIndex,
       itemsPerPage,
       filterFieldCodes,
-      orderFields
+      orderFields,
+      rowSelection,
+      selectedType,
+      // selectedRows,
     };
   }
 
@@ -179,8 +201,6 @@ class ListView extends React.Component {
 
   @autobind
   _renderTopButtons() {
-    // TODO. Get select row record
-    const record = {};
     return (
       <div>
         {
@@ -191,8 +211,10 @@ class ListView extends React.Component {
                 type: 'ghost',
               }}
               {...item}
+              disabled={!(this.state.selectedType && this.state.selectedType.length > 0)}
               key={item.buttonDescription}
-              record={record}
+              selectedType={this.state.selectedType}
+              record={this.state.selectedRows}
               className={styles.topButton}
             />
           ))
@@ -213,6 +235,7 @@ class ListView extends React.Component {
             </div>
           </div>
           <Table
+            rowSelection={this.state.rowSelection}
             columns={this.state.columns}
             dataSource={this.state.dataSource}
             sortOrder={false}
