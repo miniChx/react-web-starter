@@ -1,8 +1,8 @@
 process.env.NODE_ENV = 'development';
 
 // start mock server
-var mockServer = require('../server/app');
-mockServer && mockServer.run && mockServer.run();
+// var mockServer = require('../server/app');
+// mockServer && mockServer.run && mockServer.run();
 
 // Load environment variables from .env file. Suppress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables

@@ -7,18 +7,15 @@ import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
 import Anchor, { ArchorLink } from '../../components/anchor';
 import AnchorHref from './anchorHref';
-import appStyle from '../../framework/styles/views/app.less';
-import SimpleMenu from '../simpleMenu';
-import exclusive from '../../framework/pageContainer/exclusive';
-
+import appStyle from '../styles/views/app.less';
+import SimpleMenu from '../../components/simpleMenu';
 
 export default class Layout extends React.Component {
 
   constructor(props) {
     super(props);
-    this.anchor = [];
     let list = [];
-    this.props.menu.forEach(s => {
+    this.props.menu && this.props.menu.forEach(s => {
       const tmp = this.transformToList(s);
       list = list.concat(tmp);
     });
@@ -27,7 +24,8 @@ export default class Layout extends React.Component {
       main: null,
       left: null,
       right: null,
-      tools: false
+      tools: false,
+      anchor: []
     };
   }
 
@@ -49,49 +47,30 @@ export default class Layout extends React.Component {
 
   @autobind
   menuClick(domainLink, domainType, menuCode) {
-    const handle = this.props.menuClick || this.mainAnalyser;
-    if (domainLink && !exclusive.some(f => f(domainLink))) {
-      const url = this.getUrlPath('/' + trimStart(domainLink, '/'));
-      this.props.exec(() => this.props.fetch(url, {})
-        .then(data => {
-          this.setState({
-            main: handle(domainLink, domainType, data)
-          });
-        }));
-    } else {
-      this.setState({
-        main: handle(domainLink, domainType)
-      });
-    }
-
     this.setState(this.searchBeforeAndAfter(menuCode));
   }
 
-  searchAnchor(children) {
-    if (typeof children === 'object') {
-      if (children instanceof Array) {
-        children.some(c => this.searchAnchor(c));
-      } else if (children && children.type && children.type.defaultProps && children.type.defaultProps.name === 'AnchorHref') {
-        this.anchor.push({ title: children.props.title, href: children.props.href });
-      } else if (children.props.children) {
-        this.searchAnchor(children.props.children);
-      }
-    }
+  componentWillMount() {
+    this.setState({ anchor: this.searchAnchor() });
+  }
+
+  searchAnchor() {
+    // TODO: 暂时使用document
+    const ret = [];
+    const anchorLink = document.querySelectorAll("span[class='anchorTag']");
+    anchorLink.forEach(a => {
+      ret.push({ href: a.children[0].attributes[0].nodeValue, title: a.innerText });
+    });
+    return ret;
   }
 
   @autobind
   mainAnalyser(domainLink, domainType, data) {
     // TODO: json格式 解析模板
+    // const Page = this.createPage(domainType, domainLink);
     return (
       <div>
-        <h1>合作方客户管理</h1>
-        <p>表单一定会包含表单域，表单域可以是输入控件，标准表单域，标签，下拉菜单，文本域等。这里我们封装了表单域</p>
-        <h2>
-          <AnHref title="以下内容自定义渲染" href="#components-anchor-demo-basic1" />
-        </h2>
-        <div className={appStyle.formBox}>
-          {JSON.stringify(data)}
-        </div>
+        {this.props.main}
       </div>
     );
   }
@@ -125,8 +104,9 @@ export default class Layout extends React.Component {
   }
 
   render() {
-    this.anchor = [];
-    this.searchAnchor(this.state.main || this.props.children);
+    if (!this.props.menu || this.props.menu.length === 0) {
+      return this.props.children;
+    }
     return (
       <div>
         <Row>
@@ -144,7 +124,7 @@ export default class Layout extends React.Component {
           </Col>
           <Col span={2}>
             <Anchor>
-              {this.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
+              {this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
             </Anchor>
           </Col>
         </Row>

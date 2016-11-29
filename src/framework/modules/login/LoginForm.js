@@ -78,12 +78,12 @@ class LoginForm extends React.Component {
     return (
       <div>
         <Form horizontal={true} style={{ maxWidth: 400 }}>
-
           <FormItem label={config.userLabel ? config.userLabel : '手机号'} {...formItemLayout}>
             {getFieldDecorator('user', {
               rules: [
                 { required: true, message: '请输入用户名' }
-              ]
+              ],
+              initialValue: 'employee'
             })(
               <Input placeholder={config.userPlaceHolder ? config.userPlaceHolder : '手机号'} />
             )}
@@ -93,7 +93,8 @@ class LoginForm extends React.Component {
             {getFieldDecorator('pass', {
               rules: [
                 { required: true, message: '请输入密码' }
-              ]
+              ],
+              initialValue: '22222222'
             })(
               <Input
                 type="password" placeholder={config.passPlaceHolder ? config.passPlaceHolder : '密码'}

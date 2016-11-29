@@ -3,15 +3,18 @@
  */
 import React from 'react';
 import { Menu } from 'mxa';
+import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
+import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../framework/routes';
 
 const SubMenu = Menu.SubMenu;
 
+
 export default class SimpleMenu extends React.Component {
 
-  static propTypes = {
-    menuClick: React.PropTypes.func
-  };
+  // static propTypes = {
+  //   menuClick: React.PropTypes.func
+  // };
 
   @autobind
   renderMenuItem(item) {
@@ -25,7 +28,9 @@ export default class SimpleMenu extends React.Component {
 
     return (
       <Menu.Item key={item.menuCode} >
-        {item.menuValue}
+        <Link to={'/' + CONTAINER_PRE + item.domainLink}>
+          {item.menuValue}
+        </Link>
       </Menu.Item>
     );
   }

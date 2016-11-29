@@ -15,6 +15,10 @@ export default class AnchorHref extends React.Component {
   };
 
   render() {
-    return this.props.children || (<span>{this.props.title}<a href={this.props.href}>#</a></span>);
+    if (this.props.children) {
+      return (<span className="anchorTag">{this.props.children}</span>);
+    }
+    return (<span className="anchorTag">{this.props.title}<a href={this.props.href}>#</a></span>);
+
   }
 }

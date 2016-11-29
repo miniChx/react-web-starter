@@ -66,10 +66,15 @@ app.use(allowCrossDomain);
  //  res.json(detailJson);
  //});
 
+app.post('/example.layoutComp');
+
 app.post('/*', function (req, res) {
-  if (req.url.indexOf('DemoList/render') >=0 ) {
+  if (req.url.indexOf('DemoList/render') >= 0 ) {
     var listJson = require('./json/list.json');
     res.json(listJson);
+  } else if(req.url.indexOf('AccountDetail/render') >= 0 || req.url.indexOf('example/layout') >= 0) {
+    var detailJson = require('./json/detail.json');
+    res.json(detailJson);
   } else {
     let header = req.headers || {};
     // setTimeout(() => {

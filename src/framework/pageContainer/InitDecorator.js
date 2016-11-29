@@ -36,7 +36,6 @@ const InitDecorator = () => {
 
     render() {
       const Wrapper = createPage(this.props.domainType, this.props.domainLink);
-
       return (
         <Wrapper
           {...this.props}
