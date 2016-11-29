@@ -11,6 +11,7 @@ import './styles/global/index.less';
 import appStyle from './styles/views/app.less';
 
 import { Header } from '../components';
+import Layout from './layout';
 import { isInitDataFromServer } from './service/CacheService';
 import { initDataFromServer } from './actions/global';
 import { longRunExec } from './system/longRunOpt';
@@ -47,7 +48,11 @@ class App extends React.Component {
               type={'flex'}
               justify={'center'}
             >
-              <Col span={24}>{React.cloneElement(this.props.children, { goBack: this._goBack })}</Col>
+              <Col span={24}>
+                <Layout menu={this.props.subMenu}>
+                  {React.cloneElement(this.props.children, { goBack: this._goBack })}
+                </Layout>
+              </Col>
             </Row>
           </div>
           <div className={appStyle.appFooter} >
@@ -106,7 +111,8 @@ const mapStateToProps = state => ({
   session: state.session,
   token: state.global.token,
   isInit: state.global.isInit,
-  menu: state.menu
+  menu: state.menu,
+  subMenu: state.subMenu
 });
 
 // eslint-disable-next-line arrow-body-style

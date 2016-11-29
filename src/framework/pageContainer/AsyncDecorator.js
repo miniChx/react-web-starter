@@ -1,27 +1,31 @@
 import React from 'react';
 import { trimStart } from 'lodash/string';
 import { autobind } from 'core-decorators';
-import { getPageData } from '../service/CacheService';
+import { getPageData, getSubMenu } from '../service/CacheService';
+import { dispatch } from '../service/DispatchService';
 import exclusive from './exclusive';
+import { setSubMenu } from '../actions/global';
 
 const AsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        data: getPageData()
+        data: this.props.dataSource || getPageData()
       };
     }
 
-    getUrlPath = url => url;
+    componentDidMount() {
+      if (this.state.data && this.state.data.menu) {
+        dispatch(setSubMenu(this.state.data.menu));
+      } else if (getSubMenu().length > 0) {
+        dispatch(setSubMenu([]));
+      }
+    }
 
     @autobind
     freshData(data) {
       this.setState({ data });
-      // return {
-      //  setState: this.setState,
-      //  state: this.state
-      // };
     }
 
     render() {

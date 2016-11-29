@@ -21,11 +21,11 @@ app.use(allowCrossDomain);
  //  res.json(menuJson);
  //});
 
- //app.post('/AccountList/render', function (req, res) {
+ //app.post('/DemoList/render', function (req, res) {
  //  var listJson = require('./json/list.json');
  //  res.json(listJson);
  //});
- //
+
  //app.post('/AccountList/search', function (req, res) {
  //  var searchJson = require('./json/search.json');
  //  res.json(searchJson);
@@ -66,9 +66,18 @@ app.use(allowCrossDomain);
  //  res.json(detailJson);
  //});
 
+app.post('/example.layoutComp');
+
 app.post('/*', function (req, res) {
-  let header = req.headers || {};
- // setTimeout(() => {
+  if (req.url.indexOf('DemoList/render') >= 0 ) {
+    var listJson = require('./json/list.json');
+    res.json(listJson);
+  } else if(req.url.indexOf('AccountDetail/render') >= 0 || req.url.indexOf('example/layout') >= 0) {
+    var detailJson = require('./json/detail.json');
+    res.json(detailJson);
+  } else {
+    let header = req.headers || {};
+    // setTimeout(() => {
     Redirect(req.url, req.body,  function (chunk) {
       console.log('BODY: ' + JSON.stringify(chunk));
       res.json(chunk);
@@ -77,7 +86,9 @@ app.post('/*', function (req, res) {
       'Content-Type': header['content-type'],
       'Authorization': header['authorization']
     });
-  // }, 2000);
+    // }, 2000);
+  }
+
 });
 
 // var handler = function() {

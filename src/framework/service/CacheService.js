@@ -12,6 +12,7 @@ export const isInitDataFromServer = () => _store.getState().global.isInit;
 export const getToken = () => _store.getState().global.token;
 
 export const getMenu = () => _store.getState().menu;
+export const getSubMenu = () => _store.getState().subMenu;
 
 
 /* eslint-disable */
