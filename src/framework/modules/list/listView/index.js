@@ -3,7 +3,7 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Select } from 'mxa';
-import { ExtendButton, SearchInput } from '../../../../components';
+import { ExtendButton, Search } from '../../../../components';
 
 import styles from '../../../styles/views/listview.less';
 
@@ -206,6 +206,7 @@ class ListView extends React.Component {
     );
   }
 
+
   @autobind
   _onRowClick(record, index) {
     console.log('onRowClick ==> ', record, index);
@@ -249,9 +250,7 @@ class ListView extends React.Component {
           {this._renderFilters()}
           <div className={styles.toolbar}>
             {this._renderTopButtons()}
-            <div className={styles.search}>
-              <SearchInput placeholder="搜索" />
-            </div>
+            <Search />
           </div>
           <Table
             rowSelection={rowSelection}
@@ -266,7 +265,7 @@ class ListView extends React.Component {
       );
     }
 
-    return null;
+    return (<div />);
   }
 }
 
