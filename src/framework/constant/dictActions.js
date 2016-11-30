@@ -19,6 +19,7 @@ export const SET_SUB_MENU = 'SET_SUB_MENU';
 
 export const PAGE_TYPE_LIST = 'List';
 export const PAGE_TYPE_DETAIL = 'Detail';
+export const PAGE_TYPE_INFO = 'Info';
 export const PAGE_TYPE_CUSTOM = 'Custom';
 
 // process

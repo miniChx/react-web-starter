@@ -41,13 +41,13 @@ class ListView extends React.Component {
   @autobind
   _processData(data) {
     const buttons = {
-      inline: data.buttons.filter(item => item.displayPosition === 'inline'),
-      top: data.buttons.filter(item => item.displayPosition === 'top'),
-      search: data.buttons.filter(item => item.actionType === 'search'),
+      inline: data.buttons && data.buttons.filter(item => item.displayPosition === 'inline'),
+      top: data.buttons && data.buttons.filter(item => item.displayPosition === 'top'),
+      search: data.buttons && data.buttons.filter(item => item.actionType === 'search'),
     };
 
     // eslint-disable-next-line arrow-body-style
-    const columns = data.fields.map(item => ({
+    const columns = data.fields && data.fields.map(item => ({
       key: item.index,
       title: item.description,
       dataIndex: item.name,
@@ -184,7 +184,7 @@ class ListView extends React.Component {
     return (
       <div>
         {
-          this.state.buttons && this.state.buttons.top.map(item => (
+          this.state.buttons && this.state.buttons.top && this.state.buttons.top.map(item => (
             <Button
               type="button"
               buttonProps={{

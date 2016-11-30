@@ -12,10 +12,6 @@ const SubMenu = Menu.SubMenu;
 
 export default class SimpleMenu extends React.Component {
 
-  // static propTypes = {
-  //   menuClick: React.PropTypes.func
-  // };
-
   @autobind
   renderMenuItem(item) {
     if (item && item.subMenus && item.subMenus.length > 0) {
@@ -28,9 +24,7 @@ export default class SimpleMenu extends React.Component {
 
     return (
       <Menu.Item key={item.menuCode} >
-        <Link to={'/' + CONTAINER_PRE + item.domainLink}>
-          {item.menuValue}
-        </Link>
+        {item.menuValue}
       </Menu.Item>
     );
   }
@@ -63,6 +57,8 @@ export default class SimpleMenu extends React.Component {
   render() {
     return (
       <Menu
+        defaultOpenKeys={this.props.defaultOpenKeys}
+        defaultSelectedKeys={this.props.defaultSelectedKeys}
         onClick={this.handleClick}
         mode="inline"
         style={{ borderRight: '0px' }}

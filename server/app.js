@@ -72,9 +72,15 @@ app.post('/*', function (req, res) {
   if (req.url.indexOf('DemoList/render') >= 0 ) {
     var listJson = require('./json/list.json');
     res.json(listJson);
-  } else if(req.url.indexOf('AccountDetail/render') >= 0 || req.url.indexOf('example/layout') >= 0) {
+  } else if(req.url.indexOf('AccountDetail/render') >= 0) {
     var detailJson = require('./json/detail.json');
     res.json(detailJson);
+  } else if (req.url.indexOf('Process/todo') >= 0) {
+    var listJsons = require('./json/list.json');
+    res.json(listJsons);
+  } else if (req.url.indexOf('example/layout') >= 0) {
+    var infoJson = require('./json/info.json');
+    res.json(infoJson);
   } else {
     let header = req.headers || {};
     // setTimeout(() => {
