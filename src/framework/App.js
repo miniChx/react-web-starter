@@ -9,9 +9,7 @@ import { autobind } from 'core-decorators';
 
 import './styles/global/index.less';
 import appStyle from './styles/views/app.less';
-
 import { Header } from '../components';
-import Layout from './layout';
 import { isInitDataFromServer } from './service/CacheService';
 import { initDataFromServer } from './actions/global';
 import { longRunExec } from './system/longRunOpt';
@@ -49,9 +47,7 @@ class App extends React.Component {
               justify={'center'}
             >
               <Col span={24}>
-                <Layout menu={this.props.subMenu}>
-                  {React.cloneElement(this.props.children, { goBack: this._goBack })}
-                </Layout>
+                {React.cloneElement(this.props.children, { goBack: this._goBack })}
               </Col>
             </Row>
           </div>

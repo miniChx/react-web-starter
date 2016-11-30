@@ -9,4 +9,5 @@ export default {
   'example/modalInput': example.modalInput,
   'example/hello': example.hello,
   'example/layout': example.layout,
+  'Process/todo': example.list,
 };

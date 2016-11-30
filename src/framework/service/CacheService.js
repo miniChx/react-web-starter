@@ -16,10 +16,8 @@ export const getSubMenu = () => _store.getState().subMenu;
 
 
 /* eslint-disable */
-export const searchMenu = (id) => {
-  const menu = _store.getState().menu;
-
-  let tag = null;
+export const searchMenu = (id , func = (id, item) => (item.domainLink === id || item.domainLink === '/' + id), menu = _store.getState().menu) => {
+   let tag = null;
   const indexPath = [];
 
   const filter = (item) => {
@@ -34,12 +32,12 @@ export const searchMenu = (id) => {
       });
       !tag && indexPath.pop();
     }
-    if (tag && item.domainLink === id || item.domainLink === '/' + id) {
+    if (!tag && func(id, item)) {
       tag = item;
     }
   };
   menu.every((m, index) => {
-    if(index !==0 ) {
+    if(index !== 0 ) {
       indexPath.pop();
     }
     indexPath.push(index);
