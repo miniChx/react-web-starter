@@ -1,0 +1,41 @@
+//
+//.app-transition-enter {
+//  opacity: 0.01;
+//  transition: opacity .5s ease-in;
+//}
+//
+//.app-transition-enter.app-transition-enter-active {
+//  opacity: 1;
+//}
+//
+//.app-transition-leave {
+//  opacity: 1;
+//  transition: opacity .5s ease-in;
+//}
+//
+//.app-transition-leave.app-transition-leave-active {
+//  opacity: 0;
+//}
+//
+
+.app-transition-enter {
+  opacity: 0.01;
+  transform: translateX(5em);
+  transition: all .5s ease-in;
+}
+
+.app-transition-enter.app-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.app-transition-leave {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all .5s ease-in;
+}
+
+.app-transition-leave.app-transition-leave-active {
+  opacity: 0;
+  transform: translateX(-5em);
+}
