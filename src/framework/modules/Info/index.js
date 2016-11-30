@@ -19,26 +19,26 @@ export default class Layout extends React.Component {
   constructor(props) {
     super(props);
     let list = [];
-    let tag = {};
+    this.tag = {};
     let defaultOpenKeys = [];
     if (this.props.dataSource && this.props.dataSource.menus) {
       this.props.dataSource.menus.forEach(s => {
         const tmp = this.transformToList(s);
         list = list.concat(tmp);
       });
-      tag = this.getMenuInfo(this.props.dataSource.menus) || {};
-      const { linkInfo, indexPath } = searchMenu(tag.menuCode, (id, item) => (item.menuCode === id), this.props.dataSource.menus);
+      this.tag = this.getMenuInfo(this.props.dataSource.menus) || {};
+      const { linkInfo, indexPath } = searchMenu(this.tag.menuCode, (id, item) => (item.menuCode === id), this.props.dataSource.menus);
       defaultOpenKeys = this.getOpenKeys(indexPath, this.props.dataSource.menus);
     }
     this.menuList = list || [];
 
     this.state = {
-      main: this.createMain(this.props.dataSource, this.props.domainType, this.props.domainLink),
+      main: null,
       left: null,
       right: null,
       tools: false,
       anchor: [],
-      defaultSelectedKeys: tag.menuCode,
+      defaultSelectedKeys: this.tag.menuCode,
       defaultOpenKeys
     };
   }
@@ -98,14 +98,18 @@ export default class Layout extends React.Component {
   }
 
   @autobind
-  menuClick(domainLink, domainType, menuCode) {
-    this.props.exec(() => {
-      return this.props.fetch(domainLink, {}).then(data => {
-        this.setState({
-          main: this.createMain(data, domainType, domainLink)
+  menuClick(domainLink, domainType) {
+    if (this.props.renderBody) {
+      this.setState({ main: this.props.renderBody(domainLink, domainType) });
+    } else {
+      this.props.exec(() => {
+        return this.props.fetch(domainLink, {}).then(data => {
+          this.setState({
+            main: this.createMain(data, domainType, domainLink)
+          });
         });
       });
-    });
+    }
   }
 
   componentDidMount() {
@@ -114,6 +118,7 @@ export default class Layout extends React.Component {
 
   componentWillMount() {
     // this.setState({ anchor: this.searchAnchor() });
+    this.menuClick(this.tag.domainLink, this.tag.domainType);
   }
 
   searchAnchor(children) {
@@ -123,9 +128,6 @@ export default class Layout extends React.Component {
       } else if (children && children.type && children.type.defaultProps && children.type.defaultProps.name === 'AnchorHref') {
         this.anchor.push({ title: children.props.title, href: children.props.href });
       } else if (children && children.props.children) {
-        // if (this.state.main && this.props.children === children.props.children) {
-        //  return;
-        // }
         this.searchAnchor(children.props.children);
       }
     }

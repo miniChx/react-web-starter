@@ -15,11 +15,23 @@ import { AnHref } from '../../framework/modules/Info';
 
 export default class Lt extends React.Component {
 
+  @autobind
+  renderMain(domainLink, domainType) {
+    console.log('######', domainLink + ', ' + domainType);
+    return (
+      <div>
+        <AnHref title="这是自己渲染的" href="#hahahaha" />
+        <AnHref title="这是自己渲染的" href="#hahahaha" />
+        <AnHref title="这是自己渲染的" href="#hahahaha" />
+        <AnHref title="这是自己渲染的" href="#hahahaha" />
+      </div>
+    );
+  }
   render() {
     return (
       <div>
         <AnHref title="这是自己渲染的" href="#hahahaha" />
-        <Info {...this.props} domainType="Detail" />
+        <Info {...this.props} domainType="Detail" renderBody={this.renderMain} />
       </div>
     );
   }

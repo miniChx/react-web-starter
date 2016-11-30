@@ -21,7 +21,6 @@ export default class SimpleMenu extends React.Component {
         </SubMenu>
       );
     }
-
     return (
       <Menu.Item key={item.menuCode} >
         {item.menuValue}
