@@ -193,8 +193,8 @@
   "buttons": [
     {
       "buttonDescription": "保存",
-      "displayPosition": "inline",
-      "interactiveType": "Modal",
+      "displayPosition": "INLINE",
+      "interactiveType": "MODAL",
       "domainLink": "/AccountDetail/render",
       "domainType": "Detail",
       "requestParameters": [],

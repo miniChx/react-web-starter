@@ -1,0 +1,270 @@
+{
+  "pageResult": {
+    "pageIndex": 1,
+    "itemsPerPage": 10,
+    "totalPages": 1,
+    "contentList": [
+      {
+        "id": 1,
+        "userName": "zhulifeng",
+        "mobileNo": "15251536935",
+        "email": "lfzhu@amarsoft.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      },
+      {
+        "id": 2,
+        "userName": "employee",
+        "mobileNo": "13811111111",
+        "email": "13811111111@qq.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      },
+      {
+        "id": 3,
+        "userName": "manager",
+        "mobileNo": "13822222222",
+        "email": "13822222222@qq.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      },
+      {
+        "id": 4,
+        "userName": "hr",
+        "mobileNo": "13833333333",
+        "email": "13833333333@qq.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      },
+      {
+        "id": 5,
+        "userName": "xgwen",
+        "mobileNo": "15113456560",
+        "email": "lfzhu2@amarsoft.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      },
+      {
+        "id": 6,
+        "userName": "wmge",
+        "mobileNo": "18662187892",
+        "email": "wmge@amarsoft.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      },
+      {
+        "id": 7,
+        "userName": "swei1",
+        "mobileNo": "18051480933",
+        "email": "723855399@qq.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      },
+      {
+        "id": 8,
+        "userName": "wmge1",
+        "mobileNo": "18662187891",
+        "email": "wmge1@amarsoft.com",
+        "status": "DELETE",
+        "statusValue": "已删除用户"
+      },
+      {
+        "id": 9,
+        "userName": "wmge2",
+        "mobileNo": "18662187893",
+        "email": "wmge2@amarsoft1.com",
+        "status": "DELETE",
+        "statusValue": "已删除用户"
+      },
+      {
+        "id": 10,
+        "userName": "swliu",
+        "mobileNo": "15222222222",
+        "email": "swliu@amarsoft.com",
+        "status": "ACTIVE",
+        "statusValue": "有效用户"
+      }
+    ],
+    "totalItems": 10
+  },
+  "itemsPerPage": 10,
+  "fields": [
+    {
+      "name": "id",
+      "index": 1,
+      "entityShortName": "A",
+      "type": "Long",
+      "description": "编号",
+      "groupId": 1,
+      "isVisible": false,
+      "displayComponent": {
+        "componentType": "Input",
+        "items": null
+      }
+    },
+    {
+      "name": "userName",
+      "index": 2,
+      "entityShortName": "A",
+      "type": "String",
+      "description": "用户名",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "Input",
+        "items": null
+      }
+    },
+    {
+      "name": "mobileNo",
+      "index": 3,
+      "entityShortName": "A",
+      "type": "String",
+      "description": "手机号",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "Input",
+        "items": null
+      }
+    },
+    {
+      "name": "email",
+      "index": 4,
+      "entityShortName": "A",
+      "type": "String",
+      "description": "邮箱",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "Input",
+        "items": null
+      }
+    },
+    {
+      "name": "status",
+      "index": 5,
+      "entityShortName": "A",
+      "type": "String",
+      "description": "状态",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "Input",
+        "items": null
+      }
+    }
+  ],
+  "buttons": [
+    {
+      "buttonDescription": "添加",
+      "displayPosition": "TOP",
+      "interactiveType": "MODAL",
+      "domainLink": "/AccountDetail/render",
+      "domainType": "Detail",
+      "roles": [
+        "Role1",
+        "Role2",
+        "Role3"
+      ]
+    },
+    {
+      "buttonDescription": "批量删除",
+      "displayPosition": "TOP",
+      "interactiveType": "MODAL",
+      "domainLink": "/AccountDetail/render",
+      "domainType": "Detail",
+      "roles": [
+        "Role1",
+        "Role2",
+        "Role3"
+      ]
+    },
+    {
+      "buttonDescription": "删除",
+      "displayPosition": "INLINE",
+      "interactiveType": "ACTION",
+      "messagePromptType": "CONFIRM",
+      "actionName": "/AccountDetail/deleteById",
+      "requestParameters": [],
+      "roles": [
+        "Role1",
+        "Role2",
+        "Role3"
+      ]
+    },
+    {
+      "buttonDescription": "详情",
+      "displayPosition": "INLINE",
+      "interactiveType": "MODAL",
+      "domainLink": "/AccountDetail/render",
+      "domainType": "Detail",
+      "requestParameters": [],
+      "roles": [
+        "Role1",
+        "Role2",
+        "Role3"
+      ]
+    },
+    {
+      "buttonDescription": "筛选",
+      "actionType": "search",
+      "domainLink": null,
+      "actionName": "/AccountList/search",
+      "roles": [
+        "Role1",
+        "Role2",
+        "Role3"
+      ]
+    }
+  ],
+  "filterItems": [
+    {
+      "fieldName": "status",
+      "displayName": "状态",
+      "displaySeq": 1,
+      "options": [
+        {
+          "displayName": "全部",
+          "displayCode": "ACCOUNT_STATUS_ALL",
+          "displaySeq": 1,
+          "isSelected": true
+        },
+        {
+          "displayName": "有效用户",
+          "displayCode": "ACCOUNT_STATUS_ACTIVE",
+          "displaySeq": 2,
+          "isSelected": false
+        },
+        {
+          "displayName": "已冻结用户",
+          "displayCode": "ACCOUNT_STATUS_FERRZING",
+          "displaySeq": 3,
+          "isSelected": false
+        },
+        {
+          "displayName": "已删除用户",
+          "displayCode": "ACCOUNT_STATUS_DELETED",
+          "displaySeq": 4,
+          "isSelected": false
+        }
+      ]
+    }
+  ],
+  "orderItems": [
+    {
+      "fieldName": "id",
+      "displayName": "编号",
+      "displaySeq": 1,
+      "isSelected": true,
+      "isAsc": true
+    },
+    {
+      "fieldName": "status",
+      "displayName": "状态",
+      "displaySeq": 2,
+      "isSelected": true,
+      "isAsc": true
+    }
+  ]
+}

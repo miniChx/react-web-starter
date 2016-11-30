@@ -1,52 +1,24 @@
 {
   "roles": [
     {
-      "roleCode": "Role1",
-      "roleValue": "角色1"
+      "roleCode": "Role1_Admin",
+      "roleValue": "系统管理员",
+      "isSelected": false
     },
     {
-      "roleCode": "Role10",
-      "roleValue": "角色10"
+      "roleCode": "Role2_Employee",
+      "roleValue": "普通用户",
+      "isSelected": false
     },
     {
-      "roleCode": "Role11",
-      "roleValue": "角色11"
+      "roleCode": "Role3_Manager",
+      "roleValue": "部门经理",
+      "isSelected": false
     },
     {
-      "roleCode": "Role12",
-      "roleValue": "角色12"
-    },
-    {
-      "roleCode": "Role2",
-      "roleValue": "角色3"
-    },
-    {
-      "roleCode": "Role3",
-      "roleValue": "角色3"
-    },
-    {
-      "roleCode": "Role4",
-      "roleValue": "角色4"
-    },
-    {
-      "roleCode": "Role5",
-      "roleValue": "角色5"
-    },
-    {
-      "roleCode": "Role6",
-      "roleValue": "角色6"
-    },
-    {
-      "roleCode": "Role7",
-      "roleValue": "角色7"
-    },
-    {
-      "roleCode": "Role8",
-      "roleValue": "角色8"
-    },
-    {
-      "roleCode": "Role9",
-      "roleValue": "角色90"
+      "roleCode": "Role4_HR",
+      "roleValue": "人事",
+      "isSelected": false
     }
   ]
 }

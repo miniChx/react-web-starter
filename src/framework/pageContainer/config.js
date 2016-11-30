@@ -21,10 +21,10 @@ const defStr = 'default';
 // console.log(NotMatchType);
 
 export default {
-  [defStr]: NotMatchType,
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
   [PAGE_TYPE_PROCESS]: Process,
   [PAGE_TYPE_PROCESS_DETAIL]: ProcessDetail,
-  [PAGE_TYPE_PROCESS_IMG]: ProcessImg
+  [PAGE_TYPE_PROCESS_IMG]: ProcessImg,
+  [defStr]: NotMatchType,
 };

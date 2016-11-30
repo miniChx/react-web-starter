@@ -22,7 +22,7 @@ const getUrlPath = url => url;
 const userIsInATeam = (nextState, replace, callback) => {
   const domainLink = nextState.params.splat;
   if (domainLink && !exclusive.some(f => f(domainLink))) {
-    const url = getUrlPath('/' + trimStart(domainLink, '/'));
+    const url = getUrlPath(trimStart(domainLink, '/'));
     const params = { ...nextState.params };
     if (nextState.location) {
       Object.assign(params, nextState.location.query);

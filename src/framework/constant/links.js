@@ -5,27 +5,27 @@
 
 export default {
   // getMenus: '/Advice/getMenus',
-  getMenus: '/Api/AccountDetail/getMenus',
-  login: '/Pub/Account/login',
-  logout: '/Api/AccountDetail/logout',
+  getMenus: 'api/AccountDetail/getMenus',
+  login: 'Pub/Account/login',
+  logout: 'api/AccountDetail/logout',
 
   // role
-  addRole: '/Api/Role/add',
-  deleteRole: '/Api/Role/delete',
-  findAllRole: '/Api/Role/render',
-  relateRolesAndUsers: '/Api/RoleRela/relateRolesToUser',
-  relateMenusToRole: '/Api/RoleRela/relateMenusToRole',
-  relateButtonsToRole: '/Api/RoleRela/relateButtonsToRole',
-  findButtonsByRoleCode: '/Api/RoleRela/findButtonsByRoleCode',
-  findMenusByRoleCode: '/Api/RoleRela/findMenusByRoleCode',
+  addRole: 'api/Role/add',
+  deleteRole: 'api/Role/delete',
+  findAllRole: 'api/Role/render',
+  relateRolesAndUsers: 'api/RoleRela/relateRolesToUser',
+  relateMenusToRole: 'api/RoleRela/relateMenusToRole',
+  relateButtonsToRole: 'api/RoleRela/relateButtonsToRole',
+  findButtonsByRoleCode: 'api/RoleRela/findButtonsByRoleCode',
+  findMenusByRoleCode: 'api/RoleRela/findMenusByRoleCode',
 
   // Account
-  addAccount: '/Api/AccountDetail/add',
-  updateAccount: '/Api/AccountDetail/update',
-  renderAccount: '/Api/AccountList/render',
-  searchAccount: '/Api/AccountList/search',
-  findAccountById: '/Api/AccountDetail/findById',
-  findAllRolesByUserId: '/Api/RoleRela/findAllRolesByUserId',
-  updatPassword: '/Api/AccountDetail/updatePassword'
+  addAccount: 'api/AccountDetail/add',
+  updateAccount: 'api/AccountDetail/update',
+  renderAccount: 'api/AccountList/render',
+  searchAccount: 'api/AccountList/search',
+  findAccountById: 'api/AccountDetail/findById',
+  findAllRolesByUserId: 'api/RoleRela/findAllRolesByUserId',
+  updatPassword: 'api/AccountDetail/updatePassword'
 
 };
