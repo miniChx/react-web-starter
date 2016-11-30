@@ -6,7 +6,7 @@ import 'react-mask-layer/assets/index.css';
 
 
 import Compose from '../utils/Compose';
-import AsyncDecorator from './AsyncDecorator';
+import AsyncDecorator from './ModalAsyncDecorator';
 import InitDecorator from './InitDecorator';
 
 const showModal = (params, domainType, domainLink) => {

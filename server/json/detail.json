@@ -82,7 +82,7 @@
       "index": 5,
       "entityShortName": "A",
       "type": "String",
-      "length": "30",
+      "length": 30,
       "description": "真实姓名",
       "groupId": 1,
       "isVisible": true,
@@ -203,6 +203,173 @@
         "Role2",
         "Role3"
       ]
+    }
+  ],
+  "menu": [
+    {
+      "menuCode": "systemManagement",
+      "menuValue": "系统管理",
+      "displaySequence": 1,
+      "domainLink": null,
+      "domainType": null,
+      "roleCodes": [
+        "Role1",
+        "Role2",
+        "Role3",
+        "Role4",
+        "Role5"
+      ],
+      "subMenus": [
+        {
+          "menuCode": "orgManagement",
+          "menuValue": "机构管理",
+          "displaySequence": 1,
+          "domainLink": null,
+          "domainType": null,
+          "roleCodes": [
+            "Role1",
+            "Role5"
+          ],
+          "subMenus": [
+            {
+              "menuCode": "orgApplyManagement",
+              "menuValue": "机构申请",
+              "displaySequence": 1,
+              "domainLink": "/OrgApplyList/render",
+              "domainType": "List",
+              "roleCodes": [
+                "Role1"
+              ],
+              "subMenus": null
+            },
+            {
+              "menuCode": "orgApproveManagement",
+              "menuValue": "机构审批",
+              "displaySequence": 2,
+              "domainLink": null,
+              "domainType": null,
+              "roleCodes": [
+                "Role1",
+                "Role5"
+              ],
+              "subMenus": [
+                {
+                  "menuCode": "orgApproveUndo",
+                  "menuValue": "未完成的工作",
+                  "displaySequence": 1,
+                  "domainLink": "/OrgApplyUndoList/render",
+                  "domainType": "List",
+                  "roleCodes": [
+                    "Role1"
+                  ],
+                  "subMenus": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "menuCode": "accountManagement",
+          "menuValue": "用户管理",
+          "displaySequence": 2,
+          "domainLink": "/AccountList/render",
+          "domainType": "List",
+          "roleCodes": [
+            "Role1",
+            "Role2"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "roleManagement",
+          "menuValue": "角色管理",
+          "displaySequence": 3,
+          "domainLink": "/RoleManagement",
+          "domainType": "Custom",
+          "roleCodes": [
+            "Role1",
+            "Role2"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "userManagement",
+          "menuValue": "用户管理1",
+          "displaySequence": 4,
+          "domainLink": "/UserList/render",
+          "domainType": "Custom",
+          "roleCodes": [
+            "Role1",
+            "Role2"
+          ],
+          "subMenus": null
+        }
+      ]
+    },
+    {
+      "menuCode": "caseManagement",
+      "menuValue": "流程管理",
+      "displaySequence": 2,
+      "roleCodes": [
+        "Role1",
+        "Role3",
+        "Role4"
+      ],
+      "subMenus": [
+        {
+          "menuCode": "start",
+          "menuValue": "发起流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/start",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "todo",
+          "menuValue": "待办的流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/todo",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "unfinished",
+          "menuValue": "未完成的流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/unfinished",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "finished",
+          "menuValue": "已完成的流程",
+          "displaySequence": 1,
+          "domainLink": "/Process/finished",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1"
+          ],
+          "subMenus": null
+        }
+      ]
+    },
+    {
+      "menuCode": "ProfileManager",
+      "menuValue": "个人信息",
+      "displaySequence": 3,
+      "domainLink": "/Profile",
+      "domainType": "Custom",
+      "roleCodes": null,
+      "subMenus": null
     }
   ]
 }

@@ -5,23 +5,45 @@ import { getPageData, getSubMenu } from '../service/CacheService';
 import { dispatch } from '../service/DispatchService';
 import exclusive from './exclusive';
 import { setSubMenu } from '../actions/global';
+import { longRunExec } from '../system/longRunOpt';
+import { PFetch } from '../system/fetch';
 
 const AsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        data: this.props.dataSource || getPageData()
+        data: this.props.dataSource || []
       };
     }
 
-    componentDidMount() {
-      if (this.state.data && this.state.data.menu) {
-        dispatch(setSubMenu(this.state.data.menu));
-      } else if (getSubMenu().length > 0) {
-        // dispatch(setSubMenu([]));
+    getUrlPath = url => url;
+
+    @autobind
+    fetchDataFromServer() {
+      if (this.props.domainLink && !exclusive.some(f => f(this.props.domainLink))) {
+        const url = this.getUrlPath('/' + trimStart(this.props.domainLink, '/'));
+        const params = { ...this.props.params };
+        if (this.props.location) {
+          Object.assign(params, this.props.location.query);
+        }
+        longRunExec(() => PFetch(url, params)
+          .then(data => {
+            this.setState({
+              data,
+            });
+          }));
+      } else {
+        setTimeout(() => this.setState({
+          data: []
+        }));
       }
     }
+
+    componentDidMount() {
+      this.fetchDataFromServer();
+    }
+
 
     @autobind
     freshData(data) {

@@ -10,7 +10,6 @@ import { autobind } from 'core-decorators';
 
 import './styles/global/index.less';
 import appStyle from './styles/views/app.less';
-
 import { Header } from '../components';
 import { isInitDataFromServer } from './service/CacheService';
 import { initDataFromServer } from './actions/global';
@@ -116,7 +115,8 @@ const mapStateToProps = state => ({
   session: state.session,
   token: state.global.token,
   isInit: state.global.isInit,
-  menu: state.menu
+  menu: state.menu,
+  subMenu: state.subMenu
 });
 
 // eslint-disable-next-line arrow-body-style

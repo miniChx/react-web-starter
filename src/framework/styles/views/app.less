@@ -7,17 +7,20 @@
 }
 
 .appContent {
-  position:relative;
-  padding:20px;
-  width:100%;
+  position: relative;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  width: 100%;
   background-color: @body-background;
   border-radius: 5px;
-  min-height: 20rem;
 }
 
 .layoutContainerBody {
   padding-left: 2rem;
   border-left: 1px solid @border-color-split;
+  min-height: 20rem;
+
   h1 {
     color: #404040;
     font-weight: 500;
@@ -42,6 +45,11 @@
     .cell {
       padding: 42px 20px 50px;
     }
+  }
+
+  .layoutContainerFooter {
+    border-top: 1px solid @border-color-split;
+    padding: 1rem;
   }
 
 }
@@ -87,5 +95,22 @@
   z-index: 999999;
 }
 
-
-
+.layoutTools {
+  display: inline;
+  position: fixed;
+  right: 2rem;
+  bottom: 10rem;
+  font-size: 32px;
+  color: @info-color;
+  // transition: all 1s @ease-out-circ;
+  .layoutToolItems {
+    display: inline;
+    i {
+      padding: 2px;
+    }
+  }
+}
+//
+//.layoutTools:active {
+//  transform: translateX(-100px);
+//}
