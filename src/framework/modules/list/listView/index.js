@@ -4,6 +4,7 @@ import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Select } from 'mxa';
 import { ExtendButton, Search } from '../../../../components';
+import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../../constant/dictCodes';
 
 import styles from '../../../styles/views/listview.less';
 
@@ -42,8 +43,8 @@ class ListView extends React.Component {
   _processData(data) {
     const buttons = { inline: [], top: [], search: [] };
     if (data.buttons) {
-      buttons.inline = data.buttons.filter(item => item.displayPosition === 'inline');
-      buttons.top = data.buttons.filter(item => item.displayPosition === 'top');
+      buttons.inline = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.INLINE);
+      buttons.top = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.TOP);
       buttons.search = data.buttons.filter(item => item.actionType === 'search');
     }
 
@@ -78,7 +79,7 @@ class ListView extends React.Component {
     const filterFieldCodes = [];
     const orderFields = constructOrderFields(data.filterItems);
 
-    const selectedType = 'checkbox'; // 'radio' or 'checkbox';
+    const selectedType = LIST_SELECTTYPE.CHECKBOX;
     return {
       columns,
       dataSource,
@@ -247,7 +248,6 @@ class ListView extends React.Component {
     if (this.state.columns && this.state.columns.length > 0) {
       return (
         <div className={styles.listview}>
-          {this._renderFilters()}
           <div className={styles.toolbar}>
             {this._renderTopButtons()}
             <Search />

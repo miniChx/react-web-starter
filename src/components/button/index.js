@@ -10,6 +10,8 @@ import { CONTAINER_PRE } from '../../framework/routes';
 import { showModal } from '../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../framework/system/fetch';
 
+import { LIST_SELECTTYPE, BUTTON_INTERACTIVETYPE, BUTTON_MESSAGEPROMPTTYPE } from '../../framework/constant/dictCodes';
+
 const confirm = Modal.confirm;
 
 export class ExtendButton extends React.Component {
@@ -17,18 +19,18 @@ export class ExtendButton extends React.Component {
     disabled: PropTypes.bool,
     record: PropTypes.object,
     type: PropTypes.oneOf(['button', 'link']),
-    selectedType: PropTypes.oneOf(['inline', 'radio', 'checkbox']),
+    selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
   };
 
   static defaultProps = {
-    selectedType: 'inline'
+    selectedType: LIST_SELECTTYPE.INLINE
   };
 
   @autobind
   _jump(domainLink, params, domainType, mode) {
-    if (mode === 'Page') {
+    if (mode === BUTTON_INTERACTIVETYPE.PAGE) {
       window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType }));
-    } else if (mode === 'Modal') {
+    } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
       showModal(params, domainType, domainLink);
     } else {
       this.props.dispatch(push({
@@ -43,7 +45,7 @@ export class ExtendButton extends React.Component {
     PFetch(url, params)
       .then(response => {
         console.log(response);
-        if (this.props.messagePromptType === 'message') {
+        if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.MESSAGE) {
           Modal.info({
             title: '提示',
             content: (<div>您已成功{this.props.buttonDescription}{this.props.record && this.props.record.realName}！</div>),
@@ -64,18 +66,19 @@ export class ExtendButton extends React.Component {
   @autobind
   _triggerAction() {
     let activeData = this.props.record;
-    if (this.props.selectedType === 'radio') {
+    if (this.props.selectedType === LIST_SELECTTYPE.RADIO) {
       activeData = this.props.record[0];
     }
-    if (this.props.interactiveType === 'Action') {
+    if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
       let params;
-      if (this.props.selectedType === 'checkbox') {
+      if (this.props.selectedType === LIST_SELECTTYPE.CHECKBOX) {
         params = this.props.record.map(item => item.id);
       } else {
         params = { id: activeData.id };
       }
       // message|confirm|tooltip
-      if (this.props.selectedType !== 'checkbox' && this.props.messagePromptType === 'confirm') {
+      if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX
+        && this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
         confirm({
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}{activeData.realName}吗？</div>),
@@ -115,7 +118,7 @@ export class ExtendButton extends React.Component {
   }
 
   render() {
-    if (this.props.messagePromptType === 'confirm') {
+    if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.TOOLTIP) {
       return (
         <Tooltip title={this.props.buttonDescription + this.props.record.realName}>
           {this._renderButton()}

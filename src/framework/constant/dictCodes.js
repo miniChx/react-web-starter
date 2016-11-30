@@ -1,0 +1,21 @@
+export const LIST_SELECTTYPE = {
+  RADIO: 'RADIO',
+  CHECKBOX: 'CHECKBOX',
+  INLINE: 'INLINE',
+};
+
+export const BUTTON_POSITION = {
+  TOP: 'TOP',
+  INLINE: 'INLINE',
+  BOTTOM: 'BOTTOM',
+};
+export const BUTTON_INTERACTIVETYPE = {
+  ACTION: 'ACTION',
+  MODAL: 'MODAL',
+  PAGE: 'PAGE',
+};
+export const BUTTON_MESSAGEPROMPTTYPE = {
+  MESSAGE: 'MESSAGE',
+  CONFIRM: 'CONFIRM',
+  TOOLTIP: 'TOOLTIP',
+};
