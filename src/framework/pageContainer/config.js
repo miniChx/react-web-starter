@@ -2,7 +2,7 @@
  * Created by baoyinghai on 10/24/16.
  */
 import NotMatchType from '../modules/exception/NotMatch';
-import ListView from '../modules/list/listView';
+import ListView from '../modules/list';
 import ListDetail from '../modules/detail';
 import Process from '../modules/process/processList';
 import ProcessDetail from '../modules/process/processDetail';
