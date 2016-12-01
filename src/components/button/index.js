@@ -17,7 +17,7 @@ const confirm = Modal.confirm;
 export class ExtendButton extends React.Component {
   static propTypes = {
     disabled: PropTypes.bool,
-    record: PropTypes.object,
+    record: PropTypes.any,
     type: PropTypes.oneOf(['button', 'link']),
     selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
   };
@@ -48,7 +48,7 @@ export class ExtendButton extends React.Component {
         if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.MESSAGE) {
           Modal.info({
             title: '提示',
-            content: (<div>您已成功{this.props.buttonDescription}{this.props.record && this.props.record.realName}！</div>),
+            content: (<div>{this.props.buttonDescription}成功！</div>),
             onOk() {},
           });
         }
@@ -57,7 +57,7 @@ export class ExtendButton extends React.Component {
         console.log(errorData);
         Modal.error({
           title: '提示',
-          content: (<div>{this.props.buttonDescription}{this.props.record && this.props.record.realName}失败！</div>),
+          content: (<div>{this.props.buttonDescription}失败！</div>),
           onOk() {},
         });
       });
