@@ -15,86 +15,58 @@ app.use(bodyParder.json());
 app.use(allowCrossDomain);
 // app.use(express.static('../build'));
 
- //app.post('//Api/AccountDetail/getMenus', function (req, res) {
- //  console.log('123');
- //  var menuJson = require('./json/menu.json');
- //  res.json(menuJson);
- //});
+app.post('/AccountList/render', function (req, res) {
+  var mockData = require('./json/accountList.json');
+  res.json(mockData);
+})
 
- //app.post('/DemoList/render', function (req, res) {
- //  var listJson = require('./json/list.json');
- //  res.json(listJson);
- //});
+app.post('/AccountDetail/render', function (req, res) {
+  var mockData = require('./json/accountDetail.json');
+  res.json(mockData);
+})
 
- //app.post('/AccountList/search', function (req, res) {
- //  var searchJson = require('./json/search.json');
- //  res.json(searchJson);
- //});
- //
- //app.post('/AccountDetail/render', function (req, res) {
- //  var detailJson = require('./json/detail.json');
- //  res.json(detailJson);
- //});
- //
- //app.post('/Process/start', function (req, res) {
- //  var detailJson = require('./json/startProcess.json');
- //  res.json(detailJson);
- //});
- //
- //app.post('/Process/todo', function (req, res) {
- //  var detailJson = require('./json/toDoProcess.json');
- //  res.json(detailJson);
- //});
- //
- //app.post('/Process/finished', function (req, res) {
- //  var detailJson = require('./json/finishedProcess.json');
- //  res.json(detailJson);
- //});
- //
- //app.post('/Process/unfinished', function (req, res) {
- //  var detailJson = require('./json/unfinishedProcess.json');
- //  res.json(detailJson);
- //});
- //
- //app.post('/RoleManagement', function (req, res) {
- //  var detailJson = require('./json/role.json');
- //  res.json(detailJson);
- //});
- //
- //app.post('/UserList/render', function (req, res) {
- //  var detailJson = require('./json/user.json');
- //  res.json(detailJson);
- //});
+app.post('/Api/AccountDetail/getMenus', function (req, res) {
+  var mockData = require('./json/getMenus.json');
+  res.json(mockData);
+})
 
-app.post('/example.layoutComp');
+app.post('/Pub/Account/login', function (req, res) {
+  var mockData = require('./json/login.json');
+  res.json(mockData);
+})
+
+app.post('/DemoList/render', function (req, res) {
+  var mockData = require('./json/demoList.json');
+  res.json(mockData);
+})
+
+app.post('/Role/render', function (req, res) {
+  var mockData = require('./json/role.json');
+  res.json(mockData);
+})
+
+app.post('/Process/todo', function (req, res) {
+  var mockData = require('./json/processTodo.json');
+  res.json(mockData);
+})
+
+
+app.post('/example/layout', function (req, res) {
+  var mockData = require('./json/exampleLayout.json');
+  res.json(mockData);
+})
 
 app.post('/*', function (req, res) {
-  if (req.url.indexOf('DemoList/render') >= 0 ) {
-    var listJson = require('./json/list.json');
-    res.json(listJson);
-  } else if(req.url.indexOf('AccountDetail/render') >= 0) {
-    var detailJson = require('./json/detail.json');
-    res.json(detailJson);
-  } else if (req.url.indexOf('Process/todo') >= 0) {
-    var listJsons = require('./json/list.json');
-    res.json(listJsons);
-  } else if (req.url.indexOf('example/layout') >= 0) {
-    var infoJson = require('./json/info.json');
-    res.json(infoJson);
-  } else {
-    let header = req.headers || {};
-    // setTimeout(() => {
-    Redirect(req.url, req.body,  function (chunk) {
-      console.log('BODY: ' + JSON.stringify(chunk));
-      res.json(chunk);
-    }, {
-      'Accept': header.accept,
-      'Content-Type': header['content-type'],
-      'Authorization': header['authorization']
-    });
-    // }, 2000);
-  }
-
+  let header = req.headers || {};
+  // setTimeout(() => {
+  Redirect(req.url, req.body,  function (chunk) {
+    console.log('BODY: ' + JSON.stringify(chunk));
+    res.json(chunk);
+  }, {
+    'Accept': header.accept,
+    'Content-Type': header['content-type'],
+    'Authorization': header['authorization']
+  });
 });
 
 // var handler = function() {

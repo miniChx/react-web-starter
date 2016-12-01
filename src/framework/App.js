@@ -2,7 +2,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push, replace, goBack } from 'react-router-redux';
-import Animate from 'rc-animate';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// import Animate from 'rc-animate';
 import { Row, Col } from 'mxa';
 
 import { autobind } from 'core-decorators';
@@ -47,7 +48,14 @@ class App extends React.Component {
               justify={'center'}
             >
               <Col span={24}>
-                {React.cloneElement(this.props.children, { goBack: this._goBack })}
+                <ReactCSSTransitionGroup
+                  component="div"
+                  transitionName="app-transition"
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={500}
+                >
+                  {React.cloneElement(this.props.children, { goBack: this._goBack })}
+                </ReactCSSTransitionGroup>
               </Col>
             </Row>
           </div>

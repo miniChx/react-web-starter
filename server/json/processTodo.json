@@ -286,8 +286,8 @@
   "buttons": [
     {
       "buttonDescription": "添加",
-      "displayPosition": "top",
-      "interactiveType": "Model",
+      "displayPosition": "TOP",
+      "interactiveType": "MODAL",
       "domainLink": "/AccountDetail/render",
       "domainType": "Detail",
       "roles": [
@@ -298,9 +298,9 @@
     },
     {
       "buttonDescription": "删除",
-      "displayPosition": "inline",
-      "interactiveType": "Action",
-      "messagePromptType": "confirm",
+      "displayPosition": "INLINE",
+      "interactiveType": "ACTION",
+      "messagePromptType": "CONFIRM",
       "actionName": "/AccountDetail/deleteById",
       "requestParameters": [],
       "roles": [
@@ -311,8 +311,8 @@
     },
     {
       "buttonDescription": "详情",
-      "displayPosition": "inline",
-      "interactiveType": "Modal",
+      "displayPosition": "INLINE",
+      "interactiveType": "MODAL",
       "domainLink": "/AccountDetail/render",
       "domainType": "Detail",
       "requestParameters": [],

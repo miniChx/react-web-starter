@@ -1,0 +1,60 @@
+
+
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  //width: 500px;
+
+  &-basic {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+
+    &-switch {
+      margin-bottom: 15px;
+      margin-left: 15px;
+    }
+  }
+
+  &-advanced {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    &-button {
+      width: 100px;
+      align-self: flex-end;
+    }
+  }
+
+}
+
+.mx-search-input-wrapper {
+  display: flex;
+  //width: 400px;
+  margin-bottom: 15px;
+  //justify-content: space-between;
+
+  .mx-search-input-title {
+    width: 80px;
+  }
+
+  .mx-input-wrapper {
+    flex: 1;
+    width: 300px;
+  }
+
+  .mx-search-range-input,
+  .mx-calendar-picker {
+    display: flex;
+    width: 300px;
+
+    .connector {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}

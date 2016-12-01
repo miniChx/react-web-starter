@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
@@ -10,19 +10,27 @@ import { CONTAINER_PRE } from '../../framework/routes';
 import { showModal } from '../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../framework/system/fetch';
 
+import { LIST_SELECTTYPE, BUTTON_INTERACTIVETYPE, BUTTON_MESSAGEPROMPTTYPE } from '../../framework/constant/dictCodes';
+
 const confirm = Modal.confirm;
 
 export class ExtendButton extends React.Component {
   static propTypes = {
-    record: React.PropTypes.object,
-    type: React.PropTypes.oneOf(['button', 'link']),
+    disabled: PropTypes.bool,
+    record: PropTypes.object,
+    type: PropTypes.oneOf(['button', 'link']),
+    selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
+  };
+
+  static defaultProps = {
+    selectedType: LIST_SELECTTYPE.INLINE
   };
 
   @autobind
   _jump(domainLink, params, domainType, mode) {
-    if (mode === 'Page') {
+    if (mode === BUTTON_INTERACTIVETYPE.PAGE) {
       window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType }));
-    } else if (mode === 'Modal') {
+    } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
       showModal(params, domainType, domainLink);
     } else {
       this.props.dispatch(push({
@@ -37,7 +45,7 @@ export class ExtendButton extends React.Component {
     PFetch(url, params)
       .then(response => {
         console.log(response);
-        if (this.props.messagePromptType === 'message') {
+        if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.MESSAGE) {
           Modal.info({
             title: '提示',
             content: (<div>您已成功{this.props.buttonDescription}{this.props.record && this.props.record.realName}！</div>),
@@ -55,26 +63,36 @@ export class ExtendButton extends React.Component {
       });
   }
 
-
   @autobind
   _triggerAction() {
-    if (this.props.interactiveType === 'Action') {
+    let activeData = this.props.record;
+    if (this.props.selectedType === LIST_SELECTTYPE.RADIO) {
+      activeData = this.props.record[0];
+    }
+    if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
+      let params;
+      if (this.props.selectedType === LIST_SELECTTYPE.CHECKBOX) {
+        params = this.props.record.map(item => item.id);
+      } else {
+        params = { id: activeData.id };
+      }
       // message|confirm|tooltip
-      if (this.props.messagePromptType === 'confirm') {
+      if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX
+        && this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
         confirm({
           title: '提示',
-          content: (<div>确认{this.props.buttonDescription}{this.props.record.realName}吗？</div>),
+          content: (<div>确认{this.props.buttonDescription}{activeData.realName}吗？</div>),
           onOk: () => {
-            this._processAction(this.props.actionName, { id: this.props.record.id });
+            this._processAction(this.props.actionName, params);
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.actionName, { id: this.props.record.id });
+        this._processAction(this.props.actionName, params);
       }
     } else {
       // eslint-disable-next-line max-len
-      this._jump(this.props.domainLink, { id: this.props.record.id }, this.props.domainType, this.props.interactiveType);
+      this._jump(this.props.domainLink, { id: activeData.id }, this.props.domainType, this.props.interactiveType);
     }
   }
 
@@ -86,6 +104,7 @@ export class ExtendButton extends React.Component {
           {...this.props.buttonProps}
           className={this.props.className}
           onClick={() => this._triggerAction()}
+          disabled={this.props.disabled}
         >{this.props.buttonDescription}</Button>
       );
     }
@@ -99,7 +118,7 @@ export class ExtendButton extends React.Component {
   }
 
   render() {
-    if (this.props.messagePromptType === 'confirm') {
+    if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.TOOLTIP) {
       return (
         <Tooltip title={this.props.buttonDescription + this.props.record.realName}>
           {this._renderButton()}

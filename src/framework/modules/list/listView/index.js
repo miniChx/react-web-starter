@@ -3,7 +3,8 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Select } from 'mxa';
-import { Button, SearchInput } from '../../../../components';
+import { ExtendButton, Search } from '../../../../components';
+import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../../constant/dictCodes';
 
 import styles from '../../../styles/views/listview.less';
 
@@ -26,7 +27,7 @@ class ListView extends React.Component {
       <div>
         {
           buttons.map(item => (
-            <Button
+            <ExtendButton
               {...item}
               key={item.buttonDescription}
               record={record}
@@ -40,11 +41,12 @@ class ListView extends React.Component {
 
   @autobind
   _processData(data) {
-    const buttons = {
-      inline: data.buttons && data.buttons.filter(item => item.displayPosition === 'inline'),
-      top: data.buttons && data.buttons.filter(item => item.displayPosition === 'top'),
-      search: data.buttons && data.buttons.filter(item => item.actionType === 'search'),
-    };
+    const buttons = { inline: [], top: [], search: [] };
+    if (data.buttons) {
+      buttons.inline = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.INLINE);
+      buttons.top = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.TOP);
+      buttons.search = data.buttons.filter(item => item.actionType === 'search');
+    }
 
     // eslint-disable-next-line arrow-body-style
     const columns = data.fields && data.fields.map(item => ({
@@ -77,6 +79,7 @@ class ListView extends React.Component {
     const filterFieldCodes = [];
     const orderFields = constructOrderFields(data.filterItems);
 
+    const selectedType = LIST_SELECTTYPE.CHECKBOX;
     return {
       columns,
       dataSource,
@@ -86,7 +89,10 @@ class ListView extends React.Component {
       pageIndex,
       itemsPerPage,
       filterFieldCodes,
-      orderFields
+      orderFields,
+      selectedType,
+      selectedRowKeys: [],
+      selectedRows: [],
     };
   }
 
@@ -179,20 +185,20 @@ class ListView extends React.Component {
 
   @autobind
   _renderTopButtons() {
-    // TODO. Get select row record
-    const record = {};
     return (
       <div>
         {
           this.state.buttons && this.state.buttons.top && this.state.buttons.top.map(item => (
-            <Button
+            <ExtendButton
               type="button"
               buttonProps={{
                 type: 'ghost',
               }}
               {...item}
+              disabled={!(this.state.selectedType && this.state.selectedRowKeys.length > 0)}
               key={item.buttonDescription}
-              record={record}
+              selectedType={this.state.selectedType}
+              record={this.state.selectedRows}
               className={styles.topButton}
             />
           ))
@@ -201,29 +207,65 @@ class ListView extends React.Component {
     );
   }
 
+
+  @autobind
+  _onRowClick(record, index) {
+    console.log('onRowClick ==> ', record, index);
+
+    const selectedIndex = this.state.selectedRowKeys.indexOf(record.key);
+    if (selectedIndex > -1) {
+      this.setState({
+        selectedRowKeys: this.state.selectedRowKeys.filter(item => item !== record.key),
+        selectedRows: this.state.selectedRows.filter(item => item.key !== record.key),
+      });
+    } else {
+      this.setState({
+        selectedRowKeys: this.state.selectedRowKeys.concat(record.key),
+        selectedRows: this.state.selectedRows.concat(record),
+      });
+    }
+  }
+
   render() {
+    // const selectedRows = [];
+    const rowSelection = {
+      type: this.state.selectedType,
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log('onChange ==> ', `selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.setState({ selectedRowKeys, selectedRows });
+      },
+      onSelect: (record, selected) => {
+        console.log('onSelect ==> ', record, selected);
+        // this.setState({ selectedRows });
+      },
+      onSelectAll: (selected, selectedRows, changeRows) => {
+        console.log('onSelectAll ==> ', selected, selectedRows, changeRows);
+        this.setState({ selectedRows });
+      },
+      selectedRowKeys: this.state.selectedRowKeys,
+    };
+
     if (this.state.columns && this.state.columns.length > 0) {
       return (
         <div className={styles.listview}>
-          {this._renderFilters()}
           <div className={styles.toolbar}>
             {this._renderTopButtons()}
-            <div className={styles.search}>
-              <SearchInput placeholder="搜索" />
-            </div>
+            <Search />
           </div>
           <Table
+            rowSelection={rowSelection}
             columns={this.state.columns}
             dataSource={this.state.dataSource}
             sortOrder={false}
             pagination={this.state.pagination}
             onChange={this._onChange}
+            onRowClick={this._onRowClick}
           />
         </div>
       );
     }
 
-    return null;
+    return (<div />);
   }
 }
 

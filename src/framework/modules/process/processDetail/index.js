@@ -11,6 +11,7 @@ import styles from '../../../styles/views/listview.less';
 // import { ExtendButton } from '../../../../components';
 import { PFetch } from '../../../system/fetch';
 import { dispatch } from '../../../service/DispatchService';
+import { BUTTON_MESSAGEPROMPTTYPE } from '../../../constant/dictCodes';
 
 const FormItem = Form.Item;
 
@@ -33,7 +34,7 @@ class ProcessDetail extends React.Component {
           return PFetch('/Api' + (item.domainLink || item.actionName), { ...rest, ...values })
             .then(response => {
               console.log(response);
-              if (item.messagePromptType === 'message') {
+              if (item.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.MESSAGE) {
                 Modal.info({
                   title: '提示',
                   content: (<div>您已成功{item.buttonDescription}！</div>),

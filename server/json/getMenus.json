@@ -1,0 +1,120 @@
+{
+  "menus": [
+    {
+      "menuCode": "systemManagement",
+      "menuValue": "系统管理",
+      "displaySequence": 1,
+      "domainLink": null,
+      "domainType": null,
+      "roleCodes": [
+        "Role1_Admin"
+      ],
+      "subMenus": [
+        {
+          "menuCode": "accountManagement",
+          "menuValue": "用户管理",
+          "displaySequence": 1,
+          "domainLink": "/AccountList/render",
+          "domainType": "Custom",
+          "roleCodes": [
+            "Role1_Admin"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "roleManagement",
+          "menuValue": "角色管理",
+          "displaySequence": 2,
+          "domainLink": "/Role/render",
+          "domainType": "Custom",
+          "roleCodes": [
+            "Role1_Admin"
+          ],
+          "subMenus": null
+        }
+      ]
+    },
+    {
+      "menuCode": "demoManagement",
+      "menuValue": "案例管理",
+      "displaySequence": 2,
+      "domainLink": "/DemoList/render",
+      "domainType": "List",
+      "roleCodes": [
+        "Role1_Admin"
+      ],
+      "subMenus": null
+    },
+    {
+      "menuCode": "processesManager",
+      "menuValue": "流程管理",
+      "displaySequence": 3,
+      "domainLink": null,
+      "domainType": "List",
+      "roleCodes": [
+        "Role1_Admin",
+        "Role2_Employee",
+        "Role3_Manager",
+        "Role4_HR"
+      ],
+      "subMenus": [
+        {
+          "menuCode": "toDo",
+          "menuValue": "待办",
+          "displaySequence": 1,
+          "domainLink": "/Api/ProcessQuery/toDo/render",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1_Admin",
+            "Role2_Employee",
+            "Role3_Manager",
+            "Role4_HR"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "unfinished",
+          "menuValue": "未处理",
+          "displaySequence": 2,
+          "domainLink": "/Api/ProcessQuery/unfinished/render",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1_Admin",
+            "Role2_Employee",
+            "Role3_Manager",
+            "Role4_HR"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "finished",
+          "menuValue": "已处理",
+          "displaySequence": 3,
+          "domainLink": "/Api/ProcessQuery/finished/render",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1_Admin",
+            "Role2_Employee",
+            "Role3_Manager",
+            "Role4_HR"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "start",
+          "menuValue": "开始",
+          "displaySequence": 4,
+          "domainLink": "/Api/ProcessQuery/start/render",
+          "domainType": "Process",
+          "roleCodes": [
+            "Role1_Admin",
+            "Role2_Employee",
+            "Role3_Manager",
+            "Role4_HR"
+          ],
+          "subMenus": null
+        }
+      ]
+    }
+  ]
+}
