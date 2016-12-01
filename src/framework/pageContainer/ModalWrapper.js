@@ -22,7 +22,7 @@ const showModal = (params, domainType, domainLink) => {
 
   const ModalPage = Compose(AsyncDecorator, InitDecorator)();
   const maskModal = (
-    <MaskLayer visible={true} onCancel={_close}>
+    <MaskLayer visible={true} onCancel={_close} zIndex="999">
       <ModalPage params={params} domainType={domainType} domainLink={domainLink} />
     </MaskLayer>
   );

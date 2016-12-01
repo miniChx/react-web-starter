@@ -24,7 +24,7 @@ class ListView extends React.Component {
     // console.log('text: ', text);
     // console.log('record: ', record);
     return (
-      <div>
+      <div className={styles.inlineToolbar}>
         {
           buttons.map(item => (
             <ExtendButton
@@ -69,13 +69,17 @@ class ListView extends React.Component {
     const filters = data.filterItems;
     // eslint-disable-next-line arrow-body-style
     const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
-    const pagination = {
-      total: data && data.pageResult && data.pageResult.totalItems,
-      showSizeChanger: true
-    };
 
     const pageIndex = data && data.pageResult && data.pageResult.pageIndex;
     const itemsPerPage = data && data.pageResult && data.pageResult.itemsPerPage;
+    const pagination = {
+      total: data && data.pageResult && data.pageResult.totalItems,
+      pageSize: itemsPerPage,
+      showSizeChanger: false,
+      showQuickJumper: true,
+      showTotal: total => `共 ${total} 项`,
+    };
+
     const filterFieldCodes = [];
     const orderFields = constructOrderFields(data.filterItems);
 
@@ -119,12 +123,12 @@ class ListView extends React.Component {
 
   @autobind
   _onSearch() {
-    let url = null;
-    this.state.buttons.search.forEach((item) => { // eslint-disable-line
-      if (item.actionType === 'search') {
-        url = item.actionName;
-      }
-    });
+    const url = this.props.domainLink.replace(/\/(\S)*$/g, '/search');
+    // this.state.buttons.search.forEach((item) => { // eslint-disable-line
+    //   if (item.actionType === 'search') {
+    //     url = item.actionName;
+    //   }
+    // });
 
     const param = {
       pageIndex: this.state.pageIndex,
@@ -134,22 +138,8 @@ class ListView extends React.Component {
     };
     this.props.exec(() => this.props.fetch(url, param)
       .then(data => {
-        let contentList;
-        switch (this.state.pageIndex) {
-          case 1:
-            contentList = 'contentList';
-            break;
-          case 2:
-            contentList = 'contentList2';
-            break;
-          case 3:
-            contentList = 'contentList3';
-            break;
-          default: contentList = 'contentList';
-        }
-        this.setState({
-          dataSource: data[contentList],
-        });
+        const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
+        this.setState({ dataSource });
       }));
   }
 

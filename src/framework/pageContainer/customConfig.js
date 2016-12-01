@@ -7,15 +7,16 @@ import AccountList from '../modules/user';
 import BizConfig from '../../bundles/bizConfig';
 
 const customMap = {
-  'Role/render': Role,
-  'AccountList/render': AccountList
+  '/Role/render': Role,
+  '/AccountList/render': AccountList
 };
 
 const customWrapper = domainLink => {
-  if (customMap[domainLink]) {
-    return customMap[domainLink];
+  const finalDomainLink = domainLink[0] === '/' ? domainLink : '/' + domainLink;
+  if (customMap[finalDomainLink]) {
+    return customMap[finalDomainLink];
   }
-  return BizConfig && BizConfig[domainLink];
+  return BizConfig && BizConfig[finalDomainLink];
 };
 
 export default customWrapper;

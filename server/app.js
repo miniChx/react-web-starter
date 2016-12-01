@@ -37,6 +37,56 @@ app.post('/Pub/Account/login', function (req, res) {
 
 app.post('/DemoList/render', function (req, res) {
   var mockData = require('./json/demoList.json');
+  const pageResult = {
+    pageIndex: 1,
+    itemsPerPage: 10,
+    totalPages: 6,
+    totalItems: 56,
+  };
+  const contentList = [];
+  for (let i = 0; i < 10; i++) {
+    contentList.push({
+      id: i,
+      userName: "userName" + pageResult.pageIndex + i,
+      mobileNo: "13355558888" + i,
+      email: "userName" + i + "@amarsoft.com",
+      status: "ACTIVE",
+      statusValue: "有效用户"
+    });
+  }
+  pageResult.contentList = contentList;
+  mockData.pageResult = pageResult;
+  res.json(mockData);
+})
+app.post('/DemoList/search', function (req, res) {
+  var mockData = require('./json/demoListSearch.json');
+  mockData.pageResult.pageIndex = req.body.pageIndex;
+  mockData.pageResult.itemsPerPage = req.body.itemsPerPage;
+
+  const pageResult = {
+    pageIndex: req.body.pageIndex,
+    itemsPerPage: req.body.itemsPerPage,
+    totalPages: 6,
+    totalItems: 56,
+  };
+  const contentList = [];
+  const contentLength = pageResult.pageIndex !== pageResult.totalPages ?
+    pageResult.itemsPerPage :
+    pageResult.totalItems - pageResult.itemsPerPage * (pageResult.totalPages - 1);
+  for (let i = 0; i < contentLength; i++) {
+    contentList.push({
+      id: i,
+      userName: "userName" + pageResult.pageIndex + i,
+      mobileNo: "13355558888" + i,
+      email: "userName" + i + "@amarsoft.com",
+      status: "ACTIVE",
+      statusValue: "有效用户"
+    });
+  }
+  pageResult.contentList = contentList;
+  mockData.pageResult = pageResult;
+
+
   res.json(mockData);
 })
 
