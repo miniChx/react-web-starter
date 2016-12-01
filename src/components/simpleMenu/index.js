@@ -5,6 +5,7 @@ import React from 'react';
 import { Menu } from 'mxa';
 import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
+import { trimStart } from 'lodash/string';
 import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../framework/routes';
 
 const SubMenu = Menu.SubMenu;
@@ -21,7 +22,6 @@ export default class SimpleMenu extends React.Component {
         </SubMenu>
       );
     }
-
     return (
       <Menu.Item key={item.menuCode} >
         {item.menuValue}
@@ -45,11 +45,8 @@ export default class SimpleMenu extends React.Component {
   @autobind
   handleClick(e) {
     const m = this.getDomainLink(e.keyPath || [e.key]);
-    console.log(m);
-    let domainLink = m.domainLink;
-    if (domainLink[0] === '/') {
-      domainLink = domainLink.substring(1, domainLink.length);
-    }
+    // console.log(m);
+    const domainLink = trimStart(m.domainLink, '/');
     const domainType = m.domainType;
     this.props.menuClick && this.props.menuClick(domainLink, domainType, m.menuCode);
   }
