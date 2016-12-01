@@ -8,24 +8,42 @@
       "domainLink":null,
       "domainType":null,
       "isSelected":null,
+      "bindParameterType":null,
+      "bindParameters":null,
       "subMenus":[
         {
           "menuCode":"customer1Management",
           "menuValue":"客户基础信息",
           "displaySequence":1,
-          "domainLink":"",
+          "domainLink":"/AccountDetail/render",
           "domainType":"Detail",
           "isSelected":true,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":true
         },
         {
           "menuCode":"customer2Management",
           "menuValue":"客户联系人信息",
           "displaySequence":2,
-          "domainLink":"",
+          "domainLink":"ddd/rendByKey",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer3Management",
@@ -34,7 +52,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer4Management",
@@ -43,7 +69,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer5Management",
@@ -52,7 +86,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer6Management",
@@ -61,7 +103,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer7Management",
@@ -70,7 +120,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer8Management",
@@ -79,7 +137,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer9Management",
@@ -88,7 +154,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer10Management",
@@ -97,7 +171,15 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         },
         {
           "menuCode":"customer11Management",
@@ -106,9 +188,18 @@
           "domainLink":"",
           "domainType":"List",
           "isSelected":false,
-          "subMenus":null
+          "bindParameterType":"SOME",
+          "bindParameters":[
+            {
+              "name":"basicCustomerId",
+              "value":""
+            }
+          ],
+          "subMenus":null,
+          "selected":false
         }
-      ]
+      ],
+      "selected":null
     },
     {
       "menuCode":"customerFileManagement",
@@ -117,7 +208,15 @@
       "domainLink":"",
       "domainType":"List",
       "isSelected":false,
-      "subMenus":null
+      "bindParameterType":"SOME",
+      "bindParameters":[
+        {
+          "name":"basicCustomerId",
+          "value":""
+        }
+      ],
+      "subMenus":null,
+      "selected":false
     }
   ]
 }

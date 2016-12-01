@@ -19,7 +19,7 @@ export const CUSTOM_CONTAINER_PRE = 'custom_page_container';
 const getUrlPath = url => url;
 
 // 要初始化数据的页面
-const userIsInATeam = (nextState, replace, callback) => {
+const getPageInitData = (nextState, replace, callback) => {
   const domainLink = nextState.params.splat;
   if (domainLink && !exclusive.some(f => f(domainLink))) {
     const url = getUrlPath(trimStart(domainLink, '/'));
@@ -29,7 +29,7 @@ const userIsInATeam = (nextState, replace, callback) => {
     }
     longRunExec(() => PFetch(url, params)
       .then(data => {
-        // nextState.fetchData = data;
+        // TODO:如何保存此时的数据
         savePageData(data);
         callback();
       }));
@@ -57,7 +57,7 @@ const routes = {
           callback(null, require('./pageContainer/index').default);
         }, 'container');
       },
-      onEnter: userIsInATeam
+      onEnter: getPageInitData
     },
     { path: '*', component: NotFound },
   ],

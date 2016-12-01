@@ -37,7 +37,6 @@ class MenuCreator extends React.Component {
     const path = getValueByKey(routing, null, 'locationBeforeTransitions', 'pathname');
     const start = ('/' + CONTAINER_PRE + '/').length;
     const end = path.length;
-
     return searchMenu(path.substring(start, end));
   }
 

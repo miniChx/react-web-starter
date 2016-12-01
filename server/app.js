@@ -56,18 +56,19 @@ app.post('/example/layout', function (req, res) {
   res.json(mockData);
 })
 
-app.post('/*', function (req, res) {
-  let header = req.headers || {};
-  // setTimeout(() => {
-  Redirect(req.url, req.body,  function (chunk) {
-    console.log('BODY: ' + JSON.stringify(chunk));
-    res.json(chunk);
-  }, {
-    'Accept': header.accept,
-    'Content-Type': header['content-type'],
-    'Authorization': header['authorization']
-  });
-});
+//app.post('/*', function (req, res) {
+//  console.log('#########', req.url);
+//  let header = req.headers || {};
+//  // setTimeout(() => {
+//  Redirect(req.url, req.body,  function (chunk) {
+//    // console.log('BODY: ' + JSON.stringify(chunk));
+//    res.json(chunk);
+//  }, {
+//    'Accept': header.accept,
+//    'Content-Type': header['content-type'],
+//    'Authorization': header['authorization']
+//  });
+//});
 
 // var handler = function() {
   var server = app.listen(3003, function () {

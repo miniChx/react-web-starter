@@ -10,7 +10,7 @@ import AnchorHref from './anchorHref';
 import appStyle from '../../styles/views/app.less';
 import SimpleMenu from '../../../components/simpleMenu';
 import Compose from '../../utils/Compose';
-import AsyncDecorator from '../../pageContainer/ModalAsyncDecorator';
+import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
 import { searchMenu } from '../../service/CacheService';
 
@@ -19,26 +19,26 @@ export default class Layout extends React.Component {
   constructor(props) {
     super(props);
     let list = [];
-    let tag = {};
+    this.tag = {};
     let defaultOpenKeys = [];
     if (this.props.dataSource && this.props.dataSource.menus) {
       this.props.dataSource.menus.forEach(s => {
         const tmp = this.transformToList(s);
         list = list.concat(tmp);
       });
-      tag = this.getMenuInfo(this.props.dataSource.menus) || {};
-      const { linkInfo, indexPath } = searchMenu(tag.menuCode, (id, item) => (item.menuCode === id), this.props.dataSource.menus);
+      this.tag = this.getMenuInfo(this.props.dataSource.menus) || {};
+      const { linkInfo, indexPath } = searchMenu(this.tag.menuCode, (id, item) => (item.menuCode === id), this.props.dataSource.menus);
       defaultOpenKeys = this.getOpenKeys(indexPath, this.props.dataSource.menus);
     }
     this.menuList = list || [];
 
     this.state = {
-      main: this.createMain(this.props.dataSource, this.props.domainType, this.props.domainLink),
+      main: null,
       left: null,
       right: null,
       tools: false,
       anchor: [],
-      defaultSelectedKeys: tag.menuCode,
+      defaultSelectedKeys: this.tag.menuCode,
       defaultOpenKeys
     };
   }
@@ -93,19 +93,29 @@ export default class Layout extends React.Component {
 
   @autobind
   createMain(data, domainType, domainLink) {
-    const RightPage = Compose(AsyncDecorator, InitDecorator)();
-    return (<RightPage dataSource={data} domainType={domainType} domainLink={domainLink} />);
+    const TempPage = Compose(AsyncDecorator, InitDecorator)();
+    return (<TempPage dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
+  // TODO: refactor
   @autobind
-  menuClick(domainLink, domainType, menuCode) {
-    this.props.exec(() => {
-      return this.props.fetch(domainLink, {}).then(data => {
-        this.setState({
-          main: this.createMain(data, domainType, domainLink)
+  menuClick(domainLink, domainType) {
+    if (this.props.renderBody) {
+      // this.setState({ anchor: RightPage });
+      this.setState({ main: this.props.renderBody(domainLink, domainType) });
+    } else {
+      this.props.exec(() => {
+        return this.props.fetch(trimStart(domainLink, '/'), {}).then(data => {
+          this.setState({
+            main: this.createMain(data, domainType, domainLink),
+          });
+        }).catch(err => {
+          this.setState({
+            main: (<div>异常</div>)
+          });
         });
       });
-    });
+    }
   }
 
   componentDidMount() {
@@ -113,22 +123,19 @@ export default class Layout extends React.Component {
   }
 
   componentWillMount() {
-    // this.setState({ anchor: this.searchAnchor() });
+    setTimeout(() => this.setState({ anchor: this.searchAnchor() }), 100);
+    this.menuClick(this.tag.domainLink, this.tag.domainType);
   }
 
   searchAnchor(children) {
-    if (typeof children === 'object') {
-      if (children instanceof Array) {
-        children.some(c => this.searchAnchor(c));
-      } else if (children && children.type && children.type.defaultProps && children.type.defaultProps.name === 'AnchorHref') {
-        this.anchor.push({ title: children.props.title, href: children.props.href });
-      } else if (children && children.props.children) {
-        // if (this.state.main && this.props.children === children.props.children) {
-        //  return;
-        // }
-        this.searchAnchor(children.props.children);
-      }
-    }
+    // TODO: 暂时使用document
+    const ret = [];
+    const anchorLink = document.querySelectorAll("span[class='anchorTag']");
+    console.log('#######len', anchorLink.length);
+    anchorLink.forEach(a => {
+      ret.push({ href: a.children[0].attributes[0].nodeValue, title: a.innerText });
+    });
+    return ret;
   }
 
   @autobind
@@ -163,6 +170,9 @@ export default class Layout extends React.Component {
     return (
       <div>
         <Row>
+          <Col span={24}>{this.props.dataSource.name}</Col>
+        </Row>
+        <Row>
           <Col span={4}>
             <SimpleMenu
               defaultOpenKeys={this.state.defaultOpenKeys}
@@ -182,7 +192,7 @@ export default class Layout extends React.Component {
           </Col>
           <Col span={2}>
             <Anchor>
-              {this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
+              {this.state.anchor && this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
             </Anchor>
           </Col>
         </Row>

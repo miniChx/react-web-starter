@@ -22,7 +22,7 @@ const AsyncDecorator = Wrapper => {
     @autobind
     fetchDataFromServer() {
       if (this.props.domainLink && !exclusive.some(f => f(this.props.domainLink))) {
-        const url = this.getUrlPath('/' + trimStart(this.props.domainLink, '/'));
+        const url = this.getUrlPath(trimStart(this.props.domainLink, '/'));
         const params = { ...this.props.params };
         if (this.props.location) {
           Object.assign(params, this.props.location.query);
