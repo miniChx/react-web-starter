@@ -24,7 +24,7 @@ class ListView extends React.Component {
     // console.log('text: ', text);
     // console.log('record: ', record);
     return (
-      <div>
+      <div className={styles.inlineToolbar}>
         {
           buttons.map(item => (
             <ExtendButton

@@ -21,7 +21,7 @@ class App extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (!this.props.token) {
       this.props.actions.push('/login');
     }

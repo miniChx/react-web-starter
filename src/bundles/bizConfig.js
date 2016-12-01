@@ -5,9 +5,9 @@
 import example from './biz';
 
 export default {
-  'example/tab': example.tab,
-  'example/modalInput': example.modalInput,
-  'example/hello': example.hello,
-  'example/layout': example.layout,
-  'Process/todo': example.list,
+  '/example/tab': example.tab,
+  '/example/modalInput': example.modalInput,
+  '/example/hello': example.hello,
+  '/example/layout': example.layout,
+  '/Process/todo': example.list,
 };

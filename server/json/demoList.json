@@ -194,11 +194,24 @@
       ]
     },
     {
-      "buttonDescription": "详情",
+      "buttonDescription": "详情MODAL",
       "displayPosition": "INLINE",
       "interactiveType": "MODAL",
-      "domainLink": "/AccountDetail/render",
-      "domainType": "Detail",
+      "domainLink": "/example/layout",
+      "domainType": "",
+      "requestParameters": [],
+      "roles": [
+        "Role1",
+        "Role2",
+        "Role3"
+      ]
+    },
+    {
+      "buttonDescription": "详情PAGE",
+      "displayPosition": "INLINE",
+      "interactiveType": "PAGE",
+      "domainLink": "/example/layout",
+      "domainType": "",
       "requestParameters": [],
       "roles": [
         "Role1",
