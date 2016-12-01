@@ -21,10 +21,27 @@ class ListDetail extends React.Component {
 
   constructor(props) {
     super(props);
+    const data = this.dataFieldsAdapter(this.props.dataSource);
     this.state = {
       passwordDirty: false,
-      model: this.props.model
+      model: this.props.model,
+      fields: data
     };
+  }
+
+  dataFieldsAdapter(dataSource) {
+    const fieldMap = {};
+    dataSource.fields.forEach(f => {
+      if (!fieldMap[f.groupId]) {
+        fieldMap[f.groupId] = [];
+      }
+      fieldMap[f.groupId].push(f);
+    });
+    const ret = [];
+    Object.keys(fieldMap).forEach(key => {
+      ret.push(fieldMap[key]);
+    });
+    return ret;
   }
 
   @autobind
@@ -95,20 +112,22 @@ class ListDetail extends React.Component {
     );
   }
 
-  renderForm(data) {
+  renderForm(data, fields) {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 19 }
     };
 
+    const titleF = fields[0];
+
     return (
       <div>
-        <AnHref title="这是自己渲染的" href="#hahahaha1" />
+        <AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />
         <div className={appStyle.formBox} >
           <Form horizontal={true} >
             <Row gutter={40} className={appStyle.cell}>
-              {data.fields && data.fields.map(item => {
+              {fields.map(item => {
                 return (
                   <Col span={12}>
                     {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.state.model)}
@@ -131,7 +150,9 @@ class ListDetail extends React.Component {
     };
     return (
       <div>
-        {this.renderForm(this.props.dataSource)}
+        {this.state.fields.map(f => {
+          return this.renderForm(this.props.dataSource, f);
+        })}
         <Form horizontal={true} >
           <FormItem {...tailFormItemLayout}>
             {this._renderColumnAction()}

@@ -10,7 +10,7 @@ import AnchorHref from './anchorHref';
 import appStyle from '../../styles/views/app.less';
 import SimpleMenu from '../../../components/simpleMenu';
 import Compose from '../../utils/Compose';
-import AsyncDecorator from '../../pageContainer/ModalAsyncDecorator';
+import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
 import { searchMenu } from '../../service/CacheService';
 
@@ -105,9 +105,13 @@ export default class Layout extends React.Component {
       this.setState({ main: this.props.renderBody(domainLink, domainType) });
     } else {
       this.props.exec(() => {
-        return this.props.fetch(domainLink, {}).then(data => {
+        return this.props.fetch(trimStart(domainLink, '/'), {}).then(data => {
           this.setState({
             main: this.createMain(data, domainType, domainLink),
+          });
+        }).catch(err => {
+          this.setState({
+            main: (<div>异常</div>)
           });
         });
       });
@@ -165,6 +169,9 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div>
+        <Row>
+          <Col span={24}>{this.props.dataSource.name}</Col>
+        </Row>
         <Row>
           <Col span={4}>
             <SimpleMenu
