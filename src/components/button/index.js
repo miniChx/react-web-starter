@@ -35,7 +35,7 @@ export class ExtendButton extends React.Component {
     } else {
       this.props.dispatch(push({
         pathname: '/' + CONTAINER_PRE + domainLink,
-        query: { ...params, domainType }
+        query: { ...params, domainType, s: '1' }
       }));
     }
   }
