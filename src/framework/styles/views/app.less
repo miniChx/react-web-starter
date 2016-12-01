@@ -134,12 +134,12 @@
 }
 
 .layoutTools {
-  display: inline;
+  // display: inline;
   position: fixed;
-  right: 2rem;
-  bottom: 10rem;
-  font-size: 32px;
+  right: 12rem;
+  top: 5.5rem;
   color: @info-color;
+  background-color: @body-background;
   // transition: all 1s @ease-out-circ;
   .layoutToolItems {
     display: inline;
@@ -148,7 +148,15 @@
     }
   }
 }
-//
-//.layoutTools:active {
-//  transform: translateX(-100px);
-//}
+
+.layoutToolsArrow {
+  color: @info-color;
+  position: fixed;
+  right: 0rem;
+  top: 5rem;
+  font-size: 28px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
