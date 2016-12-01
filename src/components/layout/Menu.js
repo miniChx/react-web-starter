@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
 import { Menu } from 'mxa';
-import { searchMenu } from '../../framework/service/CacheService';
 import { getValueByKey } from '../../framework/utils/MapUtils';
 import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../framework/routes';
+import { getOpenKeys, getMenuItemAndPathByFunc } from '../../framework/utils/MenuHelper';
 
 const SubMenu = Menu.SubMenu;
 
@@ -22,7 +22,7 @@ class MenuCreator extends React.Component {
     };
     const { linkInfo, indexPath } = this.getMenuInfo(this.props.routing);
     if (linkInfo) {
-      const openKeys = this.getOpenKeys(indexPath, this.props.menu);
+      const openKeys = getOpenKeys(indexPath, this.props.menu);
       state = {
         current: linkInfo.menuCode,
         openKeys
@@ -37,21 +37,8 @@ class MenuCreator extends React.Component {
     const path = getValueByKey(routing, null, 'locationBeforeTransitions', 'pathname');
     const start = ('/' + CONTAINER_PRE + '/').length;
     const end = path.length;
-    return searchMenu(path.substring(start, end));
-  }
-
-  // 获取要展开的菜单key数组
-  @autobind
-  getOpenKeys(indexPath, menu) {
-    indexPath.pop();
-    const openKeys = [];
-    let temp = menu;
-    indexPath.every(index => {
-      openKeys.push(temp[index] && temp[index].menuCode);
-      temp = temp[index] && temp[index].subMenus;
-      return temp;
-    });
-    return openKeys;
+    const id = path.substring(start, end);
+    return getMenuItemAndPathByFunc(item => (item.domainLink === id || item.domainLink === '/' + id), this.props.menu);
   }
 
   // 控制选中的菜单项
@@ -80,8 +67,7 @@ class MenuCreator extends React.Component {
   componentWillReceiveProps(next) {
     const { linkInfo, indexPath } = this.getMenuInfo(next.routing);
     if (linkInfo) {
-      const openKeys = this.getOpenKeys(indexPath, this.props.menu);
-      console.log('open keys', openKeys);
+      const openKeys = getOpenKeys(indexPath, this.props.menu);
       this.setState({
         current: linkInfo.menuCode,
         openKeys
@@ -112,9 +98,7 @@ class MenuCreator extends React.Component {
     return (
       <Menu
         onClick={this.handleClick}
-        // defaultOpenKeys={this.state.openKeys}
         selectedKeys={[this.state.current]}
-        // openKeys={this.state.openKeys}
         mode="horizontal"
         style={{ borderBottom: '0px' }}
       >

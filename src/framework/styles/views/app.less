@@ -19,7 +19,6 @@
 .layoutContainerBody {
   padding-left: 2rem;
   border-left: 1px solid @border-color-split;
-  min-height: 20rem;
 
   h1 {
     color: #404040;
@@ -47,9 +46,19 @@
     }
   }
 
+  .layoutContainerBodyInner {
+    min-height: 30rem;
+  }
+
   .layoutContainerFooter {
     border-top: 1px solid @border-color-split;
     padding: 1rem;
+    .leftMenu {
+      text-align: left;
+    }
+    .rightMenu {
+      text-align: right;
+    }
   }
 
 }

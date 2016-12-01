@@ -22,3 +22,15 @@ export default class AnchorHref extends React.Component {
 
   }
 }
+
+export const queryAnchor = () => {
+  // TODO: 暂时使用document
+  const ret = [];
+  const anchorLink = document.querySelectorAll("span[class='anchorTag']");
+  console.log('#######len', anchorLink.length);
+  anchorLink.forEach(a => {
+    ret.push({ href: a.children[0].attributes[0].nodeValue, title: a.innerText });
+  });
+  return ret;
+};
+

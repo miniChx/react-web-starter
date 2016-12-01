@@ -4,7 +4,6 @@ import { routerShape } from 'react-router';
 import { autobind } from 'core-decorators';
 
 import PageConfig from './config';
-// import BizConfig from '../../bundle/bizConfig';
 import customConfig from './customConfig';
 import { longRunExec } from '../system/longRunOpt';
 import { PFetch } from '../system/fetch';

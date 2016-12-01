@@ -3,10 +3,10 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Select } from 'mxa';
-import { ExtendButton, Search } from '../../../../components';
-import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../../constant/dictCodes';
+import { ExtendButton, Search } from '../../../components';
+import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
 
-import styles from '../../../styles/views/listview.less';
+import styles from '../../styles/views/listview.less';
 
 import { constructOrderFields, constructFilterFieldCodes } from './SelectUtils';
 

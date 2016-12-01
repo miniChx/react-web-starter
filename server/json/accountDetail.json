@@ -20,7 +20,7 @@
       "description":"客户编号",
       "groupId":1,
       "groupName":"企业基本信息",
-      "isVisible":false,
+      "isVisible":true,
       "isReadonly":true,
       "isRequired":false,
       "displayComponent":{

@@ -6,14 +6,15 @@ import { Form, Input, DatePicker, Col, Select, Tooltip, Icon, Cascader, Row, But
 import { autobind } from 'core-decorators';
 import { goBack, replace } from 'react-router-redux';
 
-import appStyle from '../../../styles/views/app.less';
+import appStyle from '../../styles/views/app.less';
 import renderFuc from './displayAnalyser/index';
-import styles from '../../../styles/views/listview.less';
-import { PFetch } from '../../../system/fetch';
-import { dispatch } from '../../../service/DispatchService';
-import { CONTAINER_PRE } from '../../../routes';
-import { getValueByKey } from '../../../utils/MapUtils';
-import { AnHref } from '../../Info';
+import styles from '../../styles/views/listview.less';
+import { PFetch } from '../../system/fetch';
+import { dispatch } from '../../service/DispatchService';
+import { CONTAINER_PRE } from '../../routes';
+import { getValueByKey } from '../../utils/MapUtils';
+import { AnHref } from '../info';
+import SwitchContainer from './switchContainer';
 
 const FormItem = Form.Item;
 
@@ -122,14 +123,13 @@ class ListDetail extends React.Component {
     const titleF = fields[0];
 
     return (
-      <div>
-        <AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />
+      <SwitchContainer bar={(<AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />)} >
         <div className={appStyle.formBox} >
           <Form horizontal={true} >
             <Row gutter={40} className={appStyle.cell}>
               {fields.map(item => {
                 return (
-                  <Col span={12}>
+                  <Col span={(24 / data.columnNumber) || 12}>
                     {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.state.model)}
                   </Col>
                 );
@@ -137,7 +137,7 @@ class ListDetail extends React.Component {
             </Row>
           </Form>
         </div>
-      </div>
+      </SwitchContainer>
     );
   }
 

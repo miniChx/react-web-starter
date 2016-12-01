@@ -6,12 +6,26 @@ import { Menu } from 'mxa';
 import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
-import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../framework/routes';
+import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../../routes';
 
 const SubMenu = Menu.SubMenu;
 
+export default class sideMenu extends React.Component {
 
-export default class SimpleMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedKeys: this.props.selectedKeys,
+      openKeys: this.props.openKeys
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedKeys: nextProps.selectedKeys,
+      openKeys: nextProps.openKeys
+    });
+  }
 
   @autobind
   renderMenuItem(item) {
@@ -29,34 +43,13 @@ export default class SimpleMenu extends React.Component {
     );
   }
 
-  @autobind
-  getDomainLink(paths) {
-    let menu = this.props.menu;
-    paths.reverse().every((p, index) => menu.some && menu.some(m => {
-      if (m.menuCode === p) {
-        menu = m.subMenus ? m.subMenus : m;
-        return true;
-      }
-      return false;
-    }));
-    return menu;
-  }
-
-  @autobind
-  handleClick(e) {
-    const m = this.getDomainLink(e.keyPath || [e.key]);
-    // console.log(m);
-    const domainLink = trimStart(m.domainLink, '/');
-    const domainType = m.domainType;
-    this.props.menuClick && this.props.menuClick(domainLink, domainType, m.menuCode);
-  }
-
   render() {
     return (
       <Menu
-        defaultOpenKeys={this.props.defaultOpenKeys}
-        defaultSelectedKeys={this.props.defaultSelectedKeys}
-        onClick={this.handleClick}
+        onOpenChange={e => this.setState({ openKeys: e })}
+        openKeys={this.state.openKeys}
+        selectedKeys={this.state.selectedKeys}
+        onClick={this.props.menuClick}
         mode="inline"
         style={{ borderRight: '0px' }}
       >

@@ -49,8 +49,8 @@
           "menuCode":"customer3Management",
           "menuValue":"客户行业特征信息",
           "displaySequence":3,
-          "domainLink":"",
-          "domainType":"List",
+          "domainLink":"/AccountDetail/render",
+          "domainType":"Detail",
           "isSelected":false,
           "bindParameterType":"SOME",
           "bindParameters":[
