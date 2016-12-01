@@ -133,13 +133,14 @@
   z-index: 999999;
 }
 
-.layoutTools {
+.layoutToolsDefault {
   // display: inline;
   position: fixed;
-  right: 12rem;
   top: 5.5rem;
+  right: 12rem;
   color: @info-color;
   background-color: @body-background;
+  animation-timing-function: ease;
   // transition: all 1s @ease-out-circ;
   .layoutToolItems {
     display: inline;
@@ -147,6 +148,55 @@
       padding: 2px;
     }
   }
+}
+
+.layoutToolsOut {
+  // display: inline;
+  position: fixed;
+  top: 5.5rem;
+  right: 12rem;
+  color: @info-color;
+  background-color: @body-background;
+  animation: moveout 1s;
+  animation-timing-function: ease;
+  // transition: all 1s @ease-out-circ;
+  .layoutToolItems {
+    display: inline;
+    i {
+      padding: 2px;
+    }
+  }
+}
+
+.layoutToolsIn {
+  // display: inline;
+  position: fixed;
+  top: 5.5rem;
+  right: -6.5rem;
+  color: @info-color;
+  background-color: @body-background;
+  animation: movein 1s;
+  animation-timing-function: ease;
+  // transition: all 1s @ease-out-circ;
+  .layoutToolItems {
+    display: inline;
+    i {
+      padding: 2px;
+    }
+  }
+}
+
+@keyframes movein
+{
+  from {right: 12rem;}
+  to {right: -6.5rem;}
+}
+
+
+@keyframes moveout
+{
+  from {right: -6.5rem;}
+  to {right: 12rem;}
 }
 
 .layoutToolsArrow {
