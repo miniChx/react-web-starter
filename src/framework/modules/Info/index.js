@@ -6,90 +6,44 @@ import { Row, Col, Menu, Icon, BackTop, Affix } from 'mxa';
 import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
 import Anchor, { ArchorLink } from '../../../components/anchor';
-import AnchorHref from './anchorHref';
+import AnchorHref, { queryAnchor } from './anchorHref';
 import appStyle from '../../styles/views/app.less';
-import SimpleMenu from '../../../components/simpleMenu';
+import SideMenu from './sideMenu';
 import Compose from '../../utils/Compose';
 import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
-import { searchMenu } from '../../service/CacheService';
+import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
 
 export default class Layout extends React.Component {
 
+  static propTypes = {
+    renderBody: React.PropTypes.func,
+    dataSource: React.PropTypes.object
+  };
+
   constructor(props) {
     super(props);
-    let list = [];
     this.tag = {};
-    let defaultOpenKeys = [];
+    let openKeys = [];
     if (this.props.dataSource && this.props.dataSource.menus) {
-      this.props.dataSource.menus.forEach(s => {
-        const tmp = this.transformToList(s);
-        list = list.concat(tmp);
-      });
-      this.tag = this.getMenuInfo(this.props.dataSource.menus) || {};
-      const { linkInfo, indexPath } = searchMenu(this.tag.menuCode, (id, item) => (item.menuCode === id), this.props.dataSource.menus);
-      defaultOpenKeys = this.getOpenKeys(indexPath, this.props.dataSource.menus);
+      this.tag = getMenuItemByFunc(m => m.isSelected === true, this.props.dataSource.menus) || {};
+      openKeys = this.changeMenuSelect(this.tag.menuCode, this.props.dataSource.menus).openKeys;
     }
-    this.menuList = list || [];
-
     this.state = {
       main: null,
       left: null,
       right: null,
       tools: false,
       anchor: [],
-      defaultSelectedKeys: this.tag.menuCode,
-      defaultOpenKeys
+      selectedKeys: this.tag.menuCode,
+      openKeys
     };
   }
 
-  // 获取要展开的菜单key数组
   @autobind
-  getOpenKeys(indexPath, menu) {
-    indexPath.pop();
-    const openKeys = [];
-    let temp = menu;
-    indexPath.every(index => {
-      openKeys.push(temp[index] && temp[index].menuCode);
-      temp = temp[index] && temp[index].subMenus;
-      return temp;
-    });
-    return openKeys;
+  changeMenuSelect(menuCode, menu) {
+    return getMenuItemAndPathByFunc(item => item.menuCode === menuCode, menu);
   }
-
-  @autobind
-  getMenuInfo(menu) {
-    let tag = null;
-    menu && menu.some(m => {
-      if (m.isSelected === true) {
-        tag = m;
-        return true;
-      } else if (m.subMenus) {
-        tag = this.getMenuInfo(m.subMenus);
-        if (tag) {
-          return true;
-        }
-      }
-      return false;
-    });
-    return tag;
-  }
-
-  transformToList(a) {
-    if (!a.subMenus) {
-      return [{ menuValue: a.menuValue, menuCode: a.menuCode }];
-    }
-    // TODO: 默认的菜单root节点不应该渲染界面.
-    let ret = [{ menuValue: a.menuValue, menuCode: a.menuCode }];
-    // let ret = [];
-    a.subMenus.forEach(s => {
-      const sub = this.transformToList(s);
-      ret = ret.concat(sub);
-    });
-    return ret;
-  }
-
-  getUrlPath = url => url;
 
   @autobind
   createMain(data, domainType, domainLink) {
@@ -97,45 +51,55 @@ export default class Layout extends React.Component {
     return (<TempPage dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
+  @autobind
+  menuClick(e) {
+    const m = getMenuItemByKeyPaths(e.keyPath || [e.key], this.props.dataSource.menus);
+    const domainLink = trimStart(m.domainLink, '/');
+    const domainType = m.domainType;
+    this.changeMenuProps(m.menuCode, () => this.updateMain(domainLink, domainType, m));
+  }
+
+  createReqParam(menuItem, query) {
+    // TODO: some all
+    return query;
+  }
+
   // TODO: refactor
   @autobind
-  menuClick(domainLink, domainType) {
+  updateMain(domainLink, domainType, menuItem) {
+    const menuCode = menuItem.menuCode;
+    const patch = searchBeforeAndAfter(menuCode, this.props.dataSource.menus);
     if (this.props.renderBody) {
       // this.setState({ anchor: RightPage });
-      this.setState({ main: this.props.renderBody(domainLink, domainType) });
+      this.setState({ main: this.props.renderBody(menuItem, this.props.location.query), ...patch }, this.updateAnchor);
     } else {
       this.props.exec(() => {
-        return this.props.fetch(trimStart(domainLink, '/'), {}).then(data => {
+        return this.props.fetch(trimStart(domainLink, '/'), this.createReqParam(menuItem, this.props.location.query)).then(data => {
           this.setState({
             main: this.createMain(data, domainType, domainLink),
-          });
+            ...patch
+          }, this.updateAnchor);
         }).catch(err => {
           this.setState({
-            main: (<div>异常</div>)
-          });
+            main: (<div>没有数据...</div>),
+            ...patch
+          }, this.updateAnchor);
         });
       });
     }
   }
 
-  componentDidMount() {
-    // this.menuClick(this.props.domainLink, this.props.domainType);
+  @autobind
+  updateAnchor() {
+    setTimeout(() => this.setState({ anchor: this.searchAnchor() }), 100);
   }
 
   componentWillMount() {
-    setTimeout(() => this.setState({ anchor: this.searchAnchor() }), 100);
-    this.menuClick(this.tag.domainLink, this.tag.domainType);
+    this.updateMain(this.tag.domainLink, this.tag.domainType, this.tag);
   }
 
   searchAnchor(children) {
-    // TODO: 暂时使用document
-    const ret = [];
-    const anchorLink = document.querySelectorAll("span[class='anchorTag']");
-    console.log('#######len', anchorLink.length);
-    anchorLink.forEach(a => {
-      ret.push({ href: a.children[0].attributes[0].nodeValue, title: a.innerText });
-    });
-    return ret;
+    return queryAnchor();
   }
 
   @autobind
@@ -144,26 +108,18 @@ export default class Layout extends React.Component {
   }
 
   @autobind
-  searchBeforeAndAfter(menuCode) {
-    let left = {};
-    let right = {};
-    this.menuList.some((item, index) => {
-      if (item.menuCode === menuCode) {
-        if (index === 1) {
-          left = null;
-        } else {
-          left = this.menuList[index - 1];
-        }
-        if (index === this.menuList - 2) {
-          right = null;
-        } else {
-          right = this.menuList[index + 1];
-        }
-        return true;
-      }
-      return false;
-    });
-    return { left, right };
+  changeMenuProps(menuCode, cb) {
+    this.setState({
+      selectedKeys: menuCode,
+      openKeys: this.changeMenuSelect(menuCode, this.props.dataSource.menus).openKeys
+    }, cb && cb);
+  }
+
+  @autobind
+  switchMenuItem(menuItem) {
+    const domainLink = trimStart(menuItem.domainLink, '/');
+    const domainType = menuItem.domainType;
+    this.changeMenuProps(menuItem.menuCode, () => this.updateMain(domainLink, domainType, menuItem));
   }
 
   render() {
@@ -174,19 +130,21 @@ export default class Layout extends React.Component {
         </Row>
         <Row>
           <Col span={4}>
-            <SimpleMenu
-              defaultOpenKeys={this.state.defaultOpenKeys}
-              defaultSelectedKeys={[this.state.defaultOpenKeys, this.state.defaultSelectedKeys]}
+            <SideMenu
+              openKeys={this.state.openKeys}
+              selectedKeys={[...this.state.openKeys, this.state.selectedKeys]}
               menu={this.props.dataSource.menus}
               menuClick={this.menuClick}
             />
           </Col>
           <Col span={18}>
             <div className={appStyle.layoutContainerBody} >
-              {this.state.main}
+              <div className={appStyle.layoutContainerBodyInner}>
+                {this.state.main}
+              </div>
               <Row className={appStyle.layoutContainerFooter} type="flex" justify="space-between" align="middle" >
-                <Col span="3">{this.state.left && (<a><Icon type="left" />{this.state.left.menuValue}</a>)}</Col>
-                <Col span="3">{this.state.right && (<a>{this.state.right.menuValue}<Icon type="right" /></a>)}</Col>
+                <Col span="12" className={appStyle.leftMenu}>{this.state.left && (<a onClick={() => this.switchMenuItem(this.state.left)}><Icon type="left" />{this.state.left.menuValue}</a>)}</Col>
+                <Col span="12" className={appStyle.rightMenu}>{this.state.right && (<a onClick={() => this.switchMenuItem(this.state.right)}>{this.state.right.menuValue}<Icon type="right" /></a>)}</Col>
               </Row>
             </div>
           </Col>

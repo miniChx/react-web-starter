@@ -6,8 +6,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Compose from '../utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
 import InitDecorator from './InitDecorator';
-
-import { searchMenu } from '../service/CacheService';
+import { getMenu } from '../service/CacheService';
+import { getMenuItemAndPathByFunc } from '../utils/MenuHelper';
 
 class PageContainer extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class PageContainer extends React.Component {
 
   render() {
     const domainLink = this.props.params.splat;
-    const { linkInfo } = searchMenu(domainLink);
+    const { linkInfo } = getMenuItemAndPathByFunc(item => (item.domainLink === domainLink || item.domainLink === '/' + domainLink), getMenu());
     const domainType = linkInfo ? linkInfo.domainType : this.props.location.query.domainType;
     const FinalPage = Compose(AsyncDecorator, InitDecorator)();
     return (

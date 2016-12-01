@@ -14,41 +14,6 @@ export const getToken = () => _store.getState().global.token;
 export const getMenu = () => _store.getState().menu;
 export const getSubMenu = () => _store.getState().subMenu;
 
-
-/* eslint-disable */
-export const searchMenu = (id , func = (id, item) => (item.domainLink === id || item.domainLink === '/' + id), menu = _store.getState().menu) => {
-   let tag = null;
-  const indexPath = [];
-
-  const filter = (item) => {
-    if (item.subMenus) {
-      item.subMenus.every((i, index) => {
-        if(index !==0 ) {
-          indexPath.pop();
-        }
-        indexPath.push(index);
-        filter(i);
-        return !tag;
-      });
-      !tag && indexPath.pop();
-    }
-    if (!tag && func(id, item)) {
-      tag = item;
-    }
-  };
-  menu.every((m, index) => {
-    if(index !== 0 ) {
-      indexPath.pop();
-    }
-    indexPath.push(index);
-    filter(m);
-    return !tag;
-  });
-  !tag && indexPath.pop();
-
-  return { linkInfo: tag, indexPath };
-};
-
 export const getRouting = () => {
   return _store.getState().routing || {};
 }

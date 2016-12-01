@@ -9,15 +9,15 @@ import { Info } from '../../framework/modules';
 import appStyle from '../../framework/styles/views/app.less';
 // import Simple from '../../components/simpleMenu';
 import { getSubMenu } from '../../framework/service/CacheService';
-import { AnHref } from '../../framework/modules/Info';
+import { AnHref } from '../../framework/modules/info';
 
 // const FormItem = Form.Item;
 
 export default class Lt extends React.Component {
 
   @autobind
-  renderMain(domainLink, domainType) {
-    console.log('######', domainLink + ', ' + domainType);
+  renderMain(selectMenuItem, query) {
+    console.log('######', selectMenuItem.domainLink + ', ' + selectMenuItem.domainType);
     return (
       <div>
         <AnHref title="这是自己渲染的" href="#hahahaha1" />
@@ -27,10 +27,11 @@ export default class Lt extends React.Component {
       </div>
     );
   }
+  // <Info {...this.props} renderBody={this.renderMain} />
   render() {
     return (
       <div>
-        <Info {...this.props} domainType="Detail" />
+        <Info {...this.props} />
       </div>
     );
   }
