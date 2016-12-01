@@ -93,19 +93,21 @@ export default class Layout extends React.Component {
 
   @autobind
   createMain(data, domainType, domainLink) {
-    const RightPage = Compose(AsyncDecorator, InitDecorator)();
-    return (<RightPage dataSource={data} domainType={domainType} domainLink={domainLink} />);
+    const TempPage = Compose(AsyncDecorator, InitDecorator)();
+    return (<TempPage dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
+  // TODO: refactor
   @autobind
   menuClick(domainLink, domainType) {
     if (this.props.renderBody) {
+      // this.setState({ anchor: RightPage });
       this.setState({ main: this.props.renderBody(domainLink, domainType) });
     } else {
       this.props.exec(() => {
         return this.props.fetch(domainLink, {}).then(data => {
           this.setState({
-            main: this.createMain(data, domainType, domainLink)
+            main: this.createMain(data, domainType, domainLink),
           });
         });
       });
@@ -117,20 +119,19 @@ export default class Layout extends React.Component {
   }
 
   componentWillMount() {
-    // this.setState({ anchor: this.searchAnchor() });
+    setTimeout(() => this.setState({ anchor: this.searchAnchor() }), 100);
     this.menuClick(this.tag.domainLink, this.tag.domainType);
   }
 
   searchAnchor(children) {
-    if (typeof children === 'object') {
-      if (children instanceof Array) {
-        children.some(c => this.searchAnchor(c));
-      } else if (children && children.type && children.type.defaultProps && children.type.defaultProps.name === 'AnchorHref') {
-        this.anchor.push({ title: children.props.title, href: children.props.href });
-      } else if (children && children.props.children) {
-        this.searchAnchor(children.props.children);
-      }
-    }
+    // TODO: 暂时使用document
+    const ret = [];
+    const anchorLink = document.querySelectorAll("span[class='anchorTag']");
+    console.log('#######len', anchorLink.length);
+    anchorLink.forEach(a => {
+      ret.push({ href: a.children[0].attributes[0].nodeValue, title: a.innerText });
+    });
+    return ret;
   }
 
   @autobind
@@ -184,7 +185,7 @@ export default class Layout extends React.Component {
           </Col>
           <Col span={2}>
             <Anchor>
-              {this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
+              {this.state.anchor && this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
             </Anchor>
           </Col>
         </Row>

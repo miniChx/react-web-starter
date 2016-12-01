@@ -13,6 +13,7 @@ import { PFetch } from '../../../system/fetch';
 import { dispatch } from '../../../service/DispatchService';
 import { CONTAINER_PRE } from '../../../routes';
 import { getValueByKey } from '../../../utils/MapUtils';
+import { AnHref } from '../../Info';
 
 const FormItem = Form.Item;
 
@@ -103,6 +104,7 @@ class ListDetail extends React.Component {
 
     return (
       <div>
+        <AnHref title="这是自己渲染的" href="#hahahaha1" />
         <div className={appStyle.formBox} >
           <Form horizontal={true} >
             <Row gutter={40} className={appStyle.cell}>

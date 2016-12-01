@@ -13,7 +13,7 @@
           "menuCode":"customer1Management",
           "menuValue":"客户基础信息",
           "displaySequence":1,
-          "domainLink":"",
+          "domainLink":"AccountDetail/render",
           "domainType":"Detail",
           "isSelected":true,
           "subMenus":null
