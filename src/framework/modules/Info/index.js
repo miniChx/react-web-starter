@@ -2,7 +2,7 @@
  * Created by baoyinghai on 11/27/16.
  */
 import React from 'react';
-import { Row, Col, Menu, Icon, BackTop, Affix } from 'mxa';
+import { Row, Col, Menu, Icon, BackTop, Affix, Button } from 'mxa';
 import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
 import Anchor, { ArchorLink } from '../../../components/anchor';
@@ -13,6 +13,9 @@ import Compose from '../../utils/Compose';
 import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
+import { showComponent } from './MaskLayer';
+
+const ButtonGroup = Button.Group;
 
 export default class Layout extends React.Component {
 
@@ -33,7 +36,7 @@ export default class Layout extends React.Component {
       main: null,
       left: null,
       right: null,
-      tools: false,
+      tools: true,
       anchor: [],
       selectedKeys: this.tag.menuCode,
       openKeys
@@ -103,11 +106,6 @@ export default class Layout extends React.Component {
   }
 
   @autobind
-  toolsChange(e) {
-    this.setState({ tools: !this.state.tools });
-  }
-
-  @autobind
   changeMenuProps(menuCode, cb) {
     this.setState({
       selectedKeys: menuCode,
@@ -120,6 +118,34 @@ export default class Layout extends React.Component {
     const domainLink = trimStart(menuItem.domainLink, '/');
     const domainType = menuItem.domainType;
     this.changeMenuProps(menuItem.menuCode, () => this.updateMain(domainLink, domainType, menuItem));
+  }
+
+  @autobind
+  switchTools() {
+    this.setState({
+      tools: !this.state.tools
+    });
+  }
+
+  @autobind
+  popMask() {
+    showComponent((<div>这是即将道来的流程图</div>), {});
+  }
+
+  @autobind
+  renderLayoutTools() {
+    if (this.state.tools) {
+      return (
+        <div className={appStyle.layoutTools}>
+          <ButtonGroup>
+            <Button type="primary">审批</Button>
+            <Button type="ghost" onClick={this.popMask}>流程图</Button>
+            <Button type="ghost" onClick={this.switchTools}>隐藏</Button>
+          </ButtonGroup>
+        </div>
+      );
+    }
+    return (<Icon type="caret-left" onClick={this.switchTools} className={appStyle.layoutToolsArrow} />);
   }
 
   render() {
@@ -155,18 +181,7 @@ export default class Layout extends React.Component {
           </Col>
         </Row>
         <BackTop />
-        <div className={appStyle.layoutTools} onClick={this.toolsChange}>
-          {
-            this.state.tools && (<div className={appStyle.layoutToolItems}>
-              <Icon type="close-circle" />
-              <Icon type="credit-card" />
-              <Icon type="frown-o" />
-              <Icon type="bars" />
-              <Icon type="book" />
-            </div>)
-          }
-          <Icon type={!this.state.tools ? 'caret-left' : 'caret-right'} />
-        </div>
+        {this.renderLayoutTools()}
       </div>
     );
   }
