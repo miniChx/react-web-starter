@@ -36,13 +36,13 @@ function getAppConfig() {
       if (item === '--host') {
         appConfig.host = argsArray[index + 1];
       }
-      if (item === '--imgPath') {
-        appConfig.imgPath = argsArray[index + 1];
+      if (item === '--processPath') {
+        appConfig.processPath = argsArray[index + 1];
       }
     }
 
-    if (!appConfig.imgPath && appConfig.host) {
-      appConfig.imgPath = appConfig.host
+    if (!appConfig.processPath && appConfig.host) {
+      appConfig.processPath = appConfig.host
     }
   } else {
     console.log('no host insert!!!');

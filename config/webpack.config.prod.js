@@ -174,7 +174,7 @@ module.exports = {
       },
       {
         test:require.resolve('../src/config'),
-        loader: "imports-loader?baseUrl=>'" + appConfig.host + "'&baseImgUrl=>'" + appConfig.imgPath + "'"
+        loader: "imports-loader?baseUrl=>'" + appConfig.host + "'&baseProcessUrl=>'" + appConfig.processPath + "'"
       }
     ]
   },

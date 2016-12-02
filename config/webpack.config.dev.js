@@ -160,7 +160,7 @@ module.exports = {
       },
       {
         test:require.resolve('../src/config'),
-        loader: "imports-loader?baseUrl=>''&baseImgUrl=>''"
+        loader: "imports-loader?baseUrl=>''&baseProcessUrl=>''"
       }
     ]
   },

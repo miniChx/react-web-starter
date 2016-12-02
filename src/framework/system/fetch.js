@@ -40,9 +40,9 @@ const rawFetch = (url, param) => {
   console.log('请求地址: ', url);
   console.log('请求参数: ', param);
   // if (url.indexOf('http') < 0) {
-  //   url = Config.host + url;
+  //   url = CbaseProcessUrl + url;
   // };
-  return process(MxFetch.fetch(Config.host + url, param, 6180));
+  return process(MxFetch.fetch(Config.Host + url, param, 6180));
 };
 /* eslint-disable */
 export const PFetch = (url, param) => {
