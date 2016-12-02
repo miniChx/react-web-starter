@@ -98,6 +98,7 @@
   "scripts": {
     "start": "node bin/start.js",
     "build": "node bin/build.js",
+    "gen-dll": "webpack --config config/webpack.config.dll.js",
     "eslint": "eslint ./src",
     "stylelint": "stylelint \"src/styles/**/*.less\" --syntax less",
     "lint": "npm run eslint",
