@@ -1,9 +1,16 @@
 const defaultHost = 'http://localhost:3003/';
-const defaultImgPath = 'http://192.168.64.98:9081/';
+const defaultProcessPath = 'http://192.168.64.98:9081/';
 /* eslint-disable */
 const Config = {
-  host: baseUrl || defaultHost,
-  imgPath: baseImgUrl || defaultImgPath
+  Host: baseUrl || defaultHost,
+  ProcessPath: baseProcessUrl || defaultProcessPath
 };
 
-export default Config;
+const CustomConfig = {
+  ImageHost: 'http://img.izirong.com/',
+  ImageBkt: 'wuhan-fas-img',
+  ImageAk: 'iCduUao0AIuRdTqd3_4oqwzU8doDU3vh0sMF1CzD',
+  ImageSk: 'UtrtzaV8CAXgRkajynOnghX24NrS70Qs0RJozPcZ',
+}
+
+export default Object.assign(Config, CustomConfig);

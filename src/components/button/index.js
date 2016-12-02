@@ -103,7 +103,7 @@ export class ExtendButton extends React.Component {
         <Button
           {...this.props.buttonProps}
           className={this.props.className}
-          onClick={() => this._triggerAction()}
+          onClick={this._triggerAction}
           disabled={this.props.disabled}
         >{this.props.buttonDescription}</Button>
       );
@@ -112,7 +112,7 @@ export class ExtendButton extends React.Component {
     return (
       <a
         className={this.props.className}
-        onClick={() => this._triggerAction()}
+        onClick={this._triggerAction}
       >{this.props.buttonDescription}</a>
     );
   }

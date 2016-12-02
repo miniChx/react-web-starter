@@ -11,7 +11,7 @@ export default class ProcessImg extends React.Component {
     // console.log('img source url', this.props.params.imgUrl || this.props.location.query.imgUrl);
     const imgUrl = this.props.params.imgUrl || this.props.location.query.imgUrl;
     return (
-      <IFrame url={Config.imgPath + '/' + imgUrl} />
+      <IFrame url={Config.ProcessPath + '/' + imgUrl} />
     );
   }
 }
