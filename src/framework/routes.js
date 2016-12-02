@@ -4,7 +4,7 @@ import Home from './modules/home';
 import Login from './modules/login';
 import Register from './modules/login/register';
 import FindPwd from './modules/login/findPwd';
-// import PageContainer from './framework/pageContainer';
+import PageContainer from './pageContainer';
 import NotFound from './modules/exception/404';
 import App from './App';
 import exclusive from './pageContainer/exclusive';
@@ -52,11 +52,12 @@ const routes = {
     // { path: '/' + CONTAINER_PRE + '/**', component: PageContainer },
     {
       path: '/' + CONTAINER_PRE + '/**',
-      getComponents(nextState, callback) {
-        require.ensure([], require => {
-          callback(null, require('./pageContainer/index').default);
-        }, 'container');
-      },
+      component: PageContainer,
+      // getComponents(nextState, callback) {
+      //   require.ensure([], require => {
+      //     callback(null, require('./pageContainer/index').default);
+      //   }, 'container');
+      // },
       onEnter: getPageInitData
     },
     { path: '*', component: NotFound },
