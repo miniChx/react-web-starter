@@ -29,7 +29,9 @@ export default class SwitchContainer extends React.Component {
         <div onClick={this.switchContainer} className={styles.switchContainer}>
           <span><Icon className={styles.iconFont} type={this.state.isVisible ? 'minus-square-o' : 'plus-square-o'} />{this.props.bar}</span>
         </div>
-        {this.state.isVisible && this.props.children}
+        <div className={styles.switchContainerBody}>
+          {this.state.isVisible && this.props.children}
+        </div>
       </div>
     );
   }

@@ -32,14 +32,17 @@ export default class Layout extends React.Component {
       this.tag = getMenuItemByFunc(m => m.isSelected === true, this.props.dataSource.menus) || {};
       openKeys = this.changeMenuSelect(this.tag.menuCode, this.props.dataSource.menus).openKeys;
     }
+    const tools = true;
     this.state = {
       main: null,
       left: null,
       right: null,
-      tools: true,
+      tools,
       anchor: [],
       selectedKeys: this.tag.menuCode,
-      openKeys
+      openKeys,
+      // toolStyle: tools ? appStyle.layoutToolsOut : appStyle.layoutToolsIn
+      toolStyle: appStyle.layoutToolsDefault
     };
   }
 
@@ -123,6 +126,7 @@ export default class Layout extends React.Component {
   @autobind
   switchTools() {
     this.setState({
+      toolStyle: !this.state.tools ? appStyle.layoutToolsOut : appStyle.layoutToolsIn,
       tools: !this.state.tools
     });
   }
@@ -134,18 +138,18 @@ export default class Layout extends React.Component {
 
   @autobind
   renderLayoutTools() {
-    if (this.state.tools) {
-      return (
-        <div className={appStyle.layoutTools}>
-          <ButtonGroup>
-            <Button type="primary">审批</Button>
-            <Button type="ghost" onClick={this.popMask}>流程图</Button>
-            <Button type="ghost" onClick={this.switchTools}>隐藏</Button>
-          </ButtonGroup>
-        </div>
-      );
-    }
-    return (<Icon type="caret-left" onClick={this.switchTools} className={appStyle.layoutToolsArrow} />);
+    // if (this.state.tools) {
+    return (
+      <div className={this.state.toolStyle}>
+        <ButtonGroup>
+          <Button type="primary" onClick={this.switchTools}>{this.state.tools ? <Icon style={{ marginLeft: '-5px' }} type="caret-right" /> : <Icon style={{ marginLeft: '-5px' }} type="caret-left" />}</Button>
+          <Button type="ghost">审批</Button>
+          <Button type="ghost" onClick={this.popMask}>流程图</Button>
+        </ButtonGroup>
+      </div>
+    );
+    // }
+    // return (<Icon type="caret-left" onClick={this.switchTools} className={appStyle.layoutToolsArrow} />);
   }
 
   render() {
