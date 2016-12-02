@@ -2,8 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push, replace, goBack } from 'react-router-redux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-// import Animate from 'rc-animate';
+
 import { Row, Col } from 'mxa';
 
 import { autobind } from 'core-decorators';
@@ -14,6 +13,9 @@ import { Header, Footer } from '../components';
 import { isInitDataFromServer } from './service/CacheService';
 import { initDataFromServer } from './actions/global';
 import { longRunExec } from './system/longRunOpt';
+
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 class App extends React.Component {
   constructor(props) {

@@ -5,7 +5,6 @@ import React from 'react';
 import { Menu } from 'mxa';
 import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
-import { trimStart } from 'lodash/string';
 import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../../routes';
 
 const SubMenu = Menu.SubMenu;

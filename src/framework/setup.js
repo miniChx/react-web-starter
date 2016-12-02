@@ -2,7 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import LoadingBar from 'react-redux-loading-bar';
+// import LoadingBar from 'react-redux-loading-bar';
+import LoadingBar from './modules/loading-bar';
 // import 'mxa/dist/mxa.less';
 
 import configureStore from './store/configureStore';
