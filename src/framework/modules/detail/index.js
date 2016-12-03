@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import Main from './main';
+import detailCreator from './main';
 import SwitchContainer from './switchContainer';
 
 export default class ListDetail extends React.Component {
@@ -42,6 +42,7 @@ export default class ListDetail extends React.Component {
   render() {
     const model = this.state.model;
     const mainProps = { ...this.props, model };
+    const Main = detailCreator();
     return (
       <Main { ...mainProps } changeState={this.changeState} />
     );
