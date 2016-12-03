@@ -16,53 +16,6 @@
   border-radius: 5px;
 }
 
-.layoutContainerBody {
-  padding-left: 2rem;
-  border-left: 1px solid @border-color-split;
-
-  h1 {
-    color: #404040;
-    font-weight: 500;
-    line-height: 40px;
-    margin-bottom: 24px;
-    margin-top: 8px;
-  }
-  h2 {
-    color: #404040;
-    margin: 1.6em 0 .6em;
-    font-weight: 500;
-    clear: both;
-  }
-
-  .formBox {
-    border: 1px solid @border-color-split;
-    border-radius: 6px;
-    display: inline-block;
-    width: 100%;
-    position: relative;
-    margin: 0 0 16px;
-    .cell {
-      padding: 42px 20px 50px;
-    }
-  }
-
-  .layoutContainerBodyInner {
-    min-height: 30rem;
-  }
-
-  .layoutContainerFooter {
-    border-top: 1px solid @border-color-split;
-    padding: 1rem;
-    .leftMenu {
-      text-align: left;
-    }
-    .rightMenu {
-      text-align: right;
-    }
-  }
-
-}
-
 .appBody {
   padding-left: 3.5rem;
   padding-right: 3.5rem;
@@ -131,60 +84,4 @@
   height: 2px;
   position: absolute;
   z-index: 999999;
-}
-
-.layoutToolsOut {
-  position: fixed;
-  top: 5.5rem;
-  right: 12rem;
-  border-radius: @btn-border-radius-base;
-  color: @info-color;
-  background-color: @body-background;
-  animation: moveout 1s;
-  animation-timing-function: ease;
-}
-
-.layoutToolsIn {
-  position: fixed;
-  top: 5.5rem;
-  right: -6.5rem;
-  border-radius: @btn-border-radius-base;
-  color: @info-color;
-  background-color: @body-background;
-  animation: movein 1s;
-  animation-timing-function: ease;
-}
-
-.layoutToolsDefault {
-  position: fixed;
-  top: 5.5rem;
-  right: -6.5rem;
-  border-radius: @btn-border-radius-base;
-  color: @info-color;
-  background-color: @body-background;
-}
-
-@keyframes movein
-{
-  from {right: 12rem;}
-  to {right: -6.5rem;}
-}
-
-
-@keyframes moveout
-{
-  from {right: -6.5rem;}
-  to {right: 12rem;}
-}
-
-.layoutToolsArrow {
-  color: @info-color;
-  position: fixed;
-  right: 0rem;
-  top: 5rem;
-  font-size: 28px;
-
-  &:hover {
-    cursor: pointer;
-  }
 }

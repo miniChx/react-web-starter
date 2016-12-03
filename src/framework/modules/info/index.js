@@ -7,7 +7,7 @@ import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
 import Anchor, { ArchorLink } from '../../../components/anchor';
 import AnchorHref, { queryAnchor } from './anchorHref';
-import appStyle from '../../styles/views/app.less';
+import appStyle from '../../styles/views/info.less';
 import SideMenu from './sideMenu';
 import Compose from '../../utils/Compose';
 import AsyncDecorator from '../../pageContainer/AsyncDecorator';

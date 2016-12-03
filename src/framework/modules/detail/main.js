@@ -6,7 +6,7 @@ import { Form, Input, DatePicker, Col, Select, Tooltip, Icon, Cascader, Row, But
 import { autobind } from 'core-decorators';
 import { goBack, replace } from 'react-router-redux';
 
-import appStyle from '../../styles/views/app.less';
+import appStyle from '../../styles/views/detail.less';
 import renderFuc from './displayAnalyser/index';
 import styles from '../../styles/views/listview.less';
 import { PFetch } from '../../system/fetch';
@@ -194,5 +194,9 @@ class Detail extends React.Component {
   }
 }
 
-export default Form.create()(Detail);
+const detailCreator = () => {
+  return Form.create()(Detail);
+}
+
+export default detailCreator;
 
