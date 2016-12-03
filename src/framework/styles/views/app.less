@@ -133,20 +133,48 @@
   z-index: 999999;
 }
 
-.layoutTools {
-  // display: inline;
+.layoutToolsOut {
   position: fixed;
-  right: 12rem;
   top: 5.5rem;
+  right: 12rem;
+  border-radius: @btn-border-radius-base;
   color: @info-color;
   background-color: @body-background;
-  // transition: all 1s @ease-out-circ;
-  .layoutToolItems {
-    display: inline;
-    i {
-      padding: 2px;
-    }
-  }
+  animation: moveout 1s;
+  animation-timing-function: ease;
+}
+
+.layoutToolsIn {
+  position: fixed;
+  top: 5.5rem;
+  right: -6.5rem;
+  border-radius: @btn-border-radius-base;
+  color: @info-color;
+  background-color: @body-background;
+  animation: movein 1s;
+  animation-timing-function: ease;
+}
+
+.layoutToolsDefault {
+  position: fixed;
+  top: 5.5rem;
+  right: -6.5rem;
+  border-radius: @btn-border-radius-base;
+  color: @info-color;
+  background-color: @body-background;
+}
+
+@keyframes movein
+{
+  from {right: 12rem;}
+  to {right: -6.5rem;}
+}
+
+
+@keyframes moveout
+{
+  from {right: -6.5rem;}
+  to {right: 12rem;}
 }
 
 .layoutToolsArrow {

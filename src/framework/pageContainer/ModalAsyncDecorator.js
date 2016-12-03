@@ -8,7 +8,7 @@ import { setSubMenu } from '../actions/global';
 import { longRunExec } from '../system/longRunOpt';
 import { PFetch } from '../system/fetch';
 
-const AsyncDecorator = Wrapper => {
+const ModalAsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -52,18 +52,21 @@ const AsyncDecorator = Wrapper => {
 
     render() {
       const { data } = this.state;
-      return (
-        <Wrapper
-          {...this.props}
-          dataSource={data}
-          freshData={this.freshData}
-        />
-      );
+      if (data && ((data.length && data.length > 0) || (Object.keys(data).length > 0))) {
+        return (
+          <Wrapper
+            {...this.props}
+            dataSource={data}
+            freshData={this.freshData}
+          />
+        );
+      }
+      return (<div>加载中</div>);
     }
   }
 
   return WrapperComponent;
 };
 
-export default AsyncDecorator;
+export default ModalAsyncDecorator;
 
