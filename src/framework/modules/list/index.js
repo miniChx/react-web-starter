@@ -3,12 +3,13 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Select } from 'mxa';
+import isEmpty from 'lodash/isEmpty';
 import { ExtendButton, Search } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
-import { constructOrderFields, constructFilterFieldCodes } from './SelectUtils';
+import { constructFilterFieldCodes, handleOrderItems } from './util';
 
 const Option = Select.Option;
 
@@ -48,12 +49,19 @@ class ListView extends React.Component {
       buttons.search = data.buttons.filter(item => item.actionType === 'search');
     }
 
+    const orderItems = handleOrderItems(data.orderItems);
+    const ordered = data.orderItems && data.orderItems.length > 0;
     // eslint-disable-next-line arrow-body-style
-    const columns = data.fields && data.fields.map(item => ({
-      key: item.index,
-      title: item.description,
-      dataIndex: item.name,
-    }));
+    let mainEntityKey = '';
+    const columns = data.fields && data.fields.map(item => {
+      if (item.isMainEntityKey) mainEntityKey = item.name;
+      return {
+        key: item.index,
+        title: item.description,
+        dataIndex: item.name,
+        sorter: !!orderItems[item.name],
+      };
+    });
 
     // add operation
     if (buttons && buttons.inline && buttons.inline.length > 0) {
@@ -81,7 +89,6 @@ class ListView extends React.Component {
     };
 
     const filterFieldCodes = [];
-    const orderFields = constructOrderFields(data.filterItems);
 
     const selectedType = LIST_SELECTTYPE.CHECKBOX;
     return {
@@ -93,7 +100,9 @@ class ListView extends React.Component {
       pageIndex,
       itemsPerPage,
       filterFieldCodes,
-      orderFields,
+      ordered,
+      orderFields: [],
+      mainEntityKey,
       selectedType,
       selectedRowKeys: [],
       selectedRows: [],
@@ -113,12 +122,28 @@ class ListView extends React.Component {
   @autobind
   _onChange(pagination, filters, sorter) { // eslint-disable-line
     console.log('params', pagination, filters, sorter);
-    this.setState({
-      pageIndex: pagination.current,
-      itemsPerPage: pagination.pageSize
-    }, () => {
-      this._onSearch();
-    });
+    if (this.state.ordered && !isEmpty(sorter)) {
+      const orderFields = [];
+      orderFields.push({
+        orderField: sorter.field,
+        orderType: sorter.order === 'descend' ? 'DESC' : 'ASC',
+      });
+
+      this.setState({
+        pageIndex: pagination.current,
+        itemsPerPage: pagination.pageSize,
+      }, () => {
+        this._onSearch();
+      });
+    } else {
+      this.setState({
+        pageIndex: pagination.current,
+        itemsPerPage: pagination.pageSize,
+        // orderFields,
+      }, () => {
+        this._onSearch();
+      });
+    }
   }
 
   @autobind

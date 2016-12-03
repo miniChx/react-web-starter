@@ -90,68 +90,89 @@
   "itemsPerPage": 10,
   "fields": [
     {
-      "name": "id",
-      "index": 1,
-      "entityShortName": "A",
-      "type": "Long",
-      "description": "编号",
-      "groupId": 1,
-      "isVisible": false,
-      "displayComponent": {
-        "componentType": "Input",
-        "items": null
+      "name":"basicCustomerId",
+      "isMainEntityKey":true,
+      "fieldCode":"BASICCUSTOMER_BASICCUSTOMERID_IN_BASICCUSTOMER_LIST",
+      "index":1,
+      "entityShortName":"A",
+      "type":"Long",
+      "description":"客户编号",
+      "groupId":1,
+      "isVisible":false,
+      "displayComponent":{
+        "componentType":"Input",
+        "dictionaryCategory":null,
+        "dictionaryItems":[
+
+        ]
       }
     },
     {
-      "name": "userName",
-      "index": 2,
-      "entityShortName": "A",
-      "type": "String",
-      "description": "用户名",
-      "groupId": 1,
-      "isVisible": true,
-      "displayComponent": {
-        "componentType": "Input",
-        "items": null
+      "name":"customerName",
+      "isMainEntityKey":false,
+      "fieldCode":"BASICCUSTOMER_CUSTOMERNAME_IN_BASICCUSTOMER_LIST",
+      "index":2,
+      "entityShortName":"A",
+      "type":"String",
+      "description":"客户名称",
+      "groupId":1,
+      "isVisible":true,
+      "displayComponent":{
+        "componentType":"Input",
+        "dictionaryCategory":null,
+        "dictionaryItems":[
+
+        ]
       }
     },
     {
-      "name": "mobileNo",
-      "index": 3,
-      "entityShortName": "A",
-      "type": "String",
-      "description": "手机号",
-      "groupId": 1,
-      "isVisible": true,
-      "displayComponent": {
-        "componentType": "Input",
-        "items": null
+      "name":"customerSize",
+      "isMainEntityKey":false,
+      "fieldCode":"BASICCUSTOMER_CUSTOMERSIZE_IN_BASICCUSTOMER_LIST",
+      "index":3,
+      "entityShortName":"A",
+      "type":"Long",
+      "description":"客户规模",
+      "groupId":1,
+      "isVisible":true,
+      "displayComponent":{
+        "componentType":"Input",
+        "dictionaryCategory":null,
+        "dictionaryItems":[
+
+        ]
       }
     },
     {
-      "name": "email",
-      "index": 4,
-      "entityShortName": "A",
-      "type": "String",
-      "description": "邮箱",
-      "groupId": 1,
-      "isVisible": true,
-      "displayComponent": {
-        "componentType": "Input",
-        "items": null
-      }
-    },
-    {
-      "name": "status",
-      "index": 5,
-      "entityShortName": "A",
-      "type": "String",
-      "description": "状态",
-      "groupId": 1,
-      "isVisible": true,
-      "displayComponent": {
-        "componentType": "Input",
-        "items": null
+      "name":"customerType",
+      "isMainEntityKey":false,
+      "fieldCode":"BASICCUSTOMER_CUSTOMERTYPE_IN_BASICCUSTOMER_LIST",
+      "index":4,
+      "entityShortName":"A",
+      "type":"String",
+      "description":"客户类型",
+      "groupId":1,
+      "isVisible":true,
+      "displayComponent":{
+        "componentType":"SELECT",
+        "dictionaryCategory":"CUSTOMER_TYPE",
+        "dictionaryItems":[
+          {
+            "code":"ENTERPRISE",
+            "value":"企业客户",
+            "displaySequence":1
+          },
+          {
+            "code":"NATURAL_PERSON",
+            "value":"自然人客户",
+            "displaySequence":2
+          },
+          {
+            "code":"PARTNER",
+            "value":"合作方客户",
+            "displaySequence":3
+          }
+        ]
       }
     }
   ],
@@ -231,53 +252,47 @@
       ]
     }
   ],
-  "filterItems": [
+  "filterItems":[
     {
-      "fieldName": "status",
-      "displayName": "状态",
-      "displaySeq": 1,
-      "options": [
-        {
-          "displayName": "全部",
-          "displayCode": "ACCOUNT_STATUS_ALL",
-          "displaySeq": 1,
-          "isSelected": true
-        },
-        {
-          "displayName": "有效用户",
-          "displayCode": "ACCOUNT_STATUS_ACTIVE",
-          "displaySeq": 2,
-          "isSelected": false
-        },
-        {
-          "displayName": "已冻结用户",
-          "displayCode": "ACCOUNT_STATUS_FERRZING",
-          "displaySeq": 3,
-          "isSelected": false
-        },
-        {
-          "displayName": "已删除用户",
-          "displayCode": "ACCOUNT_STATUS_DELETED",
-          "displaySeq": 4,
-          "isSelected": false
-        }
-      ]
-    }
-  ],
-  "orderItems": [
-    {
-      "fieldName": "id",
-      "displayName": "编号",
-      "displaySeq": 1,
-      "isSelected": true,
-      "isAsc": true
+      "fieldName":"customerName",
+      "displayName":"客户名称",
+      "displaySeq":1,
+      "operatorType":"LIKE"
     },
     {
-      "fieldName": "status",
-      "displayName": "状态",
-      "displaySeq": 2,
-      "isSelected": true,
-      "isAsc": true
+      "fieldName":"customerSize",
+      "displayName":"客户规模",
+      "displaySeq":2,
+      "operatorType":"BETWEEN"
+    },
+    {
+      "fieldName":"customerType",
+      "displayName":"客户类型",
+      "displaySeq":3,
+      "operatorType":"EQ"
+    }
+  ],
+  "orderItems":[
+    {
+      "fieldName":"customerName",
+      "displayName":"客户名称",
+      "displaySeq":1,
+      "isSelected":false,
+      "isAsc":true
+    },
+    {
+      "fieldName":"customerSize",
+      "displayName":"客户规模",
+      "displaySeq":2,
+      "isSelected":false,
+      "isAsc":true
+    },
+    {
+      "fieldName":"customerType",
+      "displayName":"客户类型",
+      "displaySeq":3,
+      "isSelected":false,
+      "isAsc":true
     }
   ]
 }

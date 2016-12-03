@@ -35,6 +35,21 @@ app.post('/Pub/Account/login', function (req, res) {
   res.json(mockData);
 })
 
+
+const CustomerTypeData = [{
+  "code":"ENTERPRISE",
+  "value":"企业客户",
+  "displaySequence":1
+}, {
+  "code":"NATURAL_PERSON",
+  "value":"自然人客户",
+  "displaySequence":2
+}, {
+  "code":"PARTNER",
+  "value":"合作方客户",
+  "displaySequence":3
+}];
+
 app.post('/DemoList/render', function (req, res) {
   var mockData = require('./json/demoList.json');
   const pageResult = {
@@ -44,14 +59,13 @@ app.post('/DemoList/render', function (req, res) {
     totalItems: 56,
   };
   const contentList = [];
+
   for (let i = 0; i < 10; i++) {
     contentList.push({
-      id: i,
-      userName: "userName" + pageResult.pageIndex + i,
-      mobileNo: "13355558888" + i,
-      email: "userName" + i + "@amarsoft.com",
-      status: "ACTIVE",
-      statusValue: "有效用户"
+      basicCustomerId: i,
+      customerName: "userName" + i + pageResult.pageIndex,
+      customerSize: "13355558888" + i,
+      customerType: CustomerTypeData[i % 3].code,
     });
   }
   pageResult.contentList = contentList;
@@ -75,17 +89,14 @@ app.post('/DemoList/search', function (req, res) {
     pageResult.totalItems - pageResult.itemsPerPage * (pageResult.totalPages - 1);
   for (let i = 0; i < contentLength; i++) {
     contentList.push({
-      id: i,
-      userName: "userName" + pageResult.pageIndex + i,
-      mobileNo: "13355558888" + i,
-      email: "userName" + i + "@amarsoft.com",
-      status: "ACTIVE",
-      statusValue: "有效用户"
+      basicCustomerId: i,
+      customerName: "userName" + i + pageResult.pageIndex,
+      customerSize: "13355558888" + i,
+      customerType: CustomerTypeData[i % 3].code,
     });
   }
   pageResult.contentList = contentList;
   mockData.pageResult = pageResult;
-
 
   res.json(mockData);
 })
