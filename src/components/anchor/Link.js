@@ -21,7 +21,7 @@ export default class Link extends React.Component {
 
   render() {
     return (
-      <li className={styles.anchor}> <span onClick={this.linkClick} title={this.props.title}>{this.props.title.substring(0, 5) + '...'}</span></li>
+      <li className={styles.anchor}> <span onClick={this.linkClick} title={this.props.title}>{this.props.title.length > 7 ? this.props.title.substring(0, 7) + '...' : this.props.title}</span></li>
     );
   }
 }

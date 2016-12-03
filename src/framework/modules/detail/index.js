@@ -3,17 +3,30 @@
  */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import InfoEdit from './infoEdit';
-import InfoShow from './infoShow';
-// import Layout from '../../../layout';
-// import { getSubMenu } from '../../../service/CacheService';
+import Main from './main';
+import SwitchContainer from './switchContainer';
 
 export default class ListDetail extends React.Component {
+
+  /* eslint-disable */
+  static defaultProps = {
+    model: 'show'
+  };
+
+  /* eslint-disable */
+  static propTypes = {
+    model: React.PropTypes.oneOf(['show', 'edit']),
+    createRules: React.PropTypes.func, // 自定义表单校验 // record
+    beforeSubmit: React.PropTypes.func, // 表单提交之前 // callback
+    afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
+    dataSource: React.PropTypes.object.isRequired,
+    renderAnalyser: React.PropTypes.func // 自定义渲染标单项 // componentName
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      model: 'show'
+      model:  this.props.model
     };
   }
 
@@ -26,26 +39,13 @@ export default class ListDetail extends React.Component {
     }
   }
 
-  @autobind
-  renderMain() {
-    if (this.state.model === 'show') {
-      return (
-        <InfoShow {...this.props} changeState={this.changeState} />
-      );
-    }
+  render() {
+    const model = this.state.model;
+    const mainProps = { ...this.props, model };
     return (
-      <InfoEdit {...this.props} changeState={this.changeState} />
+      <Main { ...mainProps } changeState={this.changeState} />
     );
   }
 
-  render() {
-    // 决定是否套用layout
-    // return (
-    //   <Layout menu={getSubMenu()} exec={this.props.exec} fetch={this.props.fetch} >
-    //     {(this.props.renderMain && this.props.renderMain()) || this.renderMain()}
-    //   </Layout>
-    // );
-    return this.renderMain();
-  }
 }
 

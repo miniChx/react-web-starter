@@ -4,12 +4,15 @@
 
 import React from 'react';
 import { Cascader } from 'mxa';
-// import StaticDisplay from './StaticDisplay';
+import StaticDisplay from './StaticDisplay';
 
-const compRender = (record, model) => {
+const compRender = record => {
   return (
-    <Cascader options={record.displayComponent.items} placeholder="请选择" disabled={record.isReadonly || model === 'show'} />
+    <Cascader options={record.displayComponent.items} placeholder="请选择" disabled={record.isReadonly} />
   );
 };
 
-export default compRender;
+export default {
+  show: StaticDisplay,
+  edit: compRender
+};

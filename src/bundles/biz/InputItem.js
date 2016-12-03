@@ -3,11 +3,11 @@
  */
 import React from 'react';
 import { Input } from 'mxa';
-import StaticDisplay from './StaticDisplay';
+import StaticDisplay from '../../framework/modules/detail/displayAnalyser/StaticDisplay';
 
-const compRender = record => {
+const compRender = field => {
   return (
-    <Input disabled={record.isReadonly} />
+    <Input disabled={false} />
   );
 };
 

@@ -133,57 +133,35 @@
   z-index: 999999;
 }
 
-.layoutToolsDefault {
-  // display: inline;
-  position: fixed;
-  top: 5.5rem;
-  right: 12rem;
-  color: @info-color;
-  background-color: @body-background;
-  animation-timing-function: ease;
-  // transition: all 1s @ease-out-circ;
-  .layoutToolItems {
-    display: inline;
-    i {
-      padding: 2px;
-    }
-  }
-}
-
 .layoutToolsOut {
-  // display: inline;
   position: fixed;
   top: 5.5rem;
   right: 12rem;
+  border-radius: @btn-border-radius-base;
   color: @info-color;
   background-color: @body-background;
   animation: moveout 1s;
   animation-timing-function: ease;
-  // transition: all 1s @ease-out-circ;
-  .layoutToolItems {
-    display: inline;
-    i {
-      padding: 2px;
-    }
-  }
 }
 
 .layoutToolsIn {
-  // display: inline;
   position: fixed;
   top: 5.5rem;
   right: -6.5rem;
+  border-radius: @btn-border-radius-base;
   color: @info-color;
   background-color: @body-background;
   animation: movein 1s;
   animation-timing-function: ease;
-  // transition: all 1s @ease-out-circ;
-  .layoutToolItems {
-    display: inline;
-    i {
-      padding: 2px;
-    }
-  }
+}
+
+.layoutToolsDefault {
+  position: fixed;
+  top: 5.5rem;
+  right: -6.5rem;
+  border-radius: @btn-border-radius-base;
+  color: @info-color;
+  background-color: @body-background;
 }
 
 @keyframes movein

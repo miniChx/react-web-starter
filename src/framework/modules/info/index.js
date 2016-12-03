@@ -14,6 +14,7 @@ import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
 import { showComponent } from './MaskLayer';
+import { getValueByKey } from '../../utils/MapUtils';
 
 const ButtonGroup = Button.Group;
 
@@ -21,6 +22,7 @@ export default class Layout extends React.Component {
 
   static propTypes = {
     renderBody: React.PropTypes.func,
+    filterMenu: React.PropTypes.func,
     dataSource: React.PropTypes.object
   };
 
@@ -32,7 +34,7 @@ export default class Layout extends React.Component {
       this.tag = getMenuItemByFunc(m => m.isSelected === true, this.props.dataSource.menus) || {};
       openKeys = this.changeMenuSelect(this.tag.menuCode, this.props.dataSource.menus).openKeys;
     }
-    const tools = true;
+    const tools = false;
     this.state = {
       main: null,
       left: null,
@@ -65,9 +67,13 @@ export default class Layout extends React.Component {
     this.changeMenuProps(m.menuCode, () => this.updateMain(domainLink, domainType, m));
   }
 
-  createReqParam(menuItem, query) {
+  @autobind
+  createReqParam(menuItem) {
     // TODO: some all
-    return query;
+    if (this.props && this.props.params) {
+      return this.props.params;
+    }
+    return getValueByKey(this.props, {}, 'location', 'query');
   }
 
   // TODO: refactor
@@ -75,12 +81,14 @@ export default class Layout extends React.Component {
   updateMain(domainLink, domainType, menuItem) {
     const menuCode = menuItem.menuCode;
     const patch = searchBeforeAndAfter(menuCode, this.props.dataSource.menus);
-    if (this.props.renderBody) {
-      // this.setState({ anchor: RightPage });
-      this.setState({ main: this.props.renderBody(menuItem, this.props.location.query), ...patch }, this.updateAnchor);
+    const isRenderBodyCustom = this.props.filterMenu && this.props.filterMenu(menuItem);
+    if (isRenderBodyCustom) {
+      this.props.renderBody(menuItem, this.createReqParam(menuItem), renderMain => {
+        this.setState({ main: renderMain, ...patch }, this.updateAnchor);
+      });
     } else {
       this.props.exec(() => {
-        return this.props.fetch(trimStart(domainLink, '/'), this.createReqParam(menuItem, this.props.location.query)).then(data => {
+        return this.props.fetch(trimStart(domainLink, '/'), this.createReqParam(menuItem)).then(data => {
           this.setState({
             main: this.createMain(data, domainType, domainLink),
             ...patch
@@ -136,22 +144,6 @@ export default class Layout extends React.Component {
     showComponent((<div>这是即将道来的流程图</div>), {});
   }
 
-  @autobind
-  renderLayoutTools() {
-    // if (this.state.tools) {
-    return (
-      <div className={this.state.toolStyle}>
-        <ButtonGroup>
-          <Button type="primary" onClick={this.switchTools}>{this.state.tools ? <Icon style={{ marginLeft: '-5px' }} type="caret-right" /> : <Icon style={{ marginLeft: '-5px' }} type="caret-left" />}</Button>
-          <Button type="ghost">审批</Button>
-          <Button type="ghost" onClick={this.popMask}>流程图</Button>
-        </ButtonGroup>
-      </div>
-    );
-    // }
-    // return (<Icon type="caret-left" onClick={this.switchTools} className={appStyle.layoutToolsArrow} />);
-  }
-
   render() {
     return (
       <div>
@@ -167,7 +159,7 @@ export default class Layout extends React.Component {
               menuClick={this.menuClick}
             />
           </Col>
-          <Col span={18}>
+          <Col span={17}>
             <div className={appStyle.layoutContainerBody} >
               <div className={appStyle.layoutContainerBodyInner}>
                 {this.state.main}
@@ -178,14 +170,20 @@ export default class Layout extends React.Component {
               </Row>
             </div>
           </Col>
-          <Col span={2}>
+          <Col span={3}>
             <Anchor>
               {this.state.anchor && this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
             </Anchor>
           </Col>
         </Row>
         <BackTop />
-        {this.renderLayoutTools()}
+        <div className={this.state.toolStyle}>
+          <ButtonGroup style={{ borderRadius: '6px' }}>
+            <Button type="primary" onClick={this.switchTools}>{this.state.tools ? <Icon style={{ marginLeft: '-5px' }} type="caret-right" /> : <Icon style={{ marginLeft: '-5px' }} type="caret-left" />}</Button>
+            <Button type="ghost">审批</Button>
+            <Button type="ghost" onClick={this.popMask}>流程图</Button>
+          </ButtonGroup>
+        </div>
       </div>
     );
   }
