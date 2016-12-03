@@ -3,8 +3,7 @@
  */
 import React from 'react';
 
-
-export default class StaticDisplay extends React.Component {
+class StaticDisplay extends React.Component {
   render() {
     return (
       <span>{this.props.value}</span>
@@ -12,11 +11,8 @@ export default class StaticDisplay extends React.Component {
   }
 }
 
-export const createComp = model => comp => {
-  if (model === 'show') {
-    return (
-      <StaticDisplay />
-    );
-  }
-  return comp;
+const staticDisplay = () => {
+  return (<StaticDisplay />);
 };
+
+export default staticDisplay;

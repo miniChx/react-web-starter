@@ -1,0 +1,92 @@
+@import "../base/index";
+
+.layoutContainerBody {
+  padding-left: 2rem;
+  border-left: 1px solid @border-color-split;
+
+  h1 {
+    color: #404040;
+    font-weight: 500;
+    line-height: 40px;
+    margin-bottom: 24px;
+    margin-top: 8px;
+  }
+  h2 {
+    color: #404040;
+    margin: 1.6em 0 .6em;
+    font-weight: 500;
+    clear: both;
+  }
+
+  .layoutContainerBodyInner {
+    min-height: 30rem;
+  }
+
+  .layoutContainerFooter {
+    border-top: 1px solid @border-color-split;
+    padding: 1rem;
+    .leftMenu {
+      text-align: left;
+    }
+    .rightMenu {
+      text-align: right;
+    }
+  }
+
+}
+
+.layoutToolsOut {
+  position: fixed;
+  top: 5.5rem;
+  right: 6rem;
+  border-radius: @btn-border-radius-base;
+  color: @info-color;
+  background-color: @body-background;
+  animation: moveout .3s;
+  animation-timing-function: ease;
+}
+
+.layoutToolsIn {
+  position: fixed;
+  top: 5.5rem;
+  right: -6.5rem;
+  border-radius: @btn-border-radius-base;
+  color: @info-color;
+  background-color: @body-background;
+  animation: movein .3s;
+  animation-timing-function: ease;
+}
+
+.layoutToolsDefault {
+  position: fixed;
+  top: 5.5rem;
+  right: -6.5rem;
+  border-radius: @btn-border-radius-base;
+  color: @info-color;
+  background-color: @body-background;
+}
+
+@keyframes movein
+{
+  from {right: 6rem;}
+  to {right: -6.5rem;}
+}
+
+
+@keyframes moveout
+{
+  from {right: -6.5rem;}
+  to {right: 6rem;}
+}
+
+.layoutToolsArrow {
+  color: @info-color;
+  position: fixed;
+  right: 0rem;
+  top: 5rem;
+  font-size: 28px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

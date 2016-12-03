@@ -3,10 +3,11 @@
  */
 import React from 'react';
 import { Select } from 'mxa';
+import StaticDisplay from './StaticDisplay';
 
-const compRender = (record, model) => {
+const compRender = record => {
   return (
-    <Select style={{ width: 120 }} disabled={record.isReadonly || model === 'show'}>
+    <Select style={{ width: 120 }} disabled={record.isReadonly}>
       {record.displayComponent.items.map((i, index) =>
         (
           <Select.Option key={'select_' + index} value={i}>{i}</Select.Option>
@@ -15,4 +16,7 @@ const compRender = (record, model) => {
   );
 };
 
-export default compRender;
+export default {
+  show: StaticDisplay,
+  edit: compRender
+};

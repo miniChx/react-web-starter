@@ -1,0 +1,35 @@
+@import "../base/index";
+
+.switchContainer {
+  margin-left: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+  .iconFont {
+    color: @info-color
+  }
+}
+
+
+.collapseTTTT-active {
+  transition: height 4s ease-out;
+}
+
+
+.switchContainerBody {
+  background: red;
+  width: 100px;
+  height: 100px;
+}
+
+.formBox {
+  border: 1px solid @border-color-split;
+  border-radius: 6px;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  margin: 0 0 16px;
+  .cell {
+    padding: 42px 20px 50px;
+  }
+}

@@ -14,7 +14,6 @@ import CascaderAnalyser from './CascaderAnalyser';
 import CheckboxAnalyser from './CheckboxAnalyser';
 import RadioAnalyser from './RadioAnalyser';
 import { getValueByKey } from '../../../utils/MapUtils';
-import { createComp } from './StaticDisplay';
 
 const FormItem = Form.Item;
 
@@ -52,13 +51,13 @@ const createRules = record => {
 
 const transFromtoDate = (data, compRender) => {
   if (compRender === FormItemMap.DatePickerAnalyser) {
-    return data && moment(new Date(data));
+    return data && moment(data);
   }
   return data;
 };
 
 // 表单项
-const formAnalyser = (compRender, model) => (formItemLayout, record, getFieldDecorator, detailResult) => {
+const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult) => {
   return (
     <FormItem
       key={record.description}
@@ -67,19 +66,25 @@ const formAnalyser = (compRender, model) => (formItemLayout, record, getFieldDec
       hasFeedback={model === 'edit'}
     >
       {getFieldDecorator(record.name, {
-        rules: createRules(record),
-        initialValue: transFromtoDate(detailResult && detailResult[record.name], compRender) })(createComp(model)(compRender(record, model)))
+        rules: (props.createRules && props.createRules(record)) || createRules(record),
+        initialValue: transFromtoDate(detailResult && detailResult[record.name], compRender) })((compRender[model](record)))
       }
     </FormItem>
   );
 };
 
+// renderAnalyser
 
-const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, model) => {
+const chooseAnalyser = (record, props) => {
+  const analyserName = getValueByKey(record, 'default', 'displayComponent', 'componentType');
+  // console.log(analyserName);
+  const ret = props.renderAnalyser && props.renderAnalyser(analyserName);
+  return ret || FormItemMap[analyserName + 'Analyser'] || FormItemMap.defaultAnalyser;
+};
+
+const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, model, props) => {
   if (record.isVisible) {
-    const analyserName = getValueByKey(record, 'default', 'displayComponent', 'componentType') + 'Analyser';
-    console.log(analyserName);
-    return formAnalyser(FormItemMap[analyserName] || FormItemMap.defaultAnalyser, model)(formItemLayout, record, getFieldDecorator, detailResult);
+    return formAnalyser(chooseAnalyser(record, props), model, props)(formItemLayout, record, getFieldDecorator, detailResult);
   }
   return null;
 };

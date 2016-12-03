@@ -6,7 +6,7 @@ import { Form, Input, DatePicker, Col, Select, Tooltip, Icon, Cascader, Row, But
 import { autobind } from 'core-decorators';
 import { goBack, replace } from 'react-router-redux';
 
-import appStyle from '../../styles/views/app.less';
+import appStyle from '../../styles/views/detail.less';
 import renderFuc from './displayAnalyser/index';
 import styles from '../../styles/views/listview.less';
 import { PFetch } from '../../system/fetch';
@@ -18,18 +18,27 @@ import SwitchContainer from './switchContainer';
 
 const FormItem = Form.Item;
 
-class ListDetail extends React.Component {
+class Detail extends React.Component {
+  /* eslint-disable */
+  static propTypes = {
+    model: React.PropTypes.oneOf(['show', 'edit']).isRequired,
+    createRules: React.PropTypes.func, // 自定义表单校验 // record
+    beforeSubmit: React.PropTypes.func, // 表单提交之前 // values, callback(v)
+    afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
+    dataSource: React.PropTypes.object.isRequired,
+    renderAnalyser: React.PropTypes.func // 自定义渲染标单项 // componentName
+  };
 
   constructor(props) {
     super(props);
     const data = this.dataFieldsAdapter(this.props.dataSource);
     this.state = {
       passwordDirty: false,
-      model: this.props.model,
       fields: data
     };
   }
 
+  // 过滤 分组
   dataFieldsAdapter(dataSource) {
     const fieldMap = {};
     dataSource.fields.forEach(f => {
@@ -46,34 +55,59 @@ class ListDetail extends React.Component {
   }
 
   @autobind
+  createReqParam() {
+    if (this.props && this.props.params) {
+      return this.props.params;
+    }
+    return getValueByKey(this.props, {}, 'location', 'query');
+  }
+
+  @autobind
+  realSubmit(item, values) {
+    const rest = this.createReqParam();
+    const self = this;
+    this.props.exec(() => {
+      return PFetch((item.domainLink || item.actionName), { ...rest, ...values })
+        .then(response => {
+          console.log(response);
+          if (item.messagePromptType === 'message') {
+            Modal.info({
+              title: '提示',
+              content: (<div>您已成功{item.buttonDescription}！</div>),
+              onOk() {
+                self.props.afterSubmit && self.props.afterSubmit(false);
+                dispatch(goBack());
+              },
+            });
+          }
+        })
+        .catch(errorData => {
+          console.log(errorData);
+          Modal.error({
+            title: '提示',
+            content: (<div>{item.buttonDescription}失败！</div>),
+            onOk() {
+              self.props.afterSubmit && self.props.afterSubmit(true);
+            },
+          });
+        });
+    });
+  }
+
+  @autobind
   handleSubmit(item) {
+    const self = this;
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const { domainType, ...rest } = this.props.location.query;
-        this.props.exec(() => {
-          return PFetch((item.domainLink || item.actionName), { ...rest, ...values })
-            .then(response => {
-              console.log(response);
-              if (item.messagePromptType === 'message') {
-                Modal.info({
-                  title: '提示',
-                  content: (<div>您已成功{item.buttonDescription}！</div>),
-                  onOk() {
-                    dispatch(goBack());
-                  },
-                });
-              }
-            })
-            .catch(errorData => {
-              console.log(errorData);
-              Modal.error({
-                title: '提示',
-                content: (<div>{item.buttonDescription}失败！</div>),
-                onOk() {},
-              });
-            });
-        });
+        // const { domainType, ...rest } = this.props.location.query;
+        if (self.props.beforeSubmit) {
+          self.props.beforeSubmit(values, (v = values) => {
+            this.realSubmit(item,  v);
+          })
+        } else {
+          self.realSubmit(item, values);
+        }
       }
     });
   }
@@ -106,36 +140,34 @@ class ListDetail extends React.Component {
               className={styles.inlineButton}
               key="editBtnLocal"
               onClick={this.handleChageState}
-            >{this.state.model === 'show' ? '编辑' : '返回'}</Button>
+            >{this.props.model === 'show' ? '编辑' : '返回'}</Button>
           ))
         }
       </div>
     );
   }
 
-  renderForm(data, fields) {
+  renderForm(data, fields, i) {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
-      labelCol: { span: 5 },
-      wrapperCol: { span: 19 }
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
     };
 
     const titleF = fields[0];
 
     return (
-      <SwitchContainer bar={(<AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />)} >
+      <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />)} >
         <div className={appStyle.formBox} >
-          <Form horizontal={true} >
-            <Row gutter={40} className={appStyle.cell}>
-              {fields.map(item => {
-                return (
-                  <Col span={(24 / data.columnNumber) || 12}>
-                    {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.state.model)}
-                  </Col>
-                );
-              })}
-            </Row>
-          </Form>
+          <Row gutter={40} className={appStyle.cell}>
+            {fields.map((item, index) => {
+              return (
+                <Col key={index} span={(24 / data.columnNumber) || 12}>
+                  {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.props.model, this.props)}
+                </Col>
+              );
+            })}
+          </Row>
         </div>
       </SwitchContainer>
     );
@@ -150,10 +182,10 @@ class ListDetail extends React.Component {
     };
     return (
       <div>
-        {this.state.fields.map(f => {
-          return this.renderForm(this.props.dataSource, f);
-        })}
         <Form horizontal={true} >
+          {this.state.fields.map((f, index) => {
+            return this.renderForm(this.props.dataSource, f, index);
+          })}
           <FormItem {...tailFormItemLayout}>
             {this._renderColumnAction()}
           </FormItem>
@@ -163,5 +195,9 @@ class ListDetail extends React.Component {
   }
 }
 
-export default Form.create()(ListDetail);
+const detailCreator = () => {
+  return Form.create()(Detail);
+}
+
+export default detailCreator;
 
