@@ -51,7 +51,7 @@ const createRules = record => {
 
 const transFromtoDate = (data, compRender) => {
   if (compRender === FormItemMap.DatePickerAnalyser) {
-    return data && moment(new Date(data));
+    return data && moment(data);
   }
   return data;
 };
