@@ -38,6 +38,7 @@ class Detail extends React.Component {
     };
   }
 
+  // 过滤 分组
   dataFieldsAdapter(dataSource) {
     const fieldMap = {};
     dataSource.fields.forEach(f => {
