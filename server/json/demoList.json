@@ -179,7 +179,7 @@
       "name":"registerDate",
       "isMainEntityKey":false,
       "fieldCode":"BASICCUSTOMER_CUSTOMERTYPE_IN_BASICCUSTOMER_LIST",
-      "index":4,
+      "index":5,
       "entityShortName":"A",
       "type":"String",
       "description":"注册时间",

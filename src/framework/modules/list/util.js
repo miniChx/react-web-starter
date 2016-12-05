@@ -12,3 +12,11 @@ export const handleOrderItems = orderItems => {
   }
   return orderFields;
 };
+
+export const arr2obj = (array, key) => {
+  const result = [];
+  array.forEach(item => {
+    result[item[key]] = item;
+  });
+  return result;
+};

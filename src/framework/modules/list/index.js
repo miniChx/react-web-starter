@@ -9,7 +9,7 @@ import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
-import { handleOrderItems } from './util';
+import { handleOrderItems, arr2obj } from './util';
 
 class ListView extends React.Component {
   constructor(props) {
@@ -72,8 +72,10 @@ class ListView extends React.Component {
       });
     }
 
+    const fieldsObject = arr2obj(data.fields, 'name');
     const filters = data.filterItems.map(filter => {
-      const fieldData = data.fields.find(field => field.name === filter.fieldName);
+      // const fieldData = data.fields.find(field => field.name === filter.fieldName);
+      const fieldData = fieldsObject[filter.fieldName];
       if (fieldData) {
         return {
           ...filter,
@@ -83,8 +85,21 @@ class ListView extends React.Component {
       }
       return filter;
     });
+
     // eslint-disable-next-line arrow-body-style
-    const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
+    const dataSource = data.pageResult.contentList.map((content, index) => {
+      const output = { key: index };
+      Object.keys(content).forEach(field => {
+        if (fieldsObject[field].displayComponent.componentType === 'SELECT') {
+          output[field] = fieldsObject[field].displayComponent.dictionaryItems
+            .find(dict => dict.code === content[field]).value;
+        } else {
+          output[field] = content[field];
+        }
+      });
+
+      return output;
+    });
 
     const pageIndex = data && data.pageResult && data.pageResult.pageIndex;
     const itemsPerPage = data && data.pageResult && data.pageResult.itemsPerPage;
