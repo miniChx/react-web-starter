@@ -43,6 +43,11 @@ class Search extends React.Component {
   }
 
   @autobind
+  _onDefaultSearch(value) {
+    this.props.onSearch && this.props.onSearch(value);
+  }
+
+  @autobind
   _renderAdvancedSearch() {
     if (this.state.advancedSearch) {
       const advancedData = this.props.data.slice(1);
@@ -73,6 +78,21 @@ class Search extends React.Component {
     return (<div />);
   }
 
+  @autobind
+  _switchModel() {
+    this.setState({
+      advancedSearch: !this.state.advancedSearch,
+    }, () => {
+      if (!this.state.advancedSearch) {
+        const defaultSearch = this.props.data[0];
+        const requestFilterFields = this.state.requestFilterFields.filter(item => item.fieldName === defaultSearch.fieldName);
+        this.setState({
+          requestFilterFields,
+        });
+      }
+    });
+  }
+
   render() {
     const { data } = this.props;
     if (data && data.length > 0) {
@@ -88,13 +108,13 @@ class Search extends React.Component {
               extra={defaultSearch.extra}
               hideButton={this.state.advancedSearch}
               onChange={this._onChange}
-              onSearch={this._onSearch}
+              onSearch={this._onDefaultSearch}
             />
             <Button
               type="primary"
               icon={this.state.advancedSearch ? 'up-circle-o' : 'down-circle-o'}
               className="search-basic-switch"
-              onClick={() => this.setState({ advancedSearch: !this.state.advancedSearch })}
+              onClick={this._switchModel}
             >高级搜索</Button>
           </div>
           {this._renderAdvancedSearch()}

@@ -9,7 +9,7 @@ import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
-import { handleOrderItems, arr2obj } from './util';
+import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 
 class ListView extends React.Component {
   constructor(props) {
@@ -73,33 +73,8 @@ class ListView extends React.Component {
     }
 
     const fieldsObject = arr2obj(data.fields, 'name');
-    const filters = data.filterItems.map(filter => {
-      // const fieldData = data.fields.find(field => field.name === filter.fieldName);
-      const fieldData = fieldsObject[filter.fieldName];
-      if (fieldData) {
-        return {
-          ...filter,
-          type: fieldData.displayComponent.componentType,
-          extra: fieldData.displayComponent.dictionaryItems,
-        };
-      }
-      return filter;
-    });
-
-    // eslint-disable-next-line arrow-body-style
-    const dataSource = data.pageResult.contentList.map((content, index) => {
-      const output = { key: index };
-      Object.keys(content).forEach(field => {
-        if (fieldsObject[field].displayComponent.componentType === 'SELECT') {
-          output[field] = fieldsObject[field].displayComponent.dictionaryItems
-            .find(dict => dict.code === content[field]).value;
-        } else {
-          output[field] = content[field];
-        }
-      });
-
-      return output;
-    });
+    const filters = handleFilterItems(data.filterItems, fieldsObject);
+    const dataSource = handleContentList(data.pageResult.contentList, fieldsObject);
 
     const pageIndex = data && data.pageResult && data.pageResult.pageIndex;
     const itemsPerPage = data && data.pageResult && data.pageResult.itemsPerPage;
@@ -117,6 +92,7 @@ class ListView extends React.Component {
       dataSource,
       buttons,
       pagination,
+      fieldsObject,
       filters,
       pageIndex,
       itemsPerPage,
@@ -171,12 +147,6 @@ class ListView extends React.Component {
   @autobind
   _onSearch() {
     const url = this.props.domainLink.replace(/\/(\S)*$/g, '/search');
-    // this.state.buttons.search.forEach((item) => { // eslint-disable-line
-    //   if (item.actionType === 'search') {
-    //     url = item.actionName;
-    //   }
-    // });
-
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
@@ -186,7 +156,7 @@ class ListView extends React.Component {
     };
     this.props.exec(() => this.props.fetch(url, param)
       .then(data => {
-        const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
+        const dataSource = handleContentList(data.pageResult.contentList, this.state.fieldsObject);
         this.setState({ dataSource });
       }));
   }

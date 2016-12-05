@@ -40,9 +40,9 @@ export default class SearchInput extends React.Component {
 
   @autobind
   _handleSearch() {
-    this.props.onSearch && this.props.onSearch({
+    this.props.onSearch && this.props.onSearch([{
       ...this.state
-    });
+    }]);
   }
 
   @autobind
