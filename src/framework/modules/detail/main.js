@@ -67,6 +67,7 @@ class Detail extends React.Component {
     const rest = this.createReqParam();
     const self = this;
     this.props.exec(() => {
+      // TODO: 地址多一个斜杠
       return PFetch((item.domainLink || item.actionName), { ...rest, ...values })
         .then(response => {
           console.log(response);
@@ -103,7 +104,7 @@ class Detail extends React.Component {
         // const { domainType, ...rest } = this.props.location.query;
         if (self.props.beforeSubmit) {
           self.props.beforeSubmit(values, (v = values) => {
-            this.realSubmit(item,  v);
+            self.realSubmit(item,  v);
           })
         } else {
           self.realSubmit(item, values);
@@ -129,13 +130,19 @@ class Detail extends React.Component {
     return (
       <div>
         {
-          buttons.map(item => (
-            <Button
-              className={styles.inlineButton}
-              key={item.buttonDescription}
-              onClick={() => this.handleSubmit(item)}
-            >{item.buttonDescription}</Button>
-          )).concat((
+          buttons.map(item => {
+            if (item.buttonDescription === '保存' && this.props.model !== 'show') {
+              return (
+                <Button
+                  className={styles.inlineButton}
+                  key={item.buttonDescription}
+                  onClick={() => this.handleSubmit(item)}
+                >
+                  {item.buttonDescription}
+                </Button>);
+            }
+            return null;
+          }).concat((
             <Button
               className={styles.inlineButton}
               key="editBtnLocal"

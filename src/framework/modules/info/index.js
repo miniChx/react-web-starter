@@ -171,7 +171,7 @@ export default class Layout extends React.Component {
             </div>
           </Col>
           <Col span={3}>
-            <Anchor>
+            <Anchor target={this.props.target}>
               {this.state.anchor && this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
             </Anchor>
           </Col>
