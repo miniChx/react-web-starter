@@ -7,7 +7,7 @@ import { autobind } from 'core-decorators';
 import { goBack, replace } from 'react-router-redux';
 
 import appStyle from '../../styles/views/detail.less';
-import renderFuc from './displayAnalyser/index';
+import renderFuc from './displayComp/index';
 import styles from '../../styles/views/listview.less';
 import { PFetch } from '../../system/fetch';
 import { dispatch } from '../../service/DispatchService';
