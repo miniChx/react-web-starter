@@ -19,6 +19,7 @@
     "mxa": "^0.1.4",
     "object-assign": "^4.1.0",
     "qs": "^6.3.0",
+    "rc-animate": "^2.3.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-iframe": "0.0.4",

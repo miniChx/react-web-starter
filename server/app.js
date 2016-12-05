@@ -66,6 +66,7 @@ app.post('/DemoList/render', function (req, res) {
       customerName: "userName" + i + pageResult.pageIndex,
       customerSize: "13355558888" + i,
       customerType: CustomerTypeData[i % 3].code,
+      registerDate: Date.now(),
     });
   }
   pageResult.contentList = contentList;
@@ -93,6 +94,7 @@ app.post('/DemoList/search', function (req, res) {
       customerName: "userName" + i + pageResult.pageIndex,
       customerSize: "13355558888" + i,
       customerType: CustomerTypeData[i % 3].code,
+      registerDate: Date.now(),
     });
   }
   pageResult.contentList = contentList;

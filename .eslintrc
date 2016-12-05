@@ -22,6 +22,7 @@
     "global-require": ["warn"],
     "import/no-unresolved": ["error", { ignore: ['\.img$', '\.png$'] }],
     "import/no-named-as-default": ["off"],
+    "import/prefer-default-export": ["off"],
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/setup.js"]}],
     "max-len": ["warn", 120, 2],
     "new-cap": ["error", { "capIsNewExceptions": [ "Compose", "PFetch" ] }],

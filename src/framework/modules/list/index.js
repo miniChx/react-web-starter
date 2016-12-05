@@ -2,16 +2,14 @@
 
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Select } from 'mxa';
+import { Table } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton, Search } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
-import { constructFilterFieldCodes, handleOrderItems } from './util';
-
-const Option = Select.Option;
+import { handleOrderItems } from './util';
 
 class ListView extends React.Component {
   constructor(props) {
@@ -74,7 +72,17 @@ class ListView extends React.Component {
       });
     }
 
-    const filters = data.filterItems;
+    const filters = data.filterItems.map(filter => {
+      const fieldData = data.fields.find(field => field.name === filter.fieldName);
+      if (fieldData) {
+        return {
+          ...filter,
+          type: fieldData.displayComponent.componentType,
+          extra: fieldData.displayComponent.dictionaryItems,
+        };
+      }
+      return filter;
+    });
     // eslint-disable-next-line arrow-body-style
     const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
 
@@ -88,8 +96,6 @@ class ListView extends React.Component {
       showTotal: total => `共 ${total} 项`,
     };
 
-    const filterFieldCodes = [];
-
     const selectedType = LIST_SELECTTYPE.CHECKBOX;
     return {
       columns,
@@ -99,7 +105,7 @@ class ListView extends React.Component {
       filters,
       pageIndex,
       itemsPerPage,
-      filterFieldCodes,
+      requestFilterFields: [],
       ordered,
       orderFields: [],
       mainEntityKey,
@@ -110,10 +116,10 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _onFilterChange(value) { // eslint-disable-line
-    console.log(`selected ${value}`);
+  _onFilterChange(value) {
+    console.log(`_onFilterChange ${value}`);
     this.setState({
-      filterFieldCodes: constructFilterFieldCodes(this.state.filters, this.state.filterFieldCodes, value)
+      requestFilterFields: value,
     }, () => {
       this._onSearch();
     });
@@ -132,6 +138,7 @@ class ListView extends React.Component {
       this.setState({
         pageIndex: pagination.current,
         itemsPerPage: pagination.pageSize,
+        orderFields,
       }, () => {
         this._onSearch();
       });
@@ -158,44 +165,15 @@ class ListView extends React.Component {
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
-      filterFieldCodes: this.state.filterFieldCodes,
-      orderFields: this.state.orderFields
+      variantFields: null,
+      requestFilterFields: this.state.requestFilterFields,
+      requestOrderFields: this.state.orderFields,
     };
     this.props.exec(() => this.props.fetch(url, param)
       .then(data => {
         const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
         this.setState({ dataSource });
       }));
-  }
-
-  @autobind
-  _renderFilters() {
-    return (
-      <div>
-        {
-          this.state.filters && this.state.filters.map(filter => {
-            const selectedValues = filter.options.filter(option => option.isSelected);
-            const defaultOption = selectedValues.length > 0 ? selectedValues[0] : filter.options[0];
-            return (
-              <div key={filter.displaySeq} className={styles.filter}>
-                <span>{' ' + filter.displayName + ': '}</span>
-                <Select
-                  className={styles.select}
-                  defaultValue={defaultOption.displayCode}
-                  onChange={this._onFilterChange}
-                >
-                  {
-                    filter.options.map(option => (
-                      <Option key={option.displaySeq} value={option.displayCode}>{option.displayName}</Option>
-                    ))
-                  }
-                </Select>
-              </div>
-            );
-          })
-        }
-      </div>
-    );
   }
 
   @autobind
@@ -265,7 +243,7 @@ class ListView extends React.Component {
         <div className={styles.listview}>
           <div className={styles.toolbar}>
             {this._renderTopButtons()}
-            <Search />
+            <Search data={this.state.filters} onSearch={this._onFilterChange} />
           </div>
           <Table
             rowSelection={rowSelection}
