@@ -2,12 +2,14 @@
  * Created by baoyinghai on 10/21/16.
  */
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Compose from '../utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
 import InitDecorator from './InitDecorator';
 import { getMenu } from '../service/CacheService';
 import { getMenuItemAndPathByFunc } from '../utils/MenuHelper';
+
+// import PureRenderMixin from 'react-addons-pure-render-mixin';
+const PureRenderMixin = React.addons.PureRenderMixin;
 
 class PageContainer extends React.Component {
   constructor(props) {

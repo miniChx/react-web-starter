@@ -3,7 +3,8 @@
  */
 import co from 'co';
 import { Modal } from 'mxa';
-import { showLoading, hideLoading } from 'react-redux-loading-bar';
+// import { showLoading, hideLoading } from 'react-redux-loading-bar';
+import { showLoading, hideLoading } from '../modules/loading-bar';
 
 import { dispatch } from '../service/DispatchService';
 import { forceLogout } from '../actions/global';

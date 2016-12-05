@@ -2,15 +2,14 @@
 
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Select } from 'mxa';
+import { Table } from 'mxa';
+import isEmpty from 'lodash/isEmpty';
 import { ExtendButton, Search } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
-import { constructOrderFields, constructFilterFieldCodes } from './SelectUtils';
-
-const Option = Select.Option;
+import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 
 class ListView extends React.Component {
   constructor(props) {
@@ -48,12 +47,19 @@ class ListView extends React.Component {
       buttons.search = data.buttons.filter(item => item.actionType === 'search');
     }
 
+    const orderItems = handleOrderItems(data.orderItems);
+    const ordered = data.orderItems && data.orderItems.length > 0;
     // eslint-disable-next-line arrow-body-style
-    const columns = data.fields && data.fields.map(item => ({
-      key: item.index,
-      title: item.description,
-      dataIndex: item.name,
-    }));
+    let mainEntityKey = '';
+    const columns = data.fields && data.fields.map(item => {
+      if (item.isMainEntityKey) mainEntityKey = item.name;
+      return {
+        key: item.index,
+        title: item.description,
+        dataIndex: item.name,
+        sorter: !!orderItems[item.name],
+      };
+    });
 
     // add operation
     if (buttons && buttons.inline && buttons.inline.length > 0) {
@@ -66,9 +72,9 @@ class ListView extends React.Component {
       });
     }
 
-    const filters = data.filterItems;
-    // eslint-disable-next-line arrow-body-style
-    const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
+    const fieldsObject = arr2obj(data.fields, 'name');
+    const filters = handleFilterItems(data.filterItems, fieldsObject);
+    const dataSource = handleContentList(data.pageResult.contentList, fieldsObject);
 
     const pageIndex = data && data.pageResult && data.pageResult.pageIndex;
     const itemsPerPage = data && data.pageResult && data.pageResult.itemsPerPage;
@@ -80,20 +86,20 @@ class ListView extends React.Component {
       showTotal: total => `共 ${total} 项`,
     };
 
-    const filterFieldCodes = [];
-    const orderFields = constructOrderFields(data.filterItems);
-
     const selectedType = LIST_SELECTTYPE.CHECKBOX;
     return {
       columns,
       dataSource,
       buttons,
       pagination,
+      fieldsObject,
       filters,
       pageIndex,
       itemsPerPage,
-      filterFieldCodes,
-      orderFields,
+      requestFilterFields: [],
+      ordered,
+      orderFields: [],
+      mainEntityKey,
       selectedType,
       selectedRowKeys: [],
       selectedRows: [],
@@ -101,10 +107,10 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _onFilterChange(value) { // eslint-disable-line
-    console.log(`selected ${value}`);
+  _onFilterChange(value) {
+    console.log(`_onFilterChange ${value}`);
     this.setState({
-      filterFieldCodes: constructFilterFieldCodes(this.state.filters, this.state.filterFieldCodes, value)
+      requestFilterFields: value,
     }, () => {
       this._onSearch();
     });
@@ -113,64 +119,46 @@ class ListView extends React.Component {
   @autobind
   _onChange(pagination, filters, sorter) { // eslint-disable-line
     console.log('params', pagination, filters, sorter);
-    this.setState({
-      pageIndex: pagination.current,
-      itemsPerPage: pagination.pageSize
-    }, () => {
-      this._onSearch();
-    });
+    if (this.state.ordered && !isEmpty(sorter)) {
+      const orderFields = [];
+      orderFields.push({
+        orderField: sorter.field,
+        orderType: sorter.order === 'descend' ? 'DESC' : 'ASC',
+      });
+
+      this.setState({
+        pageIndex: pagination.current,
+        itemsPerPage: pagination.pageSize,
+        orderFields,
+      }, () => {
+        this._onSearch();
+      });
+    } else {
+      this.setState({
+        pageIndex: pagination.current,
+        itemsPerPage: pagination.pageSize,
+        // orderFields,
+      }, () => {
+        this._onSearch();
+      });
+    }
   }
 
   @autobind
   _onSearch() {
     const url = this.props.domainLink.replace(/\/(\S)*$/g, '/search');
-    // this.state.buttons.search.forEach((item) => { // eslint-disable-line
-    //   if (item.actionType === 'search') {
-    //     url = item.actionName;
-    //   }
-    // });
-
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
-      filterFieldCodes: this.state.filterFieldCodes,
-      orderFields: this.state.orderFields
+      variantFields: null,
+      requestFilterFields: this.state.requestFilterFields,
+      requestOrderFields: this.state.orderFields,
     };
     this.props.exec(() => this.props.fetch(url, param)
       .then(data => {
-        const dataSource = data.pageResult.contentList.map(item => ({ key: item.id, ...item }));
+        const dataSource = handleContentList(data.pageResult.contentList, this.state.fieldsObject);
         this.setState({ dataSource });
       }));
-  }
-
-  @autobind
-  _renderFilters() {
-    return (
-      <div>
-        {
-          this.state.filters && this.state.filters.map(filter => {
-            const selectedValues = filter.options.filter(option => option.isSelected);
-            const defaultOption = selectedValues.length > 0 ? selectedValues[0] : filter.options[0];
-            return (
-              <div key={filter.displaySeq} className={styles.filter}>
-                <span>{' ' + filter.displayName + ': '}</span>
-                <Select
-                  className={styles.select}
-                  defaultValue={defaultOption.displayCode}
-                  onChange={this._onFilterChange}
-                >
-                  {
-                    filter.options.map(option => (
-                      <Option key={option.displaySeq} value={option.displayCode}>{option.displayName}</Option>
-                    ))
-                  }
-                </Select>
-              </div>
-            );
-          })
-        }
-      </div>
-    );
   }
 
   @autobind
@@ -240,7 +228,7 @@ class ListView extends React.Component {
         <div className={styles.listview}>
           <div className={styles.toolbar}>
             {this._renderTopButtons()}
-            <Search />
+            <Search data={this.state.filters} onSearch={this._onFilterChange} />
           </div>
           <Table
             rowSelection={rowSelection}

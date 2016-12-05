@@ -92,6 +92,21 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
+  externals: {
+    // Use external version of React
+    // 'es5-shim': 'window',
+    // 'babel-polyfill': 'window', // polyfill 直接写 {} 也是可以的
+    // 'whatwg-fetch': 'fetch',
+
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    // 'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    // 'redux': 'Redux',
+    // 'react-redux': 'ReactRedux',
+    'react-router': 'ReactRouter',
+    // 'react-router-redux': 'ReactRouterRedux',
+    // 'moment': 'moment',
+  },
 
   module: {
     // First, run the linter.
@@ -207,7 +222,7 @@ module.exports = {
     //   // Automatically open report in default browser
     //   openAnalyzer: true,
     //   // If `true`, Webpack Stats JSON file will be generated in bundles output directory
-    //   generateStatsFile: false,
+    //   generateStatsFile: true,
     //   // Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.
     //   // Relative to bundles output directory.
     //   statsFilename: 'stats.json',

@@ -1,39 +1,76 @@
 /* eslint-disable no-console */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { Button } from 'mxa';
 import SearchInput from './SearchInput';
 
 class Search extends React.Component {
+  static propTypes = {
+    data: PropTypes.array,
+    onSearch: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     // initial state
     this.state = {
       advancedSearch: false,
+      requestFilterFields: [],
     };
   }
 
   @autobind
-  _renderSearchItem(props) {
-    return (
-      <SearchInput title="用户名：" placeholder="请输入用户名" hideButton={this.state.advancedSearch} />
-    );
+  _onChange(value) {
+    const { requestFilterFields } = this.state;
+    const updated = requestFilterFields.some((element, index, array) => {
+      if (value.fieldName === element.fieldName) {
+        array[index] = value;
+        return true;
+      }
+      return false;
+    });
+
+    if (!updated) {
+      requestFilterFields.push(value);
+    }
+    this.setState({ requestFilterFields });
+  }
+
+  @autobind
+  _onSearch() {
+    this.props.onSearch && this.props.onSearch(this.state.requestFilterFields);
+  }
+
+  @autobind
+  _onDefaultSearch(value) {
+    this.props.onSearch && this.props.onSearch(value);
   }
 
   @autobind
   _renderAdvancedSearch() {
     if (this.state.advancedSearch) {
+      const advancedData = this.props.data.slice(1);
       return (
         <div className="search-advanced">
-          <SearchInput type="date" title="时间：" hideButton={true} />
-          <SearchInput type="range" title="金额：" hideButton={true} />
+          {
+            advancedData.map(item => (
+              <SearchInput
+                type={item.type}
+                operatorType={item.operatorType}
+                code={item.fieldName}
+                title={item.displayName}
+                extra={item.extra}
+                onChange={this._onChange}
+              />
+            ))
+          }
           <Button
             className="search-advanced-button"
             type="primary"
             size="large"
             icon="search"
-            onClick={() => console.log('### advenced search ###')}
+            onClick={this._onSearch}
           >搜索</Button>
         </div>
       );
@@ -41,21 +78,50 @@ class Search extends React.Component {
     return (<div />);
   }
 
+  @autobind
+  _switchModel() {
+    this.setState({
+      advancedSearch: !this.state.advancedSearch,
+    }, () => {
+      if (!this.state.advancedSearch) {
+        const defaultSearch = this.props.data[0];
+        const requestFilterFields = this.state.requestFilterFields.filter(item => item.fieldName === defaultSearch.fieldName);
+        this.setState({
+          requestFilterFields,
+        });
+      }
+    });
+  }
+
   render() {
-    return (
-      <div className="search">
-        <div className="search-basic">
-          <SearchInput title="用户名：" placeholder="请输入用户名" hideButton={this.state.advancedSearch} />
-          <Button
-            type="primary"
-            icon={this.state.advancedSearch ? 'up-circle-o' : 'down-circle-o'}
-            className="search-basic-switch"
-            onClick={() => this.setState({ advancedSearch: !this.state.advancedSearch })}
-          >高级搜索</Button>
+    const { data } = this.props;
+    if (data && data.length > 0) {
+      const defaultSearch = data[0];
+      return (
+        <div className="search">
+          <div className="search-basic">
+            <SearchInput
+              type={defaultSearch.type}
+              operatorType={defaultSearch.operatorType}
+              code={defaultSearch.fieldName}
+              title={defaultSearch.displayName}
+              extra={defaultSearch.extra}
+              hideButton={this.state.advancedSearch}
+              onChange={this._onChange}
+              onSearch={this._onDefaultSearch}
+            />
+            <Button
+              type="primary"
+              icon={this.state.advancedSearch ? 'up-circle-o' : 'down-circle-o'}
+              className="search-basic-switch"
+              onClick={this._switchModel}
+            >高级搜索</Button>
+          </div>
+          {this._renderAdvancedSearch()}
         </div>
-        {this._renderAdvancedSearch()}
-      </div>
-    );
+      );
+    }
+    return null;
   }
 }
 

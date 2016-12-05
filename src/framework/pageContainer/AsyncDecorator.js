@@ -1,5 +1,4 @@
 import React from 'react';
-import { trimStart } from 'lodash/string';
 import { autobind } from 'core-decorators';
 import { getPageData, getSubMenu } from '../service/CacheService';
 import { dispatch } from '../service/DispatchService';

@@ -84,6 +84,21 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
+  externals: {
+    // Use external version of React
+    // 'es5-shim': 'window',
+    // 'babel-polyfill': 'window', // polyfill 直接写 {} 也是可以的
+    // 'whatwg-fetch': 'fetch',
+
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    // 'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    // 'redux': 'Redux',
+    // 'react-redux': 'ReactRedux',
+    'react-router': 'ReactRouter',
+    // 'react-router-redux': 'ReactRouterRedux',
+    // 'moment': 'moment',
+  },
 
   module: {
     // First, run the linter.
@@ -211,7 +226,11 @@ module.exports = {
     // to restart the development server for Webpack to discover it. This plugin
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebookincubator/create-react-app/issues/186
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+    // new webpack.DllReferencePlugin({
+    //   context: __dirname,
+    //   manifest: require('./manifest.json'),
+    // }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
