@@ -7,7 +7,7 @@ import { override } from 'core-decorators';
 
 import AbstractAnalyser from './AbstractAnalyser';
 import styles from '../../../../../styles/views/listview.less';
-import executeJS from '../JSExecutor';
+import executeJS from '../../../../../utils/JSExecutor';
 import { dispatch } from '../../../../../service/DispatchService';
 
 const Option = Select.Option;
