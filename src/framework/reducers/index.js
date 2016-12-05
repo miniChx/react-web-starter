@@ -5,14 +5,12 @@ import { loadingBarReducer } from '../modules/loading-bar';
 
 import global from './global';
 import menu from './menu';
-import subMenu from './subMenu';
 import bizReducers from '../../bundles/reducer';
 
 export default combineReducers({
   routing: routerReducer,
   global,
   menu,
-  subMenu,
   ...bizReducers,
   loadingBar: loadingBarReducer,
 });

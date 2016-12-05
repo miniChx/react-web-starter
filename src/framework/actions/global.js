@@ -28,7 +28,6 @@ export const fetchEnd = createAction(types.FETCH_END);
 const authLogin = createAction(types.AUTH_LOGIN);
 const authLogout = createAction(types.AUTH_LOGOUT);
 const forceLogoutAction = createAction(types.AUTH_FORCE_LOGOUT);
-export const setSubMenu = createAction(types.SET_SUB_MENU);
 
 export const resetMenu = createAction(types.MENU_RESET);
 

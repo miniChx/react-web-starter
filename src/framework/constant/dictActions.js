@@ -13,10 +13,6 @@ export const AUTH_FORCE_LOGOUT = 'AUTH_FORCE_LOGOUT';
 // menu
 export const MENU_RESET = 'MENU_RESET';
 
-// sub menu
-export const SET_SUB_MENU = 'SET_SUB_MENU';
-
-
 export const PAGE_TYPE_LIST = 'List';
 export const PAGE_TYPE_DETAIL = 'Detail';
 export const PAGE_TYPE_INFO = 'Info';
