@@ -25,7 +25,7 @@ const ModalAsyncDecorator = Wrapper => {
         const url = this.getUrlPath(trimStart(this.props.domainLink, '/'));
         const params = { ...this.props.params };
         if (this.props.location) {
-          Object.assign(params, this.props.location.query);
+          Object.assign(params, this.props.query);
         }
         longRunExec(() => PFetch(url, params)
           .then(data => {

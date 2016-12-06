@@ -19,7 +19,7 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _renderColumnAction(text, record, buttons) { // eslint-disable-line class-methods-use-this
+  _renderColumnAction(text, record, buttons, mainEntityKey) { // eslint-disable-line class-methods-use-this
     // console.log('text: ', text);
     // console.log('record: ', record);
     return (
@@ -28,9 +28,12 @@ class ListView extends React.Component {
           buttons.map(item => (
             <ExtendButton
               {...item}
-              key={item.buttonDescription}
+              inline={true}
+              key={record[mainEntityKey]}
+              mainEntityKey={mainEntityKey}
               record={record}
               className={styles.inlineButton}
+              query={this.props.query}
             />
           ))
         }
@@ -40,25 +43,27 @@ class ListView extends React.Component {
 
   @autobind
   _processData(data) {
-    const buttons = { inline: [], top: [], search: [] };
+    const buttons = { inline: [], top: [] };
     if (data.buttons) {
       buttons.inline = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.INLINE);
       buttons.top = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.TOP);
-      buttons.search = data.buttons.filter(item => item.actionType === 'search');
     }
 
     const orderItems = handleOrderItems(data.orderItems);
     const ordered = data.orderItems && data.orderItems.length > 0;
     // eslint-disable-next-line arrow-body-style
     let mainEntityKey = '';
-    const columns = data.fields && data.fields.map(item => {
+    const columns = [];
+    data.fields && data.fields.forEach(item => {
       if (item.isMainEntityKey) mainEntityKey = item.name;
-      return {
-        key: item.index,
-        title: item.description,
-        dataIndex: item.name,
-        sorter: !!orderItems[item.name],
-      };
+      if (item.isVisible) {
+        columns.push({
+          key: item.index,
+          title: item.description,
+          dataIndex: item.name,
+          sorter: !!orderItems[item.name],
+        });
+      }
     });
 
     // add operation
@@ -68,9 +73,16 @@ class ListView extends React.Component {
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: (text, record) => this._renderColumnAction(text, record, buttons.inline),
+        render: (text, record) => this._renderColumnAction(text, record, buttons.inline, mainEntityKey),
       });
     }
+
+    const variantFields = data.variantFields.map(variant => {
+      return {
+        fieldName: variant,
+        fieldValue: this.props.query[variant],
+      };
+    });
 
     const fieldsObject = arr2obj(data.fields, 'name');
     const filters = handleFilterItems(data.filterItems, fieldsObject);
@@ -86,7 +98,8 @@ class ListView extends React.Component {
       showTotal: total => `共 ${total} 项`,
     };
 
-    const selectedType = LIST_SELECTTYPE.CHECKBOX;
+    // const selectedType = LIST_SELECTTYPE.CHECKBOX;
+    const selectedType = data.selectType;
     return {
       columns,
       dataSource,
@@ -97,6 +110,7 @@ class ListView extends React.Component {
       pageIndex,
       itemsPerPage,
       requestFilterFields: [],
+      variantFields,
       ordered,
       orderFields: [],
       mainEntityKey,
@@ -150,7 +164,7 @@ class ListView extends React.Component {
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
-      variantFields: null,
+      variantFields: this.state.variantFields,
       requestFilterFields: this.state.requestFilterFields,
       requestOrderFields: this.state.orderFields,
     };
@@ -169,15 +183,18 @@ class ListView extends React.Component {
           this.state.buttons && this.state.buttons.top && this.state.buttons.top.map(item => (
             <ExtendButton
               type="button"
+              inline={false}
               buttonProps={{
                 type: 'ghost',
               }}
               {...item}
-              disabled={!(this.state.selectedType && this.state.selectedRowKeys.length > 0)}
+              disabled={item.isSelectToJump && this.state.selectedRowKeys.length <= 0}
               key={item.buttonDescription}
+              mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
               className={styles.topButton}
+              query={this.props.query}
             />
           ))
         }
@@ -206,8 +223,8 @@ class ListView extends React.Component {
 
   render() {
     // const selectedRows = [];
-    const rowSelection = {
-      type: this.state.selectedType,
+    const rowSelection = this.state.selectedType === LIST_SELECTTYPE.INLINE ? null : {
+      type: this.state.selectedType.toLowerCase(),
       onChange: (selectedRowKeys, selectedRows) => {
         console.log('onChange ==> ', `selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         this.setState({ selectedRowKeys, selectedRows });
@@ -224,6 +241,7 @@ class ListView extends React.Component {
     };
 
     if (this.state.columns && this.state.columns.length > 0) {
+      console.log('Search[data] ===> ', this.state.filters);
       return (
         <div className={styles.listview}>
           <div className={styles.toolbar}>
@@ -237,7 +255,7 @@ class ListView extends React.Component {
             sortOrder={false}
             pagination={this.state.pagination}
             onChange={this._onChange}
-            onRowClick={this._onRowClick}
+            // onRowClick={this._onRowClick}
           />
         </div>
       );

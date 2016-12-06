@@ -40,8 +40,9 @@ export const handleContentList = (contentList, fieldsObject) =>
     const output = { key: index };
     Object.keys(content).forEach(field => {
       if (fieldsObject[field].displayComponent.componentType === 'SELECT') {
-        output[field] = fieldsObject[field].displayComponent.dictionaryItems
-          .find(dict => dict.code === content[field]).value;
+        const dictItem = fieldsObject[field].displayComponent.dictionaryItems
+          .find(dict => dict.code === content[field]);
+        output[field] = (dictItem && dictItem.value) || content[field];
       } else {
         output[field] = content[field];
       }

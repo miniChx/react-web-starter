@@ -29,7 +29,7 @@ class ProcessDetail extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const { domainType, ...rest } = this.props.location.query;
+        const { domainType, ...rest } = this.props.query;
         this.props.exec(() => {
           return PFetch('/Api' + (item.domainLink || item.actionName), { ...rest, ...values })
             .then(response => {

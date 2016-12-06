@@ -18,24 +18,31 @@ export class ExtendButton extends React.Component {
   static propTypes = {
     disabled: PropTypes.bool,
     record: PropTypes.any,
+    mainEntityKey: PropTypes.string,
     type: PropTypes.oneOf(['button', 'link']),
     selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
+    inline: PropTypes.bool,
+    query: PropTypes.object,
   };
 
   static defaultProps = {
-    selectedType: LIST_SELECTTYPE.INLINE
+    selectedType: LIST_SELECTTYPE.INLINE,
+    inline: true,
   };
 
   @autobind
   _jump(domainLink, params, domainType, mode) {
     if (mode === BUTTON_INTERACTIVETYPE.PAGE) {
-      window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType, s: '1' }));
+      // window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({
+      //   p: btoa(search)
+      // }));
+      window.open('/' + CONTAINER_PRE + domainLink + '?p=' + btoa(Qs.stringify({ ...params, domainType, s: '1' })));
     } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
       showModal(params, domainType, domainLink);
     } else {
       this.props.dispatch(push({
         pathname: '/' + CONTAINER_PRE + domainLink,
-        query: { ...params, domainType }
+        query: { p: btoa(Qs.stringify({ ...params, domainType })) }
       }));
     }
   }
@@ -64,24 +71,31 @@ export class ExtendButton extends React.Component {
   }
 
   @autobind
-  _triggerAction() {
-    let activeData = this.props.record;
-    if (this.props.selectedType === LIST_SELECTTYPE.RADIO) {
-      activeData = this.props.record[0];
+  _genParams(record) {
+    const params = { [this.props.mainEntityKey]: record[this.props.mainEntityKey] };
+    if (this.props.bindParameterType === 'SEVERAL') {
+      this.props.bindParameters.forEach(item => {
+        params[item.name] = this.props.query[item.value];
+      });
     }
+
+    if (this.props.transmitParameters && this.props.transmitParameters.length > 0) {
+      this.props.transmitParameters.forEach(item => {
+        params[item.name] = record[item.name];
+      });
+    }
+    return params;
+  }
+
+  @autobind
+  _triggerActionWithoutRows() {
+    const params = {};
     if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
-      let params;
-      if (this.props.selectedType === LIST_SELECTTYPE.CHECKBOX) {
-        params = this.props.record.map(item => item.id);
-      } else {
-        params = { id: activeData.id };
-      }
       // message|confirm|tooltip
-      if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX
-        && this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+      if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
         confirm({
           title: '提示',
-          content: (<div>确认{this.props.buttonDescription}{activeData.realName}吗？</div>),
+          content: (<div>确认{this.props.buttonDescription}吗？</div>),
           onOk: () => {
             this._processAction(this.props.actionName, params);
           },
@@ -92,7 +106,65 @@ export class ExtendButton extends React.Component {
       }
     } else {
       // eslint-disable-next-line max-len
-      this._jump(this.props.domainLink, { id: activeData.id }, this.props.domainType, this.props.interactiveType);
+      this._jump(this.props.domainLink, { ...params }, this.props.domainType, this.props.interactiveType);
+    }
+  }
+
+  @autobind
+  _triggerActionSingle(activeData) {
+    const params = this._genParams(activeData);
+    if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
+      // message|confirm|tooltip
+      if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+        confirm({
+          title: '提示',
+          content: (<div>确认{this.props.buttonDescription}{activeData.leaseeName}吗？</div>),
+          onOk: () => {
+            this._processAction(this.props.actionName, params);
+          },
+          onCancel() {},
+        });
+      } else {
+        this._processAction(this.props.actionName, params);
+      }
+    } else {
+      // eslint-disable-next-line max-len
+      this._jump(this.props.domainLink, { ...params }, this.props.domainType, this.props.interactiveType);
+    }
+  }
+
+  @autobind
+  _triggerActionMultiple(activeData) {
+    // Interactive type can only be 'ACTION'
+    if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
+      const params = activeData.map(record => this._genParams(record));
+
+      // message|confirm|tooltip
+      if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+        confirm({
+          title: '提示',
+          content: (<div>确认{this.props.buttonDescription}所选数据吗？</div>),
+          onOk: () => {
+            this._processAction(this.props.actionName, params);
+          },
+          onCancel() {},
+        });
+      } else {
+        this._processAction(this.props.actionName, params);
+      }
+    }
+  }
+
+  @autobind
+  _triggerAction() {
+    if (!this.props.isSelectToJump) {
+      this._triggerActionWithoutRows();
+    } else if (this.props.inline) {
+      this._triggerActionSingle(this.props.record);
+    } else if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX) {
+      this._triggerActionSingle(this.props.record[0]);
+    } else {
+      this._triggerActionMultiple(this.props.record);
     }
   }
 
@@ -118,13 +190,14 @@ export class ExtendButton extends React.Component {
   }
 
   render() {
-    if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.TOOLTIP) {
-      return (
-        <Tooltip title={this.props.buttonDescription + this.props.record.realName}>
-          {this._renderButton()}
-        </Tooltip>
-      );
-    }
+    // TODO. temporary disabled tooltip
+    // if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.TOOLTIP) {
+    //   return (
+    //     <Tooltip title={this.props.buttonDescription}>
+    //       {this._renderButton()}
+    //     </Tooltip>
+    //   );
+    // }
 
     return this._renderButton();
   }

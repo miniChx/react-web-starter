@@ -25,6 +25,8 @@ export const initApp = () => {
 export const fetchStart = createAction(types.FETCH_START);
 export const fetchEnd = createAction(types.FETCH_END);
 
+export const updateQuery = createAction(types.UPDATE_QUERY);
+
 const authLogin = createAction(types.AUTH_LOGIN);
 const authLogout = createAction(types.AUTH_LOGOUT);
 const forceLogoutAction = createAction(types.AUTH_FORCE_LOGOUT);

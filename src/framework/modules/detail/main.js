@@ -103,7 +103,7 @@ class Detail extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        // const { domainType, ...rest } = this.props.location.query;
+        // const { domainType, ...rest } = this.props.query;
         if (self.props.beforeSubmit) {
           self.props.beforeSubmit(values, (v = values) => {
             self.realSubmit(item,  v);

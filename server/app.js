@@ -27,7 +27,9 @@ app.post('/AccountDetail/render', function (req, res) {
 
 app.post('/Api/AccountDetail/getMenus', function (req, res) {
   var mockData = require('./json/getMenus.json');
-  res.json(mockData);
+  setTimeout(() => {
+    res.json(mockData);
+  }, 1000);
 })
 
 app.post('/Pub/Account/login', function (req, res) {
@@ -52,53 +54,53 @@ const CustomerTypeData = [{
 
 app.post('/DemoList/render', function (req, res) {
   var mockData = require('./json/demoList.json');
-  const pageResult = {
-    pageIndex: 1,
-    itemsPerPage: 10,
-    totalPages: 6,
-    totalItems: 56,
-  };
-  const contentList = [];
-
-  for (let i = 0; i < 10; i++) {
-    contentList.push({
-      basicCustomerId: i,
-      customerName: "userName" + i + pageResult.pageIndex,
-      customerSize: "13355558888" + i,
-      customerType: CustomerTypeData[i % 3].code,
-      registerDate: Date.now(),
-    });
-  }
-  pageResult.contentList = contentList;
-  mockData.pageResult = pageResult;
+  // const pageResult = {
+  //   pageIndex: 1,
+  //   itemsPerPage: 10,
+  //   totalPages: 6,
+  //   totalItems: 56,
+  // };
+  // const contentList = [];
+  //
+  // for (let i = 0; i < 10; i++) {
+  //   contentList.push({
+  //     basicCustomerId: i,
+  //     customerName: "userName" + i + pageResult.pageIndex,
+  //     customerSize: "13355558888" + i,
+  //     customerType: CustomerTypeData[i % 3].code,
+  //     registerDate: Date.now(),
+  //   });
+  // }
+  // pageResult.contentList = contentList;
+  // mockData.pageResult = pageResult;
   res.json(mockData);
 })
 app.post('/DemoList/search', function (req, res) {
   var mockData = require('./json/demoListSearch.json');
-  mockData.pageResult.pageIndex = req.body.pageIndex;
-  mockData.pageResult.itemsPerPage = req.body.itemsPerPage;
-
-  const pageResult = {
-    pageIndex: req.body.pageIndex,
-    itemsPerPage: req.body.itemsPerPage,
-    totalPages: 6,
-    totalItems: 56,
-  };
-  const contentList = [];
-  const contentLength = pageResult.pageIndex !== pageResult.totalPages ?
-    pageResult.itemsPerPage :
-    pageResult.totalItems - pageResult.itemsPerPage * (pageResult.totalPages - 1);
-  for (let i = 0; i < contentLength; i++) {
-    contentList.push({
-      basicCustomerId: i,
-      customerName: "userName" + i + pageResult.pageIndex,
-      customerSize: "13355558888" + i,
-      customerType: CustomerTypeData[i % 3].code,
-      registerDate: Date.now(),
-    });
-  }
-  pageResult.contentList = contentList;
-  mockData.pageResult = pageResult;
+  // mockData.pageResult.pageIndex = req.body.pageIndex;
+  // mockData.pageResult.itemsPerPage = req.body.itemsPerPage;
+  //
+  // const pageResult = {
+  //   pageIndex: req.body.pageIndex,
+  //   itemsPerPage: req.body.itemsPerPage,
+  //   totalPages: 6,
+  //   totalItems: 56,
+  // };
+  // const contentList = [];
+  // const contentLength = pageResult.pageIndex !== pageResult.totalPages ?
+  //   pageResult.itemsPerPage :
+  //   pageResult.totalItems - pageResult.itemsPerPage * (pageResult.totalPages - 1);
+  // for (let i = 0; i < contentLength; i++) {
+  //   contentList.push({
+  //     basicCustomerId: i,
+  //     customerName: "userName" + i + pageResult.pageIndex,
+  //     customerSize: "13355558888" + i,
+  //     customerType: CustomerTypeData[i % 3].code,
+  //     registerDate: Date.now(),
+  //   });
+  // }
+  // pageResult.contentList = contentList;
+  // mockData.pageResult = pageResult;
 
   res.json(mockData);
 })
