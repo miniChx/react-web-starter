@@ -4,6 +4,7 @@ export const INIT_APP = 'INIT_APP';
 export const FETCH_START = 'FETCH_START';
 export const FETCH_END = 'FETCH_END';
 export const INIT_DATA_FROM_SERVER = 'INIT_DATA_FROM_SERVER';
+export const UPDATE_QUERY = 'UPDATE_QUERY';
 
 // auth
 export const AUTH_LOGIN = 'AUTH_LOGIN';

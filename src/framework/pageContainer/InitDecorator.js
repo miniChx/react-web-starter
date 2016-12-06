@@ -15,9 +15,9 @@ const createPage = (domainType, domainLink) => {
 
 const InitDecorator = () => {
   class WrapperComponent extends React.Component {
-    static contextTypes = {
-      router: routerShape
-    }
+    // static contextTypes = {
+    //   router: routerShape
+    // }
 
     constructor(props) {
       super(props);

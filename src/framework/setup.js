@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import Qs from 'qs';
 // import LoadingBar from 'react-redux-loading-bar';
 import LoadingBar from './modules/loading-bar';
 // import 'mxa/dist/mxa.less';
@@ -11,7 +12,7 @@ import analytics from './service/analytics';
 import { executeInit } from './service/ServiceInitHelper';
 
 import routes from './routes';
-import { initApp } from './actions/global';
+import { initApp, updateQuery } from './actions/global';
 import appStyle from './styles/views/app.less';
 
 const setup = () => {
@@ -19,7 +20,15 @@ const setup = () => {
   store.dispatch(initApp());
   executeInit(store);
   const history = syncHistoryWithStore(browserHistory, store);
-  history.listen(location => analytics.track(location.pathname));
+  history.listen(location => {
+    analytics.track(location.pathname);
+    if (location.query.p === undefined) {
+      store.dispatch(updateQuery({}));
+    } else {
+      const query = atob(location.query.p);
+      store.dispatch(updateQuery(Qs.parse(query)));
+    }
+  });
 
   const AppContainer = () => (
     <Provider store={store}>

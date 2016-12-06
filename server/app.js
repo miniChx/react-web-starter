@@ -27,7 +27,9 @@ app.post('/AccountDetail/render', function (req, res) {
 
 app.post('/Api/AccountDetail/getMenus', function (req, res) {
   var mockData = require('./json/getMenus.json');
-  res.json(mockData);
+  setTimeout(() => {
+    res.json(mockData);
+  }, 1000);
 })
 
 app.post('/Pub/Account/login', function (req, res) {

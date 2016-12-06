@@ -33,7 +33,7 @@ class ListView extends React.Component {
               mainEntityKey={mainEntityKey}
               record={record}
               className={styles.inlineButton}
-              query={this.props.location.query}
+              query={this.props.query}
             />
           ))
         }
@@ -80,7 +80,7 @@ class ListView extends React.Component {
     const variantFields = data.variantFields.map(variant => {
       return {
         fieldName: variant,
-        fieldValue: this.props.location.query[variant],
+        fieldValue: this.props.query[variant],
       };
     });
 
@@ -194,7 +194,7 @@ class ListView extends React.Component {
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
               className={styles.topButton}
-              query={this.props.location.query}
+              query={this.props.query}
             />
           ))
         }

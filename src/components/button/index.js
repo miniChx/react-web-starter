@@ -33,13 +33,16 @@ export class ExtendButton extends React.Component {
   @autobind
   _jump(domainLink, params, domainType, mode) {
     if (mode === BUTTON_INTERACTIVETYPE.PAGE) {
-      window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({ ...params, domainType, s: '1' }));
+      // window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({
+      //   p: btoa(search)
+      // }));
+      window.open('/' + CONTAINER_PRE + domainLink + '?p=' + btoa(Qs.stringify({ ...params, domainType, s: '1' })));
     } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
       showModal(params, domainType, domainLink);
     } else {
       this.props.dispatch(push({
         pathname: '/' + CONTAINER_PRE + domainLink,
-        query: { ...params, domainType }
+        query: { p: btoa(Qs.stringify({ ...params, domainType })) }
       }));
     }
   }

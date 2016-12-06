@@ -5,6 +5,7 @@ const initialState = {
   showLoading: false,
   isInit: false,
   token: '',
+  query: {},
 };
 
 export default function update(state = initialState, action) {
@@ -18,6 +19,8 @@ export default function update(state = initialState, action) {
       return { ...state, showLoading: true };
     case types.FETCH_END:
       return { ...state, showLoading: false };
+    case types.UPDATE_QUERY:
+      return { ...state, query: action.payload };
     case types.INIT_DATA_FROM_SERVER:
       return { ...state, isInit: true };
     case types.AUTH_LOGIN:

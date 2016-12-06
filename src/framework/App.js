@@ -40,7 +40,7 @@ class App extends React.Component {
 
   @autobind
   _renderHeader() {
-    if (this.props.location.query && this.props.location.query.s === '1') {
+    if (this.props.query && this.props.query.s === '1') {
       return (<div />);
     }
     return (
@@ -66,7 +66,7 @@ class App extends React.Component {
                   transitionEnterTimeout={500}
                   transitionLeaveTimeout={500}
                 >
-                  {React.cloneElement(this.props.children, { goBack: this._goBack })}
+                  {React.cloneElement(this.props.children, { query: this.props.query, goBack: this._goBack })}
                 </ReactCSSTransitionGroup>
               </Col>
             </Row>
@@ -89,6 +89,7 @@ const mapStateToProps = state => ({
   session: state.session,
   token: state.global.token,
   isInit: state.global.isInit,
+  query: state.global.query,
   menu: state.menu,
   subMenu: state.subMenu
 });
