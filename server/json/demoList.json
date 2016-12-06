@@ -6,22 +6,23 @@
     "contentList": [
       {
         "serialNo": "mkd01111f",
-        "leaseeName": "ylu",
-        "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "123456",
+        "leaseeName": "gggg",
+        "certificateType": "NATURAL_PERSON_SHAREHOLDER",
+        "certificateNo": "gggg",
         "registrationAddress": null,
         "registrationDate": null,
         "registeredCapitalAmount": null,
         "creatorName": "SystemUser",
         "creatorOrgName": "SystemOrg",
-        "createDate": 1480939735000,
-        "industry": "季节制造",
-        "leaseeId": 1
+        "createDate": 1480949156000,
+        "industry": "gggg",
+        "leaseeId": 1,
+        "enterpriseId": 1
       }
     ],
     "totalItems": 1
   },
-  "selectType": "INLINE",
+  "selectType": "RADIO",
   "variantFields": [],
   "fields": [
     {
@@ -226,6 +227,22 @@
         "dictionaryCategory": null,
         "dictionaryItems": []
       }
+    },
+    {
+      "name": "enterpriseId",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LEASEEID_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 13,
+      "entityShortName": "ent",
+      "type": "Long",
+      "description": "企业ID",
+      "groupId": 1,
+      "isVisible": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
     }
   ],
   "buttons": [
@@ -234,7 +251,8 @@
       "displayPosition": "TOP",
       "interactiveType": "MODAL",
       "messagePromptType": "TOOLTIP",
-      "domainLink": "/Api/enterpriseBasicAddInfoDetail/render",
+      "isSelectToJump": false,
+      "domainLink": "/Api/EnterpriseBasicAddInfoDetail/render",
       "domainType": "Detail",
       "actionName": null,
       "buttonCode": "enterpriseBasicAddInfo_Detail_render_In_enterpriseCusBasicInfo_List\n            ",
@@ -247,8 +265,9 @@
       "displayPosition": "TOP",
       "interactiveType": "PAGE",
       "messagePromptType": "TOOLTIP",
+      "isSelectToJump": true,
       "domainLink": "/Api/BasicCustomerList/renderPageMenu",
-      "domainType": "Detail",
+      "domainType": "Info",
       "actionName": null,
       "buttonCode": "basicCustomer_List_renderPageMenu_In_enterpriseCusBasicInfo_List\n            ",
       "transmitParameters": [

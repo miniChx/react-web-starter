@@ -42,7 +42,7 @@ export const handleContentList = (contentList, fieldsObject) =>
       if (fieldsObject[field].displayComponent.componentType === 'SELECT') {
         const dictItem = fieldsObject[field].displayComponent.dictionaryItems
           .find(dict => dict.code === content[field]);
-        output[field] = dictItem.value;
+        output[field] = (dictItem && dictItem.value) || content[field];
       } else {
         output[field] = content[field];
       }

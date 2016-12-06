@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import { Table } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton, Search } from '../../../components';
-import { BUTTON_POSITION } from '../../constant/dictCodes';
+import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
@@ -28,10 +28,12 @@ class ListView extends React.Component {
           buttons.map(item => (
             <ExtendButton
               {...item}
+              inline={true}
               key={record[mainEntityKey]}
               mainEntityKey={mainEntityKey}
               record={record}
               className={styles.inlineButton}
+              query={this.props.location.query}
             />
           ))
         }
@@ -181,16 +183,18 @@ class ListView extends React.Component {
           this.state.buttons && this.state.buttons.top && this.state.buttons.top.map(item => (
             <ExtendButton
               type="button"
+              inline={false}
               buttonProps={{
                 type: 'ghost',
               }}
               {...item}
-              disabled={!(this.state.selectedType && this.state.selectedRowKeys.length > 0)}
+              disabled={item.isSelectToJump && this.state.selectedRowKeys.length <= 0}
               key={item.buttonDescription}
               mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
               className={styles.topButton}
+              query={this.props.location.query}
             />
           ))
         }
@@ -219,8 +223,8 @@ class ListView extends React.Component {
 
   render() {
     // const selectedRows = [];
-    const rowSelection = {
-      type: this.state.selectedType,
+    const rowSelection = this.state.selectedType === LIST_SELECTTYPE.INLINE ? null : {
+      type: this.state.selectedType.toLowerCase(),
       onChange: (selectedRowKeys, selectedRows) => {
         console.log('onChange ==> ', `selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         this.setState({ selectedRowKeys, selectedRows });
@@ -251,7 +255,7 @@ class ListView extends React.Component {
             sortOrder={false}
             pagination={this.state.pagination}
             onChange={this._onChange}
-            onRowClick={this._onRowClick}
+            // onRowClick={this._onRowClick}
           />
         </div>
       );
