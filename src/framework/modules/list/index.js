@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import { Table } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton, Search } from '../../../components';
-import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
+import { BUTTON_POSITION } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
@@ -19,7 +19,7 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _renderColumnAction(text, record, buttons) { // eslint-disable-line class-methods-use-this
+  _renderColumnAction(text, record, buttons, mainEntityKey) { // eslint-disable-line class-methods-use-this
     // console.log('text: ', text);
     // console.log('record: ', record);
     return (
@@ -28,7 +28,8 @@ class ListView extends React.Component {
           buttons.map(item => (
             <ExtendButton
               {...item}
-              key={item.buttonDescription}
+              key={record[mainEntityKey]}
+              mainEntityKey={mainEntityKey}
               record={record}
               className={styles.inlineButton}
             />
@@ -40,25 +41,27 @@ class ListView extends React.Component {
 
   @autobind
   _processData(data) {
-    const buttons = { inline: [], top: [], search: [] };
+    const buttons = { inline: [], top: [] };
     if (data.buttons) {
       buttons.inline = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.INLINE);
       buttons.top = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.TOP);
-      buttons.search = data.buttons.filter(item => item.actionType === 'search');
     }
 
     const orderItems = handleOrderItems(data.orderItems);
     const ordered = data.orderItems && data.orderItems.length > 0;
     // eslint-disable-next-line arrow-body-style
     let mainEntityKey = '';
-    const columns = data.fields && data.fields.map(item => {
+    const columns = [];
+    data.fields && data.fields.forEach(item => {
       if (item.isMainEntityKey) mainEntityKey = item.name;
-      return {
-        key: item.index,
-        title: item.description,
-        dataIndex: item.name,
-        sorter: !!orderItems[item.name],
-      };
+      if (item.isVisible) {
+        columns.push({
+          key: item.index,
+          title: item.description,
+          dataIndex: item.name,
+          sorter: !!orderItems[item.name],
+        });
+      }
     });
 
     // add operation
@@ -68,9 +71,16 @@ class ListView extends React.Component {
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: (text, record) => this._renderColumnAction(text, record, buttons.inline),
+        render: (text, record) => this._renderColumnAction(text, record, buttons.inline, mainEntityKey),
       });
     }
+
+    const variantFields = data.variantFields.map(variant => {
+      return {
+        fieldName: variant,
+        fieldValue: this.props.location.query[variant],
+      };
+    });
 
     const fieldsObject = arr2obj(data.fields, 'name');
     const filters = handleFilterItems(data.filterItems, fieldsObject);
@@ -86,7 +96,8 @@ class ListView extends React.Component {
       showTotal: total => `共 ${total} 项`,
     };
 
-    const selectedType = LIST_SELECTTYPE.CHECKBOX;
+    // const selectedType = LIST_SELECTTYPE.CHECKBOX;
+    const selectedType = data.selectType;
     return {
       columns,
       dataSource,
@@ -97,6 +108,7 @@ class ListView extends React.Component {
       pageIndex,
       itemsPerPage,
       requestFilterFields: [],
+      variantFields,
       ordered,
       orderFields: [],
       mainEntityKey,
@@ -150,7 +162,7 @@ class ListView extends React.Component {
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
-      variantFields: null,
+      variantFields: this.state.variantFields,
       requestFilterFields: this.state.requestFilterFields,
       requestOrderFields: this.state.orderFields,
     };
@@ -175,6 +187,7 @@ class ListView extends React.Component {
               {...item}
               disabled={!(this.state.selectedType && this.state.selectedRowKeys.length > 0)}
               key={item.buttonDescription}
+              mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
               className={styles.topButton}
@@ -224,6 +237,7 @@ class ListView extends React.Component {
     };
 
     if (this.state.columns && this.state.columns.length > 0) {
+      console.log('Search[data] ===> ', this.state.filters);
       return (
         <div className={styles.listview}>
           <div className={styles.toolbar}>

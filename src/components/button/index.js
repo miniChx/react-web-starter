@@ -18,6 +18,7 @@ export class ExtendButton extends React.Component {
   static propTypes = {
     disabled: PropTypes.bool,
     record: PropTypes.any,
+    mainEntityKey: PropTypes.string,
     type: PropTypes.oneOf(['button', 'link']),
     selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
   };
@@ -69,12 +70,18 @@ export class ExtendButton extends React.Component {
     if (this.props.selectedType === LIST_SELECTTYPE.RADIO) {
       activeData = this.props.record[0];
     }
+    let params = { id: activeData[this.props.mainEntityKey] };
+    if (this.props.bindParameterType === 'SEVERAL') {
+      this.props.bindParameters.forEach(item => {
+        params[item.name] = activeData[item.value];
+      });
+    }
+
+    // TODO: transmitParameters to be dealed.
+
     if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
-      let params;
       if (this.props.selectedType === LIST_SELECTTYPE.CHECKBOX) {
-        params = this.props.record.map(item => item.id);
-      } else {
-        params = { id: activeData.id };
+        params = this.props.record.map(item => item[this.props.mainEntityKey]);
       }
       // message|confirm|tooltip
       if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX
@@ -92,7 +99,7 @@ export class ExtendButton extends React.Component {
       }
     } else {
       // eslint-disable-next-line max-len
-      this._jump(this.props.domainLink, { id: activeData.id }, this.props.domainType, this.props.interactiveType);
+      this._jump(this.props.domainLink, { ...params }, this.props.domainType, this.props.interactiveType);
     }
   }
 

@@ -2,193 +2,229 @@
   "pageResult": {
     "pageIndex": 1,
     "itemsPerPage": 10,
-    "totalPages": 5,
+    "totalPages": 1,
     "contentList": [
       {
-        "id": 1,
-        "userName": "zhulifeng",
-        "mobileNo": "15251536935",
-        "email": "lfzhu@amarsoft.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
-      },
-      {
-        "id": 2,
-        "userName": "employee",
-        "mobileNo": "13811111111",
-        "email": "13811111111@qq.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
-      },
-      {
-        "id": 3,
-        "userName": "manager",
-        "mobileNo": "13822222222",
-        "email": "13822222222@qq.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
-      },
-      {
-        "id": 4,
-        "userName": "hr",
-        "mobileNo": "13833333333",
-        "email": "13833333333@qq.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
-      },
-      {
-        "id": 5,
-        "userName": "xgwen",
-        "mobileNo": "15113456560",
-        "email": "lfzhu2@amarsoft.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
-      },
-      {
-        "id": 6,
-        "userName": "wmge",
-        "mobileNo": "18662187892",
-        "email": "wmge@amarsoft.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
-      },
-      {
-        "id": 7,
-        "userName": "swei1",
-        "mobileNo": "18051480933",
-        "email": "723855399@qq.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
-      },
-      {
-        "id": 8,
-        "userName": "wmge1",
-        "mobileNo": "18662187891",
-        "email": "wmge1@amarsoft.com",
-        "status": "DELETE",
-        "statusValue": "已删除用户"
-      },
-      {
-        "id": 9,
-        "userName": "wmge2",
-        "mobileNo": "18662187893",
-        "email": "wmge2@amarsoft1.com",
-        "status": "DELETE",
-        "statusValue": "已删除用户"
-      },
-      {
-        "id": 10,
-        "userName": "swliu",
-        "mobileNo": "15222222222",
-        "email": "swliu@amarsoft.com",
-        "status": "ACTIVE",
-        "statusValue": "有效用户"
+        "serialNo": "mkd01111f",
+        "leaseeName": "ylu",
+        "certificateType": "UNIFORM_SOCIAL_CREDIT",
+        "certificateNo": "123456",
+        "registrationAddress": null,
+        "registrationDate": null,
+        "registeredCapitalAmount": null,
+        "creatorName": "SystemUser",
+        "creatorOrgName": "SystemOrg",
+        "createDate": 1480939735000,
+        "industry": "季节制造",
+        "leaseeId": 1
       }
     ],
-    "totalItems": 30
+    "totalItems": 1
   },
-  "itemsPerPage": 10,
+  "selectType": "INLINE",
+  "variantFields": [],
   "fields": [
     {
-      "name":"basicCustomerId",
-      "isMainEntityKey":true,
-      "fieldCode":"BASICCUSTOMER_BASICCUSTOMERID_IN_BASICCUSTOMER_LIST",
-      "index":1,
-      "entityShortName":"A",
-      "type":"Long",
-      "description":"客户编号",
-      "groupId":1,
-      "isVisible":false,
-      "displayComponent":{
-        "componentType":"Input",
-        "dictionaryCategory":null,
-        "dictionaryItems":[
-
-        ]
+      "name": "serialNo",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_SERIALNO_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 1,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "客户编号",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
       }
     },
     {
-      "name":"customerName",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERNAME_IN_BASICCUSTOMER_LIST",
-      "index":2,
-      "entityShortName":"A",
-      "type":"String",
-      "description":"客户名称",
-      "groupId":1,
-      "isVisible":true,
-      "displayComponent":{
-        "componentType":"Input",
-        "dictionaryCategory":null,
-        "dictionaryItems":[
-
-        ]
+      "name": "leaseeName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LEASEENAME_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 2,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "客户名称",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
       }
     },
     {
-      "name":"customerSize",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERSIZE_IN_BASICCUSTOMER_LIST",
-      "index":3,
-      "entityShortName":"A",
-      "type":"Long",
-      "description":"客户规模",
-      "groupId":1,
-      "isVisible":true,
-      "displayComponent":{
-        "componentType":"Input",
-        "dictionaryCategory":null,
-        "dictionaryItems":[
-
-        ]
-      }
-    },
-    {
-      "name":"customerType",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERTYPE_IN_BASICCUSTOMER_LIST",
-      "index":4,
-      "entityShortName":"A",
-      "type":"String",
-      "description":"客户类型",
-      "groupId":1,
-      "isVisible":true,
-      "displayComponent":{
-        "componentType":"SELECT",
-        "dictionaryCategory":"CUSTOMER_TYPE",
-        "dictionaryItems":[
+      "name": "certificateType",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATETYPE_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 3,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "证件类型",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "SHAREHOLDER_TYPE",
+        "dictionaryItems": [
           {
-            "code":"ENTERPRISE",
-            "value":"企业客户",
-            "displaySequence":1
+            "code": "LEGAL_PERSON_SHAREHOLDER",
+            "value": "法人股东",
+            "displaySequence": 1
           },
           {
-            "code":"NATURAL_PERSON",
-            "value":"自然人客户",
-            "displaySequence":2
-          },
-          {
-            "code":"PARTNER",
-            "value":"合作方客户",
-            "displaySequence":3
+            "code": "NATURAL_PERSON_SHAREHOLDER",
+            "value": "自然人股东",
+            "displaySequence": 2
           }
         ]
       }
     },
     {
-      "name":"registerDate",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERTYPE_IN_BASICCUSTOMER_LIST",
-      "index":5,
-      "entityShortName":"A",
-      "type":"String",
-      "description":"注册时间",
-      "groupId":1,
-      "isVisible":true,
-      "displayComponent":{
-        "componentType":"DatePicker",
-        "dictionaryCategory":"CUSTOMER_TYPE",
-        "dictionaryItems":[]
+      "name": "certificateNo",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATENO_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 4,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "证件号码",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "registrationAddress",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_REGISTRATIONADDRESS_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 6,
+      "entityShortName": "reg",
+      "type": "String",
+      "description": "注册地址",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "registrationDate",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_REGISTRATIONDATE_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 7,
+      "entityShortName": "reg",
+      "type": "Date",
+      "description": "注册登记日期",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "DATEPICKER",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "registeredCapitalAmount",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_REGISTEREDCAPITALAMOUNT_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 8,
+      "entityShortName": "reg",
+      "type": "Double",
+      "description": "注册资本",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "creatorName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATORNAME_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 9,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "登记人",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "creatorOrgName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATORORGNAME_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 10,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "登记部门",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "createDate",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATEDATE_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 11,
+      "entityShortName": "lea",
+      "type": "Date",
+      "description": "登记时间",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "DATEPICKER",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "industry",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_INDUSTRY_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 5,
+      "entityShortName": "ent",
+      "type": "String",
+      "description": "行业分类",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "leaseeId",
+      "isMainEntityKey": true,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LEASEEID_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 12,
+      "entityShortName": "lea",
+      "type": "Long",
+      "description": "承租人ID",
+      "groupId": 1,
+      "isVisible": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
       }
     }
   ],
@@ -197,124 +233,92 @@
       "buttonDescription": "添加",
       "displayPosition": "TOP",
       "interactiveType": "MODAL",
-      "domainLink": "/AccountDetail/render",
+      "messagePromptType": "TOOLTIP",
+      "domainLink": "/Api/enterpriseBasicAddInfoDetail/render",
       "domainType": "Detail",
-      "roles": [
-        "Role1",
-        "Role2",
-        "Role3"
-      ]
+      "actionName": null,
+      "buttonCode": "enterpriseBasicAddInfo_Detail_render_In_enterpriseCusBasicInfo_List\n            ",
+      "transmitParameters": [],
+      "bindParameterType": "NONE",
+      "bindParameters": null
     },
     {
-      "buttonDescription": "批量删除",
+      "buttonDescription": "显示页面菜单",
       "displayPosition": "TOP",
-      "interactiveType": "MODAL",
-      "domainLink": "/AccountDetail/render",
-      "domainType": "Detail",
-      "roles": [
-        "Role1",
-        "Role2",
-        "Role3"
-      ]
-    },
-    {
-      "buttonDescription": "删除",
-      "displayPosition": "INLINE",
-      "interactiveType": "ACTION",
-      "messagePromptType": "CONFIRM",
-      "actionName": "/AccountDetail/deleteById",
-      "requestParameters": [],
-      "roles": [
-        "Role1",
-        "Role2",
-        "Role3"
-      ]
-    },
-    {
-      "buttonDescription": "详情MODAL",
-      "displayPosition": "INLINE",
-      "interactiveType": "MODAL",
-      "domainLink": "/example/layout",
-      "domainType": "",
-      "requestParameters": [],
-      "roles": [
-        "Role1",
-        "Role2",
-        "Role3"
-      ]
-    },
-    {
-      "buttonDescription": "详情PAGE",
-      "displayPosition": "INLINE",
       "interactiveType": "PAGE",
-      "domainLink": "/example/layout",
-      "domainType": "",
-      "requestParameters": [],
-      "roles": [
-        "Role1",
-        "Role2",
-        "Role3"
-      ]
-    },
-    {
-      "buttonDescription": "筛选",
-      "actionType": "search",
-      "domainLink": null,
-      "actionName": "/AccountList/search",
-      "roles": [
-        "Role1",
-        "Role2",
-        "Role3"
+      "messagePromptType": "TOOLTIP",
+      "domainLink": "/Api/BasicCustomerList/renderPageMenu",
+      "domainType": "Detail",
+      "actionName": null,
+      "buttonCode": "basicCustomer_List_renderPageMenu_In_enterpriseCusBasicInfo_List\n            ",
+      "transmitParameters": [
+        {
+          "name": "enterpriseId"
+        }
+      ],
+      "bindParameterType": "SEVERAL",
+      "bindParameters": [
+        {
+          "name": "pageMenuId",
+          "value": "customerProfile"
+        }
       ]
     }
   ],
-  "filterItems":[
+  "filterItems": [
     {
-      "fieldName":"customerName",
-      "displayName":"客户名称",
-      "displaySeq":1,
-      "operatorType":"LIKE"
+      "fieldName": "serialNo",
+      "displayName": "客户编号",
+      "displaySeq": 1,
+      "operatorType": "LIKE"
     },
     {
-      "fieldName":"customerSize",
-      "displayName":"客户规模",
-      "displaySeq":2,
-      "operatorType":"BETWEEN"
+      "fieldName": "leaseeName",
+      "displayName": "客户名称",
+      "displaySeq": 2,
+      "operatorType": "LIKE"
     },
     {
-      "fieldName":"customerType",
-      "displayName":"客户类型",
-      "displaySeq":3,
-      "operatorType":"EQ"
+      "fieldName": "certificateType",
+      "displayName": "证件类型",
+      "displaySeq": 3,
+      "operatorType": "EQ"
     },
     {
-      "fieldName":"registerDate",
-      "displayName":"注册时间",
-      "displaySeq":3,
-      "operatorType":"EQ"
+      "fieldName": "certificateNo",
+      "displayName": "证件类型",
+      "displaySeq": 4,
+      "operatorType": "LIKE"
     }
   ],
-  "orderItems":[
+  "orderItems": [
     {
-      "fieldName":"customerName",
-      "displayName":"客户名称",
-      "displaySeq":1,
-      "isSelected":false,
-      "isAsc":true
+      "fieldName": "serialNo",
+      "displayName": "客户编号",
+      "displaySeq": 1,
+      "isSelected": false,
+      "isAsc": false
     },
     {
-      "fieldName":"customerSize",
-      "displayName":"客户规模",
-      "displaySeq":2,
-      "isSelected":false,
-      "isAsc":true
+      "fieldName": "leaseeName",
+      "displayName": "客户名称",
+      "displaySeq": 2,
+      "isSelected": false,
+      "isAsc": false
     },
     {
-      "fieldName":"customerType",
-      "displayName":"客户类型",
-      "displaySeq":3,
-      "isSelected":false,
-      "isAsc":true
+      "fieldName": "certificateType",
+      "displayName": "证件类型",
+      "displaySeq": 3,
+      "isSelected": false,
+      "isAsc": false
+    },
+    {
+      "fieldName": "certificateNo",
+      "displayName": "证件号码",
+      "displaySeq": 4,
+      "isSelected": false,
+      "isAsc": false
     }
   ]
 }
