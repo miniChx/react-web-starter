@@ -75,7 +75,7 @@ export default class Layout extends React.Component {
     if (this.props && this.props.params) {
       params = { ...params, ...this.props.params };
     }
-    params = { ...params, ...getValueByKey(this.props, {}, 'location', 'query') };
+    params = { ...params, ...getValueByKey(this.props, {}, 'query') };
     const ret = {};
     menuItem.bindParameters && menuItem.bindParameters.forEach(item => {
       ret[item.name] = params[item.name];

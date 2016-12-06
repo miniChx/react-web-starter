@@ -60,7 +60,7 @@ class Detail extends React.Component {
     if (this.props && this.props.params) {
       params = this.props.params;
     }
-    return { ...params, ...getValueByKey(this.props, {}, 'location', 'query') };
+    return { ...params, ...getValueByKey(this.props, {}, 'query') };
   }
 
   @autobind
