@@ -2,17 +2,18 @@
  * Created by baoyinghai on 11/17/16.
  */
 import React from 'react';
-import { Select } from 'mxa';
-// import StaticDisplay from './StaticDisplay';
+import { Radio } from 'mxa';
+
+const RadioGroup = Radio.Group;
 
 const compRender = record => {
   return (
-    <Select style={{ width: 120 }} disabled={record.isReadonly}>
+    <RadioGroup disabled={record.isReadonly}>
       {record.displayComponent && record.displayComponent.dictionaryItems && record.displayComponent.dictionaryItems.map((i, index) =>
         (
-          <Select.Option key={'select_' + i.code} value={i.code}>{i.value}</Select.Option>
+          <Radio key={'select_' + i.code} value={i.code}>{i.value}</Radio>
         ))}
-    </Select>
+    </RadioGroup>
   );
 };
 

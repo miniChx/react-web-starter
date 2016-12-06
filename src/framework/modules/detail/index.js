@@ -23,10 +23,27 @@ export default class ListDetail extends React.Component {
     renderAnalyser: React.PropTypes.func // 自定义渲染标单项 // componentName
   };
 
+  @autobind
+  confirmModel() {
+    // let ret = this.props.dataSource && this.props.dataSource.detailResult ? 'show' : 'edit';
+    // if (ret === 'show') {
+    //   const buttons = this.props.dataSource.buttons || [];
+    //   buttons.map(btn => {
+    //     if (btn.buttonDescription === '保存') {
+    //       ret = 'edit';
+    //     }
+    //   })
+    // }
+    // return ret;
+    return 'edit';
+  }
+
   constructor(props) {
     super(props);
+    // 检查buttons中是否有保存按钮
+    //
     this.state = {
-      model:  this.props.model
+      model:  this.confirmModel()
     };
   }
 

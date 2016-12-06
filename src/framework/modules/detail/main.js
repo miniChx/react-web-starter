@@ -56,19 +56,21 @@ class Detail extends React.Component {
 
   @autobind
   createReqParam() {
+    let params = {};
     if (this.props && this.props.params) {
-      return this.props.params;
+      params = this.props.params;
     }
-    return getValueByKey(this.props, {}, 'location', 'query');
+    return { ...params, ...getValueByKey(this.props, {}, 'location', 'query') };
   }
 
   @autobind
   realSubmit(item, values) {
     const rest = this.createReqParam();
     const self = this;
+    const original = this.props.dataSource.detailResult || {};
     this.props.exec(() => {
       // TODO: 地址多一个斜杠
-      return PFetch((item.domainLink || item.actionName), { ...rest, ...values })
+      return PFetch((item.domainLink || item.actionName), { ...original, ...rest, ...values })
         .then(response => {
           console.log(response);
           if (item.messagePromptType === 'message') {
@@ -131,24 +133,23 @@ class Detail extends React.Component {
       <div>
         {
           buttons.map(item => {
-            if (item.buttonDescription === '保存' && this.props.model !== 'show') {
-              return (
-                <Button
-                  className={styles.inlineButton}
-                  key={item.buttonDescription}
-                  onClick={() => this.handleSubmit(item)}
-                >
-                  {item.buttonDescription}
-                </Button>);
-            }
-            return null;
-          }).concat((
-            <Button
-              className={styles.inlineButton}
-              key="editBtnLocal"
-              onClick={this.handleChageState}
-            >{this.props.model === 'show' ? '编辑' : '返回'}</Button>
-          ))
+            return (
+              <Button
+                className={styles.inlineButton}
+                key={item.buttonDescription}
+                onClick={() => this.handleSubmit(item)}
+              >
+                {item.buttonDescription}
+              </Button>);
+            // TODO: 编辑按钮
+          })
+          //  .concat((
+          //  <Button
+          //    className={styles.inlineButton}
+          //    key="editBtnLocal"
+          //    onClick={this.handleChageState}
+          //  >{this.props.model === 'show' ? '编辑' : '返回'}</Button>
+          // ))
         }
       </div>
     );

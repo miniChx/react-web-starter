@@ -1,142 +1,1052 @@
 {
-  "detailResult":{
-    "basicCustomerId": 1,
-    "customerName": "安硕",
-    "customerType": "ENTERPRISE",
-    "basicCustomerId2": 2,
-    "customerName2": "安硕2",
-    "customerType2": "ENTERPRISE2"
+  "detailResult": {
+    "serialNo": "mkd01111f",
+    "leaseeName": "gggg",
+    "certificateType": "LEGAL_PERSON_SHAREHOLDER",
+    "certificateNo": "gggg",
+    "name": null,
+    "organizationFeature": null,
+    "organizationType": null,
+    "registrationDate": null,
+    "registeredCapitalAmount": null,
+    "paidInCapitalAmount": null,
+    "registrationAddress": null,
+    "registeredCapitalCurrency": null,
+    "paidInCapitalCurrency": null,
+    "industryType": null,
+    "expirationDate": null,
+    "taxpayerIdentificationNo": null,
+    "businessLicenseNo": null,
+    "businessLicenseExpirationDate": null,
+    "businessLicenseAnualCheckYear": null,
+    "anualCheckResult": null,
+    "taxpayerType": null,
+    "majorBusinessDesc": null,
+    "businessScope": null,
+    "alias": null,
+    "registrationAuthority": null,
+    "creatorName": null,
+    "creatorOrgName": null,
+    "createDate": null,
+    "lastModifierName": null,
+    "lastModifierOrgName": null,
+    "lastModifyDate": null,
+    "industry": "gggg",
+    "enterpriseId": null
   },
-  "columnNumber":2,
-  "fields":[
+  "columnNumber": 2,
+  "fields": [
     {
-      "name":"basicCustomerId",
-      "isMainEntityKey":true,
-      "fieldCode":"BASICCUSTOMER_BASICCUSTOMERID_IN_BASICCUSTOMER_DETAIL",
-      "index":1,
-      "entityShortName":"A",
-      "type":"Long",
-      "length":8,
-      "description":"客户编号",
-      "groupId":1,
-      "groupName":"企业基本信息",
-      "isVisible":true,
-      "isReadonly":true,
-      "isRequired":false,
-      "displayComponent":{
-        "componentType":"Input",
-        "items":null
-      }
+      "name": "serialNo",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_SERIALNO_IN_ENTERPRISECUSBASICINFO_DETAIL",
+      "index": 1,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 20,
+      "description": "客户编号",
+      "groupId": 1,
+      "groupName": "基本信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
     },
     {
-      "name":"customerName",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERNAME_IN_BASICCUSTOMER_DETAIL",
-      "index":2,
-      "entityShortName":"A",
-      "type":"String",
-      "length":50,
-      "description":"客户名称",
-      "groupId":1,
-      "groupName":"企业基本信息",
-      "isVisible":true,
-      "isReadonly":false,
-      "isRequired":false,
-      "displayComponent":{
-        "componentType":"Input",
-        "items":null
-      }
+      "name": "leaseeName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LEASEENAME_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 2,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 30,
+      "description": "客户名称",
+      "groupId": 1,
+      "groupName": "基本信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
     },
     {
-      "name":"customerType",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERTYPE_IN_BASICCUSTOMER_DETAIL",
-      "index":3,
-      "entityShortName":"A",
-      "type":"String",
-      "length":50,
-      "description":"客户类型",
-      "groupId":1,
-      "groupName":"企业基本信息",
-      "isVisible":true,
-      "isReadonly":false,
-      "isRequired":false,
-      "displayComponent":{
-        "componentType":"Input",
-        "items":null
-      }
+      "name": "certificateType",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATETYPE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 5,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 40,
+      "description": "证件类型",
+      "groupId": 2,
+      "groupName": "证件类型",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "CHECKBOXGROUP",
+        "dictionaryCategory": "SHAREHOLDER_TYPE",
+        "dictionaryItems": [
+          {
+            "code": "LEGAL_PERSON_SHAREHOLDER",
+            "value": "法人股东",
+            "displaySequence": 1
+          },
+          {
+            "code": "NATURAL_PERSON_SHAREHOLDER",
+            "value": "自然人股东",
+            "displaySequence": 2
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
     },
     {
-      "name":"basicCustomerId2",
-      "isMainEntityKey":true,
-      "fieldCode":"BASICCUSTOMER_BASICCUSTOMERID_IN_BASICCUSTOMER_DETAIL",
-      "index":1,
-      "entityShortName":"A",
-      "type":"Long",
-      "length":8,
-      "description":"客户编号",
-      "groupId":2,
-      "groupName":"企业基本信息2",
-      "isVisible":false,
-      "isReadonly":true,
-      "isRequired":false,
-      "displayComponent":{
-        "componentType":"Input",
-        "items":null
-      }
+      "name": "certificateNo",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATENO_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 6,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 30,
+      "description": "证件号码",
+      "groupId": 2,
+      "groupName": "证件类型",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
     },
     {
-      "name":"customerName2",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERNAME_IN_BASICCUSTOMER_DETAIL",
-      "index":2,
-      "entityShortName":"A",
-      "type":"String",
-      "length":50,
-      "description":"客户名称",
-      "groupId":2,
-      "groupName":"企业基本信息2",
-      "isVisible":true,
-      "isReadonly":false,
-      "isRequired":false,
-      "displayComponent":{
-        "componentType":"Input",
-        "items":null
-      }
+      "name": "name",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_NAME_IN_ENTERPRISECUSBASICINFO_DETAIL",
+      "index": 4,
+      "entityShortName": "per",
+      "type": "String",
+      "length": 50,
+      "description": "法人代表",
+      "groupId": 1,
+      "groupName": "基本信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
     },
     {
-      "name":"customerType2",
-      "isMainEntityKey":false,
-      "fieldCode":"BASICCUSTOMER_CUSTOMERTYPE_IN_BASICCUSTOMER_DETAIL",
-      "index":3,
-      "entityShortName":"A",
-      "type":"String",
-      "length":50,
-      "description":"客户类型",
-      "groupId":2,
-      "groupName":"企业基本信息2",
-      "isVisible":true,
-      "isReadonly":false,
-      "isRequired":false,
-      "displayComponent":{
-        "componentType":"Input",
-        "items":null
-      }
+      "name": "organizationFeature",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_ORGANIZATIONFEATURE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 14,
+      "entityShortName": "reg",
+      "type": "String",
+      "length": 30,
+      "description": "机构性质",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "ORGANIZATION_FEATURE",
+        "dictionaryItems": [
+          {
+            "code": "PARTY_AND_GOVERNMENT",
+            "value": "党政机关",
+            "displaySequence": 1
+          },
+          {
+            "code": "INSTITUTION",
+            "value": "事业单位",
+            "displaySequence": 2
+          },
+          {
+            "code": "SOCIAL_GROUP",
+            "value": "社会团体",
+            "displaySequence": 3
+          },
+          {
+            "code": "LEGAL_PERSON_ENTERPRISE",
+            "value": "法人企业",
+            "displaySequence": 4
+          },
+          {
+            "code": "NON_CORPORATE_ENTERPRISE",
+            "value": "非法人企业",
+            "displaySequence": 5
+          },
+          {
+            "code": "INDIVIDUAL_BUSINESS",
+            "value": "个体工商户",
+            "displaySequence": 6
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "organizationType",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_ORGANIZATIONTYPE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 16,
+      "entityShortName": "reg",
+      "type": "String",
+      "length": 30,
+      "description": "组织类型",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "ORGANIZATION_TYPE",
+        "dictionaryItems": [
+          {
+            "code": "DOMESTIC_FUNDING_ENTERPRISE",
+            "value": "内资企业",
+            "displaySequence": 1
+          },
+          {
+            "code": "STATE_OWNED_ENTERPRISE",
+            "value": "国有企业",
+            "displaySequence": 2
+          },
+          {
+            "code": "COLLECTIVE_ENTERPRISE",
+            "value": "集团企业",
+            "displaySequence": 3
+          },
+          {
+            "code": "COOPERATIVE_STOCK_ENTERPRISE",
+            "value": "股份合作企业",
+            "displaySequence": 4
+          },
+          {
+            "code": "JOINT_VENTURE",
+            "value": "联合企业",
+            "displaySequence": 5
+          },
+          {
+            "code": "LIMITED_LIABILITY_ENTERPRISE",
+            "value": "有限责任公司",
+            "displaySequence": 6
+          },
+          {
+            "code": "LIMITED_ENTERPRISE",
+            "value": "股份有限公司",
+            "displaySequence": 7
+          },
+          {
+            "code": "PRIVATE_ENTERPRISE",
+            "value": "私营企业",
+            "displaySequence": 8
+          },
+          {
+            "code": "PROPRIETORSHIP",
+            "value": "私营独资企业",
+            "displaySequence": 9
+          },
+          {
+            "code": "PRIVATE_LIMITED_LIABILITY_ENTERPRISE",
+            "value": "私营有限责任公司",
+            "displaySequence": 10
+          },
+          {
+            "code": "HK_MACAO_TAIWAN_INVESTED_ENTERPRISE",
+            "value": "港澳台商投资企业",
+            "displaySequence": 11
+          },
+          {
+            "code": "JOINT VENTURE_ENTERPRISE",
+            "value": "合资经营企业（港，澳或台资）",
+            "displaySequence": 12
+          },
+          {
+            "code": "FOREIGN_INVESTED_ENTERPRISE",
+            "value": "外商投资企业",
+            "displaySequence": 13
+          },
+          {
+            "code": "SINO_FOREIGN_JOINT_VENTURES",
+            "value": "中外合资经营企业",
+            "displaySequence": 14
+          },
+          {
+            "code": "SINO_FOREIGN_COOPERATIVE_ENTERPRISE",
+            "value": "中外合作经营企业",
+            "displaySequence": 15
+          },
+          {
+            "code": "FOREIGN_CAPITAL_ENTERPRISE",
+            "value": "外资企业",
+            "displaySequence": 16
+          },
+          {
+            "code": "INDIVIDUAL_MANAGEMENT",
+            "value": "个体经营",
+            "displaySequence": 17
+          },
+          {
+            "code": "PERSONAL_PARTNERSHIP",
+            "value": "个人合伙",
+            "displaySequence": 18
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "registrationDate",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_REGISTRATIONDATE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 18,
+      "entityShortName": "reg",
+      "type": "Date",
+      "length": 40,
+      "description": "企业登记日期",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "DATEPICKER",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "registeredCapitalAmount",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_REGISTEREDCAPITALAMOUNT_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 20,
+      "entityShortName": "reg",
+      "type": "Double",
+      "length": 15,
+      "description": "注册资本金额",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "paidInCapitalAmount",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_PAIDINCAPITALAMOUNT_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 22,
+      "entityShortName": "reg",
+      "type": "Double",
+      "length": 15,
+      "description": "实收资本金额",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "registrationAddress",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_REGISTRATIONADDRESS_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 17,
+      "entityShortName": "reg",
+      "type": "String",
+      "length": 100,
+      "description": "注册地址",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "registeredCapitalCurrency",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_REGISTEREDCAPITALCURRENCY_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 19,
+      "entityShortName": "reg",
+      "type": "String",
+      "length": 20,
+      "description": "注册资本币种",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "CURRENCY",
+        "dictionaryItems": [
+          {
+            "code": "RMB",
+            "value": "人民币",
+            "displaySequence": 1
+          },
+          {
+            "code": "POUND",
+            "value": "英镑",
+            "displaySequence": 2
+          },
+          {
+            "code": "DOLLAR",
+            "value": "美元",
+            "displaySequence": 3
+          },
+          {
+            "code": "HK",
+            "value": "港币",
+            "displaySequence": 4
+          },
+          {
+            "code": "YEN",
+            "value": "日元",
+            "displaySequence": 5
+          },
+          {
+            "code": "EURO",
+            "value": "欧元",
+            "displaySequence": 6
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "paidInCapitalCurrency",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_PAIDINCAPITALCURRENCY_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 21,
+      "entityShortName": "reg",
+      "type": "String",
+      "length": 20,
+      "description": "实收资本币种",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "CURRENCY",
+        "dictionaryItems": [
+          {
+            "code": "RMB",
+            "value": "人民币",
+            "displaySequence": 1
+          },
+          {
+            "code": "POUND",
+            "value": "英镑",
+            "displaySequence": 2
+          },
+          {
+            "code": "DOLLAR",
+            "value": "美元",
+            "displaySequence": 3
+          },
+          {
+            "code": "HK",
+            "value": "港币",
+            "displaySequence": 4
+          },
+          {
+            "code": "YEN",
+            "value": "日元",
+            "displaySequence": 5
+          },
+          {
+            "code": "EURO",
+            "value": "欧元",
+            "displaySequence": 6
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "industryType",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_INDUSTRYTYPE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 23,
+      "entityShortName": "reg",
+      "type": "String",
+      "length": 30,
+      "description": "所属行业",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "Input",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "expirationDate",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_EXPIRATIONDATE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 7,
+      "entityShortName": "cer",
+      "type": "Date",
+      "length": 40,
+      "description": "证件到期日",
+      "groupId": 2,
+      "groupName": "证件信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "DATEPICKER",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "taxpayerIdentificationNo",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_TAXPAYERIDENTIFICATIONNO_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 9,
+      "entityShortName": "cer",
+      "type": "String",
+      "length": 30,
+      "description": "纳税人识别号",
+      "groupId": 2,
+      "groupName": "证件信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "businessLicenseNo",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_BUSINESSLICENSENO_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 10,
+      "entityShortName": "cer",
+      "type": "String",
+      "length": 30,
+      "description": "工商营业执照号",
+      "groupId": 2,
+      "groupName": "",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "businessLicenseExpirationDate",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_BUSINESSLICENSEEXPIRATIONDATE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 11,
+      "entityShortName": "cer",
+      "type": "Date",
+      "length": 40,
+      "description": "工商执照到期日",
+      "groupId": 2,
+      "groupName": "证件信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "DATEPICKER",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "businessLicenseAnualCheckYear",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_BUSINESSLICENSEANUALCHECKYEAR_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 12,
+      "entityShortName": "cer",
+      "type": "String",
+      "length": 10,
+      "description": "工商执照最新年检年份",
+      "groupId": 2,
+      "groupName": "证件信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "anualCheckResult",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_ANUALCHECKRESULT_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 13,
+      "entityShortName": "cer",
+      "type": "String",
+      "length": 10,
+      "description": "年审结果",
+      "groupId": 2,
+      "groupName": "证件信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "ANUAL_CHECK_RESULT_STATE",
+        "dictionaryItems": [
+          {
+            "code": "QUALIFIED",
+            "value": "合格",
+            "displaySequence": 1
+          },
+          {
+            "code": "UNQUALIFIED",
+            "value": "不合格",
+            "displaySequence": 2
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "taxpayerType",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_TAXPAYERTYPE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 8,
+      "entityShortName": "cer",
+      "type": "String",
+      "length": 20,
+      "description": "纳税人类别",
+      "groupId": 2,
+      "groupName": "证件信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "TAX_PAYER_CATEGORY",
+        "dictionaryItems": [
+          {
+            "code": "AVERAGE_TAXPAYER",
+            "value": "一般纳税人",
+            "displaySequence": 1
+          },
+          {
+            "code": "SMALL_SCOPE_TAXPAYER",
+            "value": "小规模纳税人",
+            "displaySequence": 2
+          },
+          {
+            "code": "NON_VAT_TAXPAYER",
+            "value": "非增值税纳税人",
+            "displaySequence": 3
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "majorBusinessDesc",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_MAJORBUSINESSDESC_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 25,
+      "entityShortName": "ope",
+      "type": "String",
+      "length": 2000,
+      "description": "主营业务/主要产品/服务情况",
+      "groupId": 4,
+      "groupName": "经营信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "businessScope",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_BUSINESSSCOPE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 24,
+      "entityShortName": "ope",
+      "type": "String",
+      "length": 2000,
+      "description": "经营范围",
+      "groupId": 4,
+      "groupName": "经营信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "alias",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_ALIAS_IN_ENTERPRISECUSBASICINFO_DETAIL",
+      "index": 3,
+      "entityShortName": "ent",
+      "type": "String",
+      "length": 30,
+      "description": "客户简称",
+      "groupId": 1,
+      "groupName": "基本信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "registrationAuthority",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_REGISTRATIONAUTHORITY_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 15,
+      "entityShortName": "reg",
+      "type": "String",
+      "length": 20,
+      "description": "企业登记机构",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": false,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "REGISTRATION_ORGANIZATION",
+        "dictionaryItems": [
+          {
+            "code": "PROVINCIAL_TRADE_INDUSTRY_BUREAU",
+            "value": "省级工商局",
+            "displaySequence": 1
+          },
+          {
+            "code": "MUNICIPAL_TRADE_INDUSTRY_BUREAU",
+            "value": "地市级工商局",
+            "displaySequence": 2
+          },
+          {
+            "code": "COUNTY_TRADE_INDUSTRY_BUREAU",
+            "value": "县市级工商局",
+            "displaySequence": 3
+          }
+        ]
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "creatorName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATORNAME_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 26,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 80,
+      "description": "登记人",
+      "groupId": 5,
+      "groupName": "其他信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "creatorOrgName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATORORGNAME_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 27,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 80,
+      "description": "登记部门",
+      "groupId": 5,
+      "groupName": "其他信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "createDate",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATEDATE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 28,
+      "entityShortName": "lea",
+      "type": "Date",
+      "length": 8,
+      "description": "登记时间",
+      "groupId": 5,
+      "groupName": "其他信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "lastModifierName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LASTMODIFIERNAME_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 29,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 80,
+      "description": "更新人",
+      "groupId": 5,
+      "groupName": "其他信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "lastModifierOrgName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LASTMODIFIERORGNAME_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 20,
+      "entityShortName": "lea",
+      "type": "String",
+      "length": 80,
+      "description": "更新部门",
+      "groupId": 5,
+      "groupName": "其他信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "lastModifyDate",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LASTMODIFYDATE_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 31,
+      "entityShortName": "lea",
+      "type": "Date",
+      "length": 8,
+      "description": "更新时间",
+      "groupId": 5,
+      "groupName": "其他信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "industry",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_INDUSTRY_IN_ENTERPRISECUSBASICINFO_DETAIL",
+      "index": 23,
+      "entityShortName": "enl",
+      "type": "String",
+      "length": 40,
+      "description": "所属行业",
+      "groupId": 3,
+      "groupName": "注册信息",
+      "isVisible": true,
+      "isReadonly": true,
+      "isRequired": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
+    },
+    {
+      "name": "enterpriseId",
+      "isMainEntityKey": true,
+      "fieldCode": "ENTERPRISECUSBASICINFO_ENTERPRISEID_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+      "index": 33,
+      "entityShortName": "ent",
+      "type": "Long",
+      "length": 8,
+      "description": "企业ID",
+      "groupId": 1,
+      "groupName": "基本信息",
+      "isVisible": false,
+      "isReadonly": false,
+      "isRequired": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": "",
+        "dictionaryItems": []
+      },
+      "validateType": null,
+      "opt": null,
+      "modalInput": null
     }
   ],
-  "buttons":[
+  "buttons": [
     {
-      "buttonDescription":"保存",
-      "displayPosition":"Bottom",
-      "interactiveType":"Action",
-      "messagePromptType":"message",
-      "domainLink":null,
-      "domainType":null,
-      "actionName":"/Api/BasicCustomerDetail/update",
-      "buttonCode":"basicCustomer_Detail_update_In_basicCustomer_Detail",
-      "transmitParameters":null,
-      "bindParameterType":"ALL",
-      "bindParameters":null
+      "buttonDescription": "保存",
+      "displayPosition": "TOP",
+      "interactiveType": "ACTION",
+      "messagePromptType": "MESSAGE",
+      "domainLink": null,
+      "domainType": "Detail",
+      "actionName": "/Api/EnterpriseCusBasicInfoDetail/update",
+      "buttonCode": "enterpriseCusBasicInfo_Detail_update_In_enterpriseCusBasicInfo_Detail\n            ",
+      "transmitParameters": null,
+      "bindParameterType": "ALL",
+      "bindParameters": null
     }
   ]
 }
