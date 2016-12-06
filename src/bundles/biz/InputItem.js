@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Input } from 'mxa';
-import StaticDisplay from '../../framework/modules/detail/displayAnalyser/StaticDisplay';
+import StaticDisplay from '../../framework/modules/detail/displayComp/analyser/StaticDisplay';
 
 const compRender = field => {
   return (

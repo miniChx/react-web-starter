@@ -39,7 +39,8 @@ export default class Lt extends React.Component {
     return InputItem;
   }
 
-  createRules(record) {
+  createRules(record, form) {
+    // 通过form.getFieldsValue() 获取表单值, 在validator中调用该方法时,才会返回实时数据. 否则返回初始化数据.
     return [{ required: true, message: '必填' }];
   }
 
