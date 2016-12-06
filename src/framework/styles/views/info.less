@@ -35,48 +35,21 @@
 
 }
 
-.layoutToolsOut {
-  position: fixed;
-  top: 5.5rem;
-  right: 6rem;
-  border-radius: @btn-border-radius-base;
-  color: @info-color;
-  background-color: @body-background;
-  animation: moveout .3s;
-  animation-timing-function: ease;
-}
-
-.layoutToolsIn {
-  position: fixed;
-  top: 5.5rem;
-  right: -6.5rem;
-  border-radius: @btn-border-radius-base;
-  color: @info-color;
-  background-color: @body-background;
-  animation: movein .3s;
-  animation-timing-function: ease;
-}
-
 .layoutToolsDefault {
   position: fixed;
   top: 5.5rem;
-  right: -6.5rem;
+  transition: right 0.5s ease-out;
   border-radius: @btn-border-radius-base;
   color: @info-color;
   background-color: @body-background;
 }
 
-@keyframes movein
-{
-  from {right: 6rem;}
-  to {right: -6.5rem;}
+.layoutToolsOut {
+  right: 6rem;
 }
 
-
-@keyframes moveout
-{
-  from {right: -6.5rem;}
-  to {right: 6rem;}
+.layoutToolsIn {
+  right: -6.5rem;
 }
 
 .layoutToolsArrow {

@@ -13,25 +13,37 @@ import SelectAnalyser from './analyser/SelectAnalyser';
 import CascaderAnalyser from './analyser/CascaderAnalyser';
 import CheckboxAnalyser from './analyser/CheckboxAnalyser';
 import RadioAnalyser from './analyser/RadioAnalyser';
+import TimePickerAnalyser from './analyser/TimePickerAnalyser';
+import SwitchAnalyser from './analyser/SwitchAnalyser';
+import CheckboxGroupAnalyser from './analyser/CheckboxGroupAnalyser';
+import RadioGroupAnalyser from './analyser/RadioGroupAnalyser';
 import { getValueByKey } from '../../../utils/MapUtils';
 import createRules from '../formValidator';
 
 const FormItem = Form.Item;
 
 const FormItemMap = {
-  InputAnalyser,
-  DatePickerAnalyser,
-  InputNumberAnalyser,
-  SelectAnalyser,
-  CascaderAnalyser,
-  CheckboxAnalyser,
-  RadioAnalyser,
+  INPUT: InputAnalyser,
+  DATEPICKER: DatePickerAnalyser,
+  INPUTNUMBER: InputNumberAnalyser,
+  SELECT: SelectAnalyser,
+  CASCADER: CascaderAnalyser,
+  CHECKBOX: CheckboxAnalyser,
+  RADIO: RadioAnalyser,
+  TIMEPICKER: TimePickerAnalyser,
+  SWITCH: SwitchAnalyser,
+  CHECKBOXGROUP: CheckboxGroupAnalyser,
+  RADIOGROUP: RadioGroupAnalyser,
   defaultAnalyser: InputAnalyser
 };
 
+function isArray(o) {
+  return Object.prototype.toString.call(o) === '[object Array]';
+}
+
 const transFromtoDate = (data, compRender) => {
-  if (compRender === FormItemMap.DatePickerAnalyser) {
-    return data && moment(data);
+  if (compRender === FormItemMap.DATEPICKER || compRender === FormItemMap.TIMEPICKER) {
+    return data && moment(new Date(data));
   }
   return data;
 };
@@ -53,13 +65,11 @@ const formAnalyser = (compRender, model, props) => (formItemLayout, record, getF
   );
 };
 
-// renderAnalyser
-
 const chooseAnalyser = (record, props) => {
   const analyserName = getValueByKey(record, 'default', 'displayComponent', 'componentType');
   // console.log(analyserName);
-  const ret = props.renderAnalyser && props.renderAnalyser(analyserName);
-  return ret || FormItemMap[analyserName + 'Analyser'] || FormItemMap.defaultAnalyser;
+  const ret = props.renderAnalyser && props.renderAnalyser(analyserName, record);
+  return ret || FormItemMap[analyserName] || FormItemMap.defaultAnalyser;
 };
 
 const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, model, props) => {

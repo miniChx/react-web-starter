@@ -19,12 +19,12 @@ const showModal = (params, domainType, domainLink) => {
       maskDiv.parentNode.removeChild(maskDiv);
     }
   };
-
+  const self = {};
   const ModalPage = Compose(AsyncDecorator, InitDecorator)();
   const maskModal = (
     <MaskLayer visible={true} onCancel={_close} zIndex="999">
-      <div className={appStyle.modalContainer}>
-        <ModalPage params={params} domainType={domainType} domainLink={domainLink} />
+      <div className={appStyle.modalContainer} ref={node => { self.container = node; }}>
+        <ModalPage target={() => self.container} params={params} domainType={domainType} domainLink={domainLink} />
       </div>
     </MaskLayer>
   );

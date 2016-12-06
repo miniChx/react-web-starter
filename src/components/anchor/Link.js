@@ -14,7 +14,10 @@ export default class Link extends React.Component {
   linkClick(e) {
     e.preventDefault();
     const anchorLink = document.querySelector("a[href='" + this.props.href + "']");
-    if (window.scrollTo) {
+    const mask = document.getElementById('mask-container');
+    if (mask) {
+      mask.scrollTop = anchorLink.offsetTop;
+    } else if (window.scrollTo) {
       window.scrollTo({ behavior: 'smooth', top: anchorLink.offsetTop });
     }
   }

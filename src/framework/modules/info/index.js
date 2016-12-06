@@ -15,8 +15,9 @@ import InitDecorator from '../../pageContainer/InitDecorator';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
 import { showComponent } from './MaskLayer';
 import { getValueByKey } from '../../utils/MapUtils';
+import FixedButtonGroup from './fixedButtonGroup';
 
-const ButtonGroup = Button.Group;
+// const ButtonGroup = Button.Group;
 
 export default class Layout extends React.Component {
 
@@ -56,7 +57,7 @@ export default class Layout extends React.Component {
   @autobind
   createMain(data, domainType, domainLink) {
     const TempPage = Compose(AsyncDecorator, InitDecorator)();
-    return (<TempPage dataSource={data} domainType={domainType} domainLink={domainLink} />);
+    return (<TempPage {...this.props} dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
   @autobind
@@ -70,16 +71,23 @@ export default class Layout extends React.Component {
   @autobind
   createReqParam(menuItem) {
     // TODO: some all
+    let params = {};
     if (this.props && this.props.params) {
-      return this.props.params;
+      params = { ...params, ...this.props.params };
     }
-    return getValueByKey(this.props, {}, 'location', 'query');
+    params = { ...params, ...getValueByKey(this.props, {}, 'query') };
+    const ret = {};
+    menuItem.bindParameters && menuItem.bindParameters.forEach(item => {
+      ret[item.name] = params[item.name];
+    });
+    return ret;
   }
 
   // TODO: refactor
   @autobind
   updateMain(domainLink, domainType, menuItem) {
     const menuCode = menuItem.menuCode;
+    // 下部菜单
     const patch = searchBeforeAndAfter(menuCode, this.props.dataSource.menus);
     const isRenderBodyCustom = this.props.filterMenu && this.props.filterMenu(menuItem);
     if (isRenderBodyCustom) {
@@ -171,19 +179,15 @@ export default class Layout extends React.Component {
             </div>
           </Col>
           <Col span={3}>
-            <Anchor>
+            <Anchor target={this.props.target}>
               {this.state.anchor && this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
             </Anchor>
           </Col>
         </Row>
-        <BackTop />
-        <div className={this.state.toolStyle}>
-          <ButtonGroup style={{ borderRadius: '6px' }}>
-            <Button type="primary" onClick={this.switchTools}>{this.state.tools ? <Icon style={{ marginLeft: '-5px' }} type="caret-right" /> : <Icon style={{ marginLeft: '-5px' }} type="caret-left" />}</Button>
-            <Button type="ghost">审批</Button>
-            <Button type="ghost" onClick={this.popMask}>流程图</Button>
-          </ButtonGroup>
-        </div>
+        <FixedButtonGroup>
+          <Button type="ghost">审批</Button>
+          <Button type="ghost" onClick={this.popMask}>流程图</Button>
+        </FixedButtonGroup>
       </div>
     );
   }

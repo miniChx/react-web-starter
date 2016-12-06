@@ -2,30 +2,31 @@
  * Created by baoyinghai on 11/17/16.
  */
 import React from 'react';
-import { Select } from 'mxa';
-// import StaticDisplay from './StaticDisplay';
+import { Checkbox } from 'mxa';
+
+const CheckboxGroup = Checkbox.Group;
 
 const compRender = record => {
+  const options = [];
+  record.displayComponent && record.displayComponent.dictionaryItems && record.displayComponent.dictionaryItems.forEach((i, index) => {
+    options.push({ label: i.value, value: i.code });
+  });
+  console.log('#### checkbox group', options);
   return (
-    <Select style={{ width: 120 }} disabled={record.isReadonly}>
-      {record.displayComponent && record.displayComponent.dictionaryItems && record.displayComponent.dictionaryItems.map((i, index) =>
-        (
-          <Select.Option key={'select_' + i.code} value={i.code}>{i.value}</Select.Option>
-        ))}
-    </Select>
+    <CheckboxGroup options={options} disabled={record.isReadonly} />
   );
 };
 
 class StaticDisplay extends React.Component {
   render() {
-    let value = this.props.value;
+    const value = [];
     this.props.opts && this.props.opts.forEach(item => {
       if (item.code === this.props.value) {
-        value = item.value;
+        value.push(item.value);
       }
     });
     return (
-      <span>{value}</span>
+      <span>{value.join(', ')}</span>
     );
   }
 }

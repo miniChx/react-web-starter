@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push, replace, goBack } from 'react-router-redux';
 
-import { Row, Col } from 'mxa';
+import { Row, Col, BackTop } from 'mxa';
 
 import { autobind } from 'core-decorators';
 
@@ -72,6 +72,7 @@ class App extends React.Component {
             </Row>
           </div>
           <Footer />
+          <BackTop />
         </div>
       );
     }

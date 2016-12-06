@@ -3,7 +3,6 @@ import { autobind } from 'core-decorators';
 import { getPageData, getSubMenu } from '../service/CacheService';
 import { dispatch } from '../service/DispatchService';
 import exclusive from './exclusive';
-import { setSubMenu } from '../actions/global';
 
 const AsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {
@@ -12,14 +11,6 @@ const AsyncDecorator = Wrapper => {
       this.state = {
         data: this.props.dataSource || getPageData()
       };
-    }
-
-    componentDidMount() {
-      if (this.state.data && this.state.data.menu) {
-        dispatch(setSubMenu(this.state.data.menu));
-      } else if (getSubMenu().length > 0) {
-        // dispatch(setSubMenu([]));
-      }
     }
 
     @autobind

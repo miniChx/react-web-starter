@@ -7,9 +7,10 @@ import styles from '../../framework/styles/views/anchor.less';
 import Link from './Link';
 
 export default class Anchor extends React.Component {
+
   render() {
     return (
-      <Affix>
+      <Affix target={() => (this.props.target && this.props.target()) || window}>
         <ul className={styles.container}>
           {this.props.children}
         </ul>
