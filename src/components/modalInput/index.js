@@ -24,13 +24,14 @@ export default class ModalInput extends React.Component {
 
   @autobind
   _callback(value) {
-    const { mapper, callback } = this.props;
+    const { mapper, callback, onChange } = this.props;
     let displayValue = value;
     if (mapper !== undefined && value) {
       displayValue = mapper !== undefined ? mapper(value) : value;
     }
     this.setState({ value: displayValue });
-    callback && callback(value);
+    // callback && callback(value);
+    onChange && onChange('value');
   }
 
   @autobind
@@ -41,13 +42,11 @@ export default class ModalInput extends React.Component {
   }
 
   render() {
+    const newProps = { value: this.props.value, onChange: this.props.onChange, addonAfter: (<Icon type="bars" onClick={this._showModal} />) };
     return (
       <div style={{ marginBottom: 16 }}>
         <Input
-          addonAfter={<Icon type="bars" onClick={this._showModal} />}
-          defaultValue={this.props.placeholder}
-          disabled={true}
-          value={this.state.value}
+          {...newProps}
         />
       </div>
     );

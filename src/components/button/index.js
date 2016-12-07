@@ -203,4 +203,4 @@ export class ExtendButton extends React.Component {
   }
 }
 
-export default connect()(ExtendButton);
+export default ExtendButton;

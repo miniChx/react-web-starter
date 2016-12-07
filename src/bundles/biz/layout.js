@@ -5,7 +5,7 @@ import React from 'react';
 import { Icon, Col, Row, Form, Input, Modal } from 'mxa';
 import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
-import ModalInput from '../../components/modalInput';
+import ModalInput from './ModalTest';
 import { Info, ListDetail } from '../../framework/modules';
 import appStyle from '../../framework/styles/views/app.less';
 // import Simple from '../../components/simpleMenu';
@@ -36,7 +36,10 @@ export default class Lt extends React.Component {
 
   renderAnalyser(analyserName, field) {
     console.log(field);
-    return InputItem;
+    if (field.name === 'certificateType') {
+      return ModalInput;
+    }
+    return false;
   }
 
   createRules(record, form) {

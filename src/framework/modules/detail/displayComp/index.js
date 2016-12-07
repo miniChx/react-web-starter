@@ -17,6 +17,7 @@ import TimePickerAnalyser from './analyser/TimePickerAnalyser';
 import SwitchAnalyser from './analyser/SwitchAnalyser';
 import CheckboxGroupAnalyser from './analyser/CheckboxGroupAnalyser';
 import RadioGroupAnalyser from './analyser/RadioGroupAnalyser';
+import ModalInputAnalyser from './analyser/ModalInputAnalyser';
 import { getValueByKey } from '../../../utils/MapUtils';
 import createRules from '../formValidator';
 
@@ -34,6 +35,7 @@ const FormItemMap = {
   SWITCH: SwitchAnalyser,
   CHECKBOXGROUP: CheckboxGroupAnalyser,
   RADIOGROUP: RadioGroupAnalyser,
+  MODALINPUT: ModalInputAnalyser,
   defaultAnalyser: InputAnalyser
 };
 
@@ -48,14 +50,13 @@ const transFromtoDate = (data, compRender) => {
   return data;
 };
 
-// 表单项
+// 表单项  hasFeedback={model === 'edit'}
 const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult) => {
   return (
     <FormItem
       key={record.description}
       {...formItemLayout}
       label={record.description}
-      hasFeedback={model === 'edit'}
     >
       {getFieldDecorator(record.name, {
         rules: (props.createRules && props.createRules(record, props.form)) || createRules(record, props.form),
