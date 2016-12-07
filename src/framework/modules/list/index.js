@@ -28,6 +28,7 @@ class ListView extends React.Component {
           buttons.map(item => (
             <ExtendButton
               {...item}
+              callback={this.props.callback}
               inline={true}
               key={record[mainEntityKey]}
               mainEntityKey={mainEntityKey}
@@ -187,6 +188,7 @@ class ListView extends React.Component {
               buttonProps={{
                 type: 'ghost',
               }}
+              callback={this.props.callback}
               {...item}
               disabled={item.isSelectToJump && this.state.selectedRowKeys.length <= 0}
               key={item.buttonDescription}

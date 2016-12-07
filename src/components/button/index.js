@@ -157,6 +157,11 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _triggerAction() {
+    if (this.props.callback) {
+      console.log(123);
+      this.props.callback(132123);
+      return;
+    }
     if (!this.props.isSelectToJump) {
       this._triggerActionWithoutRows();
     } else if (this.props.inline) {
