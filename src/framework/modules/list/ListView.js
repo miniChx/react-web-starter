@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import { Table } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton, Search } from '../../../components';
-import { LIST_SELECTTYPE, BUTTON_POSITION } from '../../constant/dictCodes';
+import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
 
 import styles from '../../styles/views/listview.less';
 
@@ -45,9 +45,9 @@ class ListView extends React.Component {
 
   @autobind
   _processData(data) {
-    const buttons = { inline: [], top: [] };
+    const buttons = { row: [], top: [] };
     if (data.buttons) {
-      buttons.inline = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.INLINE);
+      buttons.row = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.ROW);
       buttons.top = data.buttons.filter(item => item.displayPosition === BUTTON_POSITION.TOP);
     }
 
@@ -69,13 +69,13 @@ class ListView extends React.Component {
     });
 
     // add operation
-    if (buttons && buttons.inline && buttons.inline.length > 0) {
+    if (buttons && buttons.row && buttons.row.length > 0) {
       columns.push({
         title: '操作',
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: (text, record) => this._renderColumnAction(text, record, buttons.inline, mainEntityKey),
+        render: (text, record) => this._renderColumnAction(text, record, buttons.row, mainEntityKey),
       });
     }
 
@@ -204,7 +204,8 @@ class ListView extends React.Component {
               }}
               callback={this.props.callback}
               {...item}
-              disabled={item.isSelectToJump && this.state.selectedRowKeys.length <= 0}
+              disabled={(item.relatedRows === BUTTON_RELATEDROWS.SINGLE && this.state.selectedRowKeys.length !== 1)
+                || (item.relatedRows === BUTTON_RELATEDROWS.MULTIPLE && this.state.selectedRowKeys.length < 1)}
               key={item.buttonDescription}
               mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}

@@ -19,16 +19,16 @@ function getUrlPath(url) {
   return '/blc' + url;
 }
 
-//app.post(getUrlPath('/AccountList/render'), function (req, res) {
-//  var mockData = require('./json/accountList.json');
-//  res.json(mockData);
-//})
-//
-//app.post(getUrlPath('/AccountDetail/render'), function (req, res) {
-//  var mockData = require('./json/accountDetail.json');
-//  res.json(mockData);
-//})
-//
+app.post('/AccountList/render', function (req, res) {
+ var mockData = require('./json/accountList.json');
+ res.json(mockData);
+})
+
+app.post('/AccountDetail/render', function (req, res) {
+ var mockData = require('./json/accountDetail.json');
+ res.json(mockData);
+})
+
 //app.post(getUrlPath('/Api/AccountDetail/getMenus'), function (req, res) {
 //  var mockData = require('./json/getMenus.json');
 //  setTimeout(() => {
@@ -120,10 +120,19 @@ function getUrlPath(url) {
 //})
 //
 //
-//app.post(getUrlPath('/example/layout'), function (req, res) {
+// app.post(getUrlPath('/example/layout'), function (req, res) {
 //  var mockData = require('./json/exampleLayout.json');
 //  res.json(mockData);
-//})
+// })
+app.post('/example/layout', function (req, res) {
+ var mockData = require('./json/exampleLayout.json');
+ res.json(mockData);
+})
+//
+// app.post(getUrlPath('/Api/EnterpriseCusBasicInfoList/render'), function (req, res) {
+//  var mockData = require('./json/enterpriseCusBasicInfoList.json');
+//  res.json(mockData);
+// })
 
 app.post('/*', function (req, res) {
   console.log('#########', req.url);

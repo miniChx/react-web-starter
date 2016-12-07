@@ -9,7 +9,12 @@ import { CONTAINER_PRE } from '../../framework/routes';
 import { showModal } from '../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../framework/system/fetch';
 
-import { LIST_SELECTTYPE, BUTTON_INTERACTIVETYPE, BUTTON_MESSAGEPROMPTTYPE } from '../../framework/constant/dictCodes';
+import {
+  LIST_SELECTTYPE,
+  BUTTON_INTERACTIVETYPE,
+  BUTTON_MESSAGEPROMPTTYPE,
+  BUTTON_RELATEDROWS,
+} from '../../framework/constant/dictCodes';
 
 const confirm = Modal.confirm;
 
@@ -72,7 +77,7 @@ export class ExtendButton extends React.Component {
     const params = { [this.props.mainEntityKey]: record[this.props.mainEntityKey] };
     if (this.props.bindParameterType === 'SEVERAL') {
       this.props.bindParameters.forEach(item => {
-        params[item.name] = this.props.query[item.value];
+        params[item.name] = item.value || this.props.query[item.value];
       });
     }
 
@@ -159,11 +164,12 @@ export class ExtendButton extends React.Component {
       this.props.callback(132123);
       return;
     }
-    if (!this.props.isSelectToJump) {
+    if (this.props.relatedRows === BUTTON_RELATEDROWS.NONE) {
       this._triggerActionWithoutRows();
     } else if (this.props.inline) {
       this._triggerActionSingle(this.props.record);
-    } else if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX) {
+    } else if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX
+      || this.props.relatedRows === BUTTON_RELATEDROWS.SINGLE) {
       this._triggerActionSingle(this.props.record[0]);
     } else {
       this._triggerActionMultiple(this.props.record);

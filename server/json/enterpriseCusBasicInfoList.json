@@ -155,7 +155,7 @@
         "enterpriseId": 10
       }
     ],
-    "totalItems": 11
+    "totalItems": 12
   },
   "selectType": "CHECKBOX",
   "variantFields": [],
@@ -204,16 +204,16 @@
       "isVisible": true,
       "displayComponent": {
         "componentType": "SELECT",
-        "dictionaryCategory": "SHAREHOLDER_TYPE",
+        "dictionaryCategory": "ENTERPRISE_CERTIFICATION_TYPE",
         "dictionaryItems": [
           {
-            "code": "LEGAL_PERSON_SHAREHOLDER",
-            "value": "法人股东",
+            "code": "ORGANIZATION_CODE_CERTIFICATE",
+            "value": "组织机构代码",
             "displaySequence": 1
           },
           {
-            "code": "NATURAL_PERSON_SHAREHOLDER",
-            "value": "自然人股东",
+            "code": "UNIFORM_SOCIAL_CREDIT",
+            "value": "社会统一信用证",
             "displaySequence": 2
           }
         ]
@@ -384,9 +384,9 @@
     {
       "buttonDescription": "添加",
       "displayPosition": "TOP",
+      "relatedRows": "NONE",
       "interactiveType": "MODAL",
       "messagePromptType": "TOOLTIP",
-      "isSelectToJump": false,
       "domainLink": "/Api/EnterpriseBasicAddInfoDetail/render",
       "domainType": "Detail",
       "actionName": null,
@@ -398,9 +398,9 @@
     {
       "buttonDescription": "详情",
       "displayPosition": "TOP",
+      "relatedRows": "SINGLE",
       "interactiveType": "PAGE",
       "messagePromptType": "TOOLTIP",
-      "isSelectToJump": false,
       "domainLink": "/Api/EnterpriseCusBasicInfoList/renderPageMenu",
       "domainType": "Info",
       "actionName": null,
@@ -421,9 +421,9 @@
     {
       "buttonDescription": "批量删除",
       "displayPosition": "TOP",
+      "relatedRows": "MULTIPLE",
       "interactiveType": "ACTION",
       "messagePromptType": "CONFIRM",
-      "isSelectToJump": true,
       "domainLink": null,
       "domainType": null,
       "actionName": "/Api/EnterpriseCusBasicInfoList/deleteByKeys",
