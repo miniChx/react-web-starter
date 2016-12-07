@@ -31,8 +31,7 @@ export default class ModalInput extends React.Component {
     }
     this.setState({ value: displayValue });
     // callback && callback(value);
-    console.log('123123123');
-    onChange && onChange('123123123');
+    onChange && onChange('value');
   }
 
   @autobind
