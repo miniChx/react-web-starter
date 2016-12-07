@@ -79,7 +79,8 @@ class Detail extends React.Component {
               content: (<div>您已成功{item.buttonDescription}！</div>),
               onOk() {
                 self.props.afterSubmit && self.props.afterSubmit(false);
-                dispatch(goBack());
+                self.props.isModal && self.props.modalCallback && self.props.modalCallback();
+                // dispatch(goBack());
               },
             });
           }
@@ -217,6 +218,16 @@ class Detail extends React.Component {
     );
   }
 
+  @autobind
+  createTopButtons() {
+    const buttons = this._renderColumnAction('TOP');
+    if (this.props.createTopButtons) {
+      this.props.createTopButtons(buttons);
+      return null;
+    }
+    return buttons;
+  }
+
   render() {
     const tailFormItemLayout = {
       wrapperCol: {
@@ -228,7 +239,7 @@ class Detail extends React.Component {
       <div>
         <Form horizontal={true} >
           <FormItem {...tailFormItemLayout}>
-            {this._renderColumnAction('TOP')}
+            {this.createTopButtons()}
           </FormItem>
           {this.state.fields.map((f, index) => {
             return this.renderForm(this.props.dataSource, f, index);
