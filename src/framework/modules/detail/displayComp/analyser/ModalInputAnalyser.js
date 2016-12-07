@@ -4,7 +4,7 @@
 import React from 'react';
 import { Input, Button } from 'mxa';
 
-import StaticDisplay from './StaticDisplay';
+import staticDisplay from './StaticDisplay';
 import ModalInput from '../../../../../components/modalInput';
 import Compose from '../../../../utils/Compose';
 import AsyncDecorator from '../../../../pageContainer/ModalAsyncDecorator';
@@ -22,6 +22,6 @@ const compRender = record => {
 };
 
 export default {
-  show: StaticDisplay,
+  show: staticDisplay,
   edit: compRender
 };

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Radio } from 'mxa';
-import StaticDisplay from './StaticDisplay';
+import staticDisplay from './StaticDisplay';
 
 const compRender = record => {
   return (
@@ -12,6 +12,6 @@ const compRender = record => {
 };
 
 export default {
-  show: StaticDisplay,
+  show: staticDisplay,
   edit: compRender
 };
