@@ -18,6 +18,7 @@ import SwitchAnalyser from './analyser/SwitchAnalyser';
 import CheckboxGroupAnalyser from './analyser/CheckboxGroupAnalyser';
 import RadioGroupAnalyser from './analyser/RadioGroupAnalyser';
 import ModalInputAnalyser from './analyser/ModalInputAnalyser';
+import TextAreaAnalyser from './analyser/TextAreaAnalyser';
 import { getValueByKey } from '../../../utils/MapUtils';
 import createRules from '../formValidator';
 
@@ -36,12 +37,14 @@ const FormItemMap = {
   CHECKBOXGROUP: CheckboxGroupAnalyser,
   RADIOGROUP: RadioGroupAnalyser,
   MODALINPUT: ModalInputAnalyser,
+  TEXTAREA: TextAreaAnalyser,
   defaultAnalyser: InputAnalyser
 };
 
 function isArray(o) {
   return Object.prototype.toString.call(o) === '[object Array]';
 }
+
 
 const transFromtoDate = (data, compRender) => {
   if (compRender === FormItemMap.DATEPICKER || compRender === FormItemMap.TIMEPICKER) {
@@ -50,32 +53,20 @@ const transFromtoDate = (data, compRender) => {
   return data;
 };
 
-// 表单项  hasFeedback={model === 'edit'}
-const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult) => {
-  return (
-    <FormItem
-      key={record.description}
-      {...formItemLayout}
-      label={record.description}
-    >
-      {getFieldDecorator(record.name, {
-        rules: (props.createRules && props.createRules(record, props.form)) || createRules(record, props.form),
-        initialValue: transFromtoDate(detailResult && detailResult[record.name], compRender) })((compRender[model](record)))
-      }
-    </FormItem>
-  );
-};
-
 const chooseAnalyser = (record, props) => {
   const analyserName = getValueByKey(record, 'default', 'displayComponent', 'componentType');
-  // console.log(analyserName);
   const ret = props.renderAnalyser && props.renderAnalyser(analyserName, record);
   return ret || FormItemMap[analyserName] || FormItemMap.defaultAnalyser;
 };
 
-const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, model, props) => {
+// TODO: refactor
+const renderFuc = (formAnalyser, getBindParameter, record, detailResult, model, props) => {
   if (record.isVisible) {
-    return formAnalyser(chooseAnalyser(record, props), model, props)(formItemLayout, record, getFieldDecorator, detailResult);
+    const compRender = chooseAnalyser(record, props);
+    const initData = transFromtoDate(getBindParameter(detailResult && detailResult[record.name], record.initValueSource), compRender);
+    const rules = (props.createRules && props.createRules(record, props.form)) || createRules(record, props.form);
+    const renderComp = compRender[model](record);
+    return formAnalyser(initData, rules, renderComp, record);
   }
   return null;
 };

@@ -4,7 +4,7 @@
     "leaseeName": "gggg",
     "certificateType": "LEGAL_PERSON_SHAREHOLDER",
     "certificateNo": "gggg",
-    "customerName": "我是modalInput",
+    "customerName": null,
     "name": null,
     "organizationFeature": null,
     "organizationType": null,
@@ -208,7 +208,7 @@
       },
       "initValueSource": {
         "bindParameter": {
-          "name": "modalInputType",
+          "name": "splat",
           "value": ""
         }
       }
