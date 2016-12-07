@@ -25,7 +25,7 @@ const getPageInitData = (nextState, replace, callback) => {
     const url = getUrlPath(trimStart(domainLink, '/'));
     const params = { ...nextState.params };
     if (nextState.location) {
-      const query = atob(nextState.location.query.p);
+      const query = nextState.location.query && nextState.location.query.p && atob(nextState.location.query.p);
       Object.assign(params, Qs.parse(query));
     }
     longRunExec(() => PFetch(url, params)

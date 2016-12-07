@@ -127,12 +127,12 @@ class Detail extends React.Component {
   }
 
   @autobind
-  _renderColumnAction() {
+  _renderColumnAction(displayPosition) {
     const buttons = this.props.dataSource.buttons || [];
     return (
       <div>
         {
-          buttons.map(item => {
+          buttons.filter(f => f.displayPosition === displayPosition).map(item => {
             return (
               <Button
                 className={styles.inlineButton}
@@ -221,17 +221,20 @@ class Detail extends React.Component {
     const tailFormItemLayout = {
       wrapperCol: {
         span: 14,
-        offset: 4,
+        offset: 0,
       },
     };
     return (
       <div>
         <Form horizontal={true} >
+          <FormItem {...tailFormItemLayout}>
+            {this._renderColumnAction('TOP')}
+          </FormItem>
           {this.state.fields.map((f, index) => {
             return this.renderForm(this.props.dataSource, f, index);
           })}
           <FormItem {...tailFormItemLayout}>
-            {this._renderColumnAction()}
+            {this._renderColumnAction('BOTTOM')}
           </FormItem>
         </Form>
       </div>
