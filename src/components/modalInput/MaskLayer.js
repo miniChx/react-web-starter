@@ -22,7 +22,7 @@ const showComponent = (component, params) => {
     }
   };
 
-  const mergedComponent = React.cloneElement(component, { ...params, callback: _callback });
+  const mergedComponent = React.cloneElement(component, { ...params, isModal: true, modalCallback: _callback });
   const maskModal = (
     <MaskLayer
       // maskClosable={false}

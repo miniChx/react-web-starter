@@ -155,23 +155,66 @@ class Detail extends React.Component {
     );
   }
 
+  formAnalyser = (formItemLayout, getFieldDecorator) => (initData, rules, renderComp, record) => {
+    return (
+      <FormItem
+        key={record.description}
+        {...formItemLayout}
+        label={record.description}
+      >
+        {getFieldDecorator(record.name, {
+          rules: rules,
+          initialValue: initData })(renderComp)
+        }
+      </FormItem>
+    );
+  };
+
+  getBindParameter = () => {
+    let params = {};
+    if (this.props && this.props.params) {
+      params = this.props.params;
+    }
+    const cache = { ...params, ...getValueByKey(this.props, {}, 'query') };
+    return (data, initValueSource, handle) => {
+      if (handle) {
+        return handle(data);
+      }
+      if (data) {
+        return data;
+      }
+      return initValueSource && initValueSource.bindParameter && cache[initValueSource.bindParameter.name];
+    };
+  };
+
+  @autobind
+  createCols(data, fields, handle, bindParameterHandle) {
+    return fields.map((item, index) => {
+      return (
+        <Col key={index} span={(24 / data.columnNumber) || 12}>
+          {renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props.model, this.props)}
+        </Col>
+      );
+    }).filter(f => !!f);
+  }
+
   renderForm(data, fields, i) {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 }
     };
-
+    const handle = this.formAnalyser(formItemLayout, getFieldDecorator);
     const titleF = fields[0];
-
     return (
       <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />)} >
         <div className={appStyle.formBox} >
           <Row gutter={40} className={appStyle.cell}>
-            {fields.map((item, index) => {
+            {
+              fields.map((item, index) => {
               return (
                 <Col key={index} span={(24 / data.columnNumber) || 12}>
-                  {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.props.model, this.props)}
+                  {renderFuc(handle, this.getBindParameter(), item, data.detailResult, this.props.model, this.props)}
                 </Col>
               );
             })}

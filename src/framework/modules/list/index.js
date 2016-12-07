@@ -10,7 +10,7 @@ class List extends React.Component {
   }
 
   static defaultProps = {
-    modalSelect: false,
+    isModal: false,
   }
 
   render() {

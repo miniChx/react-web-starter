@@ -5,26 +5,26 @@ import { showComponent } from './MaskLayer';
 
 export default class ModalInput extends React.Component {
   static propTypes = {
-    callback: PropTypes.func,
+    onChange: PropTypes.func,
     mapper: PropTypes.func,
-    placeholder: PropTypes.string,
+    defaultValue: PropTypes.string,
   };
 
   static defaultProps = {
-    placeholder: '',
+    defaultValue: '',
   }
 
   constructor(props) {
     super(props);
     // initial state
     this.state = {
-      value: '',
+      value: this.props.defaultValue,
     };
   }
 
   @autobind
   _callback(value) {
-    const { mapper, callback, onChange } = this.props;
+    const { mapper, onChange } = this.props;
     let displayValue = value;
     if (mapper !== undefined && value) {
       displayValue = mapper !== undefined ? mapper(value) : value;
@@ -37,18 +37,18 @@ export default class ModalInput extends React.Component {
   @autobind
   _showModal() {
     const { children, ...other } = this.props;
-    // other.callback = this._callback;
-    other.modalSelect = true;
-    other.modalOnSelect = this._callback;
+    other.callback = this._callback;
     showComponent(children, other);
   }
 
   render() {
-    const newProps = { value: this.props.value, onChange: this.props.onChange, addonAfter: (<Icon type="bars" onClick={this._showModal} />) };
     return (
       <div style={{ marginBottom: 16 }}>
         <Input
-          {...newProps}
+          addonAfter={<Icon type="bars" onClick={this._showModal} />}
+          // defaultValue={this.props.defaultValue}
+          disabled={true}
+          value={this.state.value}
         />
       </div>
     );

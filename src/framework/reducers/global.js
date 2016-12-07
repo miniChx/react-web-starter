@@ -4,7 +4,7 @@ import * as types from '../constant/dictActions';
 const initialState = {
   showLoading: false,
   isInit: false,
-  token: '',
+  token: '123123',
   query: {},
 };
 
@@ -13,7 +13,8 @@ export default function update(state = initialState, action) {
     case types.INIT_APP:
       return {
         ...state,
-        token: action.payload.token
+        // token: action.payload.token
+        token: '123123'
       };
     case types.FETCH_START:
       return { ...state, showLoading: true };
