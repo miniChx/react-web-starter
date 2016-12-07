@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
 import { Button, Modal, Tooltip } from 'mxa';
@@ -10,7 +9,12 @@ import { CONTAINER_PRE } from '../../framework/routes';
 import { showModal } from '../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../framework/system/fetch';
 
-import { LIST_SELECTTYPE, BUTTON_INTERACTIVETYPE, BUTTON_MESSAGEPROMPTTYPE } from '../../framework/constant/dictCodes';
+import {
+  LIST_SELECTTYPE,
+  BUTTON_INTERACTIVETYPE,
+  BUTTON_MESSAGEPROMPTTYPE,
+  BUTTON_RELATEDROWS,
+} from '../../framework/constant/dictCodes';
 
 const confirm = Modal.confirm;
 
@@ -52,13 +56,11 @@ export class ExtendButton extends React.Component {
     PFetch(url, params)
       .then(response => {
         console.log(response);
-        if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.MESSAGE) {
-          Modal.info({
-            title: '提示',
-            content: (<div>{this.props.buttonDescription}成功！</div>),
-            onOk() {},
-          });
-        }
+        Modal.info({
+          title: '提示',
+          content: (<div>{this.props.buttonDescription}成功！</div>),
+          onOk: () => this.props.onRefresh && this.props.onRefresh(),
+        });
       })
       .catch(errorData => {
         console.log(errorData);
@@ -75,7 +77,7 @@ export class ExtendButton extends React.Component {
     const params = { [this.props.mainEntityKey]: record[this.props.mainEntityKey] };
     if (this.props.bindParameterType === 'SEVERAL') {
       this.props.bindParameters.forEach(item => {
-        params[item.name] = this.props.query[item.value];
+        params[item.name] = item.value || this.props.query[item.value];
       });
     }
 
@@ -145,12 +147,12 @@ export class ExtendButton extends React.Component {
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}所选数据吗？</div>),
           onOk: () => {
-            this._processAction(this.props.actionName, params);
+            this._processAction(this.props.actionName, { keys: params });
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.actionName, params);
+        this._processAction(this.props.actionName, { keys: params });
       }
     }
   }
@@ -162,11 +164,12 @@ export class ExtendButton extends React.Component {
       this.props.callback(132123);
       return;
     }
-    if (!this.props.isSelectToJump) {
+    if (this.props.relatedRows === BUTTON_RELATEDROWS.NONE) {
       this._triggerActionWithoutRows();
     } else if (this.props.inline) {
       this._triggerActionSingle(this.props.record);
-    } else if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX) {
+    } else if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX
+      || this.props.relatedRows === BUTTON_RELATEDROWS.SINGLE) {
       this._triggerActionSingle(this.props.record[0]);
     } else {
       this._triggerActionMultiple(this.props.record);

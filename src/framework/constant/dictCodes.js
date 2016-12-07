@@ -6,7 +6,7 @@ export const LIST_SELECTTYPE = {
 
 export const BUTTON_POSITION = {
   TOP: 'TOP',
-  INLINE: 'INLINE',
+  ROW: 'ROW',
   BOTTOM: 'BOTTOM',
 };
 export const BUTTON_INTERACTIVETYPE = {
@@ -18,4 +18,9 @@ export const BUTTON_MESSAGEPROMPTTYPE = {
   MESSAGE: 'MESSAGE',
   CONFIRM: 'CONFIRM',
   TOOLTIP: 'TOOLTIP',
+};
+export const BUTTON_RELATEDROWS = {
+  NONE: 'NONE',
+  SINGLE: 'SINGLE',
+  MULTIPLE: 'MULTIPLE',
 };
