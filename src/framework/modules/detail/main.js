@@ -189,9 +189,9 @@ class Detail extends React.Component {
 
   @autobind
   createCols(data, fields, handle, bindParameterHandle) {
-    return fields.map((item, index) =>
+    return fields.map(item =>
       renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props.model, this.props)
-    ).filter(f => !!f).map(field => (
+    ).filter(f => !!f).map((field, index) => (
         <Col key={index} span={(24 / data.columnNumber) || 12}>
           {field}
         </Col>
