@@ -1,5 +1,5 @@
 import { trimStart } from 'lodash/string';
-
+import Qs from 'qs';
 import Home from './modules/home';
 import Login from './modules/login';
 import Register from './modules/login/register';
@@ -25,7 +25,8 @@ const getPageInitData = (nextState, replace, callback) => {
     const url = getUrlPath(trimStart(domainLink, '/'));
     const params = { ...nextState.params };
     if (nextState.location) {
-      Object.assign(params, nextState.location.query);
+      const query = atob(nextState.location.query.p);
+      Object.assign(params, Qs.parse(query));
     }
     longRunExec(() => PFetch(url, params)
       .then(data => {
