@@ -35,6 +35,7 @@ class ListView extends React.Component {
               record={record}
               className={styles.inlineButton}
               query={this.props.query}
+              onRefresh={this._onSearch}
             />
           ))
         }
@@ -161,7 +162,7 @@ class ListView extends React.Component {
 
   @autobind
   _onSearch() {
-    const url = this.props.domainLink.replace(/\/(\S)*$/g, '/search');
+    const searchUrl = this.props.domainLink.replace(/^(.*\/)\w*$/, '$1search');
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
@@ -169,10 +170,23 @@ class ListView extends React.Component {
       requestFilterFields: this.state.requestFilterFields,
       requestOrderFields: this.state.orderFields,
     };
-    this.props.exec(() => this.props.fetch(url, param)
+    this.props.exec(() => this.props.fetch(searchUrl, param)
       .then(data => {
-        const dataSource = handleContentList(data.pageResult.contentList, this.state.fieldsObject);
-        this.setState({ dataSource });
+        const dataSource = handleContentList(data.contentList, this.state.fieldsObject);
+        const pagination = {
+          total: data && data.totalItems,
+          pageSize: data.itemsPerPage,
+          showSizeChanger: false,
+          showQuickJumper: true,
+          showTotal: total => `共 ${total} 项`,
+        };
+
+        this.setState({
+          dataSource,
+          pagination,
+          selectedRowKeys: [],
+          selectedRows: [],
+        });
       }));
   }
 
@@ -197,6 +211,7 @@ class ListView extends React.Component {
               record={this.state.selectedRows}
               className={styles.topButton}
               query={this.props.query}
+              onRefresh={this._onSearch}
             />
           ))
         }

@@ -51,13 +51,11 @@ export class ExtendButton extends React.Component {
     PFetch(url, params)
       .then(response => {
         console.log(response);
-        if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.MESSAGE) {
-          Modal.info({
-            title: '提示',
-            content: (<div>{this.props.buttonDescription}成功！</div>),
-            onOk() {},
-          });
-        }
+        Modal.info({
+          title: '提示',
+          content: (<div>{this.props.buttonDescription}成功！</div>),
+          onOk: () => this.props.onRefresh && this.props.onRefresh(),
+        });
       })
       .catch(errorData => {
         console.log(errorData);
@@ -144,12 +142,12 @@ export class ExtendButton extends React.Component {
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}所选数据吗？</div>),
           onOk: () => {
-            this._processAction(this.props.actionName, params);
+            this._processAction(this.props.actionName, { keys: params });
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.actionName, params);
+        this._processAction(this.props.actionName, { keys: params });
       }
     }
   }

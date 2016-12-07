@@ -1,3 +1,4 @@
+import moment from 'moment';
 
 export const arr2obj = (array, key) => {
   const result = [];
@@ -43,6 +44,8 @@ export const handleContentList = (contentList, fieldsObject) =>
         const dictItem = fieldsObject[field].displayComponent.dictionaryItems
           .find(dict => dict.code === content[field]);
         output[field] = (dictItem && dictItem.value) || content[field];
+      } else if (fieldsObject[field].displayComponent.componentType === 'DATEPICKER') {
+        output[field] = moment(new Date(content[field])).format('YYYY-MM-DD HH:mm:ss');
       } else {
         output[field] = content[field];
       }

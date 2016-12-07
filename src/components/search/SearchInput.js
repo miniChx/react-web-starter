@@ -87,14 +87,14 @@ export default class SearchInput extends React.Component {
 
   @autobind
   _renderInput() {
-    if (this.props.type === 'DatePicker') {
+    if (this.props.type === 'DATEPICKER') {
       return (
         <RangePicker
           size={this.props.size}
           onChange={this._handleDateChange}
         />
       );
-    } else if (this.props.type === 'Input' && this.props.operatorType === 'BETWEEN') {
+    } else if (this.props.type === 'INPUT' && this.props.operatorType === 'BETWEEN') {
       return (
         <RangeInput
           onChange={this._handleRangeChange}
