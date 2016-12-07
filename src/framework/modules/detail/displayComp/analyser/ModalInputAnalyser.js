@@ -24,8 +24,22 @@ const compRender = record => {
   const TempPage = Compose(AsyncDecorator, InitDecorator)();
   // 模板中调用this.props.callback可以执行回调
   const modalData = record.modalInput;
+
+  // TODO. to debug with be
+  // const mappingFields = record.modalInput.mappingFields;
+  const mappingFields = [
+    {
+      fieldName: 'field1',
+      remoteFieldName: 'leaseeName'
+    }, {
+      fieldName: 'field2',
+      remoteFieldName: 'field2'
+    },
+  ];
+
+  const mapper = value => value[mappingFields[0].remoteFieldName];
   return (
-    <ModalInput >
+    <ModalInput mapper={mapper} onChange={value => console.log('ModalInput *** ', value)}>
       <TempPage domainType={modalData.domainType} domainLink={modalData.domainLink} />
     </ModalInput>
   );
