@@ -46,6 +46,17 @@
       "subMenus": null
     },
     {
+      "menuCode": "demoManagement1",
+      "menuValue": "后台连调",
+      "displaySequence": 2,
+      "domainLink": "/Api/EnterpriseCusBasicInfoList/render",
+      "domainType": "List",
+      "roleCodes": [
+        "Role1_Admin"
+      ],
+      "subMenus": null
+    },
+    {
       "menuCode": "processesManager",
       "menuValue": "流程管理",
       "displaySequence": 3,
