@@ -9,7 +9,7 @@ import Compose from '../utils/Compose';
 import AsyncDecorator from './ModalAsyncDecorator';
 import InitDecorator from './InitDecorator';
 
-const showModal = (params, domainType, domainLink) => {
+const showModal = (params, domainType, domainLink, callback) => {
   const maskDiv = document.createElement('div');
   document.body.appendChild(maskDiv);
 
@@ -19,12 +19,25 @@ const showModal = (params, domainType, domainLink) => {
       maskDiv.parentNode.removeChild(maskDiv);
     }
   };
+
+  const _modalCallback = value => {
+    _close();
+    callback && callback(value);
+  };
+
   const self = {};
   const ModalPage = Compose(AsyncDecorator, InitDecorator)();
   const maskModal = (
     <MaskLayer visible={true} onCancel={_close} zIndex="999">
       <div className={appStyle.modalContainer} ref={node => { self.container = node; }}>
-        <ModalPage target={() => self.container} params={params} domainType={domainType} domainLink={domainLink} />
+        <ModalPage
+          target={() => self.container}
+          params={params}
+          isModal={true}
+          modalCallback={_modalCallback}
+          domainType={domainType}
+          domainLink={domainLink}
+        />
       </div>
     </MaskLayer>
   );
