@@ -26,10 +26,9 @@ export default class StartProcess extends React.Component {
   filterData() {
     const param = getParam();
     const urlAry = this.props.domainLink.split('/');
-    urlAry.pop();
-    urlAry.push('search');
-    const searchUrl = urlAry.join('/');
-    console.log(searchUrl);
+    const reg = /^(.*\/)\w*$/;
+    const ret = reg.exec(urlAry);
+    const searchUrl = urlAry.replace(reg, '$1search');
     this.props.exec(() => {
       return PFetch('/' + searchUrl, param).then(response => {
         console.log('', response);

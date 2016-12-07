@@ -189,13 +189,13 @@ class Detail extends React.Component {
 
   @autobind
   createCols(data, fields, handle, bindParameterHandle) {
-    return fields.map((item, index) => {
-      return (
+    return fields.map((item, index) =>
+      renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props.model, this.props)
+    ).filter(f => !!f).map(field => (
         <Col key={index} span={(24 / data.columnNumber) || 12}>
-          {renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props.model, this.props)}
+          {field}
         </Col>
-      );
-    }).filter(f => !!f);
+    ));
   }
 
   renderForm(data, fields, i) {
@@ -210,14 +210,7 @@ class Detail extends React.Component {
       <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />)} >
         <div className={appStyle.formBox} >
           <Row gutter={40} className={appStyle.cell}>
-            {
-              fields.map((item, index) => {
-              return (
-                <Col key={index} span={(24 / data.columnNumber) || 12}>
-                  {renderFuc(handle, this.getBindParameter(), item, data.detailResult, this.props.model, this.props)}
-                </Col>
-              );
-            })}
+            {this.createCols(data, fields, handle, this.getBindParameter())}
           </Row>
         </div>
       </SwitchContainer>
