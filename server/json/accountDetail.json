@@ -187,7 +187,7 @@
       "opt": null,
       "modalInput": {
         "domainType": "List",
-        "domainLink": "/DemoList/render",
+        "domainLink": "/EnterpriseCusBasicInfoList/render",
         "bindParameterType": "SEVERAL",
         "bindParameters": [
           {
@@ -198,7 +198,7 @@
         "mappingFields": [
           {
             "fieldName": "field1",
-            "remoteFieldName": "field1"
+            "remoteFieldName": "leaseeName"
           },
           {
             "fieldName": "field2",

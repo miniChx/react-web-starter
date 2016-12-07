@@ -45,7 +45,7 @@ export const handleContentList = (contentList, fieldsObject) =>
           .find(dict => dict.code === content[field]);
         output[field] = (dictItem && dictItem.value) || content[field];
       } else if (fieldsObject[field].displayComponent.componentType === 'DATEPICKER') {
-        output[field] = moment(new Date(content[field])).format('YYYY-MM-DD HH:mm:ss');
+        output[field] = moment(new Date(content[field])).format('YYYY-MM-DD');
       } else {
         output[field] = content[field];
       }

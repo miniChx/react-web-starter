@@ -16,6 +16,7 @@ app.use(allowCrossDomain);
 // app.use(express.static('../build'));
 
 function getUrlPath(url) {
+  // return url;
   return '/blc' + url;
 }
 
@@ -29,6 +30,13 @@ app.post('/AccountDetail/render', function (req, res) {
  res.json(mockData);
 })
 
+
+app.post('/EnterpriseCusBasicInfoList/render', function (req, res) {
+  var mockData = require('./json/enterpriseCusBasicInfoList.json');
+  res.json(mockData);
+})
+
+
 //app.post(getUrlPath('/Api/AccountDetail/getMenus'), function (req, res) {
 //  var mockData = require('./json/getMenus.json');
 //  setTimeout(() => {
@@ -41,44 +49,44 @@ app.post('/AccountDetail/render', function (req, res) {
 //  res.json(mockData);
 //})
 //
-//
-//const CustomerTypeData = [{
-//  "code":"ENTERPRISE",
-//  "value":"企业客户",
-//  "displaySequence":1
-//}, {
-//  "code":"NATURAL_PERSON",
-//  "value":"自然人客户",
-//  "displaySequence":2
-//}, {
-//  "code":"PARTNER",
-//  "value":"合作方客户",
-//  "displaySequence":3
-//}];
-//
-//app.post(getUrlPath('/DemoList/render'), function (req, res) {
-//  var mockData = require('./json/demoList.json');
-//  // const pageResult = {
-//  //   pageIndex: 1,
-//  //   itemsPerPage: 10,
-//  //   totalPages: 6,
-//  //   totalItems: 56,
-//  // };
-//  // const contentList = [];
-//  //
-//  // for (let i = 0; i < 10; i++) {
-//  //   contentList.push({
-//  //     basicCustomerId: i,
-//  //     customerName: "userName" + i + pageResult.pageIndex,
-//  //     customerSize: "13355558888" + i,
-//  //     customerType: CustomerTypeData[i % 3].code,
-//  //     registerDate: Date.now(),
-//  //   });
-//  // }
-//  // pageResult.contentList = contentList;
-//  // mockData.pageResult = pageResult;
-//  res.json(mockData);
-//})
+
+const CustomerTypeData = [{
+ "code":"ENTERPRISE",
+ "value":"企业客户",
+ "displaySequence":1
+}, {
+ "code":"NATURAL_PERSON",
+ "value":"自然人客户",
+ "displaySequence":2
+}, {
+ "code":"PARTNER",
+ "value":"合作方客户",
+ "displaySequence":3
+}];
+
+app.post(getUrlPath('/DemoList/render'), function (req, res) {
+ var mockData = require('./json/demoList.json');
+ // const pageResult = {
+ //   pageIndex: 1,
+ //   itemsPerPage: 10,
+ //   totalPages: 6,
+ //   totalItems: 56,
+ // };
+ // const contentList = [];
+ //
+ // for (let i = 0; i < 10; i++) {
+ //   contentList.push({
+ //     basicCustomerId: i,
+ //     customerName: "userName" + i + pageResult.pageIndex,
+ //     customerSize: "13355558888" + i,
+ //     customerType: CustomerTypeData[i % 3].code,
+ //     registerDate: Date.now(),
+ //   });
+ // }
+ // pageResult.contentList = contentList;
+ // mockData.pageResult = pageResult;
+ res.json(mockData);
+})
 //app.post(getUrlPath('/DemoList/search'), function (req, res) {
 //  var mockData = require('./json/demoListSearch.json');
 //  // mockData.pageResult.pageIndex = req.body.pageIndex;
