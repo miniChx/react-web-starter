@@ -42,7 +42,7 @@ export class ExtendButton extends React.Component {
       // }));
       window.open('/' + CONTAINER_PRE + domainLink + '?p=' + btoa(Qs.stringify({ ...params, domainType, s: '1' })));
     } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
-      showModal(params, domainType, domainLink);
+      showModal(params, domainType, domainLink, () => this.props.onRefresh && this.props.onRefresh());
     } else {
       this.props.dispatch(push({
         pathname: '/' + CONTAINER_PRE + domainLink,
