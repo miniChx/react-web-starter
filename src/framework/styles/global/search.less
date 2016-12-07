@@ -9,6 +9,31 @@
 
   .mx-search-input-wrapper {
     align-items: center;
+    display: flex;
+    //width: 400px;
+    margin-bottom: 15px;
+    //justify-content: space-between;
+
+    .mx-search-input-title {
+      width: 80px;
+    }
+
+    .mx-input-wrapper {
+      flex: 1;
+      width: 300px;
+    }
+
+    .mx-search-range-input,
+    .mx-calendar-picker {
+      display: flex;
+      width: 300px;
+      flex: 1;
+
+      .connector {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
   }
 
   &-basic {
@@ -35,32 +60,4 @@
     }
   }
 
-}
-
-.mx-search-input-wrapper {
-  display: flex;
-  //width: 400px;
-  margin-bottom: 15px;
-  //justify-content: space-between;
-
-  .mx-search-input-title {
-    width: 80px;
-  }
-
-  .mx-input-wrapper {
-    flex: 1;
-    width: 300px;
-  }
-
-  .mx-search-range-input,
-  .mx-calendar-picker {
-    display: flex;
-    width: 300px;
-    flex: 1;
-
-    .connector {
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-  }
 }

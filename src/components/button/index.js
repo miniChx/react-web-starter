@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
 import { Button, Modal, Tooltip } from 'mxa';

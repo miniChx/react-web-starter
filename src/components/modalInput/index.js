@@ -37,7 +37,9 @@ export default class ModalInput extends React.Component {
   @autobind
   _showModal() {
     const { children, ...other } = this.props;
-    other.callback = this._callback;
+    // other.callback = this._callback;
+    other.modalSelect = true;
+    other.modalOnSelect = this._callback;
     showComponent(children, other);
   }
 

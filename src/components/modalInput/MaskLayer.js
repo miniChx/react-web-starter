@@ -24,7 +24,12 @@ const showComponent = (component, params) => {
 
   const mergedComponent = React.cloneElement(component, { ...params, callback: _callback });
   const maskModal = (
-    <MaskLayer visible={true} onCancel={_close} zIndex="500">
+    <MaskLayer
+      // maskClosable={false}
+      visible={true}
+      onCancel={_close}
+      zIndex="500"
+    >
       {mergedComponent}
     </MaskLayer>
   );
