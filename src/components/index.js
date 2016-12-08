@@ -7,5 +7,4 @@ export { default as ExtendButton } from './button';
 export { Header, Footer } from './layout';
 export { default as Loading } from './loading';
 export { default as ModalInput } from './modalInput';
-export { default as Search } from './search';
 export { default as District } from './district';
