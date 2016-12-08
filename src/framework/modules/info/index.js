@@ -64,7 +64,7 @@ export default class Layout extends React.Component {
   @autobind
   createMain(data, domainType, domainLink) {
     const TempPage = Compose(AsyncDecorator, InitDecorator)();
-    return (<TempPage createTopButtons={this.createTopButtons} {...this.props} dataSource={data} domainType={domainType} domainLink={domainLink} />);
+    return (<TempPage {...this.props} dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
   @autobind
@@ -163,13 +163,10 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <Affix>
-          <Row className={appStyle.layoutContainerHeader}>
-            <Col span={4}>{this.props.dataSource.name}</Col>
-            <Col span={4} offset={1} >{this.state.current.menuValue}</Col>
-            <Col span={15}>{this.state.topButtons}</Col>
-          </Row>
-        </Affix>
+        <Row className={appStyle.layoutContainerHeader}>
+          <Col span={4}>{this.props.dataSource.name}</Col>
+          <Col span={4} offset={1} >{this.state.current.menuValue}</Col>
+        </Row>
         <Row>
           <Col span={4}>
             <SideMenu

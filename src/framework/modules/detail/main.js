@@ -73,17 +73,17 @@ class Detail extends React.Component {
       return PFetch((item.domainLink || item.actionName), { ...original, ...rest, ...values })
         .then(response => {
           console.log(response);
-          if (item.messagePromptType === 'message') {
-            Modal.info({
-              title: '提示',
-              content: (<div>您已成功{item.buttonDescription}！</div>),
-              onOk() {
-                self.props.afterSubmit && self.props.afterSubmit(false);
-                self.props.isModal && self.props.modalCallback && self.props.modalCallback();
-                // dispatch(goBack());
-              },
-            });
-          }
+          // if (item.messagePromptType === 'message') {
+          Modal.info({
+            title: '提示',
+            content: (<div>您已成功{item.buttonDescription}！</div>),
+            onOk() {
+              self.props.afterSubmit && self.props.afterSubmit(false);
+              self.props.isModal && self.props.modalCallback && self.props.modalCallback();
+              // dispatch(goBack());
+            },
+          });
+          // }
         })
         .catch(errorData => {
           console.log(errorData);
