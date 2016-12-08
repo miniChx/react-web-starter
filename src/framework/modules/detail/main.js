@@ -21,7 +21,6 @@ const FormItem = Form.Item;
 class Detail extends React.Component {
   /* eslint-disable */
   static propTypes = {
-    model: React.PropTypes.oneOf(['show', 'edit']).isRequired,
     createRules: React.PropTypes.func, // 自定义表单校验 // record
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // values, callback(v)
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
@@ -123,11 +122,6 @@ class Detail extends React.Component {
   }
 
   @autobind
-  handleChageState(e) {
-    this.props.changeState(e);
-  }
-
-  @autobind
   _renderColumnAction(displayPosition) {
     const buttons = this.props.dataSource.buttons || [];
     return (
@@ -142,15 +136,7 @@ class Detail extends React.Component {
               >
                 {item.buttonDescription}
               </Button>);
-            // TODO: 编辑按钮
           })
-          //  .concat((
-          //  <Button
-          //    className={styles.inlineButton}
-          //    key="editBtnLocal"
-          //    onClick={this.handleChageState}
-          //  >{this.props.model === 'show' ? '编辑' : '返回'}</Button>
-          // ))
         }
       </div>
     );
@@ -191,7 +177,7 @@ class Detail extends React.Component {
   @autobind
   createCols(data, fields, handle, bindParameterHandle) {
     return fields.map(item =>
-      renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props.model, this.props)
+      renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props)
     ).filter(f => !!f).map((field, index) => (
         <Col key={index} span={(24 / data.columnNumber) || 12}>
           {field}
