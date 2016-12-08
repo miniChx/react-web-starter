@@ -46,19 +46,13 @@ export default class Layout extends React.Component {
       selectedKeys: this.tag.menuCode,
       openKeys,
       // toolStyle: tools ? appStyle.layoutToolsOut : appStyle.layoutToolsIn
-      toolStyle: appStyle.layoutToolsDefault,
-      topButtons: [],
+      toolStyle: appStyle.layoutToolsDefault
     };
   }
 
   @autobind
   changeMenuSelect(menuCode, menu) {
     return getMenuItemAndPathByFunc(item => item.menuCode === menuCode, menu);
-  }
-
-  @autobind
-  createTopButtons(data) {
-    this.setState({ topButtons: data });
   }
 
   @autobind

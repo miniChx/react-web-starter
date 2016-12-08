@@ -46,6 +46,15 @@ function isArray(o) {
 }
 
 
+const getBindParameter = (props, initValueSource) => {
+  let params = {};
+  if (props && props.params) {
+    params = props.params;
+  }
+  const cache = { ...params, ...getValueByKey(props, {}, 'query') };
+  return initValueSource && initValueSource.bindParameter && cache[initValueSource.bindParameter.name];
+};
+
 const transFromtoDate = (data, compRender) => {
   if (compRender === FormItemMap.DATEPICKER || compRender === FormItemMap.TIMEPICKER) {
     return data && moment(new Date(data));
@@ -53,20 +62,39 @@ const transFromtoDate = (data, compRender) => {
   return data;
 };
 
+// 表单项
+// hasFeedback={model === 'edit'}
+const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult) => {
+  let initData = null;
+  if (model === 'view') {
+    initData = getBindParameter(props, record.initValueSource);
+  } else {
+    initData = detailResult && detailResult[record.name];
+  }
+  return (
+    <FormItem
+      key={record.description}
+      {...formItemLayout}
+      label={record.description}
+    >
+      {getFieldDecorator(record.name, {
+        rules: (props.createRules && props.createRules(record, props.form)) || createRules(record, props.form),
+        initialValue: transFromtoDate(initData, compRender) })((compRender[model](record)))
+      }
+    </FormItem>
+  );
+};
+
 const chooseAnalyser = (record, props) => {
   const analyserName = getValueByKey(record, 'default', 'displayComponent', 'componentType');
+  // console.log(analyserName);
   const ret = props.renderAnalyser && props.renderAnalyser(analyserName, record);
   return ret || FormItemMap[analyserName] || FormItemMap.defaultAnalyser;
 };
 
-// TODO: refactor
-const renderFuc = (formAnalyser, getBindParameter, record, detailResult, props) => {
+const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, model, props) => {
   if (record.isVisible) {
-    const compRender = chooseAnalyser(record, props);
-    const initData = transFromtoDate(getBindParameter(detailResult && detailResult[record.name], record.initValueSource), compRender);
-    const rules = (props.createRules && props.createRules(record, props.form)) || createRules(record, props.form);
-    const renderComp = compRender[record.isReadonly ? 'show' : 'edit'](record);
-    return formAnalyser(initData, rules, renderComp, record);
+    return formAnalyser(chooseAnalyser(record, props), model, props)(formItemLayout, record, getFieldDecorator, detailResult);
   }
   return null;
 };

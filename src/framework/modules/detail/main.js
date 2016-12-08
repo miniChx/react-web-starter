@@ -21,6 +21,7 @@ const FormItem = Form.Item;
 class Detail extends React.Component {
   /* eslint-disable */
   static propTypes = {
+    model: React.PropTypes.oneOf(['show', 'edit']).isRequired,
     createRules: React.PropTypes.func, // 自定义表单校验 // record
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // values, callback(v)
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
@@ -122,12 +123,17 @@ class Detail extends React.Component {
   }
 
   @autobind
+  handleChageState(e) {
+    this.props.changeState(e);
+  }
+
+  @autobind
   _renderColumnAction(displayPosition) {
     const buttons = this.props.dataSource.buttons || [];
     return (
       <div>
         {
-          buttons.filter(f => f.displayPosition === displayPosition).map(item => {
+          buttons.map(item => {
             return (
               <Button
                 className={styles.inlineButton}
@@ -136,53 +142,18 @@ class Detail extends React.Component {
               >
                 {item.buttonDescription}
               </Button>);
+            // TODO: 编辑按钮
           })
+          //  .concat((
+          //  <Button
+          //    className={styles.inlineButton}
+          //    key="editBtnLocal"
+          //    onClick={this.handleChageState}
+          //  >{this.props.model === 'show' ? '编辑' : '返回'}</Button>
+          // ))
         }
       </div>
     );
-  }
-
-  formAnalyser = (formItemLayout, getFieldDecorator) => (initData, rules, renderComp, record) => {
-    return (
-      <FormItem
-        key={record.description}
-        {...formItemLayout}
-        label={record.description}
-      >
-        {getFieldDecorator(record.name, {
-          rules: rules,
-          initialValue: initData })(renderComp)
-        }
-      </FormItem>
-    );
-  };
-
-  getBindParameter = () => {
-    let params = {};
-    if (this.props && this.props.params) {
-      params = this.props.params;
-    }
-    const cache = { ...params, ...getValueByKey(this.props, {}, 'query') };
-    return (data, initValueSource, handle) => {
-      if (handle) {
-        return handle(data);
-      }
-      if (data) {
-        return data;
-      }
-      return initValueSource && initValueSource.bindParameter && cache[initValueSource.bindParameter.name];
-    };
-  };
-
-  @autobind
-  createCols(data, fields, handle, bindParameterHandle) {
-    return fields.map(item =>
-      renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props)
-    ).filter(f => !!f).map((field, index) => (
-        <Col key={index} span={(24 / data.columnNumber) || 12}>
-          {field}
-        </Col>
-    ));
   }
 
   renderForm(data, fields, i) {
@@ -191,48 +162,42 @@ class Detail extends React.Component {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 }
     };
-    const handle = this.formAnalyser(formItemLayout, getFieldDecorator);
+
     const titleF = fields[0];
+
     return (
       <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />)} >
         <div className={appStyle.formBox} >
           <Row gutter={40} className={appStyle.cell}>
-            {this.createCols(data, fields, handle, this.getBindParameter())}
+            {fields.map((item, index) => {
+              return (
+                <Col key={index} span={(24 / data.columnNumber) || 12}>
+                  {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.props.model, this.props)}
+                </Col>
+              );
+            })}
           </Row>
         </div>
       </SwitchContainer>
     );
   }
 
-  @autobind
-  createTopButtons() {
-    const buttons = this._renderColumnAction('TOP');
-    if (this.props.createTopButtons) {
-      this.props.createTopButtons(buttons);
-      return null;
-    }
-    return buttons;
-  }
-
   render() {
     const tailFormItemLayout = {
       wrapperCol: {
         span: 14,
-        offset: 0,
+        offset: 1,
       },
     };
     return (
       <div>
         <Form horizontal={true} >
           <FormItem {...tailFormItemLayout}>
-            {this.createTopButtons()}
+            {this._renderColumnAction()}
           </FormItem>
           {this.state.fields.map((f, index) => {
             return this.renderForm(this.props.dataSource, f, index);
           })}
-          <FormItem {...tailFormItemLayout}>
-            {this._renderColumnAction('BOTTOM')}
-          </FormItem>
         </Form>
       </div>
     );
