@@ -132,9 +132,7 @@ export default {
   },
   isTerm(data) {
     if (!isEmpty(data)) {
-      const reg = /^[0-9][0-9]{0,2}$/;
-      if (!reg.test(data)) {
-        // console.log('格式不合法：请输入整数');
+      if (!(data instanceof Date) && !(data._d instanceof Date)) {
         return false;
       }
       return true;

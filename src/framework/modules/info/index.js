@@ -41,17 +41,24 @@ export default class Layout extends React.Component {
       left: null,
       right: null,
       tools,
+      current: this.tag,
       anchor: [],
       selectedKeys: this.tag.menuCode,
       openKeys,
       // toolStyle: tools ? appStyle.layoutToolsOut : appStyle.layoutToolsIn
-      toolStyle: appStyle.layoutToolsDefault
+      toolStyle: appStyle.layoutToolsDefault,
+      topButtons: [],
     };
   }
 
   @autobind
   changeMenuSelect(menuCode, menu) {
     return getMenuItemAndPathByFunc(item => item.menuCode === menuCode, menu);
+  }
+
+  @autobind
+  createTopButtons(data) {
+    this.setState({ topButtons: data });
   }
 
   @autobind
@@ -89,6 +96,7 @@ export default class Layout extends React.Component {
     const menuCode = menuItem.menuCode;
     // 下部菜单
     const patch = searchBeforeAndAfter(menuCode, this.props.dataSource.menus);
+    patch.current = menuItem;
     const isRenderBodyCustom = this.props.filterMenu && this.props.filterMenu(menuItem);
     if (isRenderBodyCustom) {
       this.props.renderBody(menuItem, this.createReqParam(menuItem), renderMain => {
@@ -155,8 +163,9 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <Row>
-          <Col span={24}>{this.props.dataSource.name}</Col>
+        <Row className={appStyle.layoutContainerHeader}>
+          <Col span={4}>{this.props.dataSource.name}</Col>
+          <Col span={4} offset={1} >{this.state.current.menuValue}</Col>
         </Row>
         <Row>
           <Col span={4}>

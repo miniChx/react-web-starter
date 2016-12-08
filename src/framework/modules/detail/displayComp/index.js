@@ -60,12 +60,12 @@ const chooseAnalyser = (record, props) => {
 };
 
 // TODO: refactor
-const renderFuc = (formAnalyser, getBindParameter, record, detailResult, model, props) => {
+const renderFuc = (formAnalyser, getBindParameter, record, detailResult, props) => {
   if (record.isVisible) {
     const compRender = chooseAnalyser(record, props);
     const initData = transFromtoDate(getBindParameter(detailResult && detailResult[record.name], record.initValueSource), compRender);
     const rules = (props.createRules && props.createRules(record, props.form)) || createRules(record, props.form);
-    const renderComp = compRender[model](record);
+    const renderComp = compRender[record.isReadonly ? 'show' : 'edit'](record);
     return formAnalyser(initData, rules, renderComp, record);
   }
   return null;

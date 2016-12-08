@@ -21,7 +21,6 @@ const FormItem = Form.Item;
 class Detail extends React.Component {
   /* eslint-disable */
   static propTypes = {
-    model: React.PropTypes.oneOf(['show', 'edit']).isRequired,
     createRules: React.PropTypes.func, // 自定义表单校验 // record
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // values, callback(v)
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
@@ -73,16 +72,17 @@ class Detail extends React.Component {
       return PFetch((item.domainLink || item.actionName), { ...original, ...rest, ...values })
         .then(response => {
           console.log(response);
-          if (item.messagePromptType === 'message') {
-            Modal.info({
-              title: '提示',
-              content: (<div>您已成功{item.buttonDescription}！</div>),
-              onOk() {
-                self.props.afterSubmit && self.props.afterSubmit(false);
-                dispatch(goBack());
-              },
-            });
-          }
+          // if (item.messagePromptType === 'message') {
+          Modal.info({
+            title: '提示',
+            content: (<div>您已成功{item.buttonDescription}！</div>),
+            onOk() {
+              self.props.afterSubmit && self.props.afterSubmit(false);
+              self.props.isModal && self.props.modalCallback && self.props.modalCallback();
+              // dispatch(goBack());
+            },
+          });
+          // }
         })
         .catch(errorData => {
           console.log(errorData);
@@ -122,17 +122,12 @@ class Detail extends React.Component {
   }
 
   @autobind
-  handleChageState(e) {
-    this.props.changeState(e);
-  }
-
-  @autobind
-  _renderColumnAction() {
+  _renderColumnAction(displayPosition) {
     const buttons = this.props.dataSource.buttons || [];
     return (
       <div>
         {
-          buttons.map(item => {
+          buttons.filter(f => f.displayPosition === displayPosition).map(item => {
             return (
               <Button
                 className={styles.inlineButton}
@@ -141,15 +136,7 @@ class Detail extends React.Component {
               >
                 {item.buttonDescription}
               </Button>);
-            // TODO: 编辑按钮
           })
-          //  .concat((
-          //  <Button
-          //    className={styles.inlineButton}
-          //    key="editBtnLocal"
-          //    onClick={this.handleChageState}
-          //  >{this.props.model === 'show' ? '编辑' : '返回'}</Button>
-          // ))
         }
       </div>
     );
@@ -190,7 +177,7 @@ class Detail extends React.Component {
   @autobind
   createCols(data, fields, handle, bindParameterHandle) {
     return fields.map(item =>
-      renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props.model, this.props)
+      renderFuc(handle, bindParameterHandle, item, data.detailResult, this.props)
     ).filter(f => !!f).map((field, index) => (
         <Col key={index} span={(24 / data.columnNumber) || 12}>
           {field}
@@ -217,21 +204,34 @@ class Detail extends React.Component {
     );
   }
 
+  @autobind
+  createTopButtons() {
+    const buttons = this._renderColumnAction('TOP');
+    if (this.props.createTopButtons) {
+      this.props.createTopButtons(buttons);
+      return null;
+    }
+    return buttons;
+  }
+
   render() {
     const tailFormItemLayout = {
       wrapperCol: {
         span: 14,
-        offset: 4,
+        offset: 0,
       },
     };
     return (
       <div>
         <Form horizontal={true} >
+          <FormItem {...tailFormItemLayout}>
+            {this.createTopButtons()}
+          </FormItem>
           {this.state.fields.map((f, index) => {
             return this.renderForm(this.props.dataSource, f, index);
           })}
           <FormItem {...tailFormItemLayout}>
-            {this._renderColumnAction()}
+            {this._renderColumnAction('BOTTOM')}
           </FormItem>
         </Form>
       </div>
