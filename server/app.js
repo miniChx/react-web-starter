@@ -30,7 +30,7 @@ app.post(getUrlPath('/AccountDetail/render'), function (req, res) {
  res.json(mockData);
 })
 
-app.post(getUrlPath('/Api/AccountDetail/getMenus'), function (req, res) {
+app.post(getUrlPath('/api/AccountDetail/getMenus'), function (req, res) {
   var mockData = require('./json/getMenus.json');
   setTimeout(() => {
     res.json(mockData);

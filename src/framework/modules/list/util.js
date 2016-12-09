@@ -1,12 +1,10 @@
 import moment from 'moment';
 
-export const arr2obj = (array, key) => {
-  const result = [];
-  array.forEach(item => {
+export const arr2obj = (array, key) =>
+  array.reduce((result, item) => {
     result[item[key]] = item;
-  });
-  return result;
-};
+    return result;
+  }, {});
 
 export const handleFilterItems = (filterItems, fieldsObject) =>
   filterItems.map(filter => {
