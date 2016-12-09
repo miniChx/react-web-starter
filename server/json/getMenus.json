@@ -50,7 +50,7 @@
       "menuValue": "后台连调",
       "displaySequence": 2,
       "domainLink": "/Api/EnterpriseCusBasicInfoList/render",
-      "domainType": "List",
+      "domainType": null,
       "roleCodes": [
         "Role1_Admin"
       ],

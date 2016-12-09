@@ -10,4 +10,5 @@ export default {
   '/example/hello': example.hello,
   '/example/layout': example.layout,
   '/Process/todo': example.list,
+  '/Api/EnterpriseCusBasicInfoList/render': example.EnterpriseCusBasicInfoList,
 };

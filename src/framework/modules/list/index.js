@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Button, Search } from 'mxa';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
@@ -15,7 +15,7 @@ class ListView extends React.Component {
     prefixCls: PropTypes.string,
     isModal: PropTypes.bool,
     modalCallback: PropTypes.func,
-    mapper: PropTypes.object, // mapper for customize, key is 'buttonDescription'
+    inject: PropTypes.object, // inject for customize, key is 'buttonDescription'
   }
 
   static defaultProps = {
@@ -31,7 +31,7 @@ class ListView extends React.Component {
 
   @autobind
   _renderColumnAction(text, record, buttons, mainEntityKey) {
-    const { prefixCls, query, mapper } = this.props;
+    const { prefixCls, query, inject } = this.props;
     const toolbarClassName = `${prefixCls}-inline-toolbar`;
     const buttonClassName = `${prefixCls}-inline-button`;
     return (
@@ -44,7 +44,7 @@ class ListView extends React.Component {
               key={index}
               mainEntityKey={mainEntityKey}
               record={record}
-              mapper={mapper}
+              inject={inject}
               className={buttonClassName}
               query={query}
               onRefresh={this._onSearch}
@@ -208,7 +208,7 @@ class ListView extends React.Component {
 
   @autobind
   _renderTopButtons() {
-    const { prefixCls, query, mapper } = this.props;
+    const { prefixCls, query, inject } = this.props;
     const buttonClass = `${prefixCls}-button`;
     if (this.props.isModal) {
       return (
@@ -242,7 +242,7 @@ class ListView extends React.Component {
               record={this.state.selectedRows}
               className={buttonClass}
               query={query}
-              mapper={mapper}
+              inject={inject}
               onRefresh={this._onSearch}
             />
           ))

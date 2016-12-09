@@ -28,7 +28,7 @@ export class ExtendButton extends React.Component {
     selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
     inline: PropTypes.bool,
     query: PropTypes.object,
-    mapper: PropTypes.object,
+    inject: PropTypes.object,
   };
 
   static defaultProps = {
@@ -161,10 +161,15 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _triggerAction() {
-    const { record, buttonDescription, mapper } = this.props;
+    const { record, buttonDescription, inject } = this.props;
 
     if (this.props.bindParameterType === BUTTON_BINDPARAMETERTYPE.CUSTOMIZE) {
-      mapper[buttonDescription] && mapper[buttonDescription](record);
+      if (inject.buttons && inject.buttons.length > 0) {
+        const injectAction = inject.buttons.filter(button => button.key === buttonDescription);
+        if (injectAction && injectAction.length > 0) {
+          injectAction[0].action && injectAction[0].action({ props: this.props, record });
+        }
+      }
     } else if (this.props.relatedRows === BUTTON_RELATEDROWS.NONE) {
       this._triggerActionWithoutRows();
     } else if (this.props.inline) {

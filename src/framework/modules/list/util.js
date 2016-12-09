@@ -43,12 +43,7 @@ export const handleContentList = (contentList, fieldsObject) =>
       const fieldContent = fieldsObject[field];
       if (fieldContent.displayComponent.componentType === 'SELECT') {
         const dictItem = fieldContent.displayComponent.dictionaryItems
-          .find(dict => {
-            if (fieldContent.type === 'Boolean') {
-              return record[field] ? dict.code === 'true' : dict.code === 'false';
-            }
-            return dict.code === record[field];
-          });
+          .find(dict => dict.code === record[field]);
         output[field] = (dictItem && dictItem.value) || record[field];
       } else if (fieldContent.displayComponent.componentType === 'DATEPICKER') {
         output[field] = moment(new Date(record[field])).format('YYYY-MM-DD');

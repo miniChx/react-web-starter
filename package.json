@@ -16,7 +16,7 @@
     "local-storage": "^1.4.2",
     "lodash": "^4.16.4",
     "moment": "^2.15.2",
-    "mxa": "^0.1.5",
+    "mxa": "^0.1.6",
     "object-assign": "^4.1.0",
     "qs": "^6.3.0",
     "rc-animate": "^2.3.1",
