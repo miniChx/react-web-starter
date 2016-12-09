@@ -19,6 +19,8 @@ import CheckboxGroupAnalyser from './analyser/CheckboxGroupAnalyser';
 import RadioGroupAnalyser from './analyser/RadioGroupAnalyser';
 import ModalInputAnalyser from './analyser/ModalInputAnalyser';
 import TextAreaAnalyser from './analyser/TextAreaAnalyser';
+import YearPickerAnalyser from './analyser/YearPickerAnalyser';
+import PasswordInputAnalyser from './analyser/PasswordInputAnalyser';
 import { getValueByKey } from '../../../utils/MapUtils';
 import createRules from '../formValidator';
 import { VIEW, EDIT } from '../constant';
@@ -39,6 +41,8 @@ const FormItemMap = {
   RADIOGROUP: RadioGroupAnalyser,
   MODALINPUT: ModalInputAnalyser,
   TEXTAREA: TextAreaAnalyser,
+  YEARPICKER: YearPickerAnalyser,
+  PASSWORDINPUT: PasswordInputAnalyser,
   defaultAnalyser: InputAnalyser
 };
 
@@ -66,12 +70,8 @@ const transFromtoDate = (data, compRender) => {
 // 表单项
 // hasFeedback={model === 'edit'}
 const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult) => {
-  let initData = null;
-  if (model === VIEW) {
-    initData = getBindParameter(props, record.initValueSource);
-  } else {
-    initData = detailResult && detailResult[record.name];
-  }
+  // TODO: if result is true or false
+  const initData = (detailResult && detailResult[record.name]) || getBindParameter(props, record.initValueSource);
   return (
     <FormItem
       key={record.description}

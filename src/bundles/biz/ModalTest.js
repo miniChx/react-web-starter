@@ -17,7 +17,8 @@ export const createComp = (compRender, fieldCtrl, onLocalChange) => {
   return {
     ...compRender,
     EDIT: record => {
-      return React.cloneElement(compRender.edit(record), { onChange: onChange });
+      /* eslint-disable */
+      return React.cloneElement(compRender.EDIT(record), { onChange: onChange });
     }
   };
 };

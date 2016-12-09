@@ -74,7 +74,7 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _genParams(record) {
-    const params = { [this.props.mainEntityKey]: record[this.props.mainEntityKey] };
+    const params = { [this.props.mainEntityKey]: record[this.props.mainEntityKey], ...this.props.query };
     if (this.props.bindParameterType === 'SEVERAL') {
       this.props.bindParameters.forEach(item => {
         params[item.name] = item.value || this.props.query[item.value];
@@ -91,7 +91,7 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _triggerActionWithoutRows() {
-    const params = {};
+    const params = this.props.query || {};
     if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
       // message|confirm|tooltip
       if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
