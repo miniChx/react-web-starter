@@ -3,6 +3,7 @@
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Button, Search } from 'mxa';
+import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
@@ -31,8 +32,10 @@ class ListView extends React.Component {
   @autobind
   _renderColumnAction(text, record, buttons, mainEntityKey) {
     const { prefixCls, query, mapper } = this.props;
+    const toolbarClassName = `${prefixCls}-inline-toolbar`;
+    const buttonClassName = `${prefixCls}-inline-button`;
     return (
-      <div className={`${prefixCls}-inline-toolbar`}>
+      <div className={toolbarClassName}>
         {
           buttons.map((item, index) => (
             <ExtendButton
@@ -42,7 +45,7 @@ class ListView extends React.Component {
               mainEntityKey={mainEntityKey}
               record={record}
               mapper={mapper}
-              className={`${prefixCls}-inline-button`}
+              className={buttonClassName}
               query={query}
               onRefresh={this._onSearch}
             />
@@ -64,11 +67,11 @@ class ListView extends React.Component {
     const ordered = data.orderItems && data.orderItems.length > 0;
     let mainEntityKey = '';
     const columns = [];
-    data.fields && data.fields.forEach(item => {
+    data.fields && data.fields.sort((a, b) => a.index - b.index).forEach((item, index) => {
       if (item.isMainEntityKey) mainEntityKey = item.name;
       if (item.isVisible) {
         columns.push({
-          key: item.index,
+          key: index,
           title: item.description,
           dataIndex: item.name,
           sorter: !!orderItems[item.name],
@@ -206,13 +209,14 @@ class ListView extends React.Component {
   @autobind
   _renderTopButtons() {
     const { prefixCls, query, mapper } = this.props;
+    const buttonClass = `${prefixCls}-button`;
     if (this.props.isModal) {
       return (
         <Button
           buttonProps={{
             type: 'ghost',
           }}
-          className={`${prefixCls}-button`}
+          className={buttonClass}
           onClick={() => this.props.modalCallback && this.props.modalCallback(this.state.selectedRows[0])}
           disabled={this.state.selectedRowKeys.length <= 0}
         >确定</Button>
@@ -236,7 +240,7 @@ class ListView extends React.Component {
               mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
-              className={`${prefixCls}-button`}
+              className={buttonClass}
               query={query}
               mapper={mapper}
               onRefresh={this._onSearch}
@@ -288,9 +292,10 @@ class ListView extends React.Component {
     if (this.state.columns && this.state.columns.length > 0) {
       // console.log('Search[data] ===> ', this.state.filters);
       const { prefixCls } = this.props;
+      const toolbarClass = `${prefixCls}-toolbar`;
       return (
-        <div className={`${prefixCls}`}>
-          <div className={`${prefixCls}-toolbar`}>
+        <div className={prefixCls}>
+          <div className={toolbarClass}>
             {this._renderTopButtons()}
             <Search dataSource={this.state.filters} onSearch={this._onFilterChange} />
           </div>
