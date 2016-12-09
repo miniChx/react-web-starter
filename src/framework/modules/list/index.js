@@ -75,6 +75,11 @@ class ListView extends React.Component {
       }
     });
 
+    // fix first column
+    if (columns.length > 0) {
+      columns[0].fixed = true;
+    }
+
     // add operation
     if (!this.props.isModal && buttons && buttons.row && buttons.row.length > 0) {
       columns.push({
