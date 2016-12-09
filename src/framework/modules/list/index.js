@@ -2,20 +2,24 @@
 
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button } from 'mxa';
+import { Table, Button, Search } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
-import { ExtendButton, Search } from '../../../components';
+import { ExtendButton } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
-
-import styles from '../../styles/views/listview.less';
 
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 
 class ListView extends React.Component {
   static propTypes = {
+    prefixCls: PropTypes.string,
     isModal: PropTypes.bool,
     modalCallback: PropTypes.func,
   }
+
+  static defaultProps = {
+    prefixCls: 'mx-list',
+    isModal: false,
+  };
 
   constructor(props) {
     super(props);
@@ -24,21 +28,20 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _renderColumnAction(text, record, buttons, mainEntityKey) { // eslint-disable-line class-methods-use-this
-    // console.log('text: ', text);
-    // console.log('record: ', record);
+  _renderColumnAction(text, record, buttons, mainEntityKey) {
+    const { prefixCls } = this.props;
     return (
-      <div className={styles.inlineToolbar}>
+      <div className={`${prefixCls}-inline-toolbar`}>
         {
-          buttons.map(item => (
+          buttons.map((item, index) => (
             <ExtendButton
               {...item}
               callback={this.props.callback}
               inline={true}
-              key={record[mainEntityKey]}
+              key={index}
               mainEntityKey={mainEntityKey}
               record={record}
-              className={styles.inlineButton}
+              className={`${prefixCls}-inline-button`}
               query={this.props.query}
               onRefresh={this._onSearch}
             />
@@ -58,7 +61,6 @@ class ListView extends React.Component {
 
     const orderItems = handleOrderItems(data.orderItems);
     const ordered = data.orderItems && data.orderItems.length > 0;
-    // eslint-disable-next-line arrow-body-style
     let mainEntityKey = '';
     const columns = [];
     data.fields && data.fields.forEach(item => {
@@ -79,7 +81,7 @@ class ListView extends React.Component {
         title: '操作',
         key: 'operation',
         fixed: 'right',
-        width: 100,
+        // width: 300,
         render: (text, record) => this._renderColumnAction(text, record, buttons.row, mainEntityKey),
       });
     }
@@ -138,7 +140,7 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _onChange(pagination, filters, sorter) { // eslint-disable-line
+  _onChange(pagination, filters, sorter) {
     console.log('params', pagination, filters, sorter);
     if (this.state.ordered && !isEmpty(sorter)) {
       const orderFields = [];
@@ -197,13 +199,14 @@ class ListView extends React.Component {
 
   @autobind
   _renderTopButtons() {
+    const { prefixCls } = this.props;
     if (this.props.isModal) {
       return (
         <Button
           buttonProps={{
             type: 'ghost',
           }}
-          className={styles.topButton}
+          className={`${prefixCls}-button`}
           onClick={() => this.props.modalCallback && this.props.modalCallback(this.state.selectedRows[0])}
           disabled={this.state.selectedRowKeys.length <= 0}
         >确定</Button>
@@ -228,7 +231,7 @@ class ListView extends React.Component {
               mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
-              className={styles.topButton}
+              className={`${prefixCls}-button`}
               query={this.props.query}
               onRefresh={this._onSearch}
             />
@@ -277,12 +280,13 @@ class ListView extends React.Component {
     };
 
     if (this.state.columns && this.state.columns.length > 0) {
-      console.log('Search[data] ===> ', this.state.filters);
+      // console.log('Search[data] ===> ', this.state.filters);
+      const { prefixCls } = this.props;
       return (
-        <div className={styles.listview}>
-          <div className={styles.toolbar}>
+        <div className={`${prefixCls}`}>
+          <div className={`${prefixCls}-toolbar`}>
             {this._renderTopButtons()}
-            <Search data={this.state.filters} onSearch={this._onFilterChange} />
+            <Search dataSource={this.state.filters} onSearch={this._onFilterChange} />
           </div>
           <Table
             rowSelection={rowSelection}

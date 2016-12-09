@@ -1,0 +1,34 @@
+
+@list-prefix-cls: ~"@{mx-prefix}-list";
+
+.@{list-prefix-cls} {
+
+  &-toolbar {
+    display: flex;
+    justify-content: space-between;
+
+    .@{mx-prefix}-search-advanced {
+      margin-bottom: 15px;
+    }
+  }
+
+  &-button {
+    margin-left: 0.618rem;
+    margin-right: 0.618rem;
+  }
+
+  &-inline-toolbar {
+    display: flex;
+  }
+
+  &-inline-button {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .mx-table-thead > tr > th, .mx-table-tbody > tr > td {
+    white-space: nowrap;
+  }
+}
+

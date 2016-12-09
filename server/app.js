@@ -16,8 +16,8 @@ app.use(allowCrossDomain);
 // app.use(express.static('../build'));
 
 function getUrlPath(url) {
-  // return url;
-  return '/blc' + url;
+  return url;
+  // return '/blc' + url;
 }
 
 app.post(getUrlPath('/AccountList/render'), function (req, res) {
@@ -31,7 +31,7 @@ app.post(getUrlPath('/AccountDetail/render'), function (req, res) {
 })
 
 
-app.post('/EnterpriseCusBasicInfoList/render', function (req, res) {
+app.post('/api/EnterpriseCusBasicInfoList/render', function (req, res) {
   var mockData = require('./json/enterpriseCusBasicInfoList.json');
   res.json(mockData);
 })
