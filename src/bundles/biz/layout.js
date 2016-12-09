@@ -37,11 +37,14 @@ export default class Lt extends React.Component {
 
   renderAnalyser(analyserName, field, fieldCtrl) {
     if (field.name === 'certificateType') {
-      return createComp(RadioGroup, fieldCtrl, e => {
+      return createComp(RadioGroup, fieldCtrl, (e, helper) => {
         if (e.target.value === 'NATURAL_PERSON_SHAREHOLDER') {
-          return { type: false, fields: ['certificateNo'] };
+          // helper.setFieldVisible('certificateNo', true);
+          helper.setFieldRule('certificateNo', { isRequired: true });
+        } else {
+          // helper.setFieldVisible('certificateNo', false);
+          helper.setFieldRule('certificateNo', { isRequired: false });
         }
-        return { type: true, fields: ['certificateNo'] };
       });
     }
     return false;
