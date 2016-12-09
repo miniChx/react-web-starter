@@ -5,6 +5,7 @@
 import React from 'react';
 import { Cascader } from 'mxa';
 import staticDisplay from './StaticDisplay';
+import { VIEW, EDIT } from '../../constant';
 
 const compRender = record => {
   return (
@@ -13,6 +14,6 @@ const compRender = record => {
 };
 
 export default {
-  show: staticDisplay,
-  edit: compRender
+  [VIEW]: staticDisplay,
+  [EDIT]: compRender
 };

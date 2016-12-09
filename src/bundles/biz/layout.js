@@ -5,13 +5,14 @@ import React from 'react';
 import { Icon, Col, Row, Form, Input, Modal } from 'mxa';
 import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
-import ModalInput from './ModalTest';
+import { createComp } from '../../framework/modules/detail/displayComp/compRefactHelper';
 import { Info, ListDetail } from '../../framework/modules';
 import appStyle from '../../framework/styles/views/app.less';
 // import Simple from '../../components/simpleMenu';
 import { getSubMenu } from '../../framework/service/CacheService';
 import { AnHref } from '../../framework/modules/info';
 import InputItem from './InputItem';
+import RadioGroup from '../../framework/modules/detail/displayComp/analyser/RadioGroupAnalyser';
 // const FormItem = Form.Item;
 
 export default class Lt extends React.Component {
@@ -34,10 +35,14 @@ export default class Lt extends React.Component {
     });
   }
 
-  renderAnalyser(analyserName, field) {
-    console.log(field);
+  renderAnalyser(analyserName, field, fieldCtrl) {
     if (field.name === 'certificateType') {
-      return ModalInput;
+      return createComp(RadioGroup, fieldCtrl, e => {
+        if (e.target.value === 'NATURAL_PERSON_SHAREHOLDER') {
+          return { type: false, fields: ['certificateNo'] };
+        }
+        return { type: true, fields: ['certificateNo'] };
+      });
     }
     return false;
   }

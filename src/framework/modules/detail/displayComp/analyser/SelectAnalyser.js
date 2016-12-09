@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Select } from 'mxa';
-// import StaticDisplay from './StaticDisplay';
+import { VIEW, EDIT } from '../../constant';
 
 const compRender = record => {
   return (
@@ -31,11 +31,11 @@ class StaticDisplay extends React.Component {
 }
 
 export default {
-  show: record => {
+  [VIEW]: record => {
     const opts = record.displayComponent && record.displayComponent.dictionaryItems && record.displayComponent.dictionaryItems;
     return (
       <StaticDisplay opts={opts} />
     );
   },
-  edit: compRender
+  [EDIT]: compRender
 };
