@@ -40,12 +40,22 @@ class Detail extends React.Component {
   }
 
   @autobind
-  changeDataSourceVisable(type, fieldName = []) {
+  changeDataSourceVisable(fieldSetting = {}) {
+    // {'certificateNo': { isVisible: false, rules: { isRequired: false } }};
     const fieldList = this.props.dataSource.fields && this.props.dataSource.fields.map(field => {
-      if (fieldName.indexOf(field.name) >= 0) {
-        field.isVisible = type;
-      }
-      return field;
+        if (fieldSetting[field.name]) {
+          const isVisible = fieldSetting[field.name].isVisible;
+          if (isVisible === true || isVisible === false) {
+            field.isVisible = isVisible;
+          }
+          if (fieldSetting[field.name].rules) {
+            const isRequired = fieldSetting[field.name].rules.isRequired;
+            if (isRequired === true || isRequired === false) {
+              field.isRequired = isRequired;
+            }
+          }
+        }
+        return field;
     });
     const data = { ...this.props.dataSource, fields: fieldList};
     this.setState({ fields: this.dataFieldsAdapter(data) });
