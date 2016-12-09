@@ -14,6 +14,7 @@ import {
   BUTTON_INTERACTIVETYPE,
   BUTTON_MESSAGEPROMPTTYPE,
   BUTTON_RELATEDROWS,
+  BUTTON_BINDPARAMETERTYPE,
 } from '../../framework/constant/dictCodes';
 
 const confirm = Modal.confirm;
@@ -27,6 +28,7 @@ export class ExtendButton extends React.Component {
     selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
     inline: PropTypes.bool,
     query: PropTypes.object,
+    mapper: PropTypes.object,
   };
 
   static defaultProps = {
@@ -75,7 +77,7 @@ export class ExtendButton extends React.Component {
   @autobind
   _genParams(record) {
     const params = { [this.props.mainEntityKey]: record[this.props.mainEntityKey] };
-    if (this.props.bindParameterType === 'SEVERAL') {
+    if (this.props.bindParameterType === BUTTON_BINDPARAMETERTYPE.SEVERAL) {
       this.props.bindParameters.forEach(item => {
         params[item.name] = item.value || this.props.query[item.value];
       });
@@ -159,15 +161,19 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _triggerAction() {
-    if (this.props.relatedRows === BUTTON_RELATEDROWS.NONE) {
+    const { record, buttonDescription, mapper } = this.props;
+
+    if (this.props.bindParameterType === BUTTON_BINDPARAMETERTYPE.CUSTOMIZE) {
+      mapper[buttonDescription] && mapper[buttonDescription](record);
+    } else if (this.props.relatedRows === BUTTON_RELATEDROWS.NONE) {
       this._triggerActionWithoutRows();
     } else if (this.props.inline) {
-      this._triggerActionSingle(this.props.record);
+      this._triggerActionSingle(record);
     } else if (this.props.selectedType !== LIST_SELECTTYPE.CHECKBOX
       || this.props.relatedRows === BUTTON_RELATEDROWS.SINGLE) {
-      this._triggerActionSingle(this.props.record[0]);
+      this._triggerActionSingle(record[0]);
     } else {
-      this._triggerActionMultiple(this.props.record);
+      this._triggerActionMultiple(record);
     }
   }
 

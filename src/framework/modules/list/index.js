@@ -14,6 +14,7 @@ class ListView extends React.Component {
     prefixCls: PropTypes.string,
     isModal: PropTypes.bool,
     modalCallback: PropTypes.func,
+    mapper: PropTypes.object, // mapper for customize, key is 'buttonDescription'
   }
 
   static defaultProps = {
@@ -29,20 +30,20 @@ class ListView extends React.Component {
 
   @autobind
   _renderColumnAction(text, record, buttons, mainEntityKey) {
-    const { prefixCls } = this.props;
+    const { prefixCls, query, mapper } = this.props;
     return (
       <div className={`${prefixCls}-inline-toolbar`}>
         {
           buttons.map((item, index) => (
             <ExtendButton
               {...item}
-              callback={this.props.callback}
               inline={true}
               key={index}
               mainEntityKey={mainEntityKey}
               record={record}
+              mapper={mapper}
               className={`${prefixCls}-inline-button`}
-              query={this.props.query}
+              query={query}
               onRefresh={this._onSearch}
             />
           ))
@@ -204,7 +205,7 @@ class ListView extends React.Component {
 
   @autobind
   _renderTopButtons() {
-    const { prefixCls } = this.props;
+    const { prefixCls, query, mapper } = this.props;
     if (this.props.isModal) {
       return (
         <Button
@@ -228,7 +229,6 @@ class ListView extends React.Component {
               buttonProps={{
                 type: 'ghost',
               }}
-              callback={this.props.callback}
               {...item}
               disabled={(item.relatedRows === BUTTON_RELATEDROWS.SINGLE && this.state.selectedRowKeys.length !== 1)
                 || (item.relatedRows === BUTTON_RELATEDROWS.MULTIPLE && this.state.selectedRowKeys.length < 1)}
@@ -237,7 +237,8 @@ class ListView extends React.Component {
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
               className={`${prefixCls}-button`}
-              query={this.props.query}
+              query={query}
+              mapper={mapper}
               onRefresh={this._onSearch}
             />
           ))
