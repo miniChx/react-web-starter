@@ -98,7 +98,7 @@
       "isReadonly": false,
       "isRequired": true,
       "displayComponent": {
-        "componentType": "CHECKBOXGROUP",
+        "componentType": "SELECT",
         "dictionaryCategory": "SHAREHOLDER_TYPE",
         "dictionaryItems": [
           {

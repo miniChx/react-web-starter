@@ -20,12 +20,12 @@ function getUrlPath(url) {
   // return '/blc' + url;
 }
 
-app.post('/AccountList/render', function (req, res) {
+app.post(getUrlPath('/AccountList/render'), function (req, res) {
  var mockData = require('./json/accountList.json');
  res.json(mockData);
 })
 
-app.post('/AccountDetail/render', function (req, res) {
+app.post(getUrlPath('/AccountDetail/render'), function (req, res) {
  var mockData = require('./json/accountDetail.json');
  res.json(mockData);
 })
@@ -37,18 +37,18 @@ app.post('/api/EnterpriseCusBasicInfoList/render', function (req, res) {
 })
 
 
-//app.post(getUrlPath('/Api/AccountDetail/getMenus'), function (req, res) {
-//  var mockData = require('./json/getMenus.json');
-//  setTimeout(() => {
-//    res.json(mockData);
-//  }, 1000);
-//})
-//
-//app.post(getUrlPath('/Pub/Account/login'), function (req, res) {
-//  var mockData = require('./json/login.json');
-//  res.json(mockData);
-//})
-//
+app.post(getUrlPath('/Api/AccountDetail/getMenus'), function (req, res) {
+  var mockData = require('./json/getMenus.json');
+  setTimeout(() => {
+    res.json(mockData);
+  }, 1000);
+});
+
+app.post(getUrlPath('/Pub/Account/login'), function (req, res) {
+  var mockData = require('./json/login.json');
+  res.json(mockData);
+});
+
 
 const CustomerTypeData = [{
  "code":"ENTERPRISE",
@@ -87,51 +87,51 @@ app.post(getUrlPath('/DemoList/render'), function (req, res) {
  // mockData.pageResult = pageResult;
  res.json(mockData);
 })
-//app.post(getUrlPath('/DemoList/search'), function (req, res) {
-//  var mockData = require('./json/demoListSearch.json');
-//  // mockData.pageResult.pageIndex = req.body.pageIndex;
-//  // mockData.pageResult.itemsPerPage = req.body.itemsPerPage;
-//  //
-//  // const pageResult = {
-//  //   pageIndex: req.body.pageIndex,
-//  //   itemsPerPage: req.body.itemsPerPage,
-//  //   totalPages: 6,
-//  //   totalItems: 56,
-//  // };
-//  // const contentList = [];
-//  // const contentLength = pageResult.pageIndex !== pageResult.totalPages ?
-//  //   pageResult.itemsPerPage :
-//  //   pageResult.totalItems - pageResult.itemsPerPage * (pageResult.totalPages - 1);
-//  // for (let i = 0; i < contentLength; i++) {
-//  //   contentList.push({
-//  //     basicCustomerId: i,
-//  //     customerName: "userName" + i + pageResult.pageIndex,
-//  //     customerSize: "13355558888" + i,
-//  //     customerType: CustomerTypeData[i % 3].code,
-//  //     registerDate: Date.now(),
-//  //   });
-//  // }
-//  // pageResult.contentList = contentList;
-//  // mockData.pageResult = pageResult;
-//
-//  res.json(mockData);
-//})
-//
-//app.post(getUrlPath('/Role/render'), function (req, res) {
-//  var mockData = require('./json/role.json');
-//  res.json(mockData);
-//})
-//
-//app.post(getUrlPath('/Process/todo'), function (req, res) {
-//  var mockData = require('./json/processTodo.json');
-//  res.json(mockData);
-//})
-//
-//
-// app.post(getUrlPath('/example/layout'), function (req, res) {
-//  var mockData = require('./json/exampleLayout.json');
-//  res.json(mockData);
-// })
+app.post(getUrlPath('/DemoList/search'), function (req, res) {
+  var mockData = require('./json/demoListSearch.json');
+  // mockData.pageResult.pageIndex = req.body.pageIndex;
+  // mockData.pageResult.itemsPerPage = req.body.itemsPerPage;
+  //
+  // const pageResult = {
+  //   pageIndex: req.body.pageIndex,
+  //   itemsPerPage: req.body.itemsPerPage,
+  //   totalPages: 6,
+  //   totalItems: 56,
+  // };
+  // const contentList = [];
+  // const contentLength = pageResult.pageIndex !== pageResult.totalPages ?
+  //   pageResult.itemsPerPage :
+  //   pageResult.totalItems - pageResult.itemsPerPage * (pageResult.totalPages - 1);
+  // for (let i = 0; i < contentLength; i++) {
+  //   contentList.push({
+  //     basicCustomerId: i,
+  //     customerName: "userName" + i + pageResult.pageIndex,
+  //     customerSize: "13355558888" + i,
+  //     customerType: CustomerTypeData[i % 3].code,
+  //     registerDate: Date.now(),
+  //   });
+  // }
+  // pageResult.contentList = contentList;
+  // mockData.pageResult = pageResult;
+
+  res.json(mockData);
+})
+
+app.post(getUrlPath('/Role/render'), function (req, res) {
+  var mockData = require('./json/role.json');
+  res.json(mockData);
+})
+
+app.post(getUrlPath('/Process/todo'), function (req, res) {
+  var mockData = require('./json/processTodo.json');
+  res.json(mockData);
+})
+
+
+ app.post(getUrlPath('/example/layout'), function (req, res) {
+  var mockData = require('./json/exampleLayout.json');
+  res.json(mockData);
+ })
 app.post('/example/layout', function (req, res) {
  var mockData = require('./json/exampleLayout.json');
  res.json(mockData);
@@ -142,23 +142,23 @@ app.post('/example/layout', function (req, res) {
 //  res.json(mockData);
 // })
 
-app.post('/*', function (req, res) {
-  console.log('#########', req.url);
-  if (req.url.indexOf('getMenus') >= 0) {
-    var mockData = require('./json/getMenus.json');
-    res.json(mockData);
-    return ;
-  }
-  let header = req.headers || {};
-  Redirect(req.url, req.body,  function (chunk) {
-    res.json(chunk);
-  }, {
-    'Accept': header.accept,
-    'Content-Type': header['content-type'],
-    'Authorization': header['authorization'],
-    'TenantIdentifier': 'lease'
-  });
-});
+//app.post('/*', function (req, res) {
+//  console.log('#########', req.url);
+//  if (req.url.indexOf('getMenus') >= 0) {
+//    var mockData = require('./json/getMenus.json');
+//    res.json(mockData);
+//    return ;
+//  }
+//  let header = req.headers || {};
+//  Redirect(req.url, req.body,  function (chunk) {
+//    res.json(chunk);
+//  }, {
+//    'Accept': header.accept,
+//    'Content-Type': header['content-type'],
+//    'Authorization': header['authorization'],
+//    'TenantIdentifier': 'lease'
+//  });
+//});
 
 // var handler = function() {
   var server = app.listen(3003, function () {

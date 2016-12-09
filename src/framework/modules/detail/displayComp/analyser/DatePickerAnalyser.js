@@ -4,7 +4,7 @@
 import React from 'react';
 import { DatePicker } from 'mxa';
 import moment from 'moment';
-// import StaticDisplay from './StaticDisplay';
+import { VIEW, EDIT } from '../../constant';
 
 const compRender = record => {
   return (
@@ -22,6 +22,6 @@ class StaticDisplay extends React.Component {
 }
 
 export default {
-  show: () => (<StaticDisplay />),
-  edit: compRender
+  [VIEW]: () => (<StaticDisplay />),
+  [EDIT]: compRender
 };
