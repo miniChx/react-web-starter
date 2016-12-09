@@ -21,6 +21,7 @@ import ModalInputAnalyser from './analyser/ModalInputAnalyser';
 import TextAreaAnalyser from './analyser/TextAreaAnalyser';
 import { getValueByKey } from '../../../utils/MapUtils';
 import createRules from '../formValidator';
+import { VIEW, EDIT } from '../constant';
 
 const FormItem = Form.Item;
 
@@ -66,7 +67,7 @@ const transFromtoDate = (data, compRender) => {
 // hasFeedback={model === 'edit'}
 const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult) => {
   let initData = null;
-  if (model === 'view') {
+  if (model === VIEW) {
     initData = getBindParameter(props, record.initValueSource);
   } else {
     initData = detailResult && detailResult[record.name];

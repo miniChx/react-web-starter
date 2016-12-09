@@ -9,16 +9,7 @@ import ModalInput from '../../../../../components/modalInput';
 import Compose from '../../../../utils/Compose';
 import AsyncDecorator from '../../../../pageContainer/ModalAsyncDecorator';
 import InitDecorator from '../../../../pageContainer/InitDecorator';
-
-
-// class TempPage extends React.Component {
-//
-//   render() {
-//     const TempPage = Compose(AsyncDecorator, InitDecorator)();
-//     return  <TempPage domainType={modalData.domainType} domainLink={modalData.domainLink} />
-//   }
-// }
-
+import { VIEW, EDIT } from '../../constant';
 
 const compRender = record => {
   const TempPage = Compose(AsyncDecorator, InitDecorator)();
@@ -46,6 +37,6 @@ const compRender = record => {
 };
 
 export default {
-  show: staticDisplay,
-  edit: compRender
+  [VIEW]: staticDisplay,
+  [EDIT]: compRender
 };

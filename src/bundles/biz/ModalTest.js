@@ -16,7 +16,7 @@ export const createComp = (compRender, fieldCtrl, onLocalChange) => {
 
   return {
     ...compRender,
-    edit: record => {
+    EDIT: record => {
       return React.cloneElement(compRender.edit(record), { onChange: onChange });
     }
   };

@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { Checkbox } from 'mxa';
+import { VIEW, EDIT } from '../../constant';
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -32,11 +33,11 @@ class StaticDisplay extends React.Component {
 }
 
 export default {
-  show: record => {
+  [VIEW]: record => {
     const opts = record.displayComponent && record.displayComponent.dictionaryItems && record.displayComponent.dictionaryItems;
     return (
       <StaticDisplay opts={opts} />
     );
   },
-  edit: compRender
+  [EDIT]: compRender
 };

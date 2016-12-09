@@ -15,13 +15,14 @@ import { CONTAINER_PRE } from '../../routes';
 import { getValueByKey } from '../../utils/MapUtils';
 import { AnHref } from '../info';
 import SwitchContainer from './switchContainer';
+import { VIEW, EDIT } from './constant';
 
 const FormItem = Form.Item;
 
 class Detail extends React.Component {
   /* eslint-disable */
   static propTypes = {
-    model: React.PropTypes.oneOf(['show', 'edit']).isRequired,
+    model: React.PropTypes.oneOf([VIEW, EDIT]).isRequired,
     createRules: React.PropTypes.func, // 自定义表单校验 // record
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // values, callback(v)
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
@@ -169,7 +170,7 @@ class Detail extends React.Component {
   }
 
   renderForm(data, fields, i) {
-    console.log('re-render123123123123123123123123');
+    // console.log('re-render123123123123123123123123');
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 8 },
