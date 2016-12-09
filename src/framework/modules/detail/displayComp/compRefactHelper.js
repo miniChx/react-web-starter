@@ -1,8 +1,7 @@
 /**
- * Created by baoyinghai on 11/17/16.
+ * Created by baoyinghai on 12/8/16.
  */
 import React from 'react';
-import RadioGroup from '../../framework/modules/detail/displayComp/analyser/RadioGroupAnalyser';
 
 export const createComp = (compRender, fieldCtrl, onLocalChange) => {
   const onChange = e => {

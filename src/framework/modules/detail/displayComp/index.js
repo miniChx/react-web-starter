@@ -85,16 +85,16 @@ const formAnalyser = (compRender, model, props) => (formItemLayout, record, getF
   );
 };
 
-const chooseAnalyser = (record, props) => {
+const chooseAnalyser = (record, props, changeDataSourceVisable) => {
   const analyserName = getValueByKey(record, 'default', 'displayComponent', 'componentType');
   // console.log(analyserName);
-  const ret = props.renderAnalyser && props.renderAnalyser(analyserName, record);
+  const ret = props.renderAnalyser && props.renderAnalyser(analyserName, record, changeDataSourceVisable);
   return ret || FormItemMap[analyserName] || FormItemMap.defaultAnalyser;
 };
 
-const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, model, props) => {
+const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, props, changeDataSourceVisable) => {
   if (record.isVisible) {
-    return formAnalyser(chooseAnalyser(record, props), model, props)(formItemLayout, record, getFieldDecorator, detailResult);
+    return formAnalyser(chooseAnalyser(record, props, changeDataSourceVisable), props.model, props)(formItemLayout, record, getFieldDecorator, detailResult);
   }
   return null;
 };

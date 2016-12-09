@@ -38,6 +38,18 @@ class Detail extends React.Component {
     };
   }
 
+  @autobind
+  changeDataSourceVisable(type, fieldName = []) {
+    const fieldList = this.props.dataSource.fields && this.props.dataSource.fields.map(field => {
+      if (fieldName.indexOf(field.name) >= 0) {
+        field.isVisible = type;
+      }
+      return field;
+    });
+    const data = { ...this.props.dataSource, fields: fieldList};
+    this.setState({ fields: this.dataFieldsAdapter(data) });
+  }
+
   // 过滤 分组
   dataFieldsAdapter(dataSource) {
     const fieldMap = {};
@@ -157,6 +169,7 @@ class Detail extends React.Component {
   }
 
   renderForm(data, fields, i) {
+    console.log('re-render123123123123123123123123');
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 8 },
@@ -172,7 +185,7 @@ class Detail extends React.Component {
             {fields.map((item, index) => {
               return (
                 <Col key={index} span={(24 / data.columnNumber) || 12}>
-                  {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.props.model, this.props)}
+                  {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.props, this.changeDataSourceVisable)}
                 </Col>
               );
             })}
