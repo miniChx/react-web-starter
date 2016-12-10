@@ -10,6 +10,7 @@ class EnterpriseCusBasicInfoList extends React.Component {
         key: '加入黑名单',
         action: value => {
           console.log('## Customized list button ## ', value);
+          return {};
         }
       }]
     };

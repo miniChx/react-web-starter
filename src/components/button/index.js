@@ -75,8 +75,27 @@ export class ExtendButton extends React.Component {
   }
 
   @autobind
+  _genCustomParams() {
+    const { record, buttonDescription, inject } = this.props;
+    let customParams = {};
+    if (this.props.bindParameterType === BUTTON_BINDPARAMETERTYPE.CUSTOMIZE) {
+      if (inject.buttons && inject.buttons.length > 0) {
+        const injectAction = inject.buttons.filter(button => button.key === buttonDescription);
+        if (injectAction && injectAction.length > 0 && injectAction[0].action) {
+          customParams = injectAction[0].action({ props: this.props, record });
+        }
+      }
+    }
+    return customParams;
+  }
+
+  @autobind
   _genParams(record) {
-    const params = { [this.props.mainEntityKey]: record[this.props.mainEntityKey], ...this.props.query };
+    const params = {
+      [this.props.mainEntityKey]: record[this.props.mainEntityKey],
+      ...this.props.query,
+      ...this._genCustomParams(),
+    };
     if (this.props.bindParameterType === BUTTON_BINDPARAMETERTYPE.SEVERAL) {
       this.props.bindParameters.forEach(item => {
         params[item.name] = item.value || this.props.query[item.value];
@@ -93,7 +112,7 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _triggerActionWithoutRows() {
-    const params = this.props.query || {};
+    const params = { ...this.props.query, ...this._genCustomParams() };
     if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
       // message|confirm|tooltip
       if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
@@ -161,16 +180,8 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _triggerAction() {
-    const { record, buttonDescription, inject } = this.props;
-
-    if (this.props.bindParameterType === BUTTON_BINDPARAMETERTYPE.CUSTOMIZE) {
-      if (inject.buttons && inject.buttons.length > 0) {
-        const injectAction = inject.buttons.filter(button => button.key === buttonDescription);
-        if (injectAction && injectAction.length > 0) {
-          injectAction[0].action && injectAction[0].action({ props: this.props, record });
-        }
-      }
-    } else if (this.props.relatedRows === BUTTON_RELATEDROWS.NONE) {
+    const { record } = this.props;
+    if (this.props.relatedRows === BUTTON_RELATEDROWS.NONE) {
       this._triggerActionWithoutRows();
     } else if (this.props.inline) {
       this._triggerActionSingle(record);
