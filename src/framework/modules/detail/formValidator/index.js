@@ -8,7 +8,8 @@ const createRules = (record, form) => {
     if (record.isRequired && (value === null || value === 'undefined')) {
       callback(new Error('请输入' + record.description));
     } else {
-      const errors = checkFunc[record.validateType] && checkFunc[record.validateType](record, value, form.getFieldsValue());
+      const validateType = record && record.formValidate && record.formValidate.validateType;
+      const errors = checkFunc[validateType] && checkFunc[validateType](record, value, form.getFieldsValue());
       callback((errors && [errors]) || []);
     }
   },

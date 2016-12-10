@@ -6,9 +6,13 @@ import { createFunc } from '../../../../utils/JSExecutor';
 
 const validator = (record, value, formValues) => {
   try {
-    const vFunc = createFunc(record.opt && record.opt.validatorFunc);
+    const opt = (record.formValidate && record.formValidate.opt) || {};
+    let vFunc = opt.validatorFunc;
+    if (!typeof vFunc === 'function') {
+      vFunc = createFunc(vFunc);
+    }
     if (!vFunc(formValues, value)) {
-      return new Error((record.opt && record.opt.message) || '上下文检查错误');
+      return new Error((opt.message) || '上下文检查错误');
     }
   } catch (err) {
     return err;

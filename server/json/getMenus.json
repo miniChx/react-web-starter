@@ -49,12 +49,41 @@
       "menuCode": "demoManagement1",
       "menuValue": "后台连调",
       "displaySequence": 2,
-      "domainLink": "/Api/EnterpriseCusBasicInfoList/render",
-      "domainType": "List",
+      "domainLink": null,
+      "domainType": null,
       "roleCodes": [
         "Role1_Admin"
       ],
-      "subMenus": null
+      "subMenus": [
+        {
+          "menuCode": "ENTERPRISECUSBASIC_INFOLIST",
+          "menuValue": "企业基本信息",
+          "displaySequence": 1,
+          "domainLink": "/Api/EnterpriseCusBasicInfoList/render",
+          "domainType": "List",
+          "roleCodes": [
+            "Role1_Admin",
+            "Role2_Employee",
+            "Role3_Manager",
+            "Role4_HR"
+          ],
+          "subMenus": null
+        },
+        {
+          "menuCode": "THIRDPARTYORGCUSTOMER_LIST",
+          "menuValue": "第三方机构",
+          "displaySequence": 1,
+          "domainLink": "/Api/ThirdpartyorgcustomerList/render",
+          "domainType": "List",
+          "roleCodes": [
+            "Role1_Admin",
+            "Role2_Employee",
+            "Role3_Manager",
+            "Role4_HR"
+          ],
+          "subMenus": null
+        }
+      ]
     },
     {
       "menuCode": "processesManager",
