@@ -2,160 +2,170 @@
   "pageResult": {
     "pageIndex": 1,
     "itemsPerPage": 10,
-    "totalPages": 2,
+    "totalPages": 3,
     "contentList": [
       {
-        "serialNo": "ENT201612070001",
-        "leaseeName": "amarsoft1",
-        "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "11111111",
+        "serialNo": "ENT201612090092",
+        "leaseeName": "amarsoft3",
+        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
+        "isBlackList": "Y",
+        "certificateNo": "88888883",
         "registrationAddress": null,
         "registrationDate": null,
         "registeredCapitalAmount": null,
         "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1480573208000,
-        "industry": "季节制造",
-        "leaseeId": 1,
-        "enterpriseId": 1
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267699000,
+        "industry": "季节制造3",
+        "leaseeId": 92,
+        "enterpriseId": 92
       },
       {
-        "serialNo": "ENT201612070002",
+        "serialNo": "ENT201612090095",
+        "leaseeName": "amarsoft5",
+        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
+        "isBlackList": "Y",
+        "certificateNo": "88888885",
+        "registrationAddress": null,
+        "registrationDate": null,
+        "registeredCapitalAmount": null,
+        "creatorName": "SystemUser",
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267699000,
+        "industry": "季节制造5",
+        "leaseeId": 96,
+        "enterpriseId": 95
+      },
+      {
+        "serialNo": "ENT201612090093",
         "leaseeName": "amarsoft2",
         "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "22222222",
+        "isBlackList": "Y",
+        "certificateNo": "88888882",
         "registrationAddress": null,
         "registrationDate": null,
         "registeredCapitalAmount": null,
         "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1480659632000,
-        "industry": "季节制造",
-        "leaseeId": 2,
-        "enterpriseId": 2
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267699000,
+        "industry": "季节制造2",
+        "leaseeId": 94,
+        "enterpriseId": 93
       },
       {
-        "serialNo": "ENT201612070003",
-        "leaseeName": "amarsoft3",
+        "serialNo": "ENT201612090094",
+        "leaseeName": "amarsoft4",
         "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "3333333",
+        "isBlackList": "N",
+        "certificateNo": "88888884",
         "registrationAddress": null,
         "registrationDate": null,
         "registeredCapitalAmount": null,
         "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1480746040000,
-        "industry": "季节制造",
-        "leaseeId": 3,
-        "enterpriseId": 3
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267699000,
+        "industry": "季节制造4",
+        "leaseeId": 93,
+        "enterpriseId": 94
       },
       {
-        "serialNo": "ENT201612070004",
-        "leaseeName": "amar4",
+        "serialNo": "ENT201612090097",
+        "leaseeName": "amarsoft6",
         "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "44444444444",
+        "isBlackList": "N",
+        "certificateNo": "88888886",
         "registrationAddress": null,
         "registrationDate": null,
         "registeredCapitalAmount": null,
         "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1480832452000,
-        "industry": "季节制造",
-        "leaseeId": 4,
-        "enterpriseId": 4
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267700000,
+        "industry": "季节制造6",
+        "leaseeId": 97,
+        "enterpriseId": 97
       },
       {
-        "serialNo": "ENT201612070005",
-        "leaseeName": "amar5",
+        "serialNo": "ENT201612090100",
+        "leaseeName": "amarsoft8",
         "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "555555555555555555",
+        "isBlackList": "N",
+        "certificateNo": "88888888",
         "registrationAddress": null,
         "registrationDate": null,
         "registeredCapitalAmount": null,
         "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1480918859000,
-        "industry": "季节制造",
-        "leaseeId": 5,
-        "enterpriseId": 5
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267700000,
+        "industry": "季节制造8",
+        "leaseeId": 100,
+        "enterpriseId": 100
       },
       {
-        "serialNo": "ENT201612070006",
-        "leaseeName": "amar6",
-        "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "66666666666666666",
-        "registrationAddress": null,
-        "registrationDate": null,
-        "registeredCapitalAmount": null,
-        "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1481005266000,
-        "industry": "季节制造",
-        "leaseeId": 6,
-        "enterpriseId": 6
-      },
-      {
-        "serialNo": "ENT201612070007",
-        "leaseeName": "amar7",
-        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
-        "certificateNo": "777777777",
-        "registrationAddress": null,
-        "registrationDate": null,
-        "registeredCapitalAmount": null,
-        "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1481091771000,
-        "industry": "季节制造",
-        "leaseeId": 7,
-        "enterpriseId": 7
-      },
-      {
-        "serialNo": "ENT201612070008",
-        "leaseeName": "amar8",
-        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
-        "certificateNo": "88888",
-        "registrationAddress": null,
-        "registrationDate": null,
-        "registeredCapitalAmount": null,
-        "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1481091821000,
-        "industry": "季节制造",
-        "leaseeId": 8,
-        "enterpriseId": 8
-      },
-      {
-        "serialNo": "ENT201612070009",
-        "leaseeName": "amar9",
-        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
-        "certificateNo": "9999999",
-        "registrationAddress": null,
-        "registrationDate": null,
-        "registeredCapitalAmount": null,
-        "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1481091828000,
-        "industry": "季节制造",
-        "leaseeId": 9,
-        "enterpriseId": 9
-      },
-      {
-        "serialNo": "ENT201612070010",
+        "serialNo": "ENT201612090099",
         "leaseeName": "amarsoft10",
         "certificateType": "UNIFORM_SOCIAL_CREDIT",
-        "certificateNo": "101010101",
+        "isBlackList": "N",
+        "certificateNo": "888888810",
         "registrationAddress": null,
         "registrationDate": null,
         "registeredCapitalAmount": null,
         "creatorName": "SystemUser",
-        "creatorOrgName": "SystemOrg",
-        "createDate": 1481091849000,
-        "industry": "季节制造",
-        "leaseeId": 10,
-        "enterpriseId": 10
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267700000,
+        "industry": "季节制造10",
+        "leaseeId": 98,
+        "enterpriseId": 99
+      },
+      {
+        "serialNo": "ENT201612090101",
+        "leaseeName": "amarsoft9",
+        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
+        "isBlackList": "N",
+        "certificateNo": "88888889",
+        "registrationAddress": null,
+        "registrationDate": null,
+        "registeredCapitalAmount": null,
+        "creatorName": "SystemUser",
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267700000,
+        "industry": "季节制造9",
+        "leaseeId": 101,
+        "enterpriseId": 101
+      },
+      {
+        "serialNo": "ENT201612090098",
+        "leaseeName": "amarsoft7",
+        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
+        "isBlackList": "N",
+        "certificateNo": "88888887",
+        "registrationAddress": null,
+        "registrationDate": null,
+        "registeredCapitalAmount": null,
+        "creatorName": "SystemUser",
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267700000,
+        "industry": "季节制造7",
+        "leaseeId": 99,
+        "enterpriseId": 98
+      },
+      {
+        "serialNo": "ENT201612090102",
+        "leaseeName": "amarsoft11",
+        "certificateType": "ORGANIZATION_CODE_CERTIFICATE",
+        "isBlackList": "N",
+        "certificateNo": "888888811",
+        "registrationAddress": null,
+        "registrationDate": null,
+        "registeredCapitalAmount": null,
+        "creatorName": "SystemUser",
+        "creatorDeptName": "SystemOrg",
+        "createDate": 1481267700000,
+        "industry": "季节制造11",
+        "leaseeId": 102,
+        "enterpriseId": 102
       }
     ],
-    "totalItems": 12
+    "totalItems": 28
   },
   "selectType": "CHECKBOX",
   "variantFields": [],
@@ -214,6 +224,33 @@
           {
             "code": "UNIFORM_SOCIAL_CREDIT",
             "value": "社会统一信用证",
+            "displaySequence": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "isBlackList",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_ISBLACKLIST_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 19,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "是否黑名单",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": "YES_OR_NO",
+        "dictionaryItems": [
+          {
+            "code": "Y",
+            "value": "是",
+            "displaySequence": 1
+          },
+          {
+            "code": "N",
+            "value": "否",
             "displaySequence": 2
           }
         ]
@@ -300,7 +337,7 @@
       }
     },
     {
-      "name": "creatorOrgName",
+      "name": "creatorDeptName",
       "isMainEntityKey": false,
       "fieldCode": "ENTERPRISECUSBASICINFO_CREATORORGNAME_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
       "index": 10,
@@ -383,6 +420,7 @@
   "buttons": [
     {
       "buttonDescription": "添加",
+      "hideIfReadonly": false,
       "displayPosition": "TOP",
       "relatedRows": "NONE",
       "interactiveType": "MODAL",
@@ -397,6 +435,7 @@
     },
     {
       "buttonDescription": "详情",
+      "hideIfReadonly": false,
       "displayPosition": "TOP",
       "relatedRows": "SINGLE",
       "interactiveType": "PAGE",
@@ -420,6 +459,7 @@
     },
     {
       "buttonDescription": "批量删除",
+      "hideIfReadonly": false,
       "displayPosition": "TOP",
       "relatedRows": "MULTIPLE",
       "interactiveType": "ACTION",
@@ -436,9 +476,30 @@
           "value": ""
         }
       ]
+    },
+    {
+      "buttonDescription": "加入黑名单",
+      "hideIfReadonly": false,
+      "displayPosition": "TOP",
+      "relatedRows": "MULTIPLE",
+      "interactiveType": "ACTION",
+      "messagePromptType": "CONFIRM",
+      "domainLink": null,
+      "domainType": null,
+      "actionName": "/Api/EnterpriseCusBasicInfoCustomize/JoinInBlackList",
+      "buttonCode": "enterpriseCusBasicInfo_Customize_JoinInBlackList_In_enterpriseCusBasicInfo_List",
+      "transmitParameters": [],
+      "bindParameterType": "CUSTOMIZE",
+      "bindParameters": null
     }
   ],
   "filterItems": [
+    {
+      "fieldName": "isBlackList",
+      "displayName": "是否黑名单",
+      "displaySeq": 1,
+      "operatorType": "EQ"
+    },
     {
       "fieldName": "leaseeName",
       "displayName": "客户名称",

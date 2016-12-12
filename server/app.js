@@ -143,17 +143,12 @@ app.post('/example/layout', function (req, res) {
 //  if (req.url.indexOf('getMenus') >= 0) {
 //    var mockData = require('./json/getMenus.json');
 //    res.json(mockData);
-//    return ;
-//  }
-//  let header = req.headers || {};
-//  Redirect(req.url, req.body,  function (chunk) {
-//    res.json(chunk);
-//  }, {
-//    'Accept': header.accept,
-//    'Content-Type': header['content-type'],
-//    'Authorization': header['authorization'],
-//    'TenantIdentifier': 'lease'
-//  });
+//  }, 1000);
+//});
+//
+//app.post(getUrlPath('/Pub/Account/login'), function (req, res) {
+//  var mockData = require('./json/login.json');
+//  res.json(mockData);
 //});
 
 // var handler = function() {

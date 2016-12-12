@@ -1,12 +1,10 @@
 import moment from 'moment';
 
-export const arr2obj = (array, key) => {
-  const result = [];
-  array.forEach(item => {
+export const arr2obj = (array, key) =>
+  array.reduce((result, item) => {
     result[item[key]] = item;
-  });
-  return result;
-};
+    return result;
+  }, {});
 
 export const handleFilterItems = (filterItems, fieldsObject) =>
   filterItems.map(filter => {
@@ -37,17 +35,18 @@ export const handleOrderItems = orderItems => {
 };
 
 export const handleContentList = (contentList, fieldsObject) =>
-  contentList.map((content, index) => {
+  contentList.map((record, index) => {
     const output = { key: index };
-    Object.keys(content).forEach(field => {
-      if (fieldsObject[field].displayComponent.componentType === 'SELECT') {
-        const dictItem = fieldsObject[field].displayComponent.dictionaryItems
-          .find(dict => dict.code === content[field]);
-        output[field] = (dictItem && dictItem.value) || content[field];
-      } else if (fieldsObject[field].displayComponent.componentType === 'DATEPICKER') {
-        output[field] = moment(new Date(content[field])).format('YYYY-MM-DD');
+    Object.keys(record).forEach(field => {
+      const fieldContent = fieldsObject[field];
+      if (fieldContent.displayComponent.componentType === 'SELECT') {
+        const dictItem = fieldContent.displayComponent.dictionaryItems
+          .find(dict => dict.code === record[field]);
+        output[field] = (dictItem && dictItem.value) || record[field];
+      } else if (fieldContent.displayComponent.componentType === 'DATEPICKER') {
+        output[field] = moment(new Date(record[field])).format('YYYY-MM-DD');
       } else {
-        output[field] = content[field];
+        output[field] = record[field];
       }
     });
 

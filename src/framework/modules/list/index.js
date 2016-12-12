@@ -3,6 +3,7 @@
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { Table, Button, Search } from 'mxa';
+// import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
@@ -14,6 +15,7 @@ class ListView extends React.Component {
     prefixCls: PropTypes.string,
     isModal: PropTypes.bool,
     modalCallback: PropTypes.func,
+    inject: PropTypes.object, // inject for customize, key is 'buttonDescription'
   }
 
   static defaultProps = {
@@ -29,20 +31,22 @@ class ListView extends React.Component {
 
   @autobind
   _renderColumnAction(text, record, buttons, mainEntityKey) {
-    const { prefixCls } = this.props;
+    const { prefixCls, query, inject } = this.props;
+    const toolbarClassName = `${prefixCls}-inline-toolbar`;
+    const buttonClassName = `${prefixCls}-inline-button`;
     return (
-      <div className={`${prefixCls}-inline-toolbar`}>
+      <div className={toolbarClassName}>
         {
           buttons.map((item, index) => (
             <ExtendButton
               {...item}
-              callback={this.props.callback}
               inline={true}
               key={index}
               mainEntityKey={mainEntityKey}
               record={record}
-              className={`${prefixCls}-inline-button`}
-              query={this.props.query}
+              inject={inject}
+              className={buttonClassName}
+              query={query}
               onRefresh={this._onSearch}
             />
           ))
@@ -63,11 +67,11 @@ class ListView extends React.Component {
     const ordered = data.orderItems && data.orderItems.length > 0;
     let mainEntityKey = '';
     const columns = [];
-    data.fields && data.fields.forEach(item => {
+    data.fields && data.fields.sort((a, b) => a.index - b.index).forEach((item, index) => {
       if (item.isMainEntityKey) mainEntityKey = item.name;
       if (item.isVisible) {
         columns.push({
-          key: item.index,
+          key: index,
           title: item.description,
           dataIndex: item.name,
           sorter: !!orderItems[item.name],
@@ -204,14 +208,15 @@ class ListView extends React.Component {
 
   @autobind
   _renderTopButtons() {
-    const { prefixCls } = this.props;
+    const { prefixCls, query, inject } = this.props;
+    const buttonClass = `${prefixCls}-button`;
     if (this.props.isModal) {
       return (
         <Button
           buttonProps={{
             type: 'ghost',
           }}
-          className={`${prefixCls}-button`}
+          className={buttonClass}
           onClick={() => this.props.modalCallback && this.props.modalCallback(this.state.selectedRows[0])}
           disabled={this.state.selectedRowKeys.length <= 0}
         >确定</Button>
@@ -228,7 +233,6 @@ class ListView extends React.Component {
               buttonProps={{
                 type: 'ghost',
               }}
-              callback={this.props.callback}
               {...item}
               disabled={(item.relatedRows === BUTTON_RELATEDROWS.SINGLE && this.state.selectedRowKeys.length !== 1)
                 || (item.relatedRows === BUTTON_RELATEDROWS.MULTIPLE && this.state.selectedRowKeys.length < 1)}
@@ -236,8 +240,9 @@ class ListView extends React.Component {
               mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}
               record={this.state.selectedRows}
-              className={`${prefixCls}-button`}
-              query={this.props.query}
+              className={buttonClass}
+              query={query}
+              inject={inject}
               onRefresh={this._onSearch}
             />
           ))
@@ -287,9 +292,10 @@ class ListView extends React.Component {
     if (this.state.columns && this.state.columns.length > 0) {
       // console.log('Search[data] ===> ', this.state.filters);
       const { prefixCls } = this.props;
+      const toolbarClass = `${prefixCls}-toolbar`;
       return (
-        <div className={`${prefixCls}`}>
-          <div className={`${prefixCls}-toolbar`}>
+        <div className={prefixCls}>
+          <div className={toolbarClass}>
             {this._renderTopButtons()}
             <Search dataSource={this.state.filters} onSearch={this._onFilterChange} />
           </div>
