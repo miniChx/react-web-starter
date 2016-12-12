@@ -4,9 +4,10 @@
 import validation from '../../../../utils/validation';
 
 const validator = (record, value) => {
-  const reg = new RegExp(record.opt && record.opt.regex);
+  const opt = (record.formValidate && record.formValidate.opt) || {};
+  const reg = new RegExp(opt.regex);
   if (!reg.test(value)) {
-    return new Error((record.opt && record.opt.message) || '不匹配正则');
+    return new Error((opt.message) || '不匹配正则');
   }
   return null;
 };

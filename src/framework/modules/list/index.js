@@ -2,13 +2,14 @@
 
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Search } from 'mxa';
+import { Table, Button, Search, Row, Col } from 'mxa';
 // import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { ExtendButton } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
-
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
+import SideMenu from '../info/sideMenu';
+import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
 
 class ListView extends React.Component {
   static propTypes = {
@@ -135,6 +136,8 @@ class ListView extends React.Component {
       selectedType,
       selectedRowKeys: [],
       selectedRows: [],
+      openMenuKeys: [],
+      selectedMenuKeys: null
     };
   }
 
@@ -270,7 +273,7 @@ class ListView extends React.Component {
     }
   }
 
-  render() {
+  renderList() {
     // const selectedRows = [];
     const rowSelection = this.state.selectedType === LIST_SELECTTYPE.INLINE ? null : {
       type: this.state.selectedType.toLowerCase(),
@@ -313,6 +316,115 @@ class ListView extends React.Component {
     }
 
     return (<div />);
+  }
+
+  // 授信评估申请
+  @autobind
+  testApply(str) {
+    const reg = /^.*\/\w+Apply\/.*$/;
+    return reg.test(str);
+  }
+
+  // 授信评估审核
+  @autobind
+  testReview(str) {
+    const reg = /^.*\/\w+Review\/.*$/;
+    return reg.test(str);
+  }
+
+  @autobind
+  changeMenuSelect(menuCode, menu) {
+    return getMenuItemAndPathByFunc(item => item.menuCode === menuCode, menu);
+  }
+
+  @autobind
+  changeMenuProps(menuCode, cb) {
+    this.setState({
+      selectedMenuKeys: menuCode,
+      openMenuKeys: this.changeMenuSelect(menuCode, this.getSideMenu(this.props.domainLink)).openKeys
+    }, cb && cb);
+  }
+
+  @autobind
+  menuClick(e) {
+    const m = getMenuItemByKeyPaths(e.keyPath || [e.key], this.getSideMenu(this.props.domainLink));
+    this.changeMenuProps(m.menuCode, () => {
+      // TODO: 与后台协商
+      const filterRequest = {
+        fieldName: 'serialNo',
+        maxValue: '',
+        minValue: '',
+        value: '123',
+      };
+      this._onFilterChange(filterRequest);
+    });
+  }
+
+  getSideMenu() {
+    if (this.testApply(this.props.domainLink)) {
+      return [
+        {
+          menuCode: 'QueryToDo',
+          menuValue: '待处理的申请',
+          domainLink: null,
+        },
+        {
+          menuCode: 'QueryUnderReview',
+          menuValue: '审核中的申请',
+          domainLink: null,
+        },
+        {
+          menuCode: 'QueryPassed',
+          menuValue: '审批通过的申请',
+          domainLink: null,
+        },
+        {
+          menuCode: 'QueryReturned',
+          menuValue: '被退回的申请',
+          domainLink: null,
+        },
+        {
+          menuCode: 'QueryRejected',
+          menuValue: '被否决的申请',
+          domainLink: null,
+        },
+      ];
+    }
+    return [
+      {
+        menuCode: 'QueryToDo',
+        menuValue: '待处理的申请',
+        domainLink: null,
+      },
+      {
+        menuCode: 'QueryFinished',
+        menuValue: '审核中的申请',
+        domainLink: null,
+      }
+    ];
+  }
+
+  render() {
+    const main = this.renderList();
+
+    console.log('my link:', this.props.domainLink);
+    if (this.testApply(this.props.domainLink) || this.testReview(this.props.domainLink)) {
+      const menu = this.getSideMenu(this.props.domainLink);
+      return (
+        <Row>
+          <Col span={4}>
+            <SideMenu
+              openKeys={this.state.openMenuKeys}
+              selectedKeys={this.state.selectedMenuKeys ? [...this.state.openMenuKeys, this.state.selectedMenuKeys] : menu[0].menuCode}
+              menu={menu}
+              menuClick={this.menuClick}
+            />
+          </Col>
+          <Col span={19} offset={1}>{main}</Col>
+        </Row>
+      );
+    }
+    return main;
   }
 }
 

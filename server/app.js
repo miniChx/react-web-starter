@@ -13,11 +13,11 @@ var allowCrossDomain = function(req, res, next) {
 }
 app.use(bodyParder.json());
 app.use(allowCrossDomain);
-// app.use(express.static('../build'));
+//app.use(express.static('../build'));
 
 function getUrlPath(url) {
-  return url;
-  // return '/blc' + url;
+  // return url;
+  return '/blc' + url;
 }
 
 app.post(getUrlPath('/AccountList/render'), function (req, res) {
@@ -30,7 +30,19 @@ app.post(getUrlPath('/AccountDetail/render'), function (req, res) {
  res.json(mockData);
 })
 
-app.post(getUrlPath('/api/AccountDetail/getMenus'), function (req, res) {
+app.post(getUrlPath('/ddd/rendByKey'), function (req, res) {
+  var mockData = require('./json/accountDetail.json');
+  res.json(mockData);
+})
+
+
+app.post('/api/EnterpriseCusBasicInfoList/render', function (req, res) {
+  var mockData = require('./json/enterpriseCusBasicInfoList.json');
+  res.json(mockData);
+})
+
+
+app.post(getUrlPath('/Api/AccountDetail/getMenus'), function (req, res) {
   var mockData = require('./json/getMenus.json');
   setTimeout(() => {
     res.json(mockData);
@@ -125,15 +137,24 @@ app.post(getUrlPath('/Process/todo'), function (req, res) {
   var mockData = require('./json/exampleLayout.json');
   res.json(mockData);
  })
-app.post('/example/layout', function (req, res) {
- var mockData = require('./json/exampleLayout.json');
- res.json(mockData);
+
+app.post(getUrlPath('/example/process'), function (req, res) {
+  var mockData = require('./json/process.json');
+  res.json(mockData);
 })
 
-app.post(getUrlPath('/Api/EnterpriseCusBasicInfoList/render'), function (req, res) {
- var mockData = require('./json/enterpriseCusBasicInfoList.json');
- res.json(mockData);
+app.post(getUrlPath('/Api/CreditEvaluationListApply/render'), function (req, res) {
+  var mockData = require('./json/demoList.json');
+  res.json(mockData);
 })
+
+app.post(getUrlPath('/Api/CreditEvaluationListReview/render'), function (req, res) {
+  var mockData = require('./json/demoList.json');
+  res.json(mockData);
+})
+
+
+
 
 //app.post('/*', function (req, res) {
 //  console.log('#########', req.url);
@@ -151,6 +172,11 @@ app.post(getUrlPath('/Api/EnterpriseCusBasicInfoList/render'), function (req, re
 //    'Authorization': header['authorization'],
 //    'TenantIdentifier': 'lease'
 //  });
+//});
+
+//app.post(getUrlPath('/Pub/Account/login'), function (req, res) {
+//  var mockData = require('./json/login.json');
+//  res.json(mockData);
 //});
 
 // var handler = function() {

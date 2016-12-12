@@ -5,8 +5,9 @@ import validation from '../../../../utils/validation';
 
 const validator = (record, value) => {
   const handle = validation.isMobile;
+  const opt = (record.formValidate && record.formValidate.opt) || {};
   if (!handle(value)) {
-    return new Error((record.opt && record.opt.message) || '格式错误');
+    return new Error((opt.message) || '格式错误');
   }
   return null;
 };

@@ -9,7 +9,7 @@ import { longRunExec } from '../system/longRunOpt';
 import { PFetch } from '../system/fetch';
 
 const createPage = (domainType, domainLink) => {
-  const page = PageConfig[domainType] ? PageConfig[domainType] : customConfig(domainLink);
+  const page = customConfig(domainLink) ? customConfig(domainLink) : PageConfig[domainType];
   return page || PageConfig.default;
 };
 

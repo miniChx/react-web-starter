@@ -6,6 +6,7 @@ import MxFetch from '../utils/MxFetch';
 import Config from '../../config';
 import { getToken } from '../service/CacheService';
 
+
 const getHeader = () => ({
   'Accept': 'application/json',
   'Content-Type': 'application/json',
@@ -13,7 +14,7 @@ const getHeader = () => ({
 });
 
 /* eslint-disable */
-const process = (_promise) => {
+const process = _promise => {
   return new Promise((resolve, reject) => {
     _promise.then((response) => response.text())
       .then((response) => {
@@ -66,3 +67,5 @@ export default {
   PFetch,
   GFetch,
 };
+
+

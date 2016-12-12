@@ -57,7 +57,7 @@ const getBindParameter = (props, initValueSource) => {
     params = props.params;
   }
   const cache = { ...params, ...getValueByKey(props, {}, 'query') };
-  return initValueSource && initValueSource.bindParameter && cache[initValueSource.bindParameter.name];
+  return initValueSource && initValueSource.bindParameter && (initValueSource.bindParameter.value || cache[initValueSource.bindParameter.name]);
 };
 
 const transFromtoDate = (data, compRender) => {

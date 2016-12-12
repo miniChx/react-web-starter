@@ -5,10 +5,11 @@ import validation from '../../../../utils/validation';
 
 const validator = (record, value) => {
   const handle = validation.isAmount;
+  const opt = (record.formValidate && record.formValidate.opt) || {};
   if (!handle(value)) {
-    return new Error((record.opt && record.opt.message) || '格式错误');
+    return new Error((opt.message) || '格式错误');
   }
-  const { max, min, decimal, digit } = record.opt;
+  const { max, min, decimal, digit } = opt;
   if (max && value > max) {
     return new Error('最大不能超过' + max);
   } else if (min && value < min) {

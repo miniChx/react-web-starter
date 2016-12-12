@@ -1,7 +1,6 @@
 /**
  * bind your biz module on domainLink
  */
-
 import example from './biz';
 
 export default {
@@ -11,4 +10,6 @@ export default {
   '/example/layout': example.layout,
   '/Process/todo': example.list,
   '/Api/EnterpriseCusBasicInfoList/render': example.EnterpriseCusBasicInfoList,
+  '/ddd/rendByKey': example.customTest,
+  '/example/process': example.popMaskTest,
 };

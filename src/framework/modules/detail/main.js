@@ -22,6 +22,7 @@ const FormItem = Form.Item;
 class Detail extends React.Component {
   /* eslint-disable */
   static propTypes = {
+    inject: React.PropTypes.object,
     model: React.PropTypes.oneOf([VIEW, EDIT]).isRequired,
     createRules: React.PropTypes.func, // 自定义表单校验 // record
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // values, callback(v)
@@ -39,9 +40,9 @@ class Detail extends React.Component {
     };
   }
 
+  // 设置显示 和 必填
   @autobind
   changeDataSourceVisable(fieldSetting = {}) {
-    // {'certificateNo': { isVisible: false, rules: { isRequired: false } }};
     const fieldList = this.props.dataSource.fields && this.props.dataSource.fields.map(field => {
         if (fieldSetting[field.name]) {
           const isVisible = fieldSetting[field.name].isVisible;
@@ -61,10 +62,24 @@ class Detail extends React.Component {
     this.setState({ fields: this.dataFieldsAdapter(data) });
   }
 
-  // 过滤 分组
+  @autobind
+  injectFormValidate(dataSource) {
+    if (this.props.inject && this.props.inject.formValidate) {
+      return dataSource.fields.map(field => {
+        if (this.props.inject.formValidate[field.name]) {
+          field.formValidate = this.props.inject.formValidate[field.name];
+        }
+        return field;
+      });
+    }
+    return dataSource.fields;
+  }
+
+  // 注入 过滤 分组
+  @autobind
   dataFieldsAdapter(dataSource) {
     const fieldMap = {};
-    dataSource.fields.forEach(f => {
+    this.injectFormValidate(dataSource).forEach(f => {
       if (!fieldMap[f.groupId]) {
         fieldMap[f.groupId] = [];
       }

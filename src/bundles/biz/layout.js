@@ -8,12 +8,9 @@ import { trimStart } from 'lodash/string';
 import { createComp } from '../../framework/modules/detail/displayComp/compRefactHelper';
 import { Info, ListDetail } from '../../framework/modules';
 import appStyle from '../../framework/styles/views/app.less';
-// import Simple from '../../components/simpleMenu';
 import { getSubMenu } from '../../framework/service/CacheService';
 import { AnHref } from '../../framework/modules/info';
-import InputItem from './InputItem';
 import RadioGroup from '../../framework/modules/detail/displayComp/analyser/RadioGroupAnalyser';
-// const FormItem = Form.Item;
 
 export default class Lt extends React.Component {
 
@@ -74,7 +71,7 @@ export default class Lt extends React.Component {
   render() {
     return (
       <div>
-        <Info {...this.props} renderBody={this.renderMain} filterMenu={this.filterMenu} />
+        <Info {...this.props} />
       </div>
     );
   }
