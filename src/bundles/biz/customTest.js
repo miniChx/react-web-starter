@@ -17,8 +17,10 @@ export default class Lt extends React.Component {
       return createComp(RadioGroup, fieldCtrl, (e, helper) => {
         if (e.target.value === 'NATURAL_PERSON_SHAREHOLDER') {
           helper.setFieldRule('certificateNo', { isRequired: true });
+          helper.setFieldVisible('expirationDate', false);
         } else {
           helper.setFieldRule('certificateNo', { isRequired: false });
+          helper.setFieldVisible('expirationDate', true);
         }
       });
     }

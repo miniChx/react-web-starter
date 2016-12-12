@@ -13,14 +13,21 @@ import RadioGroup from '../../framework/modules/detail/displayComp/analyser/Radi
 export default class Lt extends React.Component {
 
   renderAnalyser(analyserName, field, fieldCtrl) {
-    if (field.name === 'certificateType') {
+    if (field.name === 'serialNo') {
       return createComp(RadioGroup, fieldCtrl, (e, helper) => {
-        if (e.target.value === 'NATURAL_PERSON_SHAREHOLDER') {
-          helper.setFieldRule('certificateNo', { isRequired: true });
-          helper.setFieldVisible('expirationDate', false);
-        } else {
-          helper.setFieldRule('certificateNo', { isRequired: false });
-          helper.setFieldVisible('expirationDate', true);
+        if (e.target.value === 'AGREE') {
+          helper.setFieldVisible('name', false); // 指定上一步审批人
+          helper.setFieldVisible('leaseeName', false); // 退回用户名称
+          helper.setFieldVisible('certificateType', false);// 指定提交方式
+          // helper.setFieldVisible('certificateNo', true);
+        } else if (e.target.value === 'LAST') {
+          helper.setFieldVisible('name', true); // 指定上一步审批人
+          helper.setFieldVisible('leaseeName', false); // 退回用户名称
+          helper.setFieldVisible('certificateType', false);// 指定提交方式
+        } else if (e.target.value === 'ANY') {
+          helper.setFieldVisible('name', false); // 指定上一步审批人
+          helper.setFieldVisible('leaseeName', true); // 退回用户名称
+          helper.setFieldVisible('certificateType', true);// 指定提交方式
         }
       });
     }
@@ -29,28 +36,8 @@ export default class Lt extends React.Component {
 
 
   render() {
-    const inject = {
-      formValidate: {
-        registrationDate: {
-          validateType: 'CONTEXTCHECK',
-          opt: {
-            message: '企业登记日期必须在今天之前之前',
-            validatorFunc: (record, value) => {
-              if (moment(value).isBefore(new Date())) {
-                return true;
-              }
-              return false;
-            }
-          }
-        }
-      }
-    };
-
     return (
-      <div>
-        <h1>自定义</h1>
-        <ListDetail inject={inject} {...this.props} renderAnalyser={this.renderAnalyser} />
-      </div>
+      <ListDetail {...this.props} renderAnalyser={this.renderAnalyser} />
     );
   }
 }

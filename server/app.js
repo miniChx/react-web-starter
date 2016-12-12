@@ -30,6 +30,11 @@ app.post(getUrlPath('/AccountDetail/render'), function (req, res) {
  res.json(mockData);
 })
 
+app.post(getUrlPath('/ddd/rendByKey'), function (req, res) {
+  var mockData = require('./json/accountDetail.json');
+  res.json(mockData);
+})
+
 
 app.post('/api/EnterpriseCusBasicInfoList/render', function (req, res) {
   var mockData = require('./json/enterpriseCusBasicInfoList.json');
@@ -132,10 +137,23 @@ app.post(getUrlPath('/Process/todo'), function (req, res) {
   var mockData = require('./json/exampleLayout.json');
   res.json(mockData);
  })
-app.post('/example/layout', function (req, res) {
- var mockData = require('./json/exampleLayout.json');
- res.json(mockData);
+
+app.post(getUrlPath('/example/process'), function (req, res) {
+  var mockData = require('./json/process.json');
+  res.json(mockData);
 })
+
+app.post(getUrlPath('/Api/CreditEvaluationListApply/render'), function (req, res) {
+  var mockData = require('./json/demoList.json');
+  res.json(mockData);
+})
+
+app.post(getUrlPath('/Api/CreditEvaluationListReview/render'), function (req, res) {
+  var mockData = require('./json/demoList.json');
+  res.json(mockData);
+})
+
+
 
 
 //app.post('/*', function (req, res) {
@@ -143,9 +161,19 @@ app.post('/example/layout', function (req, res) {
 //  if (req.url.indexOf('getMenus') >= 0) {
 //    var mockData = require('./json/getMenus.json');
 //    res.json(mockData);
-//  }, 1000);
+//    return ;
+//  }
+//  let header = req.headers || {};
+//  Redirect(req.url, req.body,  function (chunk) {
+//    res.json(chunk);
+//  }, {
+//    'Accept': header.accept,
+//    'Content-Type': header['content-type'],
+//    'Authorization': header['authorization'],
+//    'TenantIdentifier': 'lease'
+//  });
 //});
-//
+
 //app.post(getUrlPath('/Pub/Account/login'), function (req, res) {
 //  var mockData = require('./json/login.json');
 //  res.json(mockData);

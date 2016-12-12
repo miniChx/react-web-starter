@@ -205,55 +205,47 @@ class ApprovalForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <Modal
-        visible={visible}
-        title={title}
-        onCancel={onCancel}
-        width={1040}
-        footer={[]}
-      >
-        <Form horizontal={true} className={styles.approvalForm}>
-          {this.renderHandleResultFormItem(getFieldDecorator, formItemLayout)}
-          {this.renderRejectOneFormItem(getFieldDecorator, formItemLayout)}
-          {this.renderRejectAnyFormItem(getFieldDecorator, formItemLayout)}
-          <FormItem {...formItemLayout} label="意见详情" type="flex" justify="space-between" align="middle">
-            {getFieldDecorator('handleComment', {
-              initialValue: '意见详情',
-              rules: [{
-                required: this.state.handleCommentIsRequire,
-              },{
-                validator: this.validationMobile
-              }],
-            })(<Input type="textarea" rows={4}/>)}
-          </FormItem>
-          <Row type="flex" justify="center" align="middle">
-            <Button className={styles.formButton} onClick={() => this.save()} type="primary">保存</Button>
-            <Button className={styles.formButton} onClick={this.showCommitModal} type="primary">提交</Button>
-            <Modal
-              title="选择下一步审批人"
-              visible={this.state.commitVisible}
-              onCancel={this.handleCommitCancel}
-              footer={[]}
-            >
-              <p>我不叫赵山河</p>
-              <p>我不叫赵山河</p>
-              <p>我不叫赵山河</p>
-            </Modal>
-            <Button className={styles.formButton} onClick={this.showSelectFileModal} type="primary">意见附件</Button>
-            <Modal
-              title="选择意见附件"
-              visible={this.state.fileVisible}
-              onCancel={this.handleSelectFileCancel}
-              footer={[]}
-            >
-              <p>文件aaa</p>
-              <p>文件aaa</p>
-              <p>文件aaa</p>
-            </Modal>
-            <Button className={styles.formButton} type="primary" onClick={onCancel} >返回</Button>
-          </Row>
-        </Form>
-      </Modal>
+      <Form horizontal={true} className={styles.approvalForm}>
+        {this.renderHandleResultFormItem(getFieldDecorator, formItemLayout)}
+        {this.renderRejectOneFormItem(getFieldDecorator, formItemLayout)}
+        {this.renderRejectAnyFormItem(getFieldDecorator, formItemLayout)}
+        <FormItem {...formItemLayout} label="意见详情" type="flex" justify="space-between" align="middle">
+          {getFieldDecorator('handleComment', {
+            initialValue: '意见详情',
+            rules: [{
+              required: this.state.handleCommentIsRequire,
+            },{
+              validator: this.validationMobile
+            }],
+          })(<Input type="textarea" rows={4}/>)}
+        </FormItem>
+        <Row type="flex" justify="center" align="middle">
+          <Button className={styles.formButton} onClick={() => this.save()} type="primary">保存</Button>
+          <Button className={styles.formButton} onClick={this.showCommitModal} type="primary">提交</Button>
+          <Modal
+            title="选择下一步审批人"
+            visible={this.state.commitVisible}
+            onCancel={this.handleCommitCancel}
+            footer={[]}
+          >
+            <p>我不叫赵山河</p>
+            <p>我不叫赵山河</p>
+            <p>我不叫赵山河</p>
+          </Modal>
+          <Button className={styles.formButton} onClick={this.showSelectFileModal} type="primary">意见附件</Button>
+          <Modal
+            title="选择意见附件"
+            visible={this.state.fileVisible}
+            onCancel={this.handleSelectFileCancel}
+            footer={[]}
+          >
+            <p>文件aaa</p>
+            <p>文件aaa</p>
+            <p>文件aaa</p>
+          </Modal>
+          <Button className={styles.formButton} type="primary" onClick={onCancel} >返回</Button>
+        </Row>
+      </Form>
     );
   }
 }

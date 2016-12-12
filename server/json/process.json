@@ -1,6 +1,3 @@
-/**
- * Created by baoyinghai on 12/12/16.
- */
 {
   "detailResult": {},
   "columnNumber": 1,
@@ -41,7 +38,13 @@
     },
     "validateType": null,
     "opt": null,
-    "modalInput": null
+    "modalInput": null,
+    "initValueSource": {
+      "bindParameter": {
+        "name": "splat",
+        "value": "AGREE"
+      }
+    }
   },
   {
     "name": "leaseeName",
@@ -54,13 +57,24 @@
     "description": "退回用户名称",
     "groupId": 1,
     "groupName": "流程审批",
-    "isVisible": true,
+    "isVisible": false,
     "isReadonly": false,
     "isRequired": true,
     "displayComponent": {
-      "componentType": "INPUT",
-      "dictionaryCategory": "",
-      "dictionaryItems": []
+      "componentType": "SELECT",
+      "dictionaryCategory": "SHAREHOLDER_TYPE",
+      "dictionaryItems": [
+        {
+          "code": "AGREE",
+          "value": "选项1",
+          "displaySequence": 1
+        },
+        {
+          "code": "LAST",
+          "value": "选项2",
+          "displaySequence": 2
+        }
+      ]
     },
     "validateType": null,
     "opt": null,
@@ -75,9 +89,9 @@
     "type": "String",
     "length": 40,
     "description": "指定提交方式",
-    "groupId": 2,
+    "groupId": 1,
     "groupName": "流程审批",
-    "isVisible": true,
+    "isVisible": false,
     "isReadonly": false,
     "isRequired": true,
     "displayComponent": {
@@ -96,28 +110,11 @@
         }
       ]
     },
-    "validateType": null,
-    "opt": null,
-    "modalInput": null
-  },
-  {
-    "name": "certificateNo",
-    "isMainEntityKey": false,
-    "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATENO_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
-    "index": 6,
-    "entityShortName": "lea",
-    "type": "String",
-    "length": 30,
-    "description": "意见详情",
-    "groupId": 2,
-    "groupName": "证件类型",
-    "isVisible": true,
-    "isReadonly": true,
-    "isRequired": true,
-    "displayComponent": {
-      "componentType": "TEXTAREA",
-      "dictionaryCategory": "",
-      "dictionaryItems": []
+    "initValueSource": {
+      "bindParameter": {
+        "name": "splat",
+        "value": "AGREE"
+      }
     },
     "validateType": null,
     "opt": null,
@@ -134,11 +131,45 @@
     "description": "指定上一步审批人",
     "groupId": 1,
     "groupName": "基本信息",
+    "isVisible": false,
+    "isReadonly": false,
+    "isRequired": true,
+    "displayComponent": {
+      "componentType": "SELECT",
+      "dictionaryCategory": "SHAREHOLDER_TYPE",
+      "dictionaryItems": [
+        {
+          "code": "AGREE",
+          "value": "选项1",
+          "displaySequence": 1
+        },
+        {
+          "code": "LAST",
+          "value": "选项2",
+          "displaySequence": 2
+        }
+      ]
+    },
+    "validateType": null,
+    "opt": null,
+    "modalInput": null
+  },
+  {
+    "name": "certificateNo",
+    "isMainEntityKey": false,
+    "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATENO_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
+    "index": 6,
+    "entityShortName": "lea",
+    "type": "String",
+    "length": 30,
+    "description": "意见详情",
+    "groupId": 1,
+    "groupName": "证件类型",
     "isVisible": true,
     "isReadonly": false,
     "isRequired": true,
     "displayComponent": {
-      "componentType": "INPUT",
+      "componentType": "TEXTAREA",
       "dictionaryCategory": "",
       "dictionaryItems": []
     },

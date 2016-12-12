@@ -3,8 +3,9 @@ import modalInput from './modalInput';
 import hello from './hello';
 import layout from './layout';
 import list from './list';
-import historyDetail from './historyDetail';
+import customTest from './customTest';
 import EnterpriseCusBasicInfoList from './EnterpriseCusBasicInfoList';
+import popMaskTest from './popMaskTest';
 
 export default {
   tab,
@@ -13,5 +14,6 @@ export default {
   layout,
   list,
   EnterpriseCusBasicInfoList,
-  historyDetail
+  customTest,
+  popMaskTest
 };

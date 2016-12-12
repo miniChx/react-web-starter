@@ -11,7 +11,7 @@ import ApproveForm from './approveForm';
 import styles from './../../styles/views/approval.less';
 
 const approve = {
-  isFinalApprove: true,
+  isFinalApprove: false, // true 最后一个  false 不是流程最后一步
   handleResultData: {
     normalHandleResult: [
       {key: 'agree', value: '同意'},
@@ -41,12 +41,12 @@ const approve = {
   ]
 };
 
-class Approval extends React.Component {
+export default class Approval extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: true
     };
   }
 
@@ -58,46 +58,25 @@ class Approval extends React.Component {
     // window.open('/check');
   }
 
-  @autobind
-  handleCancel(e) {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  }
-
-  windowOpen() {
-    window.open('/approval');
-  }
 
   @autobind
   renderAffixView() {
     return (
-      <Affix>
-        <Row className={styles.affixContainer} type="flex" justify="space-between" align="middle">
-          <p className={styles.inlineTitle}>项目审批</p>
-          <Row>
-            <Button className={styles.inlineButton} onClick={this.showModal}>审批</Button>
-            <ApproveForm
-              visible={this.state.visible}
-              onCancel={this.handleCancel}
-              title="项目审批"
-              dataSource={approve}
-              {...this.props}
-            />
-          </Row>
-        </Row>
-      </Affix>
+      <ApproveForm
+        visible={this.state.visible}
+        onCancel={this.handleCancel}
+        title="项目审批"
+        dataSource={approve}
+        {...this.props}
+      />
     );
   }
 
   render() {
     return (
-      <div>
+      <div style={{padding: '1rem'}}>
         {this.renderAffixView()}
       </div>
     );
   }
 }
-
-export default connect()(Approval);

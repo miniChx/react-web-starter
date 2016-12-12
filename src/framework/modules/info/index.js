@@ -14,16 +14,19 @@ import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
 import { showComponent } from './MaskLayer';
+import { showModal } from '../../pageContainer/ModalWrapper';
 import { getValueByKey } from '../../utils/MapUtils';
 import FixedButtonGroup from './fixedButtonGroup';
+import Approval from '../approval';
+import { PAGE_TYPE_DETAIL } from '../../constant/dictActions';
+
+const IFrame = require('react-iframe');
 
 // const ButtonGroup = Button.Group;
 
 export default class Layout extends React.Component {
 
   static propTypes = {
-    renderBody: React.PropTypes.func,
-    filterMenu: React.PropTypes.func,
     dataSource: React.PropTypes.object
   };
 
@@ -84,33 +87,26 @@ export default class Layout extends React.Component {
     return ret;
   }
 
-  // TODO: refactor
+  // TODO: refactor  不需要renderMain
   @autobind
   updateMain(domainLink, domainType, menuItem) {
     const menuCode = menuItem.menuCode;
     // 下部菜单
     const patch = searchBeforeAndAfter(menuCode, this.props.dataSource.menus);
     patch.current = menuItem;
-    const isRenderBodyCustom = this.props.filterMenu && this.props.filterMenu(menuItem);
-    if (isRenderBodyCustom) {
-      this.props.renderBody(menuItem, this.createReqParam(menuItem), renderMain => {
-        this.setState({ main: renderMain, ...patch }, this.updateAnchor);
+    this.props.exec(() => {
+      return this.props.fetch(trimStart(domainLink, '/'), this.createReqParam(menuItem)).then(data => {
+        this.setState({
+          main: this.createMain(data, domainType, domainLink),
+          ...patch
+        }, this.updateAnchor);
+      }).catch(err => {
+        this.setState({
+          main: (<div>没有数据...</div>),
+          ...patch
+        }, this.updateAnchor);
       });
-    } else {
-      this.props.exec(() => {
-        return this.props.fetch(trimStart(domainLink, '/'), this.createReqParam(menuItem)).then(data => {
-          this.setState({
-            main: this.createMain(data, domainType, domainLink),
-            ...patch
-          }, this.updateAnchor);
-        }).catch(err => {
-          this.setState({
-            main: (<div>没有数据...</div>),
-            ...patch
-          }, this.updateAnchor);
-        });
-      });
-    }
+    });
   }
 
   @autobind
@@ -151,7 +147,15 @@ export default class Layout extends React.Component {
 
   @autobind
   popMask() {
-    showComponent((<div>这是即将道来的流程图</div>), {});
+    showModal({}, PAGE_TYPE_DETAIL, 'example/process', () => console.log('close pop mask!!!!'));
+    // showComponent((<Approval />), {});
+  }
+
+  @autobind
+  popMaskByXiaoGang() {
+    // showComponent((<Approval />), {});
+    // showComponent(<IFrame url={'http://docs.google.com/gview?url=http://remote.url.tld/path/to/document.doc&embedded=true'} />, {});
+    window.open('https://docs.google.com/gview?url=http://writing.engr.psu.edu/workbooks/formal_report_template.doc&embedded=true');
   }
 
   render() {
@@ -188,8 +192,8 @@ export default class Layout extends React.Component {
           </Col>
         </Row>
         <FixedButtonGroup>
-          <Button type="ghost">审批</Button>
-          <Button type="ghost" onClick={this.popMask}>流程图</Button>
+          <Button type="ghost" onClick={this.popMask}>审批</Button>
+          <Button type="ghost" onClick={this.popMaskByXiaoGang}>流程图</Button>
         </FixedButtonGroup>
       </div>
     );

@@ -18,6 +18,7 @@ export default class ListDetail extends React.Component {
   /* eslint-disable */
   static propTypes = {
     model: React.PropTypes.oneOf([VIEW, EDIT]),
+    inject: React.PropTypes.object,
     createRules: React.PropTypes.func, // 自定义表单校验 // record
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // callback
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err

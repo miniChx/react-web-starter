@@ -33,7 +33,7 @@
           "menuValue":"客户联系人信息",
           "displaySequence":2,
           "domainLink":"ddd/rendByKey",
-          "domainType":"List",
+          "domainType":"Detail",
           "isSelected":false,
           "bindParameterType":"SOME",
           "bindParameters":[
