@@ -13,7 +13,7 @@ var allowCrossDomain = function(req, res, next) {
 }
 app.use(bodyParder.json());
 app.use(allowCrossDomain);
-//app.use(express.static('../build'));
+app.use(express.static('./static'));
 
 function getUrlPath(url) {
   // return url;
@@ -178,6 +178,10 @@ app.post(getUrlPath('/Api/CreditEvaluationListReview/render'), function (req, re
 //  var mockData = require('./json/login.json');
 //  res.json(mockData);
 //});
+
+app.post('/upload', function(req, res) {
+    console.log(req.body);
+  });
 
 // var handler = function() {
   var server = app.listen(3003, function () {

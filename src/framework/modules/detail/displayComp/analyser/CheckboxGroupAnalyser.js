@@ -3,21 +3,48 @@
  */
 import React from 'react';
 import { Checkbox } from 'mxa';
+import { autobind } from 'core-decorators';
 import { VIEW, EDIT } from '../../constant';
 
 const CheckboxGroup = Checkbox.Group;
+
+class MyCheckboxGroup extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: this.props.defaultValue,
+    };
+  }
+
+  @autobind
+  _onChange(value) {
+    const { onChange } = this.props;
+    const v = value && value.join && value.join(',');
+    onChange && onChange(v);
+    this.setState({
+      value: v
+    });
+  }
+
+  render() {
+    return (<CheckboxGroup options={this.props.options} value={this.state.value && this.state.value.split && this.state.value.split(',')} onChange={this._onChange} disabled={this.props.disabled} />);
+  }
+}
 
 const compRender = record => {
   const options = [];
   record.displayComponent && record.displayComponent.dictionaryItems && record.displayComponent.dictionaryItems.forEach((i, index) => {
     options.push({ label: i.value, value: i.code });
   });
-  console.log('#### checkbox group', options);
+  // console.log('#### checkbox group', options);
+
   return (
-    <CheckboxGroup options={options} disabled={record.isReadonly} />
+    <MyCheckboxGroup options={options} disabled={record.isReadonly} />
   );
 };
 
+/* eslint-disable */
 class StaticDisplay extends React.Component {
   render() {
     const value = [];

@@ -16,7 +16,8 @@ import {
   PAGE_TYPE_PROCESS,
   PAGE_TYPE_PROCESS_DETAIL,
   PAGE_TYPE_PROCESS_IMG,
-  PAGE_TYPE_INFO
+  PAGE_TYPE_INFO,
+  PAGE_TYPE_SUMMARY
 } from '../constant/dictActions';
 
 const defStr = 'default';
@@ -25,6 +26,7 @@ const defStr = 'default';
 export default {
   [PAGE_TYPE_LIST]: ListView,
   [PAGE_TYPE_DETAIL]: ListDetail,
+  [PAGE_TYPE_SUMMARY]: ListDetail,
   [PAGE_TYPE_PROCESS]: Process,
   [PAGE_TYPE_PROCESS_DETAIL]: ProcessDetail,
   [PAGE_TYPE_PROCESS_IMG]: ProcessImg,

@@ -37,7 +37,10 @@ export default class Lt extends React.Component {
 
   render() {
     return (
-      <ListDetail {...this.props} renderAnalyser={this.renderAnalyser} />
+      <div>
+        <span>{this.props.params.title}</span>
+        <ListDetail {...this.props} renderAnalyser={this.renderAnalyser} />
+      </div>
     );
   }
 }

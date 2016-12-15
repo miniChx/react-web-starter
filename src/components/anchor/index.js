@@ -10,7 +10,7 @@ export default class Anchor extends React.Component {
 
   render() {
     return (
-      <Affix target={() => (this.props.target && this.props.target()) || window}>
+      <Affix offsetTop={this.props.offsetTop || 0} target={() => (this.props.target && this.props.target()) || window}>
         <ul className={styles.container}>
           {this.props.children}
         </ul>

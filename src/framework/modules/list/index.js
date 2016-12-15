@@ -10,6 +10,7 @@ import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../cons
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 import SideMenu from '../info/sideMenu';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
+import processMenu from './processMenu';
 
 class ListView extends React.Component {
   static propTypes = {
@@ -362,46 +363,9 @@ class ListView extends React.Component {
 
   getSideMenu() {
     if (this.testApply(this.props.domainLink)) {
-      return [
-        {
-          menuCode: 'QueryToDo',
-          menuValue: '待处理的申请',
-          domainLink: null,
-        },
-        {
-          menuCode: 'QueryUnderReview',
-          menuValue: '审核中的申请',
-          domainLink: null,
-        },
-        {
-          menuCode: 'QueryPassed',
-          menuValue: '审批通过的申请',
-          domainLink: null,
-        },
-        {
-          menuCode: 'QueryReturned',
-          menuValue: '被退回的申请',
-          domainLink: null,
-        },
-        {
-          menuCode: 'QueryRejected',
-          menuValue: '被否决的申请',
-          domainLink: null,
-        },
-      ];
+      return processMenu.apply;
     }
-    return [
-      {
-        menuCode: 'QueryToDo',
-        menuValue: '待处理的申请',
-        domainLink: null,
-      },
-      {
-        menuCode: 'QueryFinished',
-        menuValue: '审核中的申请',
-        domainLink: null,
-      }
-    ];
+    return processMenu.review;
   }
 
   render() {
