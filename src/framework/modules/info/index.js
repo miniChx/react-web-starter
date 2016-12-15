@@ -13,14 +13,13 @@ import Compose from '../../utils/Compose';
 import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
-import { showComponent } from './MaskLayer';
 import { showModal } from '../../pageContainer/ModalWrapper';
 import { getValueByKey } from '../../utils/MapUtils';
 import FixedButtonGroup from './fixedButtonGroup';
 import Approval from '../approval';
 import { PAGE_TYPE_DETAIL } from '../../constant/dictActions';
 
-const IFrame = require('react-iframe');
+// const IFrame = require('react-iframe');
 
 // const ButtonGroup = Button.Group;
 
@@ -49,7 +48,8 @@ export default class Layout extends React.Component {
       selectedKeys: this.tag.menuCode,
       openKeys,
       // toolStyle: tools ? appStyle.layoutToolsOut : appStyle.layoutToolsIn
-      toolStyle: appStyle.layoutToolsDefault
+      toolStyle: appStyle.layoutToolsDefault,
+      topButtons: []
     };
   }
 
@@ -59,9 +59,14 @@ export default class Layout extends React.Component {
   }
 
   @autobind
+  createTopButtons(data) {
+    this.setState({ topButtons: data });
+  }
+
+  @autobind
   createMain(data, domainType, domainLink) {
     const TempPage = Compose(AsyncDecorator, InitDecorator)();
-    return (<TempPage {...this.props} dataSource={data} domainType={domainType} domainLink={domainLink} />);
+    return (<TempPage {...this.props} createTopButtons={this.createTopButtons} dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
   @autobind
@@ -148,23 +153,23 @@ export default class Layout extends React.Component {
   @autobind
   popMask() {
     showModal({}, PAGE_TYPE_DETAIL, 'example/process', () => console.log('close pop mask!!!!'));
-    // showComponent((<Approval />), {});
   }
 
   @autobind
   popMaskByXiaoGang() {
     // showComponent((<Approval />), {});
-    // showComponent(<IFrame url={'http://docs.google.com/gview?url=http://remote.url.tld/path/to/document.doc&embedded=true'} />, {});
-    window.open('https://docs.google.com/gview?url=http://writing.engr.psu.edu/workbooks/formal_report_template.doc&embedded=true');
   }
 
   render() {
     return (
       <div>
-        <Row className={appStyle.layoutContainerHeader}>
-          <Col span={4}>{this.props.dataSource.name}</Col>
-          <Col span={4} offset={1} >{this.state.current.menuValue}</Col>
-        </Row>
+        <Affix>
+          <Row className={appStyle.layoutContainerHeader}>
+            <Col span={4}>{this.props.dataSource.name}</Col>
+            <Col span={4} offset={1} >{this.state.current.menuValue}</Col>
+            <Col span={12} style={{ textAlign: 'right' }}>{this.state.topButtons}</Col>
+          </Row>
+        </Affix>
         <Row>
           <Col span={4}>
             <SideMenu
@@ -174,7 +179,7 @@ export default class Layout extends React.Component {
               menuClick={this.menuClick}
             />
           </Col>
-          <Col span={17}>
+          <Col span={18}>
             <div className={appStyle.layoutContainerBody} >
               <div className={appStyle.layoutContainerBodyInner}>
                 {this.state.main}
@@ -185,8 +190,8 @@ export default class Layout extends React.Component {
               </Row>
             </div>
           </Col>
-          <Col span={3}>
-            <Anchor target={this.props.target}>
+          <Col span={2}>
+            <Anchor offsetTop={150} target={this.props.target}>
               {this.state.anchor && this.state.anchor.map(p => (<ArchorLink key={p.href} {...p} />))}
             </Anchor>
           </Col>

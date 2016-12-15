@@ -16,6 +16,8 @@ import { getValueByKey } from '../../utils/MapUtils';
 import { AnHref } from '../info';
 import SwitchContainer from './switchContainer';
 import { VIEW, EDIT } from './constant';
+import { BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
+import { ExtendButton } from '../../../components';
 
 const FormItem = Form.Item;
 
@@ -29,6 +31,10 @@ class Detail extends React.Component {
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
     dataSource: React.PropTypes.object.isRequired,
     renderAnalyser: React.PropTypes.func // 自定义渲染标单项 // componentName
+  };
+
+  static defaultProps = {
+    prefixCls: 'mx-detail',
   };
 
   constructor(props) {
@@ -119,7 +125,7 @@ class Detail extends React.Component {
               self.props.afterSubmit && self.props.afterSubmit(false);
               self.props.isModal && self.props.modalCallback && self.props.modalCallback();
               // dispatch(goBack());
-            },
+            }
           });
           // }
         })
@@ -166,46 +172,59 @@ class Detail extends React.Component {
   }
 
   @autobind
+  _onSearch() {
+
+  }
+
+  @autobind
   _renderColumnAction(displayPosition) {
-    const buttons = this.props.dataSource.buttons || [];
+    const { prefixCls, query, inject } = this.props;
+    const buttonClass = `${prefixCls}-button`;
+    const buttons = (this.props.dataSource.buttons || []).filter(btn => {
+      if (displayPosition === BUTTON_POSITION.TOP || displayPosition === BUTTON_POSITION.BOTTOM){
+        return  btn.displayPosition === displayPosition;
+      }
+      return true;
+    }).map(item => {
+      return (
+        <ExtendButton
+          type="button"
+          inline={false}
+          buttonProps={{
+                type: 'ghost',
+              }}
+          {...item}
+          disabled={false}
+          key={item.buttonDescription}
+          className={buttonClass}
+          query={query}
+          inject={inject}
+          submitFuc={() => this.handleSubmit(item)}
+          onRefresh={this._onSearch}
+          relatedRows={BUTTON_RELATEDROWS.NONE}
+        />
+      );
+    });
+    if (this.props.createTopButtons && displayPosition === BUTTON_POSITION.TOP) {
+      this.props.createTopButtons(buttons || []);
+      return null;
+    }
     return (
       <div>
-        {
-          buttons.map(item => {
-            return (
-              <Button
-                className={styles.inlineButton}
-                key={item.buttonDescription}
-                onClick={() => this.handleSubmit(item)}
-              >
-                {item.buttonDescription}
-              </Button>);
-            // TODO: 编辑按钮
-          })
-          //  .concat((
-          //  <Button
-          //    className={styles.inlineButton}
-          //    key="editBtnLocal"
-          //    onClick={this.handleChageState}
-          //  >{this.props.model === 'show' ? '编辑' : '返回'}</Button>
-          // ))
-        }
+        {buttons}
       </div>
     );
   }
 
   renderForm(data, fields, i) {
-    // console.log('re-render123123123123123123123123');
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 }
     };
-
     const titleF = fields[0];
-
     return (
-      <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} href={'#title' + titleF.groupId} />)} >
+      <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} shortTitle={titleF.groupShortName} href={'#title' + titleF.groupId} />)} >
         <div className={appStyle.formBox} >
           <Row gutter={40} className={appStyle.cell}>
             {fields.map((item, index) => {
@@ -232,11 +251,14 @@ class Detail extends React.Component {
       <div>
         <Form horizontal={true} >
           <FormItem {...tailFormItemLayout}>
-            {this._renderColumnAction()}
+            {this._renderColumnAction(BUTTON_POSITION.TOP)}
           </FormItem>
           {this.state.fields.map((f, index) => {
             return this.renderForm(this.props.dataSource, f, index);
           })}
+          <FormItem {...tailFormItemLayout}>
+            {this._renderColumnAction(BUTTON_POSITION.BOTTOM)}
+          </FormItem>
         </Form>
       </div>
     );

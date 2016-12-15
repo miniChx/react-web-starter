@@ -29,6 +29,7 @@ export class ExtendButton extends React.Component {
     inline: PropTypes.bool,
     query: PropTypes.object,
     inject: PropTypes.object,
+    submitFuc: PropTypes.object
   };
 
   static defaultProps = {
@@ -55,23 +56,27 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _processAction(url, params) {
-    PFetch(url, params)
-      .then(response => {
-        console.log(response);
-        Modal.info({
-          title: '提示',
-          content: (<div>{this.props.buttonDescription}成功！</div>),
-          onOk: () => this.props.onRefresh && this.props.onRefresh(),
+    if (this.props.submitFuc) {
+      this.props.submitFuc();
+    } else {
+      PFetch(url, params)
+        .then(response => {
+          console.log(response);
+          Modal.info({
+            title: '提示',
+            content: (<div>{this.props.buttonDescription}成功！</div>),
+            onOk: () => this.props.onRefresh && this.props.onRefresh(),
+          });
+        })
+        .catch(errorData => {
+          console.log(errorData);
+          Modal.error({
+            title: '提示',
+            content: (<div>{this.props.buttonDescription}失败！</div>),
+            onOk() {},
+          });
         });
-      })
-      .catch(errorData => {
-        console.log(errorData);
-        Modal.error({
-          title: '提示',
-          content: (<div>{this.props.buttonDescription}失败！</div>),
-          onOk() {},
-        });
-      });
+    }
   }
 
   @autobind
