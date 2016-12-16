@@ -1,6 +1,0 @@
-[submodule "mock"]
-	path = mock
-	url = http://192.168.61.91:19001/maxwell/json-mock-tool.git
-[submodule "core-dsl"]
-	path = core-dsl
-	url = http://192.168.61.91:19001/lease-on-cloud/be-lease-core-dsl.git
