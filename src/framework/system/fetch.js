@@ -23,7 +23,7 @@ const process = _promise => {
         } else {
           const json = JSON.parse(response);
           console.log('返回结果: ', json);
-          if (json.msgContent || json.errMsg || json.code === 'version upgrade') {
+          if (json.msgContent || json.errMsg || json.message || json.code === 'version upgrade') {
             reject(json);
           } else {
             resolve(json);

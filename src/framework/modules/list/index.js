@@ -5,6 +5,7 @@ import { autobind } from 'core-decorators';
 import { Table, Button, Search, Row, Col } from 'mxa';
 // import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import { trimStart } from 'lodash/string';
 import { ExtendButton } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
@@ -39,7 +40,7 @@ class ListView extends React.Component {
     const toolbarClassName = `${prefixCls}-inline-toolbar`;
     const buttonClassName = `${prefixCls}-inline-button`;
     return (
-      <div className={toolbarClassName}>
+      <div key="inline-operation" className={toolbarClassName}>
         {
           buttons.map((item, index) => (
             <ExtendButton
@@ -91,9 +92,10 @@ class ListView extends React.Component {
     // add operation
     if (!this.props.isModal && buttons && buttons.row && buttons.row.length > 0) {
       columns.push({
+        key: 'inline-operation',
         title: '操作',
-        key: 'operation',
-        fixed: 'right',
+        dataIndex: 'inline-operation',
+        // fixed: 'right',
         // width: 300,
         render: (text, record) => this._renderColumnAction(text, record, buttons.row, mainEntityKey),
       });
@@ -102,7 +104,7 @@ class ListView extends React.Component {
     const variantFields = data.variantFields.map(variant => {
       return {
         fieldName: variant,
-        fieldValue: this.props.query[variant],
+        fieldValue: this.props.query ? this.props.query[variant] : '',
       };
     });
 
@@ -184,7 +186,7 @@ class ListView extends React.Component {
 
   @autobind
   _onSearch() {
-    const searchUrl = this.props.domainLink.replace(/^(.*\/)\w*$/, '$1search');
+    const searchUrl = trimStart(this.props.domainLink.replace(/^(.*\/)\w*$/, '$1search'), '/');
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
@@ -218,14 +220,16 @@ class ListView extends React.Component {
     const buttonClass = `${prefixCls}-button`;
     if (this.props.isModal) {
       return (
-        <Button
-          buttonProps={{
-            type: 'ghost',
-          }}
-          className={buttonClass}
-          onClick={() => this.props.modalCallback && this.props.modalCallback(this.state.selectedRows[0])}
-          disabled={this.state.selectedRowKeys.length <= 0}
-        >确定</Button>
+        <div>
+          <Button
+            buttonProps={{
+              type: 'ghost',
+            }}
+            className={buttonClass}
+            onClick={() => this.props.modalCallback && this.props.modalCallback(this.state.selectedRows[0])}
+            disabled={this.state.selectedRowKeys.length <= 0}
+          >确定</Button>
+        </div>
       );
     }
 
