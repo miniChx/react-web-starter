@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Input, Icon } from 'mxa';
 import { autobind } from 'core-decorators';
-import { showComponent } from './MaskLayer';
+import { showComponent } from '../mask';
 
 export default class ModalInput extends React.Component {
   static propTypes = {

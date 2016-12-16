@@ -20,6 +20,8 @@ import {
   PAGE_TYPE_SUMMARY
 } from '../constant/dictActions';
 
+export const templeteTypes = [PAGE_TYPE_LIST, PAGE_TYPE_DETAIL, PAGE_TYPE_INFO, PAGE_TYPE_SUMMARY];
+
 const defStr = 'default';
 // console.log(NotMatchType);
 

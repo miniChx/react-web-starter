@@ -1,0 +1,272 @@
+{
+  "pageResult": {
+    "pageIndex": 1,
+    "itemsPerPage": 10,
+    "totalPages": 1,
+    "contentList": [
+      {
+        "serialNo": "mkd01111f",
+        "docNessary": "Y",
+        "needUploadDocName": "XXX合同1",
+        "docName": "我设置的文件名",
+        "fileSize": 1231,
+        "remark": "备注",
+        "uploadUser": "超级管理员",
+        "uploadUserPartment": "市场营销部",
+        "uploadTime": 1480949156000,
+        "fileVersion": "v0.1",
+        "fileId": "lalalalallala"
+      },{
+        "serialNo": "mkd011112",
+        "docNessary": "Y",
+        "needUploadDocName": "XXX合同2",
+        "docName": "我设置的文件名",
+        "fileSize": 1231,
+        "remark": "备注",
+        "uploadUser": "超级管理员",
+        "uploadUserPartment": "市场营销部",
+        "uploadTime": 1480949156000,
+        "fileVersion": "v0.2",
+        "fileId": "lalalalallala2"
+      }
+    ],
+    "totalItems": 1
+  },
+  "selectType": "INLINE",
+  "variantFields": [],
+  "fields": [
+    {
+      "name": "fileId",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_SERIALNO_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 1,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "文件ID",
+      "groupId": 1,
+      "isVisible": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "serialNo",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_SERIALNO_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 1,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "编号",
+      "groupId": 1,
+      "isVisible": false,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "docNessary",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_LEASEENAME_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 2,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "文档重要性",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "needUploadDocName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATETYPE_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 3,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "需上传资料名称",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "docName",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATENO_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 4,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "附件名称",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "fileSize",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_REGISTRATIONADDRESS_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 6,
+      "entityShortName": "reg",
+      "type": "String",
+      "description": "文件大小",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "SELECT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "remark",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_REGISTRATIONDATE_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 7,
+      "entityShortName": "reg",
+      "type": "Date",
+      "description": "备注",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "uploadUser",
+      "isMainEntityKey": false,
+      "fieldCode": "\n                ENTERPRISECUSBASICINFO_REGISTEREDCAPITALAMOUNT_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 8,
+      "entityShortName": "reg",
+      "type": "Double",
+      "description": "上传用户",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "uploadUserPartment",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATORNAME_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 9,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "上传部门",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "uploadTime",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATORORGNAME_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
+      "index": 10,
+      "entityShortName": "lea",
+      "type": "Date",
+      "description": "上传时间",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "DATEPICKER",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    },
+    {
+      "name": "fileVersion",
+      "isMainEntityKey": false,
+      "fieldCode": "ENTERPRISECUSBASICINFO_CREATEDATE_IN_ENTERPRISECUSBASICINFO_LIST",
+      "index": 11,
+      "entityShortName": "lea",
+      "type": "String",
+      "description": "版本",
+      "groupId": 1,
+      "isVisible": true,
+      "displayComponent": {
+        "componentType": "INPUT",
+        "dictionaryCategory": null,
+        "dictionaryItems": []
+      }
+    }
+  ],
+  "buttons": [],
+  "filterItems": [
+    {
+      "fieldName": "serialNo",
+      "displayName": "客户编号",
+      "displaySeq": 1,
+      "operatorType": "LIKE"
+    },
+    {
+      "fieldName": "leaseeName",
+      "displayName": "客户名称",
+      "displaySeq": 2,
+      "operatorType": "LIKE"
+    },
+    {
+      "fieldName": "certificateType",
+      "displayName": "证件类型",
+      "displaySeq": 3,
+      "operatorType": "EQ"
+    },
+    {
+      "fieldName": "certificateNo",
+      "displayName": "证件类型",
+      "displaySeq": 4,
+      "operatorType": "LIKE"
+    }
+  ],
+  "orderItems": [
+    {
+      "fieldName": "serialNo",
+      "displayName": "客户编号",
+      "displaySeq": 1,
+      "isSelected": false,
+      "isAsc": false
+    },
+    {
+      "fieldName": "leaseeName",
+      "displayName": "客户名称",
+      "displaySeq": 2,
+      "isSelected": false,
+      "isAsc": false
+    },
+    {
+      "fieldName": "certificateType",
+      "displayName": "证件类型",
+      "displaySeq": 3,
+      "isSelected": false,
+      "isAsc": false
+    },
+    {
+      "fieldName": "certificateNo",
+      "displayName": "证件号码",
+      "displaySeq": 4,
+      "isSelected": false,
+      "isAsc": false
+    }
+  ]
+}
