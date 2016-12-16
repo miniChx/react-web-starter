@@ -37,7 +37,7 @@ class ListView extends React.Component {
     const toolbarClassName = `${prefixCls}-inline-toolbar`;
     const buttonClassName = `${prefixCls}-inline-button`;
     return (
-      <div className={toolbarClassName}>
+      <div key="inline-operation" className={toolbarClassName}>
         {
           buttons.map((item, index) => (
             <ExtendButton
@@ -89,8 +89,9 @@ class ListView extends React.Component {
     // add operation
     if (!this.props.isModal && buttons && buttons.row && buttons.row.length > 0) {
       columns.push({
+        key: 'inline-operation',
         title: '操作',
-        key: 'operation',
+        dataIndex: 'inline-operation',
         fixed: 'right',
         // width: 300,
         render: (text, record) => this._renderColumnAction(text, record, buttons.row, mainEntityKey),

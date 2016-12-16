@@ -436,7 +436,7 @@
     {
       "buttonDescription": "详情",
       "hideIfReadonly": false,
-      "displayPosition": "TOP",
+      "displayPosition": "ROW",
       "relatedRows": "SINGLE",
       "interactiveType": "PAGE",
       "messagePromptType": "TOOLTIP",
