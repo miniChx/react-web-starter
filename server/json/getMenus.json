@@ -101,18 +101,32 @@
         {
           "menuCode": "BPMApply",
           "menuValue": "申请",
-          "domainLink": "/Api/CreditEvaluationListApply/render",
+          "domainLink": "/Api/CreditEvaluationApplyList/render",
           "domainType": "List",
           "subMenus": null
         },
         {
           "menuCode": "BPMReview",
           "menuValue": "审核",
-          "domainLink": "/Api/CreditEvaluationListReview/render",
+          "domainLink": "/Api/CreditEvaluationReviewList/render",
           "domainType": "List",
           "subMenus": null
         }
       ]
+    },
+    {
+      "menuCode": "fileManager",
+      "menuValue": "文件上传",
+      "displaySequence": 3,
+      "domainLink": "/Api/FileManager/demo",
+      "domainType": null,
+      "roleCodes": [
+        "Role1_Admin",
+        "Role2_Employee",
+        "Role3_Manager",
+        "Role4_HR"
+      ],
+      "subMenus": null
     }
   ]
 }

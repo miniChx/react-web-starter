@@ -6,6 +6,7 @@ import list from './list';
 import customTest from './customTest';
 import EnterpriseCusBasicInfoList from './EnterpriseCusBasicInfoList';
 import popMaskTest from './popMaskTest';
+import fileManager from './fileManager';
 
 export default {
   tab,
@@ -15,5 +16,6 @@ export default {
   list,
   EnterpriseCusBasicInfoList,
   customTest,
-  popMaskTest
+  popMaskTest,
+  fileManager
 };

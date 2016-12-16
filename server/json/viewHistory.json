@@ -1,0 +1,5 @@
+[
+  {"fileId": "xxxxxx1", "fileVersion": "v0.0.1", "uploadTime": 1480949156000, "fileSize": 123123},
+  {"fileId": "xxxxxx2", "fileVersion": "v0.0.2", "uploadTime": 1480949156000, "fileSize": 123123},
+  {"fileId": "xxxxxx3", "fileVersion": "v0.0.3", "uploadTime": 1480949156000, "fileSize": 11111}
+]

@@ -11,6 +11,7 @@ import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from 
 import SideMenu from '../info/sideMenu';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
 import processMenu from './processMenu';
+import { templeteTypes } from '../../pageContainer/config';
 
 class ListView extends React.Component {
   static propTypes = {
@@ -18,7 +19,8 @@ class ListView extends React.Component {
     isModal: PropTypes.bool,
     modalCallback: PropTypes.func,
     inject: PropTypes.object, // inject for customize, key is 'buttonDescription'
-  }
+    hiddenSearchBar: PropTypes.bool,
+  };
 
   static defaultProps = {
     prefixCls: 'mx-list',
@@ -301,7 +303,7 @@ class ListView extends React.Component {
         <div className={prefixCls}>
           <div className={toolbarClass}>
             {this._renderTopButtons()}
-            <Search dataSource={this.state.filters} onSearch={this._onFilterChange} />
+            {!this.props.hiddenSearchBar && (<Search dataSource={this.state.filters} onSearch={this._onFilterChange} />)}
           </div>
           <Table
             rowSelection={rowSelection}
@@ -319,17 +321,23 @@ class ListView extends React.Component {
     return (<div />);
   }
 
+  @autobind
+  createRegex(key) {
+    const append = templeteTypes.join('|');
+    return new RegExp('^.*\\w+' + key + '(' + append + ')/.*$');
+  }
+
   // 授信评估申请
   @autobind
   testApply(str) {
-    const reg = /^.*\/\w+Apply\/.*$/;
+    const reg = this.createRegex('Apply');
     return reg.test(str);
   }
 
   // 授信评估审核
   @autobind
   testReview(str) {
-    const reg = /^.*\/\w+Review\/.*$/;
+    const reg = this.createRegex('Review');
     return reg.test(str);
   }
 

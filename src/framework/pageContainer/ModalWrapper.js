@@ -2,12 +2,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MaskLayer from 'react-mask-layer';
+import { Icon } from 'mxa';
+
 import 'react-mask-layer/assets/index.css';
 
 import appStyle from '../styles/views/modal.less';
 import Compose from '../utils/Compose';
 import AsyncDecorator from './ModalAsyncDecorator';
 import InitDecorator from './InitDecorator';
+
+export const closeBar = cb => {
+  return (
+    <div className={appStyle.closeBar}>
+      <a onClick={cb}><Icon className={appStyle.closeFlag} type="close" /></a>
+    </div>
+  );
+};
 
 const showModal = (params, domainType, domainLink, callback) => {
   const maskDiv = document.createElement('div');
@@ -28,16 +38,19 @@ const showModal = (params, domainType, domainLink, callback) => {
   const self = {};
   const ModalPage = Compose(AsyncDecorator, InitDecorator)();
   const maskModal = (
-    <MaskLayer visible={true} onCancel={_close} zIndex="999">
-      <div className={appStyle.modalContainer} ref={node => { self.container = node; }}>
-        <ModalPage
-          target={() => self.container}
-          params={params}
-          isModal={true}
-          modalCallback={_modalCallback}
-          domainType={domainType}
-          domainLink={domainLink}
-        />
+    <MaskLayer visible={true} onCancel={_close} zIndex="999" maskClosable={false}>
+      <div>
+        {closeBar(_close)}
+        <div className={appStyle.modalContainer} ref={node => { self.container = node; }}>
+          <ModalPage
+            target={() => self.container}
+            params={params}
+            isModal={true}
+            modalCallback={_modalCallback}
+            domainType={domainType}
+            domainLink={domainLink}
+          />
+        </div>
       </div>
     </MaskLayer>
   );
