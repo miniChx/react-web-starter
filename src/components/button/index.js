@@ -39,34 +39,52 @@ export class ExtendButton extends React.Component {
   };
 
   @autobind
-  _jump(domainLink, params, domainType, mode) {
+  _getActionLink() {
+    return this.props.actionLink || this.props.actionName || this.props.domainLink;
+  }
+
+  @autobind
+  _jump(params) {
+    const templateType = this.props.templateType || this.props.domainType;
+    const actionLink = this._getActionLink();
+    const mode = this.props.interactiveType;
     if (mode === BUTTON_INTERACTIVETYPE.PAGE) {
       // window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({
       //   p: btoa(search)
       // }));
-      window.open('/' + CONTAINER_PRE + domainLink + '?p=' + btoa(Qs.stringify({ ...params, domainType, s: '1' })));
+      window.open('/' + CONTAINER_PRE + actionLink + '?p=' + btoa(Qs.stringify({ ...params, templateType, s: '1' })));
     } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
-      showModal(params, domainType, domainLink, () => this.props.onRefresh && this.props.onRefresh());
+      showModal(params, templateType, actionLink, () => this.props.onRefresh && this.props.onRefresh());
     } else {
       this.props.dispatch(push({
-        pathname: '/' + CONTAINER_PRE + domainLink,
-        query: { p: btoa(Qs.stringify({ ...params, domainType })) }
+        pathname: '/' + CONTAINER_PRE + actionLink,
+        query: { p: btoa(Qs.stringify({ ...params, templateType })) }
       }));
     }
   }
 
   @autobind
-  _processAction(url, params) {
+  _processNext(params) { // eslint-disable-line no-unused-vars
+    if (this.props.nextActionLink) {
+      // TODO. process next stage
+    } else {
+      this.props.onRefresh && this.props.onRefresh();
+    }
+  }
+
+  @autobind
+  _processAction(params) {
     if (this.props.submitFuc) {
       this.props.submitFuc();
     } else {
+      const url = this._getActionLink();
       PFetch(trimStart(url, '/'), params)
         .then(response => {
           console.log(response);
           Modal.info({
             title: '提示',
             content: (<div>{this.props.buttonDescription}成功！</div>),
-            onOk: () => this.props.onRefresh && this.props.onRefresh(),
+            onOk: () => this._processNext(params),
           });
         })
         .catch(errorData => {
@@ -126,16 +144,16 @@ export class ExtendButton extends React.Component {
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}吗？</div>),
           onOk: () => {
-            this._processAction(this.props.actionName, params);
+            this._processAction(params);
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.actionName, params);
+        this._processAction(params);
       }
     } else {
       // eslint-disable-next-line max-len
-      this._jump(this.props.domainLink, { ...params }, this.props.domainType, this.props.interactiveType);
+      this._jump(params);
     }
   }
 
@@ -149,16 +167,16 @@ export class ExtendButton extends React.Component {
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}{activeData.leaseeName}吗？</div>),
           onOk: () => {
-            this._processAction(this.props.actionName, params);
+            this._processAction(params);
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.actionName, params);
+        this._processAction(params);
       }
     } else {
       // eslint-disable-next-line max-len
-      this._jump(this.props.domainLink, { ...params }, this.props.domainType, this.props.interactiveType);
+      this._jump(params);
     }
   }
 
@@ -174,12 +192,12 @@ export class ExtendButton extends React.Component {
           title: '提示',
           content: (<div>确认{this.props.buttonDescription}所选数据吗？</div>),
           onOk: () => {
-            this._processAction(this.props.actionName, { keys: params });
+            this._processAction({ keys: params });
           },
           onCancel() {},
         });
       } else {
-        this._processAction(this.props.actionName, { keys: params });
+        this._processAction({ keys: params });
       }
     }
   }
