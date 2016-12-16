@@ -4,9 +4,9 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { message, Button, Icon, Table } from 'mxa';
-import Config from '../../config';
-import { ListView } from '../../framework/modules';
-import UploadBtn, { FileList } from '../../components/upload';
+import Config from '../../../config';
+import { ListView } from '../../../framework/modules';
+import UploadBtn, { FileList } from './uploadBtn';
 
 export default class FileManager extends React.Component {
 

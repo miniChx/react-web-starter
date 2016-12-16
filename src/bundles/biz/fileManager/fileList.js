@@ -5,9 +5,9 @@ import React from 'react';
 import { Table, Icon } from 'mxa';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
-import { showComponent } from '../modalInput/MaskLayer';
+import { showComponent } from '../../../components/mask';
 import FileHistory from './fileHistory';
-import Config from '../../config';
+import Config from '../../../config';
 
 const numeral = require('numeral');
 

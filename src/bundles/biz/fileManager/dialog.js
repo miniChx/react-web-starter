@@ -4,8 +4,8 @@
 import React from 'react';
 import { Upload, message, Button, Icon, Table, Form, Input, Select } from 'mxa';
 import { autobind } from 'core-decorators';
-import Config from '../../config';
-import appStyle from '../../framework/styles/views/fileManager.less';
+import Config from '../../../config';
+import appStyle from '../../../framework/styles/views/fileManager.less';
 
 const FormItem = Form.Item;
 

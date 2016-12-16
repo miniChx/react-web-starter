@@ -4,8 +4,8 @@
 import React from 'react';
 import { Table, Icon } from 'mxa';
 import moment from 'moment';
-import appStyle from '../../framework/styles/views/fileManager.less';
-import Config from '../../config';
+import appStyle from '../../../framework/styles/views/fileManager.less';
+import Config from '../../../config';
 
 const numeral = require('numeral');
 

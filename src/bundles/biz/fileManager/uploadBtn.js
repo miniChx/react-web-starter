@@ -4,7 +4,7 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { Upload, message, Button, Icon, Table } from 'mxa';
-import { showComponent } from '../modalInput/MaskLayer';
+import { showComponent } from '../../../components/mask';
 import Dialog from './dialog';
 
 export default class UploadHelper extends React.Component {
