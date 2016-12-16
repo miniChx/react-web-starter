@@ -77,6 +77,7 @@
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
     "postcss-loader": "1.0.0",
+    "pre-commit": "^1.2.2",
     "promise": "7.1.1",
     "react-addons-test-utils": "^15.3.2",
     "react-dev-utils": "^0.3.0",
@@ -107,7 +108,8 @@
     "lint": "npm run eslint",
     "validate": "npm ls",
     "test": "mocha --compilers js:babel-register --recursive --require test/setup.js --require ignore-styles",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "clone": "git submodule foreach git pull origin master"
   },
   "author": "ge_yangyang@126.com",
   "pre-commit": [
