@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MaskLayer from 'react-mask-layer';
 import 'react-mask-layer/assets/index.css';
+import { closeBar } from '../../framework/pageContainer/ModalWrapper';
 
 const showComponent = (component, params) => {
   const maskDiv = document.createElement('div');
@@ -22,15 +23,18 @@ const showComponent = (component, params) => {
     }
   };
 
-  const mergedComponent = React.cloneElement(component, { ...params, isModal: true, modalCallback: _callback });
+  const mergedComponent = React.cloneElement(component, { ...params, isModal: true, modalCallback: _callback, close: _close });
   const maskModal = (
     <MaskLayer
-      // maskClosable={false}
+      maskClosable={false}
       visible={true}
       onCancel={_close}
       zIndex="500"
     >
-      {mergedComponent}
+      <div>
+        {closeBar(_close)}
+        {mergedComponent}
+      </div>
     </MaskLayer>
   );
 

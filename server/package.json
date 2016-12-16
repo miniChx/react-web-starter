@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
+    "formidable": "^1.0.17",
     "moment": "^2.17.0"
   }
 }

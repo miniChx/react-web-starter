@@ -3,12 +3,14 @@ var bodyParder = require('body-parser');
 
 var Redirect = require('./redirect');
 
+var fileHelper = require('./file');
+
 var app = express();
 
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept,X-Requested-With');
   next();
 }
 app.use(bodyParder.json());
@@ -143,12 +145,12 @@ app.post(getUrlPath('/example/process'), function (req, res) {
   res.json(mockData);
 })
 
-app.post(getUrlPath('/Api/CreditEvaluationListApply/render'), function (req, res) {
+app.post(getUrlPath('/Api/CreditEvaluationApplyList/render'), function (req, res) {
   var mockData = require('./json/demoList.json');
   res.json(mockData);
 })
 
-app.post(getUrlPath('/Api/CreditEvaluationListReview/render'), function (req, res) {
+app.post(getUrlPath('/Api/CreditEvaluationReviewList/render'), function (req, res) {
   var mockData = require('./json/demoList.json');
   res.json(mockData);
 })
@@ -179,9 +181,29 @@ app.post(getUrlPath('/Api/CreditEvaluationListReview/render'), function (req, re
 //  res.json(mockData);
 //});
 
-app.post('/upload', function(req, res) {
-    console.log(req.body);
-  });
+
+app.post(getUrlPath('/upload'), fileHelper.saveFile);
+app.post(getUrlPath('/update'), function(req, res) {
+  console.log('rec', req.body);
+  if (req.body && req.body.serialNo) {
+    res.json({serialNo:'new1111', fileVersion: req.body.fileVersion, uploadUser: '超级管理员', uploadUserPartment: '市场营销部	' });
+  } else {
+    res.json({serialNo:'new1112', fileVersion: 'v111112', uploadUser: '超级管理员', uploadUserPartment: '市场营销部	' });
+  }
+})
+
+app.post(getUrlPath('/viewHistory'), function(req, res) {
+  var mockData = require('./json/viewHistory.json');
+  res.json(mockData);
+})
+
+app.post(getUrlPath('/Api/FileManager/demo'), function(req, res) {
+  var mockData = require('./json/fileUpload');
+  res.json(mockData);
+});
+
+app.post(getUrlPath('/download'), fileHelper.downloadFile);
+app.get(getUrlPath('/download'), fileHelper.downloadFile);
 
 // var handler = function() {
   var server = app.listen(3003, function () {
