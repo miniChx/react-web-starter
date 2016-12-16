@@ -25,7 +25,7 @@ export const longRunExec = (bizHandler, needLoding = true) => {
         if ('Network request failed' === errorData.message) {
           console.log('网络请求异常!');
         }
-        console.log(errorData);
+        console.log('** error ** ', errorData);
         Modal.error({
           title: '网络请求异常',
           content: errorData.message ? errorData.message : errorData.msgContent + '(' + errorData.ex + ')',
