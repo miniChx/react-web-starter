@@ -38,7 +38,7 @@ export default class FileHistory extends React.Component {
           <span>
             <a href={Config.Host + 'download?' + record.fileId}>下载</a>
             <span className="mx-divider" />
-            <a href={'http://localhost:3003/ViewerJS/#../blc/download?' + record.fileId} target="_blank" rel="noopener noreferrer">预览</a>
+            <a href={'http://localhost:3003/ViewerJS/#../download?' + record.fileId} target="_blank" rel="noopener noreferrer">预览</a>
           </span>)
       }
     ];
