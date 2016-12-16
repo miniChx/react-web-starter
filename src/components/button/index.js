@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
 import { Button, Modal, Tooltip } from 'mxa';
 import Qs from 'qs';
+import { trimStart } from 'lodash/string';
 import { CONTAINER_PRE } from '../../framework/routes';
 import { showModal } from '../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../framework/system/fetch';
@@ -59,7 +60,7 @@ export class ExtendButton extends React.Component {
     if (this.props.submitFuc) {
       this.props.submitFuc();
     } else {
-      PFetch(url, params)
+      PFetch(trimStart(url, '/'), params)
         .then(response => {
           console.log(response);
           Modal.info({
