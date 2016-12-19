@@ -2,11 +2,12 @@
  * Created by baoyinghai on 12/16/16.
  */
 import React from 'react';
-import { Table, Icon } from 'mxa';
+import { Table, Icon, Modal } from 'mxa';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
 import { showComponent } from '../../../components/mask';
 import FileHistory from './fileHistory';
+import Links from '../../constant/links';
 import Config from '../../../config';
 
 const numeral = require('numeral');
@@ -37,7 +38,7 @@ export default class FileList extends React.Component {
   @autobind
   showHistory(e, record) {
     this.props.exec && this.props.exec(() => {
-      return this.props.fetch('viewHistory', { serialNo: record.serialNo }).then(data => {
+      return this.props.fetch(Links.viewHistory, { documentId: record.documentId }).then(data => {
         console.log(record);
         showComponent((<FileHistory />), { dataSource: data, ...record });
       });
@@ -68,13 +69,41 @@ export default class FileList extends React.Component {
         key: 'action',
         render: (text, record, index) => (
           <span>
-            <a href={Config.Host + 'download?' + record.fileId}>下载</a>
+            <a href={Config.Host + Links.downloadFile + '?' + record.fileId}>下载</a>
             <span className="mx-divider" />
             <a onClick={e => this.showHistory(e, record)}>查看历史版本</a>
+            {this.renderDelete(text, record, index)}
           </span>)
       }
     );
     return ret;
+  }
+
+  @autobind
+  deleteFile(e, record) {
+    this.props.exec && this.props.exec(() => {
+      return this.props.fetch(Links.deleteFile, record).then(data => {
+        Modal.info({
+          title: '提示',
+          content: (<div>删除成功！</div>),
+          onOk: null
+        });
+        this.props.freshListData(record, 'DELETE');
+      });
+    });
+  }
+
+  @autobind
+  renderDelete(text, record, index) {
+    if (record && record.docNessary && record.docNessary !== 'Y') {
+      return (
+        <span>
+          <span className="mx-divider" />
+          <a onClick={e => Modal.info({ title: '提示', content: (<div>确定删除文件{record.docmentName}吗?</div>), onOk: () => this.deleteFile(e, record) })}>删除</a>
+        </span>
+      );
+    }
+    return null;
   }
 
   render() {
