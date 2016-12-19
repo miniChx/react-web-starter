@@ -73,6 +73,7 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.8.3",
     "json-loader": "0.5.4",
+    "json-mock-tool": "^0.3.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "4.1.0",
@@ -110,7 +111,8 @@
     "validate": "npm ls",
     "test": "mocha --compilers js:babel-register --recursive --require test/setup.js --require ignore-styles",
     "test:watch": "npm test -- --watch",
-    "clone": "git submodule foreach git pull origin master"
+    "clone": "git submodule foreach git pull origin master",
+    "mock": "json-mock-tool"
   },
   "author": "ge_yangyang@126.com",
   "pre-commit": [
