@@ -5,29 +5,35 @@
     "totalPages": 1,
     "contentList": [
       {
-        "serialNo": "mkd01111f",
-        "docNessary": "Y",
-        "needUploadDocName": "XXX合同1",
-        "docName": "我设置的文件名",
-        "fileSize": 1231,
-        "remark": "备注",
-        "uploadUser": "超级管理员",
-        "uploadUserPartment": "市场营销部",
+        "fileId":"925",
+        "documentId":"mkd011112",
+        "docNessary":"Y",
+        "docmentName":"合同1",
+        "fileName":"XXX合同1",
+        "fileSize":63,
         "uploadTime": 1480949156000,
-        "fileVersion": "v0.1",
-        "fileId": "lalalalallala"
+        "fileVersion":11,
+
+        "docmentRemark":"aa",
+        "docmentGroupId":"sfs",
+        "docmentGroupName":"sfs",
+        "bizModelCode":"project",
+        "bizModelID":"111"
       },{
-        "serialNo": "mkd011112",
-        "docNessary": "Y",
-        "needUploadDocName": "XXX合同2",
-        "docName": "我设置的文件名",
-        "fileSize": 1231,
-        "remark": "备注",
-        "uploadUser": "超级管理员",
-        "uploadUserPartment": "市场营销部",
+        "fileId":"926",
+        "documentId":"mkd011113",
+        "docNessary":"N",
+        "docmentName":"合同2",
+        "fileName":"XXX合同2",
+        "fileSize":1163,
         "uploadTime": 1480949156000,
-        "fileVersion": "v0.2",
-        "fileId": "lalalalallala2"
+        "fileVersion":11,
+
+        "docmentRemark":"aa",
+        "docmentGroupId":"sfs",
+        "docmentGroupName":"sfs",
+        "bizModelCode":"project",
+        "bizModelID":"111"
       }
     ],
     "totalItems": 1
@@ -52,7 +58,7 @@
       }
     },
     {
-      "name": "serialNo",
+      "name": "documentId",
       "isMainEntityKey": false,
       "fieldCode": "ENTERPRISECUSBASICINFO_SERIALNO_IN_ENTERPRISECUSBASICINFO_LIST",
       "index": 1,
@@ -84,7 +90,7 @@
       }
     },
     {
-      "name": "needUploadDocName",
+      "name": "docmentName",
       "isMainEntityKey": false,
       "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATETYPE_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
       "index": 3,
@@ -100,7 +106,7 @@
       }
     },
     {
-      "name": "docName",
+      "name": "fileName",
       "isMainEntityKey": false,
       "fieldCode": "ENTERPRISECUSBASICINFO_CERTIFICATENO_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
       "index": 4,
@@ -132,45 +138,13 @@
       }
     },
     {
-      "name": "remark",
+      "name": "docmentRemark",
       "isMainEntityKey": false,
       "fieldCode": "ENTERPRISECUSBASICINFO_REGISTRATIONDATE_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
       "index": 7,
       "entityShortName": "reg",
       "type": "Date",
       "description": "备注",
-      "groupId": 1,
-      "isVisible": true,
-      "displayComponent": {
-        "componentType": "INPUT",
-        "dictionaryCategory": null,
-        "dictionaryItems": []
-      }
-    },
-    {
-      "name": "uploadUser",
-      "isMainEntityKey": false,
-      "fieldCode": "\n                ENTERPRISECUSBASICINFO_REGISTEREDCAPITALAMOUNT_IN_ENTERPRISECUSBASICINFO_LIST\n            ",
-      "index": 8,
-      "entityShortName": "reg",
-      "type": "Double",
-      "description": "上传用户",
-      "groupId": 1,
-      "isVisible": true,
-      "displayComponent": {
-        "componentType": "INPUT",
-        "dictionaryCategory": null,
-        "dictionaryItems": []
-      }
-    },
-    {
-      "name": "uploadUserPartment",
-      "isMainEntityKey": false,
-      "fieldCode": "ENTERPRISECUSBASICINFO_CREATORNAME_IN_ENTERPRISECUSBASICINFO_LIST",
-      "index": 9,
-      "entityShortName": "lea",
-      "type": "String",
-      "description": "上传部门",
       "groupId": 1,
       "isVisible": true,
       "displayComponent": {

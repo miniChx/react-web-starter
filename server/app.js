@@ -185,10 +185,10 @@ app.post(getUrlPath('/Api/CreditEvaluationReviewList/render'), function (req, re
 app.post(getUrlPath('/upload'), fileHelper.saveFile);
 app.post(getUrlPath('/update'), function(req, res) {
   console.log('rec', req.body);
-  if (req.body && req.body.serialNo) {
-    res.json({serialNo:'new1111', fileVersion: req.body.fileVersion, uploadUser: '超级管理员', uploadUserPartment: '市场营销部	' });
+  if (req.body && req.body.documentId) {
+    res.json({fileId:'new1111', fileVersion: 123123 });
   } else {
-    res.json({serialNo:'new1112', fileVersion: 'v111112', uploadUser: '超级管理员', uploadUserPartment: '市场营销部	' });
+    res.json({fileId:'new1112', fileVersion: 'v111112'});
   }
 })
 
@@ -204,6 +204,9 @@ app.post(getUrlPath('/Api/FileManager/demo'), function(req, res) {
 
 app.post(getUrlPath('/download'), fileHelper.downloadFile);
 app.get(getUrlPath('/download'), fileHelper.downloadFile);
+app.post(getUrlPath('/deleteFile'), function(req, res) {
+  res.json({});
+});
 
 // var handler = function() {
   var server = app.listen(3003, function () {

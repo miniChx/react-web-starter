@@ -1,5 +1,11 @@
 // TODO:
+import Links from '../../framework/constant/links';
 
-export default {
-
+const bizLinks = {
+  // fileManager
+  deleteFile: 'deleteFile',
+  updateFile: 'update',
+  viewHistory: 'viewHistory'
 };
+
+export default Object.assign(Links, bizLinks);

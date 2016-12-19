@@ -26,6 +26,9 @@ export default {
   searchAccount: 'api/AccountList/search',
   findAccountById: 'api/AccountDetail/findById',
   findAllRolesByUserId: 'api/RoleRela/findAllRolesByUserId',
-  updatPassword: 'api/AccountDetail/updatePassword'
+  updatPassword: 'api/AccountDetail/updatePassword',
 
+  // upload
+  uploadFile: 'upload',
+  downloadFile: 'download'
 };
