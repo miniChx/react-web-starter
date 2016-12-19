@@ -13,7 +13,6 @@ export default class FileManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fileType: this.initFileType(this.props.dataSource && this.props.dataSource.pageResult && this.props.dataSource.pageResult.contentList),
       dataSource: this.props.dataSource
     };
   }
@@ -21,10 +20,10 @@ export default class FileManager extends React.Component {
   initFileType(list) {
     const ret = [];
     list.forEach(record => {
-      ret.push({ code: record.serialNo, value: record.needUploadDocName, docNessary: record.docNessary });
+      ret.push({ code: record.documentId, value: record.docmentName, docNessary: record.docNessary });
     });
     ret.push({ code: 'NEW', value: '新增', docNessary: 'N' });
-    console.log(ret);
+    console.log('*** select code ***', ret);
     return ret;
   }
 
@@ -39,12 +38,16 @@ export default class FileManager extends React.Component {
   }
 
   @autobind
-  freshListData(record) {
+  freshListData(record, actionType) {
     const dataSource = this.props.dataSource;
     if (!dataSource.pageResult.contentList.some((r, index) => {
-      if (r.serialNo === record.serialNo) {
+      if (r.documentId === record.documentId) {
         console.log('get', r);
-        dataSource.pageResult.contentList[index] = record;
+        if (actionType === 'DELETE') {
+          dataSource.pageResult.contentList = dataSource.pageResult.contentList.slice(0, index).concat(dataSource.pageResult.contentList.slice(index + 1, dataSource.pageResult.contentList.length));
+        } else {
+          dataSource.pageResult.contentList[index] = record;
+        }
         return true;
       }
       return false;
@@ -56,10 +59,11 @@ export default class FileManager extends React.Component {
   }
 
   render() {
+    const fileType = this.initFileType(this.props.dataSource && this.props.dataSource.pageResult && this.props.dataSource.pageResult.contentList);
     return (
       <div>
-        <UploadBtn freshListData={this.freshListData} fetch={this.props.fetch} onChange={this.onChange} fileType={this.state.fileType} />
-        <FileList {...this.props} dataSource={this.state.dataSource} />
+        <UploadBtn freshListData={this.freshListData} fetch={this.props.fetch} onChange={this.onChange} fileType={fileType} />
+        <FileList {...this.props} freshListData={this.freshListData} dataSource={this.state.dataSource} />
       </div>
     );
   }

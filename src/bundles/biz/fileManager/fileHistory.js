@@ -6,6 +6,7 @@ import { Table, Icon } from 'mxa';
 import moment from 'moment';
 import appStyle from '../../../framework/styles/views/fileManager.less';
 import Config from '../../../config';
+import Links from '../../constant/links';
 
 const numeral = require('numeral');
 
@@ -36,9 +37,9 @@ export default class FileHistory extends React.Component {
         key: 'action',
         render: (text, record, index) => (
           <span>
-            <a href={Config.Host + 'download?' + record.fileId}>下载</a>
+            <a href={Config.Host + Links.downloadFile + '?' + record.fileId}>下载</a>
             <span className="mx-divider" />
-            <a href={'http://localhost:3003/ViewerJS/#../download?' + record.fileId} target="_blank" rel="noopener noreferrer">预览</a>
+            <a href={'http://localhost:3003/ViewerJS/#../' + Links.downloadFile + '?' + record.fileId} target="_blank" rel="noopener noreferrer">预览</a>
           </span>)
       }
     ];
@@ -50,7 +51,7 @@ export default class FileHistory extends React.Component {
     const { data, columns } = this.dataAdapter(this.props.dataSource);
     return (
       <div className={appStyle.container}>
-        <span>{ this.props.needUploadDocName + '的历史版本'}</span>
+        <span>{ this.props.docmentName + '的历史版本'}</span>
         <Table columns={columns} dataSource={data} />
       </div>
     );
