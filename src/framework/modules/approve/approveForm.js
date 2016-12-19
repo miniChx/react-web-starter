@@ -6,7 +6,7 @@ import React from 'react';
 import {Form, Input, Radio, Select, Row, Button, Modal} from 'mxa';
 import Validation from '../../utils/validation';
 
-import styles from './../../styles/views/approval.less';
+import styles from './../../styles/views/approve.less';
 
 const FormItem = Form.Item;
 

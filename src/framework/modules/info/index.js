@@ -16,7 +16,7 @@ import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, sea
 import { showModal } from '../../pageContainer/ModalWrapper';
 import { getValueByKey } from '../../utils/MapUtils';
 import FixedButtonGroup from './fixedButtonGroup';
-import Approval from '../approval';
+import Approve from '../approve';
 import { PAGE_TYPE_DETAIL } from '../../constant/dictActions';
 
 // const IFrame = require('react-iframe');

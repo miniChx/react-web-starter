@@ -123,7 +123,7 @@ export const searchBeforeAndAfter = (menuCode, menu) => {
     }
     return false;
   });
-  return { left ,right };
+  return { left, right };
 
 };
 
