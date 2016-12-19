@@ -35,7 +35,7 @@ export const handleOrderItems = orderItems => {
 };
 
 export const handleContentList = (contentList, fieldsObject) =>
-  contentList.map((record, index) => {
+  contentList && contentList.map((record, index) => {
     const output = { key: index };
     Object.keys(record).forEach(field => {
       const fieldContent = fieldsObject[field];
