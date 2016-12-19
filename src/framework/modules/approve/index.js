@@ -8,7 +8,7 @@ import { Button, Row, Affix } from 'mxa';
 import { connect } from 'react-redux';
 import ApproveForm from './approveForm';
 
-import styles from './../../styles/views/approval.less';
+import styles from './../../styles/views/approve.less';
 
 const approve = {
   isFinalApprove: false, // true 最后一个  false 不是流程最后一步

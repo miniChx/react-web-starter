@@ -3,7 +3,7 @@
  */
 import validation from '../../../../utils/validation';
 
-const validator = (record, value) => {
+const validator = (record, value = '') => {
   const opt = (record.formValidate && record.formValidate.opt) || {};
   if (typeof value !== 'string') {
     return new Error((opt.message) || '格式错误');

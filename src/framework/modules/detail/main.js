@@ -182,7 +182,7 @@ class Detail extends React.Component {
     const buttonClass = `${prefixCls}-button`;
     const buttons = (this.props.dataSource.buttons || []).filter(btn => {
       if (displayPosition === BUTTON_POSITION.TOP || displayPosition === BUTTON_POSITION.BOTTOM){
-        return  btn.displayPosition === displayPosition;
+        return   (btn && btn.displayPosition) === displayPosition;
       }
       return true;
     }).map(item => {
