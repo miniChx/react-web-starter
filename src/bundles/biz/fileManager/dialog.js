@@ -19,7 +19,8 @@ class Dialog extends React.Component {
     action: Config.Host + Links.uploadFile,
     headers: {
       authorization: 'authorization-text',
-    }
+    },
+    // accept: ['pdf'],
   };
 
   @autobind
