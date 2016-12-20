@@ -227,7 +227,7 @@ class Detail extends React.Component {
       <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} shortTitle={titleF.groupShortName} href={'#title' + titleF.groupId} />)} >
         <div className={appStyle.formBox} >
           <Row gutter={40} className={appStyle.cell}>
-            {fields.map((item, index) => {
+            {fields.filter(f => f.isVisible).map((item, index) => {
               return (
                 <Col key={index} span={(24 / data.columnNumber) || 12}>
                   {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.props, this.changeDataSourceVisable)}
