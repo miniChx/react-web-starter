@@ -7,7 +7,7 @@ import { VIEW, EDIT } from '../../constant';
 
 const compRender = record => {
   return (
-    <Select style={{ width: 120 }} disabled={record.isReadonly}>
+    <Select disabled={record.isReadonly}>
       {record.displayComponent && record.displayComponent.dictionaryItems && record.displayComponent.dictionaryItems.map((i, index) =>
         (
           <Select.Option key={'select_' + i.code} value={i.code}>{i.value}</Select.Option>
