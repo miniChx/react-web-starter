@@ -1,5 +1,5 @@
 const defaultHost = 'http://localhost:3003/';
-const defaultProcessPath = 'http://192.168.64.98:9081/blc/';
+const defaultProcessPath = 'http://192.168.64.98:9081/';
 /* eslint-disable */
 const Config = {
   Host: baseUrl || defaultHost,

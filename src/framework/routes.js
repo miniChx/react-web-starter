@@ -1,6 +1,6 @@
 import { trimStart } from 'lodash/string';
 import Qs from 'qs';
-import Home from './modules/home';
+import Home from '../bundles/home';
 import Login from './modules/login';
 import Register from './modules/login/register';
 import FindPwd from './modules/login/findPwd';

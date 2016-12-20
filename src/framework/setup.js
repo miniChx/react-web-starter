@@ -13,7 +13,7 @@ import { executeInit } from './service/ServiceInitHelper';
 
 import routes from './routes';
 import { initApp, updateQuery } from './actions/global';
-import appStyle from './styles/views/app.less';
+import appStyle from '../bundles/styles/views/app.less';
 
 const setup = () => {
   const store = configureStore({});

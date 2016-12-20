@@ -8,7 +8,7 @@ import { Row, Col, BackTop } from 'mxa';
 import { autobind } from 'core-decorators';
 
 import './styles/global/index.less';
-import appStyle from './styles/views/app.less';
+import appStyle from '../bundles/styles/views/app.less';
 import { Header, Footer } from '../components';
 import { isInitDataFromServer } from './service/CacheService';
 import { initDataFromServer } from './actions/global';

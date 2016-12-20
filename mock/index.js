@@ -3,7 +3,7 @@
 const MockerServer = require('json-mock-tool');
 
 const inject = {
-  '/Api/CashFlowItemList/render': () => require('./test.json')
+  //'/Api/CashFlowItemList/render': () => require('./test.json')
 };
 
 MockerServer.start({

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Icon, Col, Row, Button } from 'mxa';
 import { logout } from '../../framework/actions/global';
-import styles from '../../framework/styles/views/app.less';
+import styles from '../../bundles/styles/views/app.less';
 import Menu from './Menu';
 
 class Header extends React.Component {

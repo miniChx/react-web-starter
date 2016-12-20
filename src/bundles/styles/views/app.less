@@ -1,4 +1,4 @@
-@import "../base/index";
+@import "../../../framework/styles/base/index";
 
 .content {
   padding: 2rem;
@@ -8,31 +8,28 @@
 
 .appContent {
   position: relative;
-  padding-left: 20px;
-  padding-top: 20px;
-  padding-right: 20px;
   width: 100%;
+  min-width: 1280px;
+  padding:20px;
   background-color: @body-background;
   border-radius: 5px;
 }
 
 .appBody {
-  padding-left: 3.5rem;
-  padding-right: 3.5rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  background-color: @body-color;
+  background-color: @body-background;
   min-height: 50rem;
 }
 
 
 .titleContainer {
-  background-color: #fff;
-  text-align: center;
+  background-color: #0084e0;
+  text-align: left;
   width: 100%;
+  min-width: 1280px;
   z-index: 1000;
   line-height: 5rem;
   .mx-menu {
+    background-color: @primary-color;
     outline: none;
     margin-bottom: 0;
     padding-left: 0;
@@ -40,18 +37,37 @@
     z-index: 1050;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
     color: #666;
-    background: #fff;
     line-height: 5rem;
   }
-}
-
-.title_color {
-  color: @primary-color;
+  .titleName {
+    color: #fff;
+    padding-left: 20px;
+  }
+  .firstLevelMenu {
+    background-color: #0084e0;
+  }
+  .userOpration {
+    background-color: @body-background;
+    padding-right: 20px;
+  }
+  .userOprationItem {
+    padding-left: 10px;
+  }
+  .userInfo {
+    width:100px;
+    text-align: center;
+    padding-left: 10px;
+  }
 }
 
 .titleIcon {
   // color: @primary-color;
   font-size: 30px;
+}
+
+.titleImage{
+  vertical-align: middle;
+  padding: 5px
 }
 
 .appFooter {

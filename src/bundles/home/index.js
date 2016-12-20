@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
-import { District } from '../../../components';
+import { District } from '../../components';
 
-import styles from '../../styles/views/home.less';
+import styles from '../styles/views/home.less';
 
 export class Home extends React.Component {
   constructor(props) {

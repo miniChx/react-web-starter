@@ -3,7 +3,7 @@
 import React from 'react';
 import { Row, Col } from 'mxa';
 
-import styles from '../../framework/styles/views/app.less';
+import styles from '../../bundles/styles/views/app.less';
 
 class Footer extends React.Component {
   render() {

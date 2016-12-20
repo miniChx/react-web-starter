@@ -7,7 +7,7 @@ import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
 import { createComp } from '../../framework/modules/detail/displayComp/compRefactHelper';
 import { Info, ListDetail } from '../../framework/modules';
-import appStyle from '../../framework/styles/views/app.less';
+import appStyle from '../styles/views/app.less';
 import { getSubMenu } from '../../framework/service/CacheService';
 import { AnHref } from '../../framework/modules/info';
 import RadioGroup from '../../framework/modules/detail/displayComp/analyser/RadioGroupAnalyser';

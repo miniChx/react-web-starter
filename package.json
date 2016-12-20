@@ -16,7 +16,7 @@
     "local-storage": "^1.4.2",
     "lodash": "^4.16.4",
     "moment": "^2.15.2",
-    "mxa": "^0.1.6",
+    "mxa": "latest",
     "numeral": "^2.0.1",
     "object-assign": "^4.1.0",
     "qiniu": "^6.1.13",
@@ -111,8 +111,8 @@
     "validate": "npm ls",
     "test": "mocha --compilers js:babel-register --recursive --require test/setup.js --require ignore-styles",
     "test:watch": "npm test -- --watch",
-    "clone": "git submodule foreach git pull origin master",
-    "mock": "json-mock-tool"
+    "clone": "git submodule update --init --recursive && git submodule foreach git pull origin master",
+    "mock": "node mock/index.js"
   },
   "author": "ge_yangyang@126.com",
   "pre-commit": [

@@ -1,18 +1,3 @@
 {
-  "buttons": [
-    {
-      "buttonDescription": "保存",
-      "displayPosition": "TOP",
-      "interactiveType": "ACTION",
-      "messagePromptType": "CONFIRM",
-      "domainLink": null,
-      "isSubmitForm": true,
-      "domainType": "Detail",
-      "actionName": "/Api/EnterpriseCusBasicInfoDetail/update",
-      "buttonCode": "enterpriseCusBasicInfo_Detail_update_In_enterpriseCusBasicInfo_Detail",
-      "transmitParameters": null,
-      "bindParameterType": "ALL",
-      "bindParameters": null
-    }
-  ]
+  "adfasdf": "asdfadf"
 }

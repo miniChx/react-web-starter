@@ -12,11 +12,15 @@ import SideMenu from './sideMenu';
 import Compose from '../../utils/Compose';
 import AsyncDecorator from '../../pageContainer/AsyncDecorator';
 import InitDecorator from '../../pageContainer/InitDecorator';
-import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
+import {
+  getMenuItemByKeyPaths,
+  getMenuItemByFunc,
+  getMenuItemAndPathByFunc,
+  searchBeforeAndAfter,
+} from '../../utils/MenuHelper';
 import { showModal } from '../../pageContainer/ModalWrapper';
 import { getValueByKey } from '../../utils/MapUtils';
 import FixedButtonGroup from './fixedButtonGroup';
-import Approve from '../approve';
 import { PAGE_TYPE_DETAIL } from '../../constant/dictActions';
 
 // const IFrame = require('react-iframe');
