@@ -101,11 +101,16 @@ class ListView extends React.Component {
       });
     }
 
-    const variantFields = data.variantFields.map(variant => {
-      return {
-        fieldName: variant,
-        fieldValue: this.props.query ? this.props.query[variant] : '',
-      };
+    //  const variantFields = data.variantFields.map(variant => {
+    //   return {
+    //     fieldName: variant,
+    //     fieldValue: this.props.query ? this.props.query[variant] : '',
+    //   };
+    //  });
+    // issue #5
+    const variantFields = {};
+    data.variantFields.forEach(variant => {
+      variantFields[variant] = this.props.query ? this.props.query[variant] : '';
     });
 
     const fieldsObject = arr2obj(data.fields, 'name');
@@ -186,11 +191,11 @@ class ListView extends React.Component {
 
   @autobind
   _onSearch() {
-    const searchUrl = trimStart(this.props.domainLink.replace(/^(.*\/)\w*$/, '$1search'), '/');
+    const searchUrl = trimStart(this.props.domainLink.replace(/^(.*\/)render(\w*)$/, '$1search$2'), '/');
     const param = {
       pageIndex: this.state.pageIndex,
       itemsPerPage: this.state.itemsPerPage,
-      variantFields: this.state.variantFields,
+      requestParamsBean: this.state.variantFields, // issue #5
       requestFilterFields: this.state.requestFilterFields,
       requestOrderFields: this.state.orderFields,
     };
