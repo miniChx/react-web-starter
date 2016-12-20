@@ -52,13 +52,14 @@ export class ExtendButton extends React.Component {
       // window.open('/' + CONTAINER_PRE + domainLink + '?' + Qs.stringify({
       //   p: btoa(search)
       // }));
-      window.open('/' + CONTAINER_PRE + actionLink + '?p=' + btoa(Qs.stringify({ ...params, templateType, s: '1' })));
+      window.open('/' + CONTAINER_PRE + actionLink + '?p='
+        + btoa(Qs.stringify({ ...params, domainType: templateType, s: '1' })));
     } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
       showModal(params, templateType, actionLink, () => this.props.onRefresh && this.props.onRefresh());
     } else {
       this.props.dispatch(push({
         pathname: '/' + CONTAINER_PRE + actionLink,
-        query: { p: btoa(Qs.stringify({ ...params, templateType })) }
+        query: { p: btoa(Qs.stringify({ ...params, domainType: templateType })) }
       }));
     }
   }

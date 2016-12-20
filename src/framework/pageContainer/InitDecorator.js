@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { routerShape } from 'react-router';
 import { autobind } from 'core-decorators';
 
 import PageConfig from './config';
@@ -15,10 +14,6 @@ const createPage = (domainType, domainLink) => {
 
 const InitDecorator = () => {
   class WrapperComponent extends React.Component {
-    // static contextTypes = {
-    //   router: routerShape
-    // }
-
     constructor(props) {
       super(props);
       this.state = {

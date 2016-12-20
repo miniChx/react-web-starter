@@ -264,6 +264,7 @@ class ListView extends React.Component {
 
   @autobind
   _onRowClick(record, index) {
+    if (this.state.selectedType === LIST_SELECTTYPE.INLINE) return;
     console.log('onRowClick ==> ', record, index);
 
     const selectedIndex = this.state.selectedRowKeys.indexOf(record.key);
@@ -271,6 +272,11 @@ class ListView extends React.Component {
       this.setState({
         selectedRowKeys: this.state.selectedRowKeys.filter(item => item !== record.key),
         selectedRows: this.state.selectedRows.filter(item => item.key !== record.key),
+      });
+    } else if (this.state.selectedType === LIST_SELECTTYPE.RADIO) {
+      this.setState({
+        selectedRowKeys: [record.key],
+        selectedRows: [record],
       });
     } else {
       this.setState({
@@ -316,7 +322,7 @@ class ListView extends React.Component {
             sortOrder={false}
             pagination={this.state.pagination}
             onChange={this._onChange}
-            // onRowClick={this._onRowClick}
+            onRowClick={this._onRowClick}
           />
         </div>
       );
@@ -391,7 +397,9 @@ class ListView extends React.Component {
           <Col span={4}>
             <SideMenu
               openKeys={this.state.openMenuKeys}
-              selectedKeys={this.state.selectedMenuKeys ? [...this.state.openMenuKeys, this.state.selectedMenuKeys] : menu[0].menuCode}
+              selectedKeys={this.state.selectedMenuKeys ?
+                [...this.state.openMenuKeys, this.state.selectedMenuKeys]
+                : menu[0].menuCode}
               menu={menu}
               menuClick={this.menuClick}
             />
