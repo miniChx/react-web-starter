@@ -10,28 +10,26 @@ export default class ModalInput extends React.Component {
     defaultValue: PropTypes.string,
   };
 
-  static defaultProps = {
-    defaultValue: '',
-  }
-
   constructor(props) {
     super(props);
     // initial state
+    // console.log('im test', this.props.defaultValue);
     this.state = {
-      value: this.props.defaultValue,
+      value: this.props.value,
     };
   }
 
   @autobind
   _callback(value) {
-    const { mapper, onChange } = this.props;
+    const { mapper, onChange, resetValue } = this.props;
     let displayValue = value;
     if (mapper !== undefined && value) {
       displayValue = mapper !== undefined ? mapper(value) : value;
     }
     this.setState({ value: displayValue });
     // callback && callback(value);
-    onChange && onChange(value);
+    resetValue && resetValue(value);
+    onChange && onChange(displayValue);
   }
 
   @autobind
