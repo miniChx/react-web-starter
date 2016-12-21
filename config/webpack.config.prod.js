@@ -100,7 +100,7 @@ module.exports = {
 
     'react': 'React',
     'react-dom': 'ReactDOM',
-    // 'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
     // 'redux': 'Redux',
     // 'react-redux': 'ReactRedux',
     'react-router': 'ReactRouter',

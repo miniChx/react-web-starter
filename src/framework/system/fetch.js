@@ -2,6 +2,7 @@
  * Created by baoyinghai on 10/18/16.
  */
 import Qs from 'qs';
+import { trimStart } from 'lodash/string';
 import MxFetch from '../utils/MxFetch';
 import Config from '../../config';
 import { getToken } from '../service/CacheService';
@@ -48,7 +49,7 @@ const rawFetch = (url, param) => {
 /* eslint-disable */
 export const PFetch = (url, param) => {
   const headers = getHeader();
-  return rawFetch(url, {
+  return rawFetch(trimStart(url, '/'), {
     method: 'POST',
     headers,
     body: JSON.stringify(param)

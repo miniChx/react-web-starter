@@ -10,15 +10,9 @@ import { getMenu } from '../service/CacheService';
 import { getMenuItemAndPathByFunc } from '../utils/MenuHelper';
 
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
-const PureRenderMixin = React.addons.PureRenderMixin;
+// const PureRenderMixin = React.addons.PureRenderMixin;
 
-class PageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    // initial state
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-  }
-
+class PageContainer extends React.PureComponent {
   render() {
     if (this.props.query === undefined) {
       return (
