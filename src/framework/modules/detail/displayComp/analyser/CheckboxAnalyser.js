@@ -6,9 +6,17 @@ import { Checkbox } from 'mxa';
 import staticDisplay from './StaticDisplay';
 import { VIEW, EDIT } from '../../constant';
 
+class CheckboxWrapper extends React.Component {
+  render() {
+    return (
+      <Checkbox {...this.props} checked={this.props.value} />
+    );
+  }
+}
+
 const compRender = record => {
   return (
-    <Checkbox disabled={record.isReadonly} />
+    <CheckboxWrapper disabled={record.isReadonly} />
   );
 };
 
