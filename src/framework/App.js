@@ -6,6 +6,8 @@ import { push, replace, goBack } from 'react-router-redux';
 import { Row, Col, BackTop } from 'mxa';
 
 import { autobind } from 'core-decorators';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 import './styles/global/index.less';
 import appStyle from '../bundles/styles/views/app.less';
@@ -13,9 +15,6 @@ import { Header, Footer } from '../components';
 import { isInitDataFromServer } from './service/CacheService';
 import { initDataFromServer } from './actions/global';
 import { longRunExec } from './system/longRunOpt';
-
-// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 class App extends React.Component {
   constructor(props) {

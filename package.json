@@ -1,6 +1,6 @@
 {
   "name": "mx-web-boilerplate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Boilerplate to start react project.",
   "private": true,
   "license": "MIT",
@@ -23,6 +23,7 @@
     "qs": "^6.3.0",
     "rc-animate": "^2.3.1",
     "react": "^15.3.2",
+    "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-iframe": "0.0.4",
     "react-mask-layer": "^1.0.2",
