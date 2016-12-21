@@ -31,6 +31,7 @@ class ListView extends React.Component {
   constructor(props) {
     super(props);
     // initial state
+    this.contentList = this.props.dataSource.pageResult.contentList;
     this.state = this._processData(this.props.dataSource);
   }
 
@@ -202,6 +203,7 @@ class ListView extends React.Component {
     this.props.exec(() => this.props.fetch(searchUrl, param)
       .then(data => {
         const dataSource = handleContentList(data.contentList, this.state.fieldsObject);
+        this.contentList = data.contentList;
         const pagination = {
           total: data && data.totalItems,
           pageSize: data.itemsPerPage,
@@ -231,7 +233,7 @@ class ListView extends React.Component {
               type: 'ghost',
             }}
             className={buttonClass}
-            onClick={() => this.props.modalCallback && this.props.modalCallback(this.props.dataSource.pageResult.contentList[this.state.selectedRowKeys])}
+            onClick={() => this.props.modalCallback && this.props.modalCallback(this.contentList[this.state.selectedRowKeys])}
             disabled={this.state.selectedRowKeys.length <= 0}
           >确定</Button>
         </div>
