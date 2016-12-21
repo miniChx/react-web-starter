@@ -65,27 +65,31 @@ export class ExtendButton extends React.Component {
   }
 
   @autobind
-  _processNext(params) { // eslint-disable-line no-unused-vars
+  _processNext(params, response) { // eslint-disable-line no-unused-vars
     if (this.props.nextActionLink) {
       // TODO. process next stage
+      this._processAction({ ...params, response }, this.props.nextActionLink);
     } else {
       this.props.onRefresh && this.props.onRefresh();
     }
   }
 
   @autobind
-  _processAction(params) {
+  _processAction(params, nextActionLink) {
     if (this.props.submitFuc) {
       this.props.submitFuc();
     } else {
-      const url = this._getActionLink();
+      let url = nextActionLink;
+      if (!url) {
+        url = this._getActionLink();
+      }
       PFetch(trimStart(url, '/'), params)
         .then(response => {
           console.log(response);
           Modal.info({
             title: '提示',
             content: (<div>{this.props.buttonDescription}成功！</div>),
-            onOk: () => this._processNext(params),
+            onOk: () => this._processNext(params, response),
           });
         })
         .catch(errorData => {

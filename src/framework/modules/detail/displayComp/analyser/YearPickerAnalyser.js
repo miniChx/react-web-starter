@@ -11,7 +11,7 @@ const compRender = record => {
     range.push(i);
   }
   return (
-    <Select style={{ width: 120 }} disabled={record.isReadonly}>
+    <Select disabled={record.isReadonly}>
       {
         range.map((i, index) =>
         (
