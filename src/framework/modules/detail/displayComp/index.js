@@ -71,7 +71,7 @@ const transFromtoDate = (data, compRender) => {
 
 // 表单项
 // hasFeedback={model === 'edit'}
-const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult) => {
+const formAnalyser = (compRender, model, props) => (formItemLayout, record, getFieldDecorator, detailResult, changeInitValue) => {
   // TODO: if result is true or false
   const initData = (detailResult && detailResult[record.name]) || getBindParameter(props, record.initValueSource);
   return (
@@ -82,7 +82,7 @@ const formAnalyser = (compRender, model, props) => (formItemLayout, record, getF
     >
       {getFieldDecorator(record.name, {
         rules: (props.createRules && props.createRules(record, props.form)) || createRules(record, props.form),
-        initialValue: transFromtoDate(initData, compRender) })((compRender[model](record)))
+        initialValue: transFromtoDate(initData, compRender) })((compRender[model](record, changeInitValue)))
       }
     </FormItem>
   );
@@ -95,9 +95,9 @@ const chooseAnalyser = (record, props, changeDataSourceVisable) => {
   return ret || FormItemMap[analyserName] || FormItemMap.defaultAnalyser;
 };
 
-const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, props, changeDataSourceVisable) => {
+const renderFuc = (formItemLayout, record, getFieldDecorator, detailResult, props, changeDataSourceVisable, changeInitValue) => {
   if (record.isVisible) {
-    return formAnalyser(chooseAnalyser(record, props, changeDataSourceVisable), props.model, props)(formItemLayout, record, getFieldDecorator, detailResult);
+    return formAnalyser(chooseAnalyser(record, props, changeDataSourceVisable), props.model, props)(formItemLayout, record, getFieldDecorator, detailResult, changeInitValue);
   }
   return null;
 };

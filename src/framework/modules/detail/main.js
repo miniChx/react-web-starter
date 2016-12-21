@@ -42,7 +42,8 @@ class Detail extends React.Component {
     const data = this.dataFieldsAdapter(this.props.dataSource);
     this.state = {
       passwordDirty: false,
-      fields: data
+      fields: data,
+      detailResult: this.props.dataSource.detailResult
     };
   }
 
@@ -66,6 +67,13 @@ class Detail extends React.Component {
     });
     const data = { ...this.props.dataSource, fields: fieldList};
     this.setState({ fields: this.dataFieldsAdapter(data) });
+  }
+
+  @autobind
+  changeInitValue(values) {
+    const detailResult = this.props.dataSource.detailResult;
+    this.setState({ detailResult: { ...detailResult, ...values } });
+
   }
 
   @autobind
@@ -173,7 +181,7 @@ class Detail extends React.Component {
 
   @autobind
   _onSearch() {
-
+    console.log();
   }
 
   @autobind
@@ -230,7 +238,7 @@ class Detail extends React.Component {
             {fields.filter(f => f.isVisible).map((item, index) => {
               return (
                 <Col key={index} span={(24 / data.columnNumber) || 12}>
-                  {renderFuc(formItemLayout, item, getFieldDecorator, data.detailResult, this.props, this.changeDataSourceVisable)}
+                  {renderFuc(formItemLayout, item, getFieldDecorator, this.state.detailResult, this.props, this.changeDataSourceVisable, this.changeInitValue)}
                 </Col>
               );
             })}

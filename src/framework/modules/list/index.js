@@ -231,7 +231,7 @@ class ListView extends React.Component {
               type: 'ghost',
             }}
             className={buttonClass}
-            onClick={() => this.props.modalCallback && this.props.modalCallback(this.state.selectedRows[0])}
+            onClick={() => this.props.modalCallback && this.props.modalCallback(this.props.dataSource.pageResult.contentList[this.state.selectedRowKeys])}
             disabled={this.state.selectedRowKeys.length <= 0}
           >确定</Button>
         </div>
