@@ -54,7 +54,7 @@ export class ExtendButton extends React.Component {
       // }));
       window.open('/' + CONTAINER_PRE + actionLink + '?p='
         + btoa(Qs.stringify({ ...params, domainType: templateType, s: '1' })));
-    } else if (mode === BUTTON_INTERACTIVETYPE.MODAL) {
+    } else if (mode === BUTTON_INTERACTIVETYPE.MODAL || mode === BUTTON_INTERACTIVETYPE.RIGHTDRAWER) {
       showModal(params, templateType, actionLink, () => this.props.onRefresh && this.props.onRefresh());
     } else {
       this.props.dispatch(push({
