@@ -14,11 +14,11 @@ import { VIEW, EDIT } from '../../constant';
 const compRender = (record, changeInitValue) => {
   const TempPage = Compose(AsyncDecorator, InitDecorator)();
   // 模板中调用this.props.callback可以执行回调
-  const modalData = record.modalInput;
+  const modalData = (record && record.modalInput) || {};
 
   // TODO. to debug with be
   // const mappingFields = record.modalInput.mappingFields;
-  const mappingFields = (record && record.modalInput && record.modalInput.mappings && record.modalInput.mappings.mapping) || [];
+  const mappingFields = (modalData && record.modalInput.mappings && record.modalInput.mappings.mapping) || [];
   let mapper;
   if (mappingFields.length > 0) {
     mapper = value => value[mappingFields[0].remoteFieldName];
@@ -34,7 +34,7 @@ const compRender = (record, changeInitValue) => {
   };
 
   return (
-    <ModalInput mapper={mapper} resetValue={resetValue} >
+    <ModalInput mapper={mapper} resetValue={resetValue} disabled={modalData.disabled} isReadonly={record.isReadonly}>
       <TempPage domainType={modalData.domainType} domainLink={modalData.domainLink} />
     </ModalInput>
   );

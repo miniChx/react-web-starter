@@ -116,53 +116,24 @@ class Detail extends React.Component {
   }
 
   @autobind
-  realSubmit(item, values) {
+  realSubmit(func, values) {
     const rest = this.createReqParam();
     const self = this;
     const original = this.props.dataSource.detailResult || {};
-    this.props.exec(() => {
-      // TODO: 地址多一个斜杠
-      return PFetch((item.domainLink || item.actionName), { ...original, ...rest, ...values })
-        .then(response => {
-          console.log(response);
-          // if (item.messagePromptType === 'message') {
-          Modal.info({
-            title: '提示',
-            content: (<div>您已成功{item.buttonDescription}！</div>),
-            onOk() {
-              self.props.afterSubmit && self.props.afterSubmit(false);
-              self.props.isModal && self.props.modalCallback && self.props.modalCallback();
-              // dispatch(goBack());
-            }
-          });
-          // }
-        })
-        .catch(errorData => {
-          console.log(errorData);
-          Modal.error({
-            title: '提示',
-            content: (<div>{item.buttonDescription}失败！</div>),
-            onOk() {
-              self.props.afterSubmit && self.props.afterSubmit(true);
-            },
-          });
-        });
-    });
+    return func && func({ ...original, ...rest, ...values });
   }
 
   @autobind
-  handleSubmit(item) {
+  handleSubmit(func) {
     const self = this;
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        // const { domainType, ...rest } = this.props.query;
         if (self.props.beforeSubmit) {
           self.props.beforeSubmit(values, (v = values) => {
-            self.realSubmit(item,  v);
+            self.realSubmit(func,  v);
           })
         } else {
-          self.realSubmit(item, values);
+          self.realSubmit(func, values);
         }
       }
     });
@@ -207,7 +178,7 @@ class Detail extends React.Component {
           className={buttonClass}
           query={query}
           inject={inject}
-          submitFuc={() => this.handleSubmit(item)}
+          submitFuc={(func) => this.handleSubmit(func)}
           onRefresh={this._onSearch}
           relatedRows={BUTTON_RELATEDROWS.NONE}
         />
