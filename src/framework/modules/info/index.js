@@ -22,6 +22,8 @@ import { showModal } from '../../pageContainer/ModalWrapper';
 import { getValueByKey } from '../../utils/MapUtils';
 import FixedButtonGroup from './fixedButtonGroup';
 import { PAGE_TYPE_DETAIL } from '../../constant/dictActions';
+import { BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
+import { ExtendButton } from '../../../components';
 
 // const IFrame = require('react-iframe');
 
@@ -41,6 +43,23 @@ export default class Layout extends React.Component {
       this.tag = getMenuItemByFunc(m => m.isSelected === true, this.props.dataSource.menus) || {};
       openKeys = this.changeMenuSelect(this.tag.menuCode, this.props.dataSource.menus).openKeys;
     }
+    const buttons = (this.props.dataSource && this.props.dataSource.buttons) || [];
+    const { prefixCls, query, inject } = this.props;
+    const buttonClass = `${prefixCls}-button`;
+    const globalBtns = buttons.map(item => (
+      <ExtendButton
+        type="button"
+        inline={false}
+        buttonProps={{ type: 'ghost' }}
+        {...item}
+        disabled={false}
+        key={item.buttonDescription}
+        query={query}
+        className={buttonClass}
+        inject={inject}
+        relatedRows={BUTTON_RELATEDROWS.NONE}
+      />
+    ));
     const tools = false;
     this.state = {
       main: null,
@@ -53,7 +72,8 @@ export default class Layout extends React.Component {
       openKeys,
       // toolStyle: tools ? appStyle.layoutToolsOut : appStyle.layoutToolsIn
       toolStyle: appStyle.layoutToolsDefault,
-      topButtons: []
+      topButtons: [],
+      globalBtns
     };
   }
 
@@ -64,13 +84,13 @@ export default class Layout extends React.Component {
 
   @autobind
   createTopButtons(data) {
-    this.setState({ topButtons: data });
+    this.setState({ topButtons: [...this.state.globalBtns, ...data] });
   }
 
   @autobind
-  createMain(data, domainType, domainLink) {
+  createMain(data, domainType, domainLink, displayType) {
     const TempPage = Compose(AsyncDecorator, InitDecorator)();
-    return (<TempPage {...this.props} createTopButtons={this.createTopButtons} dataSource={data} domainType={domainType} domainLink={domainLink} />);
+    return (<TempPage {...this.props} displayTypecreateTopButtons={this.createTopButtons} dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
   @autobind
@@ -106,10 +126,11 @@ export default class Layout extends React.Component {
     this.props.exec(() => {
       return this.props.fetch(trimStart(domainLink, '/'), this.createReqParam(menuItem)).then(data => {
         this.setState({
-          main: this.createMain(data, domainType, domainLink),
+          main: this.createMain(data, domainType, domainLink, menuItem.displayType),
           ...patch
         }, this.updateAnchor);
       }).catch(err => {
+        console.log('**  error  **', err);
         this.setState({
           main: (<div>没有数据...</div>),
           ...patch

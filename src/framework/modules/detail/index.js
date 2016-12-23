@@ -17,7 +17,7 @@ export default class ListDetail extends React.Component {
 
   /* eslint-disable */
   static propTypes = {
-    model: React.PropTypes.oneOf([VIEW, EDIT]),
+    displayType: React.PropTypes.oneOf([VIEW, EDIT]),
     inject: React.PropTypes.object,
     createRules: React.PropTypes.func, // 自定义表单校验 // record
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // callback
@@ -28,7 +28,7 @@ export default class ListDetail extends React.Component {
 
   @autobind
   confirmModel() {
-    return this.props.dataSource.displayType;
+    return this.props.dataSource.displayType || this.props.displayType || this.props.params.displayType || this.props.query.displayType;
   }
 
   constructor(props) {
@@ -38,6 +38,18 @@ export default class ListDetail extends React.Component {
     this.state = {
       model:  this.confirmModel() || this.props.model
     };
+    this.originalOnBeforeUnload = null;
+  }
+
+  componentWillMount() {
+    this.originalOnBeforeUnload = window.onbeforeunload;
+    window.onbeforeunload = function (e) {
+      return '关闭提示'; // 这个提示无效
+    };
+  }
+
+  componentWillUnmount() {
+    window.onbeforeunload =  this.originalOnBeforeUnload;
   }
 
   @autobind

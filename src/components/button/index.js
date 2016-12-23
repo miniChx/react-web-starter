@@ -30,12 +30,15 @@ export class ExtendButton extends React.Component {
     inline: PropTypes.bool,
     query: PropTypes.object,
     inject: PropTypes.object,
-    submitFuc: PropTypes.object
+    submitFuc: PropTypes.object,
+    relatedRows: PropTypes.string,
+    buttonDescriptionDetail: PropTypes.string,
   };
 
   static defaultProps = {
     selectedType: LIST_SELECTTYPE.INLINE,
     inline: true,
+    relatedRows: BUTTON_RELATEDROWS.NONE
   };
 
   @autobind
@@ -45,6 +48,7 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _jump(params) {
+    params.displayType = this.props.displayType;
     const templateType = this.props.templateType || this.props.domainType;
     const actionLink = this._getActionLink();
     const mode = this.props.interactiveType;
@@ -76,31 +80,27 @@ export class ExtendButton extends React.Component {
 
   @autobind
   _processAction(params, nextActionLink) {
-    if (this.props.submitFuc) {
-      this.props.submitFuc();
-    } else {
-      let url = nextActionLink;
-      if (!url) {
-        url = this._getActionLink();
-      }
-      PFetch(trimStart(url, '/'), params)
-        .then(response => {
-          console.log(response);
-          Modal.info({
-            title: '提示',
-            content: (<div>{this.props.buttonDescription}成功！</div>),
-            onOk: () => this._processNext(params, response),
-          });
-        })
-        .catch(errorData => {
-          console.log(errorData);
-          Modal.error({
-            title: '提示',
-            content: (<div>{this.props.buttonDescription}失败！</div>),
-            onOk() {},
-          });
-        });
+    let url = nextActionLink;
+    if (!url) {
+      url = this._getActionLink();
     }
+    PFetch(trimStart(url, '/'), params)
+      .then(response => {
+        console.log(response);
+        Modal.info({
+          title: '提示',
+          content: (<div>{this.props.buttonDescription}成功！</div>),
+          onOk: () => this._processNext(params, response),
+        });
+      })
+      .catch(errorData => {
+        console.log(errorData);
+        Modal.error({
+          title: '提示',
+          content: (<div>{this.props.buttonDescription}失败！</div>),
+          onOk() {},
+        });
+      });
   }
 
   @autobind
@@ -140,8 +140,7 @@ export class ExtendButton extends React.Component {
   }
 
   @autobind
-  _triggerActionWithoutRows() {
-    const params = { ...this.props.query, ...this._genCustomParams() };
+  _triggerActionReal(params) {
     if (this.props.interactiveType === BUTTON_INTERACTIVETYPE.ACTION) {
       // message|confirm|tooltip
       if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
@@ -159,6 +158,18 @@ export class ExtendButton extends React.Component {
     } else {
       // eslint-disable-next-line max-len
       this._jump(params);
+    }
+  }
+
+  @autobind
+  _triggerActionWithoutRows() {
+    const params = { ...this.props.query, ...this._genCustomParams() };
+    if (this.props.submitFuc) {
+      this.props.submitFuc(values => {
+        this._triggerActionReal({ ...params, ...values });
+      });
+    } else {
+      this._triggerActionReal(params);
     }
   }
 
@@ -245,13 +256,13 @@ export class ExtendButton extends React.Component {
 
   render() {
     // TODO. temporary disabled tooltip
-    // if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.TOOLTIP) {
-    //   return (
-    //     <Tooltip title={this.props.buttonDescription}>
-    //       {this._renderButton()}
-    //     </Tooltip>
-    //   );
-    // }
+    if (this.props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.TOOLTIP) {
+      return (
+        <Tooltip title={this.props.buttonDescriptionDetail || this.props.buttonDescription}>
+          {this._renderButton()}
+        </Tooltip>
+      );
+    }
 
     return this._renderButton();
   }

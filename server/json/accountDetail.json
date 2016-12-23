@@ -192,6 +192,7 @@
       "validateType": null,
       "opt": null,
       "modalInput": {
+        "disabled": true,
         "domainType": "List",
         "domainLink": "/EnterpriseCusBasicInfoList/render",
         "bindParameterType": "SEVERAL",

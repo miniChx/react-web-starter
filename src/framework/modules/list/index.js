@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Search, Row, Col } from 'mxa';
+import { Table, Button, Search, Row, Col, Tooltip } from 'mxa';
 // import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';
@@ -81,6 +81,18 @@ class ListView extends React.Component {
           title: item.description,
           dataIndex: item.name,
           sorter: !!orderItems[item.name],
+          render: text => {
+            if (typeof text === 'string' && text.length > 20) {
+              return (
+                <Tooltip title={text} placement="top">
+                  <span>{text.substring(0, 18) + '...'}</span>
+                </Tooltip>
+              );
+            }
+            return (
+              <span>text</span>
+            );
+          }
         });
       }
     });
@@ -323,6 +335,7 @@ class ListView extends React.Component {
             {!this.props.hiddenSearchBar && (<Search dataSource={this.state.filters} onSearch={this._onFilterChange} />)}
           </div>
           <Table
+            locale={{ emptyText: '无符合条件的相关数据' }}
             rowSelection={rowSelection}
             columns={this.state.columns}
             dataSource={this.state.dataSource}
