@@ -90,12 +90,12 @@ module.exports = {
     // 'babel-polyfill': 'window', // polyfill 直接写 {} 也是可以的
     // 'whatwg-fetch': 'fetch',
 
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    // 'react': 'React',
+    // 'react-dom': 'ReactDOM',
+    // 'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
     // 'redux': 'Redux',
     // 'react-redux': 'ReactRedux',
-    'react-router': 'ReactRouter',
+    // 'react-router': 'ReactRouter',
     // 'react-router-redux': 'ReactRouterRedux',
     // 'moment': 'moment',
   },
