@@ -74,7 +74,7 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.8.3",
     "json-loader": "0.5.4",
-    "json-mock-tool": "http://192.168.61.91:10001/repository/npm-group/json-mock-tool/-/json-mock-tool-0.4.2.tgz",
+    "json-mock-tool": "http://192.168.61.91:10001/repository/npm-group/json-mock-tool/-/json-mock-tool-0.4.5.tgz",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "4.1.0",
