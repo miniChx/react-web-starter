@@ -22,7 +22,7 @@
     ],
     "totalItems": 1
   },
-  "selectType": "RADIO",
+  "selectType": "CHECKBOX",
   "variantFields": [],
   "fields": [
     {
@@ -247,20 +247,6 @@
   ],
   "buttons": [
     {
-      "buttonDescription": "添加",
-      "displayPosition": "TOP",
-      "interactiveType": "MODAL",
-      "messagePromptType": "TOOLTIP",
-      "isSelectToJump": false,
-      "domainLink": "/Api/EnterpriseBasicAddInfoDetail/render",
-      "domainType": "Detail",
-      "actionName": null,
-      "buttonCode": "enterpriseBasicAddInfo_Detail_render_In_enterpriseCusBasicInfo_List\n            ",
-      "transmitParameters": [],
-      "bindParameterType": "NONE",
-      "bindParameters": null
-    },
-    {
       "buttonDescription": "显示页面菜单",
       "displayPosition": "TOP",
       "interactiveType": "PAGE",
@@ -269,7 +255,7 @@
       "domainLink": "/Api/BasicCustomerList/renderPageMenu",
       "domainType": "Info",
       "actionName": null,
-      "buttonCode": "basicCustomer_List_renderPageMenu_In_enterpriseCusBasicInfo_List\n            ",
+      "buttonCode": "basicCustomer_List_renderPageMenu_In_enterpriseCusBasicInfo_List",
       "transmitParameters": [
         {
           "name": "enterpriseId"
@@ -282,6 +268,24 @@
           "value": "customerProfile"
         }
       ]
+    },
+    {
+      "buttonDescriptionDetail": "我是添加按钮",
+      "buttonDescription": "测试",
+      "hideIfReadonly": false,
+      "displayPosition": "TOP",
+      "relateData": "SINGLE",
+      "interactiveType": "MODAL",
+      "messagePromptType": "MESSAGE",
+      "actionLink": "/AccountDetail/render",
+      "templateType": "Detail",
+      "nextActionLink": "/ddd/rendByKey",
+      "actionType": "REQUEST",
+      "actionName": null,
+      "buttonCode": " enterpriseBasicAddInfo_Detail_render_In_enterpriseCusBasicInfo_List",
+      "transmitParameters": [],
+      "bindParameterType": "NONE",
+      "bindParameters": null
     }
   ],
   "filterItems": [

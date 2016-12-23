@@ -13,7 +13,7 @@ class MyCheckboxGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.defaultValue,
+      value: this.props.value,
     };
   }
 
@@ -23,12 +23,12 @@ class MyCheckboxGroup extends React.Component {
     const v = value && value.join && value.join(',');
     onChange && onChange(v);
     this.setState({
-      value: v
+      value: value
     });
   }
 
   render() {
-    return (<CheckboxGroup options={this.props.options} value={this.state.value && this.state.value.split && this.state.value.split(',')} onChange={this._onChange} disabled={this.props.disabled} />);
+    return (<CheckboxGroup options={this.props.options} value={this.state.value} onChange={this._onChange} disabled={this.props.disabled} />);
   }
 }
 

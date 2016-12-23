@@ -16,7 +16,7 @@ import { getValueByKey } from '../../utils/MapUtils';
 import { AnHref } from '../info';
 import SwitchContainer from './switchContainer';
 import { VIEW, EDIT } from './constant';
-import { BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
+import { BUTTON_POSITION, BUTTON_RELATEDATA } from '../../constant/dictCodes';
 import { ExtendButton } from '../../../components';
 
 const FormItem = Form.Item;
@@ -180,7 +180,7 @@ class Detail extends React.Component {
           inject={inject}
           submitFuc={(func) => this.handleSubmit(func)}
           onRefresh={this._onSearch}
-          relatedRows={BUTTON_RELATEDROWS.NONE}
+          relateData={BUTTON_RELATEDATA.NONE}
         />
       );
     });

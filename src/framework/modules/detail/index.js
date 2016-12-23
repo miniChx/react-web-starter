@@ -28,7 +28,7 @@ export default class ListDetail extends React.Component {
 
   @autobind
   confirmModel() {
-    return this.props.dataSource.displayType || this.props.displayType || this.props.params.displayType || this.props.query.displayType;
+    return this.props.dataSource.displayType || this.props.displayType || (this.props.params && this.props.params.displayType) || (this.props.query && this.props.query.displayType);
   }
 
   constructor(props) {
@@ -42,14 +42,14 @@ export default class ListDetail extends React.Component {
   }
 
   componentWillMount() {
-    this.originalOnBeforeUnload = window.onbeforeunload;
-    window.onbeforeunload = function (e) {
-      return '关闭提示'; // 这个提示无效
-    };
+    // this.originalOnBeforeUnload = window.onbeforeunload;
+    // window.onbeforeunload = function (e) {
+    //   return '关闭提示'; // 这个提示无效
+    // };
   }
 
   componentWillUnmount() {
-    window.onbeforeunload =  this.originalOnBeforeUnload;
+    // window.onbeforeunload =  this.originalOnBeforeUnload;
   }
 
   @autobind

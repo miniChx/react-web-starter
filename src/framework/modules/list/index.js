@@ -7,7 +7,7 @@ import { Table, Button, Search, Row, Col, Tooltip } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';
 import { ExtendButton } from '../../../components';
-import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
+import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDATA } from '../../constant/dictCodes';
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 import SideMenu from '../info/sideMenu';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
@@ -114,13 +114,6 @@ class ListView extends React.Component {
       });
     }
 
-    //  const variantFields = data.variantFields.map(variant => {
-    //   return {
-    //     fieldName: variant,
-    //     fieldValue: this.props.query ? this.props.query[variant] : '',
-    //   };
-    //  });
-    // issue #5
     const variantFields = {};
     data.variantFields.forEach(variant => {
       variantFields[variant] = this.props.query ? this.props.query[variant] : '';
@@ -263,8 +256,8 @@ class ListView extends React.Component {
                 type: 'ghost',
               }}
               {...item}
-              disabled={(item.relatedRows === BUTTON_RELATEDROWS.SINGLE && this.state.selectedRowKeys.length !== 1)
-                || (item.relatedRows === BUTTON_RELATEDROWS.MULTIPLE && this.state.selectedRowKeys.length < 1)}
+              disabled={(item.relateData === BUTTON_RELATEDATA.SINGLE && this.state.selectedRowKeys.length !== 1)
+                || (item.relateData === BUTTON_RELATEDATA.MULTIPLE && this.state.selectedRowKeys.length < 1)}
               key={item.buttonDescription}
               mainEntityKey={this.state.mainEntityKey}
               selectedType={this.state.selectedType}
