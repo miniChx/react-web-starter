@@ -86,11 +86,15 @@ export default {
   next: collectData,
   ctrl: (data, props, processCtrl) => {
     if (props.actionType === BUTTON_ACTIONTYPE.ROUTER) {
-      processCtrl.push(lastAction);
+      processCtrl.push({
+        next: (d, p, next) => {
+          lastAction.next(d, p.actionLink, p);
+        }
+      });
     } else if (props.actionType === BUTTON_ACTIONTYPE.REQUEST) {
       processCtrl.push({
         next: (d, p, next) => {
-          triggerRequest.next({ params: d, url: props.actionLink }, p, next);
+          triggerRequest.next({ params: d, url: p.actionLink }, p, next);
         },
         ctrl: triggerRequest.ctrl
       });

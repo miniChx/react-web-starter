@@ -34,7 +34,5 @@ const jump = (params, actionLink, props) => {
 };
 
 export default {
-  next: (data, props, next) => {
-    jump(data, props.actionLink, props);
-  }
+  next: jump
 };

@@ -11,7 +11,7 @@ import { showModal } from '../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../framework/system/fetch';
 import { longRunExec } from '../../framework/system/longRunOpt';
 
-import collectData from './assembleData';
+import actionProcess from './actionProcess';
 
 import {
   LIST_SELECTTYPE,
@@ -27,14 +27,14 @@ const confirm = Modal.confirm;
 export class ExtendButton extends React.Component {
   static propTypes = {
     disabled: PropTypes.bool,
-    record: PropTypes.any,
-    mainEntityKey: PropTypes.string,
+    // record: PropTypes.any,
+    // mainEntityKey: PropTypes.string,
     type: PropTypes.oneOf(['button', 'link']),
     // selectedType: PropTypes.oneOf([LIST_SELECTTYPE.INLINE, LIST_SELECTTYPE.RADIO, LIST_SELECTTYPE.CHECKBOX]),
     // inline: PropTypes.bool,
-    query: PropTypes.object,
-    inject: PropTypes.object,
-    submitFuc: PropTypes.object,
+    // query: PropTypes.object,
+    // inject: PropTypes.object,
+    // submitFuc: PropTypes.object,
     // relateData: PropTypes.string,
     buttonDescriptionDetail: PropTypes.string,
   };
@@ -48,19 +48,7 @@ export class ExtendButton extends React.Component {
   // 第一阶段  收集数据
   @autobind
   _triggerAction() {
-    const processList = [collectData];
-    const nextFunc = data => {
-      const step = processList.pop();
-      if (step) {
-        const next = step.next;
-        const ctrl = step.ctrl;
-        next && next(data, this.props, res => {
-          ctrl && ctrl(res, this.props, processList);
-          nextFunc(res);
-        });
-      }
-    };
-    nextFunc({});
+    actionProcess(this.props);
   }
 
   @autobind

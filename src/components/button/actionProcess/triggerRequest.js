@@ -25,33 +25,41 @@ const processAction = (data, props, next) => {
     }));
 };
 
+const nextLinkDecorator = () => {
+  return {
+    next: (data, props, next) => {
+      processAction({ params: data, url: props.actionLink }, props, next);
+    },
+    ctrl: (data, props, process) => {
+      process.push({
+        next: (d, p, next) => {
+          lastAction.next(d, p.nextActionLink, p);
+        }
+      });
+    }
+  };
+};
+
+const lastActionDecorator = () => {
+  return {
+    next: (data, props, next) => {
+      lastAction.next(data, props.actionLink, props);
+    }
+  };
+};
 
 export default {
   next: processAction,
   ctrl: (data, props, processCtrl) => {
     if (data.needConfirm) {
       if (props.nextActionLink) {
-        processCtrl.push({
-          next: (d, p, next) => {
-            processAction({ params: d, url: props.actionLink }, p, next);
-          },
-          ctrl: (d, p, process) => {
-            process.push(lastAction);
-          }
-        });
+        processCtrl.push(nextLinkDecorator());
       }
       processCtrl.push(popConfirm);
     } else if (props.nextActionLink) {
-      processCtrl.push({
-        next: (d, p, next) => {
-          processAction({ params: d, url: props.actionLink }, p, next);
-        },
-        ctrl: (d, p, process) => {
-          process.push(lastAction);
-        }
-      });
+      processCtrl.push(nextLinkDecorator());
     } else {
-      processCtrl.push(lastAction);
+      processCtrl.push(lastActionDecorator());
     }
   }
 };

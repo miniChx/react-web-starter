@@ -5,10 +5,10 @@ import React, { PropTypes } from 'react';
 import { Modal } from 'mxa';
 
 const confirmData = (data, props, next) => {
-  if (data.needConfrim) {
-    Modal.error({
+  if (data.needConfirm) {
+    Modal.confirm({
       title: '提示',
-      content: (<div>{props.buttonDescription}失败！</div>),
+      content: (<div>{props.buttonDescription}二次确认！</div>),
       onOk: () => next(data),
     });
   } else {

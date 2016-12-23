@@ -280,7 +280,7 @@
       "actionLink": "/AccountDetail/render",
       "templateType": "Detail",
       "nextActionLink": "/ddd/rendByKey",
-      "actionType": "REQUEST",
+      "actionType": "ROUTER",
       "actionName": null,
       "buttonCode": " enterpriseBasicAddInfo_Detail_render_In_enterpriseCusBasicInfo_List",
       "transmitParameters": [],

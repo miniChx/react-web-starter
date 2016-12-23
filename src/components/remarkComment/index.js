@@ -5,6 +5,7 @@
 import React from 'react';
 import Detail from '../../framework/modules/detail';
 
+/* eslint-disable */
 const data = {
   "detailResult": {},
   "columnNumber": 1,
