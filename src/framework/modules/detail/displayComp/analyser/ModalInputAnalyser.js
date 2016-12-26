@@ -35,7 +35,7 @@ const compRender = (record, changeInitValue) => {
 
   return (
     <ModalInput mapper={mapper} resetValue={resetValue} disabled={modalData.disabled} isReadonly={record.isReadonly}>
-      <TempPage domainType={modalData.domainType} domainLink={modalData.domainLink} />
+      <TempPage domainType={modalData.domainType || modalData.templateType || modalData.subDomain} domainLink={modalData.domainLink || modalData.actionLink} />
     </ModalInput>
   );
 };

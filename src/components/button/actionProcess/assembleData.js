@@ -33,9 +33,12 @@ const genCustomParams = props => {
 
 const triggerActionWithoutRows = (data, props, next) => {
   const params = { ...props.query, ...genCustomParams(props) };
-  if (props.submitFuc) {
-    props.submitFuc(values => {
-      next({ ...params, ...values });
+  if (props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+    confirm({
+      title: '提示',
+      content: (<div>确认{props.buttonDescription}吗？</div>),
+      onOk: () => next(params),
+      onCancel() {},
     });
   } else {
     next(params);
@@ -53,7 +56,7 @@ const triggerActionWithoutForm = (data, props, next) => {
       next(params);
     }
   };
-  if (props.actionType === BUTTON_ACTIONTYPE.REQUEST && BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+  if (props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
     confirm({
       title: '提示',
       content: (<div>确认{props.buttonDescription}吗？</div>),
@@ -87,7 +90,7 @@ const genParams = (record, props) => {
 
 const triggerActionSingle = (activeData, props, next) => {
   const params = genParams(activeData, props);
-  if (props.actionType === BUTTON_ACTIONTYPE.REQUEST && BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+  if (props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
     confirm({
       title: '提示',
       content: (<div>确认{props.buttonDescription}{activeData.leaseeName}吗？</div>),
@@ -101,7 +104,7 @@ const triggerActionSingle = (activeData, props, next) => {
 
 const triggerActionMultiple = (activeData, props, next) => {
   const params = activeData.map(record => this._genParams(record));
-  if (props.actionType === BUTTON_ACTIONTYPE.REQUEST && BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+  if (props.messagePromptType === BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
     confirm({
       title: '提示',
       content: (<div>确认{props.buttonDescription}所选数据吗？</div>),

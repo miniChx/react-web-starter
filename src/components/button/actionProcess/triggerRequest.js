@@ -21,7 +21,11 @@ const processAction = (data, props, next) => {
         });
       } else {
         // 主要有nextLink的情况
-        next && next({ ...data.params, ...response });
+        Modal.info({
+          title: '提示',
+          content: (<div>{props.buttonDescription}成功！</div>),
+          onOk: () => next && next({ ...data.params, ...response })
+        });
       }
     })
     .catch(errorData => {

@@ -29,7 +29,7 @@ const showComponent = (component, params) => {
       maskClosable={false}
       visible={true}
       onCancel={_close}
-      zIndex="500"
+      zIndex="999"
     >
       <div>
         {closeBar(_close)}
