@@ -22,7 +22,7 @@ import { showModal } from '../../pageContainer/ModalWrapper';
 import { getValueByKey } from '../../utils/MapUtils';
 import FixedButtonGroup from './fixedButtonGroup';
 import { PAGE_TYPE_DETAIL } from '../../constant/dictActions';
-import { BUTTON_POSITION, BUTTON_RELATEDROWS } from '../../constant/dictCodes';
+import { BUTTON_POSITION, BUTTON_RELATEDATA } from '../../constant/dictCodes';
 import { ExtendButton } from '../../../components';
 
 // const IFrame = require('react-iframe');
@@ -57,7 +57,7 @@ export default class Layout extends React.Component {
         query={query}
         className={buttonClass}
         inject={inject}
-        relatedRows={BUTTON_RELATEDROWS.NONE}
+        relatedRows={BUTTON_RELATEDATA.NONE}
       />
     ));
     const tools = false;
@@ -88,9 +88,14 @@ export default class Layout extends React.Component {
   }
 
   @autobind
+  clearTopButtons() {
+    this.setState({ topButtons: [] });
+  }
+
+  @autobind
   createMain(data, domainType, domainLink, displayType) {
     const TempPage = Compose(AsyncDecorator, InitDecorator)();
-    return (<TempPage {...this.props} displayTypecreateTopButtons={this.createTopButtons} dataSource={data} domainType={domainType} domainLink={domainLink} />);
+    return (<TempPage {...this.props} displayType={displayType} createTopButtons={this.createTopButtons} dataSource={data} domainType={domainType} domainLink={domainLink} />);
   }
 
   @autobind
@@ -119,6 +124,7 @@ export default class Layout extends React.Component {
   // TODO: refactor  不需要renderMain
   @autobind
   updateMain(domainLink, domainType, menuItem) {
+    this.clearTopButtons();
     const menuCode = menuItem.menuCode;
     // 下部菜单
     const patch = searchBeforeAndAfter(menuCode, this.props.dataSource.menus);
