@@ -85,18 +85,25 @@ const collectData = (p, props, next) => {
 export default {
   next: collectData,
   ctrl: (data, props, processCtrl) => {
-    if (props.actionType === BUTTON_ACTIONTYPE.ROUTER) {
-      processCtrl.push({
-        next: (d, p, next) => {
-          lastAction.next(d, p.actionLink, p);
-        }
-      });
-    } else if (props.actionType === BUTTON_ACTIONTYPE.REQUEST) {
+    if (props.actionType === BUTTON_ACTIONTYPE.REQUEST) {
       processCtrl.push({
         next: (d, p, next) => {
           triggerRequest.next({ params: d, url: p.actionLink }, p, next);
         },
         ctrl: triggerRequest.ctrl
+      });
+    } else if (props.actionType === BUTTON_ACTIONTYPE.ROUTER) {
+      processCtrl.push({
+        next: (d, p, next) => {
+          lastAction.next(d, p.actionLink, p);
+        }
+      });
+    } else {
+      // 默认 ROUTER
+      processCtrl.push({
+        next: (d, p, next) => {
+          lastAction.next(d, p.actionLink, p);
+        }
       });
     }
   }
