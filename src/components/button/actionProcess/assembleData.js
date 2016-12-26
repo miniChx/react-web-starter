@@ -1,6 +1,7 @@
 /**
  * 收集数据
  */
+import React from 'react';
 import { Modal } from 'mxa';
 import {
   LIST_SELECTTYPE,
@@ -60,7 +61,7 @@ const triggerActionWithoutForm = (data, props, next) => {
       onCancel() {},
     });
   } else {
-   cb();
+    cb();
   }
 };
 
