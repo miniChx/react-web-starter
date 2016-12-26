@@ -49,7 +49,7 @@ class StaticDisplay extends React.Component {
   render() {
     const value = [];
     this.props.opts && this.props.opts.forEach(item => {
-      if (item.code === this.props.value) {
+      if (this.props.value && this.props.value.indexOf(item.code) >=0) {
         value.push(item.value);
       }
     });
