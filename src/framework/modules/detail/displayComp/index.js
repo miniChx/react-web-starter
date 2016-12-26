@@ -63,8 +63,6 @@ const getBindParameter = (props, initValueSource) => {
 const transFromtoDate = (data, compRender) => {
   if (compRender === FormItemMap.DATEPICKER || compRender === FormItemMap.TIMEPICKER) {
     return data && moment(new Date(data));
-  } else if (compRender === FormItemMap.CHECKBOXGROUP) {
-    return (data && data.split(',')) || [];
   }
   return data;
 };

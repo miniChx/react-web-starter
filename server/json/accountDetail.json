@@ -875,7 +875,7 @@
       "fieldCode": "ENTERPRISECUSBASICINFO_ALIAS_IN_ENTERPRISECUSBASICINFO_DETAIL",
       "index": 3,
       "entityShortName": "ent",
-      "type": "String",
+      "type": "Long",
       "length": 30,
       "description": "客户简称",
       "groupId": 1,
@@ -885,7 +885,7 @@
       "isReadonly": false,
       "isRequired": false,
       "displayComponent": {
-        "componentType": "INPUT",
+        "componentType": "INPUTNUMBER",
         "dictionaryCategory": "",
         "dictionaryItems": []
       },
