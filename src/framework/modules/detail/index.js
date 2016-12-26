@@ -6,6 +6,7 @@ import { autobind } from 'core-decorators';
 import detailCreator from './main';
 import SwitchContainer from './switchContainer';
 import { VIEW, EDIT } from './constant';
+import { BodyTitle } from '../../../components';
 
 
 export default class ListDetail extends React.Component {
@@ -66,7 +67,10 @@ export default class ListDetail extends React.Component {
     const mainProps = { ...this.props, model };
     const Main = detailCreator();
     return (
-      <Main { ...mainProps } changeState={this.changeState} />
+      <div>
+        <BodyTitle title={this.props.menuValue} />
+        <Main { ...mainProps } changeState={this.changeState} />
+      </div>
     );
   }
 

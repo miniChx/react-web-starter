@@ -6,7 +6,7 @@ import { Table, Button, Search, Row, Col, Tooltip } from 'mxa';
 // import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';
-import { ExtendButton } from '../../../components';
+import { ExtendButton, BodyTitle } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 import SideMenu from '../info/sideMenu';
@@ -326,6 +326,7 @@ class ListView extends React.Component {
       const toolbarClass = `${prefixCls}-toolbar`;
       return (
         <div className={prefixCls}>
+          <BodyTitle title={this.props.menuValue} />
           <div className={toolbarClass}>
             {this._renderTopButtons()}
             {!this.props.hiddenSearchBar && (<Search dataSource={this.state.filters} onSearch={this._onFilterChange} />)}

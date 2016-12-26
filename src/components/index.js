@@ -8,3 +8,4 @@ export { Header, Footer } from './layout';
 export { default as Loading } from './loading';
 export { default as ModalInput } from './modalInput';
 export { default as District } from './district';
+export { default as BodyTitle } from './bodyTitle';

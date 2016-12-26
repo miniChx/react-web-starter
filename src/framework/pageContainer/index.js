@@ -27,7 +27,7 @@ class PageContainer extends React.PureComponent {
     const domainType = linkInfo ? linkInfo.domainType : this.props.query.domainType;
     const FinalPage = Compose(AsyncDecorator, InitDecorator)();
     return (
-      <FinalPage key="key_page_container" {...this.props} domainType={domainType} domainLink={domainLink} />
+      <FinalPage key="key_page_container" {...this.props} menuValue={linkInfo && linkInfo.menuValue} domainType={domainType} domainLink={domainLink} />
     );
   }
 }
