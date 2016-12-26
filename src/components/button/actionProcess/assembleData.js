@@ -120,13 +120,13 @@ const collectData = (p, props, next) => {
   const { record } = props;
   if (props.relatedData === BUTTON_RELATEDDATA.NONE) {
     triggerActionWithoutRows({}, props, next);
+  } else if (props.relatedData === BUTTON_RELATEDDATA.FORM) {
+    triggerActionWithoutForm({}, props, next);
   } else if (props.inline) {
     triggerActionSingle(record, props, next);
   } else if (props.selectedType !== LIST_SELECTTYPE.CHECKBOX
     || props.relatedData === BUTTON_RELATEDDATA.SINGLE) {
     triggerActionSingle(record[0], props, next);
-  } else if (props.relatedData === BUTTON_RELATEDDATA.FORM) {
-    triggerActionWithoutForm({}, props, next);
   } else {
     triggerActionMultiple(record, props, next);
   }

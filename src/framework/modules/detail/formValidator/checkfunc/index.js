@@ -10,6 +10,7 @@ import isRate from './isRate';
 import isString from './isString';
 import isTelephone from './isTelephone';
 import isTerm from './isTerm';
+import isSameWith from './isSameWith';
 
 export default {
   CONTEXTCHECK: ContextCheck,
@@ -20,5 +21,6 @@ export default {
   ISRATE: isRate,
   ISSTRING: isString,
   ISTELEPHONE: isTelephone,
-  ISTERM: isTerm
+  ISTERM: isTerm,
+  ISSAMEWITH: isSameWith,
 };

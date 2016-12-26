@@ -821,6 +821,12 @@
       "fieldCode": "ENTERPRISECUSBASICINFO_MAJORBUSINESSDESC_IN_ENTERPRISECUSBASICINFO_DETAIL\n            ",
       "index": 25,
       "entityShortName": "ope",
+      "formValidate": {
+        "opt":{
+          "formItemName": "businessScope"
+        },
+        "validateType": "ISSAMEWITH"
+      },
       "type": "String",
       "length": 2000,
       "description": "主营业务/主要产品/服务情况",
@@ -1133,7 +1139,8 @@
       "buttonCode": "enterpriseCusBasicInfo_Detail_update_In_enterpriseCusBasicInfo_Detail",
       "transmitParameters": null,
       "bindParameterType": "ALL",
-      "bindParameters": null
+      "bindParameters": null,
+      "relatedData": "FORM"
     }
   ]
 }
