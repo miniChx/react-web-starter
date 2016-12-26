@@ -25,7 +25,12 @@ const process = _promise => {
           const json = JSON.parse(response);
           console.log('返回结果: ', json);
           if (json.msgContent || json.errMsg || json.message || json.code === 'version upgrade') {
-            reject(json);
+            // ex === 5000 表示需要二次确认
+            if (json.ex === 5000) {
+              resolve({needConfirm: true, msgContent: json.msgContent});
+            } else {
+              reject(json);
+            }
           } else {
             resolve(json);
           }

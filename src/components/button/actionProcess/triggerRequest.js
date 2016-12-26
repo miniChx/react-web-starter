@@ -7,13 +7,22 @@ import { trimStart } from 'lodash/string';
 
 import { PFetch } from '../../../framework/system/fetch';
 import { longRunExec } from '../../../framework/system/longRunOpt';
-import popConfirm from './popConfirm';
-import lastAction from './lastAction';
+import routerChange from './routerChange';
 
 const processAction = (data, props, next) => {
   longRunExec(() => PFetch(trimStart(data.url, '/'), data.params)
     .then(response => {
-      next && next({ ...response, needConfirm: true });
+      // TODO: response field override data.params
+      if (response.needConfirm) {
+        Modal.confirm({
+          title: '提示',
+          content: (<div>{data.msgContent}?</div>),
+          onOk: () => next({ ...data.params, needConfirm: true }),
+        });
+      } else {
+        // 主要有nextLink的情况
+        next && next({ ...data.params, ...response });
+      }
     })
     .catch(errorData => {
       console.log(errorData);
@@ -28,22 +37,22 @@ const processAction = (data, props, next) => {
 const nextLinkDecorator = () => {
   return {
     next: (data, props, next) => {
-      processAction({ params: data, url: props.actionLink }, props, next);
+      processAction({ params: data, url: props.actionLink || props.domainLink }, props, next);
     },
     ctrl: (data, props, process) => {
       process.push({
         next: (d, p, next) => {
-          lastAction.next(d, p.nextActionLink, p);
+          routerChange.next(d, p.nextActionLink, p);
         }
       });
     }
   };
 };
 
-const lastActionDecorator = () => {
+const routerChangeDecorator = () => {
   return {
     next: (data, props, next) => {
-      lastAction.next(data, props.actionLink, props);
+      routerChange.next(data, props.actionLink || props.domainLink, props);
     }
   };
 };
@@ -51,15 +60,10 @@ const lastActionDecorator = () => {
 export default {
   next: processAction,
   ctrl: (data, props, processCtrl) => {
-    if (data.needConfirm) {
-      if (props.nextActionLink) {
-        processCtrl.push(nextLinkDecorator());
-      }
-      processCtrl.push(popConfirm);
-    } else if (props.nextActionLink) {
+    if (props.nextActionLink) {
       processCtrl.push(nextLinkDecorator());
     } else {
-      processCtrl.push(lastActionDecorator());
+      processCtrl.push(routerChangeDecorator());
     }
   }
 };

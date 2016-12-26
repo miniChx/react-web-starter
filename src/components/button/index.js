@@ -17,7 +17,7 @@ import {
   LIST_SELECTTYPE,
   BUTTON_INTERACTIVETYPE,
   BUTTON_MESSAGEPROMPTTYPE,
-  BUTTON_RELATEDATA,
+  BUTTON_RELATEDDATA,
   BUTTON_BINDPARAMETERTYPE,
   BUTTON_ACTIONTYPE
 } from '../../framework/constant/dictCodes';
@@ -35,14 +35,14 @@ export class ExtendButton extends React.Component {
     // query: PropTypes.object,
     // inject: PropTypes.object,
     // submitFuc: PropTypes.object,
-    // relateData: PropTypes.string,
+    // relatedData: PropTypes.string,
     buttonDescriptionDetail: PropTypes.string,
   };
 
   static defaultProps = {
     selectedType: LIST_SELECTTYPE.INLINE,
     inline: true,
-    relateData: BUTTON_RELATEDATA.NONE
+    relatedData: BUTTON_RELATEDDATA.NONE
   };
 
   // 第一阶段  收集数据

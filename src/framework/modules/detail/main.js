@@ -16,7 +16,7 @@ import { getValueByKey } from '../../utils/MapUtils';
 import { AnHref } from '../info';
 import SwitchContainer from './switchContainer';
 import { VIEW, EDIT } from './constant';
-import { BUTTON_POSITION, BUTTON_RELATEDATA } from '../../constant/dictCodes';
+import { BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { ExtendButton } from '../../../components';
 
 const FormItem = Form.Item;
@@ -178,9 +178,8 @@ class Detail extends React.Component {
           className={buttonClass}
           query={query}
           inject={inject}
-          submitFuc={(func) => this.handleSubmit(func)}
+          submitFuc={item.relatedData === BUTTON_RELATEDDATA.FORM && ((func) => this.handleSubmit(func))}
           onRefresh={this._onSearch}
-          relateData={BUTTON_RELATEDATA.NONE}
         />
       );
     });

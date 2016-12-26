@@ -22,7 +22,7 @@ import { showModal } from '../../pageContainer/ModalWrapper';
 import { getValueByKey } from '../../utils/MapUtils';
 import FixedButtonGroup from './fixedButtonGroup';
 import { PAGE_TYPE_DETAIL } from '../../constant/dictActions';
-import { BUTTON_POSITION, BUTTON_RELATEDATA } from '../../constant/dictCodes';
+import { BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { ExtendButton } from '../../../components';
 
 // const IFrame = require('react-iframe');
@@ -57,7 +57,7 @@ export default class Layout extends React.Component {
         query={query}
         className={buttonClass}
         inject={inject}
-        relatedRows={BUTTON_RELATEDATA.NONE}
+        relatedRows={BUTTON_RELATEDDATA.NONE}
       />
     ));
     const tools = false;
@@ -99,10 +99,14 @@ export default class Layout extends React.Component {
   }
 
   @autobind
+  getLinkAndType(e) {
+    return { domainLink: trimStart(e.domainLink || e.actionLink, '/'), domainType: e.domainType || e.templateType };
+  }
+
+  @autobind
   menuClick(e) {
     const m = getMenuItemByKeyPaths(e.keyPath || [e.key], this.props.dataSource.menus);
-    const domainLink = trimStart(m.domainLink, '/');
-    const domainType = m.domainType;
+    const { domainLink, domainType } = this.getLinkAndType(m);
     this.changeMenuProps(m.menuCode, () => this.updateMain(domainLink, domainType, m));
   }
 
@@ -151,7 +155,8 @@ export default class Layout extends React.Component {
   }
 
   componentWillMount() {
-    this.updateMain(this.tag.domainLink, this.tag.domainType, this.tag);
+    const { domainLink, domainType } = this.getLinkAndType(this.tag);
+    this.updateMain(domainLink, domainType, this.tag);
   }
 
   searchAnchor(children) {
@@ -168,8 +173,7 @@ export default class Layout extends React.Component {
 
   @autobind
   switchMenuItem(menuItem) {
-    const domainLink = trimStart(menuItem.domainLink, '/');
-    const domainType = menuItem.domainType;
+    const { domainLink, domainType } = this.getLinkAndType(menuItem);
     this.changeMenuProps(menuItem.menuCode, () => this.updateMain(domainLink, domainType, menuItem));
   }
 
@@ -183,6 +187,7 @@ export default class Layout extends React.Component {
 
   @autobind
   popMask() {
+    // TODO: ask qiwen
     showModal({}, PAGE_TYPE_DETAIL, 'example/process', () => console.log('close pop mask!!!!'));
   }
 

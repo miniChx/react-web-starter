@@ -7,7 +7,7 @@ import { Table, Button, Search, Row, Col, Tooltip } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';
 import { ExtendButton } from '../../../components';
-import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDATA } from '../../constant/dictCodes';
+import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 import SideMenu from '../info/sideMenu';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
@@ -245,30 +245,33 @@ class ListView extends React.Component {
       );
     }
 
+    const btns = this.state.buttons && this.state.buttons.top && this.state.buttons.top.map(item => (
+      <ExtendButton
+        type="button"
+        inline={false}
+        buttonProps={{
+          type: 'ghost',
+        }}
+        {...item}
+        disabled={(item.relatedData === BUTTON_RELATEDDATA.SINGLE && this.state.selectedRowKeys.length !== 1)
+          || (item.relatedData === BUTTON_RELATEDDATA.MULTIPLE && this.state.selectedRowKeys.length < 1)}
+        key={item.buttonDescription}
+        mainEntityKey={this.state.mainEntityKey}
+        selectedType={this.state.selectedType}
+        record={this.state.selectedRows}
+        className={buttonClass}
+        query={query}
+        inject={inject}
+        onRefresh={this._onSearch}
+      />
+      ));
+    if (this.props.createTopButtons) {
+      this.props.createTopButtons(btns);
+      return null;
+    }
     return (
       <div>
-        {
-          this.state.buttons && this.state.buttons.top && this.state.buttons.top.map(item => (
-            <ExtendButton
-              type="button"
-              inline={false}
-              buttonProps={{
-                type: 'ghost',
-              }}
-              {...item}
-              disabled={(item.relateData === BUTTON_RELATEDATA.SINGLE && this.state.selectedRowKeys.length !== 1)
-                || (item.relateData === BUTTON_RELATEDATA.MULTIPLE && this.state.selectedRowKeys.length < 1)}
-              key={item.buttonDescription}
-              mainEntityKey={this.state.mainEntityKey}
-              selectedType={this.state.selectedType}
-              record={this.state.selectedRows}
-              className={buttonClass}
-              query={query}
-              inject={inject}
-              onRefresh={this._onSearch}
-            />
-          ))
-        }
+        {btns}
       </div>
     );
   }

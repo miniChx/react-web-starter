@@ -1,17 +1,20 @@
 /**
  * 收集数据
  */
+import { Modal } from 'mxa';
 import {
   LIST_SELECTTYPE,
   BUTTON_INTERACTIVETYPE,
   BUTTON_MESSAGEPROMPTTYPE,
-  BUTTON_RELATEDATA,
+  BUTTON_RELATEDDATA,
   BUTTON_BINDPARAMETERTYPE,
   BUTTON_ACTIONTYPE
 } from '../../../framework/constant/dictCodes';
 
-import lastAction from './lastAction';
+import routerChange from './routerChange';
 import triggerRequest from './triggerRequest';
+
+const confirm = Modal.confirm;
 
 const genCustomParams = props => {
   const { record, buttonDescription, inject } = props;
@@ -38,6 +41,29 @@ const triggerActionWithoutRows = (data, props, next) => {
   }
 };
 
+const triggerActionWithoutForm = (data, props, next) => {
+  const params = { ...props.query, ...genCustomParams(props) };
+  const cb = () => {
+    if (props.submitFuc) {
+      props.submitFuc(values => {
+        next({ ...params, ...values });
+      });
+    } else {
+      next(params);
+    }
+  };
+  if (props.actionType === BUTTON_ACTIONTYPE.REQUEST && BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+    confirm({
+      title: '提示',
+      content: (<div>确认{props.buttonDescription}吗？</div>),
+      onOk: () => cb(),
+      onCancel() {},
+    });
+  } else {
+   cb();
+  }
+};
+
 const genParams = (record, props) => {
   const params = {
     [props.mainEntityKey]: record[props.mainEntityKey],
@@ -60,51 +86,75 @@ const genParams = (record, props) => {
 
 const triggerActionSingle = (activeData, props, next) => {
   const params = genParams(activeData, props);
-  next(params);
+  if (props.actionType === BUTTON_ACTIONTYPE.REQUEST && BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+    confirm({
+      title: '提示',
+      content: (<div>确认{props.buttonDescription}{activeData.leaseeName}吗？</div>),
+      onOk: () => next(params),
+      onCancel() {},
+    });
+  } else {
+    next(params);
+  }
 };
 
 const triggerActionMultiple = (activeData, props, next) => {
   const params = activeData.map(record => this._genParams(record));
-  next(params);
+  if (props.actionType === BUTTON_ACTIONTYPE.REQUEST && BUTTON_MESSAGEPROMPTTYPE.CONFIRM) {
+    confirm({
+      title: '提示',
+      content: (<div>确认{props.buttonDescription}所选数据吗？</div>),
+      onOk: () => next(params),
+      onCancel() {},
+    });
+  } else {
+    next(params);
+  }
 };
 
 const collectData = (p, props, next) => {
   const { record } = props;
-  if (props.relateData === BUTTON_RELATEDATA.NONE) {
+  if (props.relatedData === BUTTON_RELATEDDATA.NONE) {
     triggerActionWithoutRows({}, props, next);
   } else if (props.inline) {
     triggerActionSingle(record, props, next);
   } else if (props.selectedType !== LIST_SELECTTYPE.CHECKBOX
-    || props.relateData === BUTTON_RELATEDATA.SINGLE) {
+    || props.relatedData === BUTTON_RELATEDDATA.SINGLE) {
     triggerActionSingle(record[0], props, next);
+  } else if (props.relatedData === BUTTON_RELATEDDATA.FORM) {
+    triggerActionWithoutForm({}, props, next);
   } else {
     triggerActionMultiple(record, props, next);
   }
+};
+
+const createTriggerRequest = () => {
+  return {
+    next: (d, p, next) => {
+      triggerRequest.next({ params: d, url: p.actionLink || p.domainLink }, p, next);
+    },
+    ctrl: triggerRequest.ctrl
+  };
+};
+
+const createRouterChange = () => {
+  return {
+    next: (d, p, next) => {
+      routerChange.next(d, p.actionLink || p.domainLink, p);
+    }
+  };
 };
 
 export default {
   next: collectData,
   ctrl: (data, props, processCtrl) => {
     if (props.actionType === BUTTON_ACTIONTYPE.REQUEST) {
-      processCtrl.push({
-        next: (d, p, next) => {
-          triggerRequest.next({ params: d, url: p.actionLink }, p, next);
-        },
-        ctrl: triggerRequest.ctrl
-      });
+      processCtrl.push(createTriggerRequest());
     } else if (props.actionType === BUTTON_ACTIONTYPE.ROUTER) {
-      processCtrl.push({
-        next: (d, p, next) => {
-          lastAction.next(d, p.actionLink, p);
-        }
-      });
+      processCtrl.push(createRouterChange());
     } else {
       // 默认 ROUTER
-      processCtrl.push({
-        next: (d, p, next) => {
-          lastAction.next(d, p.actionLink, p);
-        }
-      });
+      processCtrl.push(createRouterChange());
     }
   }
 };
