@@ -30,7 +30,7 @@ const getPageInitData = (nextState, replace, callback) => {
     }
     longRunExec(() => PFetch(url, params)
       .then(data => {
-        // TODO:如何保存此时的数据
+        // TODO: 如何保存此时的数据
         savePageData(data);
         callback();
       }));

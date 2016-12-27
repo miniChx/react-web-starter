@@ -12,12 +12,14 @@ import routerChange from './routerChange';
 const processAction = (data, props, next) => {
   longRunExec(() => PFetch(trimStart(data.url, '/'), data.params)
     .then(response => {
-      // TODO: response field override data.params
       if (response.needConfirm) {
         Modal.confirm({
           title: '提示',
-          content: (<div>{data.msgContent}?</div>),
-          onOk: () => next({ ...data.params, needConfirm: true }),
+          content: (<div>{response.msgContent}?</div>),
+          onOk: () => {
+            longRunExec(() => PFetch(trimStart(data.url, '/'), { ...data.params, needConfirm: true })
+              .then(r => next({ ...data.params, ...r })));
+          },
         });
       } else {
         // 主要有nextLink的情况
@@ -38,21 +40,6 @@ const processAction = (data, props, next) => {
     }));
 };
 
-const nextLinkDecorator = () => {
-  return {
-    next: (data, props, next) => {
-      processAction({ params: data, url: props.nextActionLink, noTips: true }, props, next);
-    },
-    ctrl: (data, props, process) => {
-      process.push({
-        next: (d, p, next) => {
-          routerChange.next(d, p.nextActionLink, p);
-        }
-      });
-    }
-  };
-};
-
 const routerChangeDecorator = url => {
   return {
     next: (data, props, next) => {
@@ -65,7 +52,6 @@ export default {
   next: processAction,
   ctrl: (data, props, processCtrl) => {
     if (props.nextActionLink) {
-      // processCtrl.push(nextLinkDecorator());
       processCtrl.push(routerChangeDecorator(props.nextActionLink));
     } else {
       processCtrl.push(routerChangeDecorator(props.actionLink || props.domainLink));

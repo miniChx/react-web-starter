@@ -127,7 +127,7 @@ class Detail extends React.Component {
   @autobind
   handleSubmit(func) {
     const self = this;
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    this.props.form.validateFieldsAndScroll({ force: true }, (err, values) => {
       if (!err) {
         if (self.props.beforeSubmit) {
           self.props.beforeSubmit(values, (v = values) => {

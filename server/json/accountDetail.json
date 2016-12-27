@@ -1141,6 +1141,9 @@
       "bindParameterType": "ALL",
       "bindParameters": null,
       "relatedData": "FORM"
+    }, {
+      "isEditButton": true,
+      "displayPosition": "TOP"
     }
   ]
 }
