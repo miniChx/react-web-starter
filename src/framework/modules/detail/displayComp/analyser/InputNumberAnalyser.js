@@ -56,7 +56,7 @@ class MyInputNumber extends React.Component {
 }
 
 const compRender = record => {
-  const format = record.formValidate && ecord.formValidate.opt && ecord.formValidate.opt.format;
+  const format = record.formValidate && record.formValidate.opt && record.formValidate.opt.format;
   return (
     <MyInputNumber disabled={record.isReadonly} format={format || '0,0.0000'} addonAfter={record.addonAfter} />
   );
