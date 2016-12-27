@@ -2,11 +2,11 @@
 
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Search, Row, Col, Tooltip } from 'mxa';
+import { Table, Button, Row, Col, Tooltip } from 'mxa';
 // import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';
-import { ExtendButton, BodyTitle } from '../../../components';
+import { ExtendButton, BodyTitle, Search } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 import SideMenu from '../info/sideMenu';

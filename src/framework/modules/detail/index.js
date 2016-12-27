@@ -24,7 +24,8 @@ export default class ListDetail extends React.Component {
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // callback
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
     dataSource: React.PropTypes.object.isRequired,
-    renderAnalyser: React.PropTypes.func // 自定义渲染标单项 // componentName
+    renderAnalyser: React.PropTypes.func, // 自定义渲染标单项 // componentName
+    renderButtonsSelf: React.PropTypes.func, // 自定义渲染按钮
   };
 
   @autobind

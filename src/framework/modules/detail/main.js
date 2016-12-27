@@ -30,7 +30,8 @@ class Detail extends React.Component {
     beforeSubmit: React.PropTypes.func, // 表单提交之前 // values, callback(v)
     afterSubmit: React.PropTypes.func, // 表单提交之后  //  err
     dataSource: React.PropTypes.object.isRequired,
-    renderAnalyser: React.PropTypes.func // 自定义渲染标单项 // componentName
+    renderAnalyser: React.PropTypes.func, // 自定义渲染标单项 // componentName
+    renderButtonsSelf: React.PropTypes.func, // 自定义渲染按钮
   };
 
   static defaultProps = {
@@ -159,30 +160,36 @@ class Detail extends React.Component {
   _renderColumnAction(displayPosition) {
     const { prefixCls, query, inject } = this.props;
     const buttonClass = `${prefixCls}-button`;
-    const buttons = (this.props.dataSource.buttons || []).filter(btn => {
+    let buttons = (this.props.dataSource.buttons || []).filter(btn => {
       if (displayPosition === BUTTON_POSITION.TOP || displayPosition === BUTTON_POSITION.BOTTOM){
         return (btn && btn.displayPosition) === displayPosition;
       }
       return true;
-    }).map(item => {
-      return (
-        <ExtendButton
-          type="button"
-          inline={false}
-          buttonProps={{
+    });
+    if (!this.props.renderButtonsSelf) {
+      buttons = buttons.map(item => {
+        return (
+          <ExtendButton
+            type="button"
+            inline={false}
+            buttonProps={{
                 type: 'ghost',
               }}
-          {...item}
-          disabled={false}
-          key={item.buttonDescription}
-          className={buttonClass}
-          query={query}
-          inject={inject}
-          submitFuc={item.relatedData === BUTTON_RELATEDDATA.FORM && ((func) => this.handleSubmit(func))}
-          onRefresh={this._onSearch}
-        />
-      );
-    });
+            {...item}
+            disabled={false}
+            key={item.buttonDescription}
+            className={buttonClass}
+            query={query}
+            inject={inject}
+            submitFuc={item.relatedData === BUTTON_RELATEDDATA.FORM && ((func) => this.handleSubmit(func))}
+            onRefresh={this._onSearch}
+          />
+        );
+      });
+    } else {
+      buttons = this.props.renderButtonsSelf(buttons, displayPosition);
+    }
+
     if (this.props.createTopButtons && displayPosition === BUTTON_POSITION.TOP) {
       this.props.createTopButtons(buttons || []);
       return null;
