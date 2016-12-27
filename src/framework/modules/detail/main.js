@@ -168,23 +168,29 @@ class Detail extends React.Component {
     });
     if (!this.props.renderButtonsSelf) {
       buttons = buttons.map(item => {
-        return (
-          <ExtendButton
-            type="button"
-            inline={false}
-            buttonProps={{
+        if (item.isEditButton) {
+          return (
+            <Button onClick={this.props.changeState}>{this.props.model === EDIT ? '返回' : '编辑'}</Button>
+          );
+        } else {
+          return (
+            <ExtendButton
+              type="button"
+              inline={false}
+              buttonProps={{
                 type: 'ghost',
               }}
-            {...item}
-            disabled={false}
-            key={item.buttonDescription}
-            className={buttonClass}
-            query={query}
-            inject={inject}
-            submitFuc={item.relatedData === BUTTON_RELATEDDATA.FORM && ((func) => this.handleSubmit(func))}
-            onRefresh={this._onSearch}
-          />
-        );
+              {...item}
+              disabled={false}
+              key={item.buttonDescription}
+              className={buttonClass}
+              query={query}
+              inject={inject}
+              submitFuc={item.relatedData === BUTTON_RELATEDDATA.FORM && ((func) => this.handleSubmit(func))}
+              onRefresh={this._onSearch}
+            />
+          );
+        }
       });
     } else {
       buttons = this.props.renderButtonsSelf(buttons, displayPosition);
@@ -202,27 +208,49 @@ class Detail extends React.Component {
   }
 
   renderForm(data, fields, i) {
+    const titleF = fields[0];
+    return (
+      <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} shortTitle={titleF.groupShortName} href={'#title' + titleF.groupId} />)} >
+        {this.renderGroupItem(data, fields)}
+      </SwitchContainer>
+    );
+  }
+
+  renderGroupItem(data, fields) {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 }
     };
-    const titleF = fields[0];
     return (
-      <SwitchContainer key={titleF.groupName + i} bar={(<AnHref title={titleF.groupName} shortTitle={titleF.groupShortName} href={'#title' + titleF.groupId} />)} >
-        <div className={appStyle.formBox} >
-          <Row gutter={40} className={appStyle.cell}>
-            {fields.filter(f => f.isVisible).map((item, index) => {
-              return (
-                <Col key={index} span={(24 / data.columnNumber) || 12}>
-                  {renderFuc(formItemLayout, item, getFieldDecorator, this.state.detailResult, this.props, this.changeDataSourceVisable, this.changeInitValue)}
-                </Col>
-              );
-            })}
-          </Row>
-        </div>
-      </SwitchContainer>
+      <div className={appStyle.formBox} >
+        <Row gutter={40} className={appStyle.cell}>
+          {fields.filter(f => f.isVisible).map((item, index) => {
+            return (
+              <Col key={index} span={(24 / data.columnNumber) || 12}>
+                {renderFuc(formItemLayout, item, getFieldDecorator, this.state.detailResult, this.props, this.changeDataSourceVisable, this.changeInitValue)}
+              </Col>
+            );
+          })}
+        </Row>
+      </div>
     );
+  }
+
+  @autobind
+  renderBody() {
+    if (this.state.fields && this.state.fields.length === 1) {
+      return (
+        <div>
+          <span>{this.state.fields[0][0].groupName}</span>
+          {this.renderGroupItem(this.props.dataSource, this.state.fields[0])}
+        </div>
+      );
+    } else {
+      return this.state.fields.map((f, index) => {
+        return this.renderForm(this.props.dataSource, f, index);
+      });
+    }
   }
 
   render() {
@@ -238,9 +266,7 @@ class Detail extends React.Component {
           <FormItem {...tailFormItemLayout}>
             {this._renderColumnAction(BUTTON_POSITION.TOP)}
           </FormItem>
-          {this.state.fields.map((f, index) => {
-            return this.renderForm(this.props.dataSource, f, index);
-          })}
+          {this.renderBody()}
           <FormItem {...tailFormItemLayout}>
             {this._renderColumnAction(BUTTON_POSITION.BOTTOM)}
           </FormItem>

@@ -50,20 +50,15 @@ class MyInputNumber extends React.Component {
 
   render() {
     return (
-      <Input value={this.state.value} onFocus={this._onFocus} onBlur={this._onBlur} onChange={this._onChange} disabled={this.props.disabled} />
+      <Input value={this.state.value} addonAfter={this.props.addonAfter || ''} onFocus={this._onFocus} onBlur={this._onBlur} onChange={this._onChange} disabled={this.props.disabled} />
     );
   }
 }
 
 const compRender = record => {
-  // const opt = (record.formValidate && record.formValidate.opt) || {};
-  // const { digit = 2 } = opt;
-  // return (
-  //   <InputNumber disabled={record.isReadonly} step={Math.pow(0.1, digit)} />
-  // );
   const format = record.formValidate && ecord.formValidate.opt && ecord.formValidate.opt.format;
   return (
-    <MyInputNumber disabled={record.isReadonly} format={format || '0,0.0000'}/>
+    <MyInputNumber disabled={record.isReadonly} format={format || '0,0.0000'} addonAfter={record.addonAfter} />
   );
 };
 

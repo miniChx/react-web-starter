@@ -41,7 +41,7 @@ const processAction = (data, props, next) => {
 const nextLinkDecorator = () => {
   return {
     next: (data, props, next) => {
-      processAction({ params: data, url: props.actionLink || props.domainLink }, props, next);
+      processAction({ params: data, url: props.nextActionLink, noTips: true }, props, next);
     },
     ctrl: (data, props, process) => {
       process.push({
@@ -53,10 +53,10 @@ const nextLinkDecorator = () => {
   };
 };
 
-const routerChangeDecorator = () => {
+const routerChangeDecorator = url => {
   return {
     next: (data, props, next) => {
-      routerChange.next(data, props.actionLink || props.domainLink, props);
+      routerChange.next(data, url, props);
     }
   };
 };
@@ -65,9 +65,10 @@ export default {
   next: processAction,
   ctrl: (data, props, processCtrl) => {
     if (props.nextActionLink) {
-      processCtrl.push(nextLinkDecorator());
+      // processCtrl.push(nextLinkDecorator());
+      processCtrl.push(routerChangeDecorator(props.nextActionLink));
     } else {
-      processCtrl.push(routerChangeDecorator());
+      processCtrl.push(routerChangeDecorator(props.actionLink || props.domainLink));
     }
   }
 };
