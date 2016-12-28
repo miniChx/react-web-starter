@@ -227,7 +227,7 @@ class Detail extends React.Component {
         <Row gutter={40} className={appStyle.cell}>
           {fields.filter(f => f.isVisible).map((item, index) => {
             return (
-              <Col key={index} span={(24 / data.columnNumber) || 12}>
+              <Col key={index} span={(24 / 2) || 12}>
                 {renderFuc(formItemLayout, item, getFieldDecorator, this.state.detailResult, this.props, this.changeDataSourceVisable, this.changeInitValue)}
               </Col>
             );

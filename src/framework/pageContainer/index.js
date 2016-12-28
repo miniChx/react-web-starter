@@ -23,11 +23,19 @@ class PageContainer extends React.PureComponent {
     }
 
     const domainLink = this.props.params.splat;
-    const { linkInfo } = getMenuItemAndPathByFunc(item => (item.domainLink === domainLink || item.domainLink === '/' + domainLink), getMenu());
+    const { linkInfo } = getMenuItemAndPathByFunc(item =>
+      (item.domainLink === domainLink || item.domainLink === '/' + domainLink),
+      getMenu());
     const domainType = linkInfo ? linkInfo.domainType : this.props.query.domainType;
     const FinalPage = Compose(AsyncDecorator, InitDecorator)();
     return (
-      <FinalPage key="key_page_container" {...this.props} menuValue={linkInfo && linkInfo.menuValue} domainType={domainType} domainLink={domainLink} />
+      <FinalPage
+        key="key_page_container"
+        {...this.props}
+        menuValue={linkInfo && linkInfo.menuValue}
+        domainType={domainType}
+        domainLink={domainLink}
+      />
     );
   }
 }

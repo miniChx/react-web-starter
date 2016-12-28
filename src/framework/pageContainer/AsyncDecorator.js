@@ -1,8 +1,6 @@
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { getPageData, getSubMenu } from '../service/CacheService';
-import { dispatch } from '../service/DispatchService';
-import exclusive from './exclusive';
+import { getPageData } from '../service/CacheService';
 
 const AsyncDecorator = Wrapper => {
   class WrapperComponent extends React.Component {

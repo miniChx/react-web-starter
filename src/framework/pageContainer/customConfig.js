@@ -1,7 +1,3 @@
-/* eslint-disable no-console */
-
-import React from 'react';
-
 import Role from '../modules/role';
 import AccountList from '../modules/user';
 import BizConfig from '../../bundles/bizConfig';

@@ -11,13 +11,11 @@ import Compose from '../utils/Compose';
 import AsyncDecorator from './ModalAsyncDecorator';
 import InitDecorator from './InitDecorator';
 
-export const closeBar = cb => {
-  return (
-    <div className={appStyle.closeBar}>
-      <a onClick={cb}><Icon className={appStyle.closeFlag} type="close" /></a>
-    </div>
-  );
-};
+export const closeBar = cb => (
+  <div className={appStyle.closeBar}>
+    <a onClick={cb}><Icon className={appStyle.closeFlag} type="close" /></a>
+  </div>
+);
 
 const showModal = (params, domainType, domainLink, callback) => {
   const maskDiv = document.createElement('div');

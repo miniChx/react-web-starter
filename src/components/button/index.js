@@ -45,10 +45,24 @@ export class ExtendButton extends React.Component {
     relatedData: BUTTON_RELATEDDATA.NONE
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
+  @autobind
+  stopLoading() {
+    this.setState({ loading: false });
+  }
+
   // 第一阶段  收集数据
   @autobind
   _triggerAction() {
-    actionProcess(this.props);
+    if (!this.state.loading) {
+      this.setState({ loading: true }, () => actionProcess(this.props, this.stopLoading));
+    }
   }
 
   @autobind
@@ -60,6 +74,7 @@ export class ExtendButton extends React.Component {
           className={this.props.className}
           onClick={this._triggerAction}
           disabled={this.props.disabled}
+          loading={this.state.loading}
         >{this.props.buttonDescription}</Button>
       );
     }

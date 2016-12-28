@@ -1,22 +1,32 @@
 /**
  * Created by baoyinghai on 12/23/16.
  * 开始 －a－－－－－－|－－－－－－>－－－－－－－－－－－跳转－－－－－－－－－结束
-         ｜          |                      ｜                   ｜
-         ｜          ^                      ^                    ｜
-         ｜          |                      ｜                   ｜
-         ｜          |       －－－－－－－－－c－－－－刷新－－－－－－
-         ｜          |      ｜              ｜
-         －－采集数据－－－请求b－－－－－－nextLink
-                           ｜              ｜
-                           ｜              ｜
-                           ｜－－confirm－－｜
+ *       ｜          |                      ｜                   ｜
+ *       ｜          ^                      ^                    ｜
+ *       ｜          |                      ｜                   ｜
+ *       ｜          |       －－－－－－－－－c－－－－刷新－－－－－－
+ *       ｜          |      ｜              ｜
+ *       －－采集数据－－－请求b－－－－－－nextLink
+ *                         ｜              ｜
+ *                         ｜              ｜
+ *                         ｜－－confirm－－｜
+ * render      router
+ * renderByKey router
+ * renderByKeys router
+ * deleteByKey request
+ * deleteByKeys request
+ * save  request
+ * customer request
+ *
+ * 如果要提交数据发生post行为的 actionType 为request 否则时 router
+ *
  */
 
 import assembleData from './assembleData';
 
 // 解决回调问题
-const startProcess = props => {
-  const processList = [assembleData];
+const startProcess = (props, stopLoading) => {
+  const processList = [{ next: stopLoading }, assembleData];
   const nextFunc = data => {
     const step = processList.pop();
     if (step) {

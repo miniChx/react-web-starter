@@ -8,11 +8,13 @@ import Config from '../../config';
 import { getToken } from '../service/CacheService';
 
 
-const getHeader = () => ({
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  'Authorization': 'Basic  ' + getToken()
-});
+const getHeader = () => {
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Basic  ' + getToken()
+  };
+};
 
 /* eslint-disable */
 const process = _promise => {
@@ -49,7 +51,8 @@ const rawFetch = (url, param) => {
   // if (url.indexOf('http') < 0) {
   //   url = CbaseProcessUrl + url;
   // };
-  return process(MxFetch.fetch(Config.Host + url, param, 6180));
+  // return process(MxFetch.fetch(Config.Host + url, param, 6180));
+  return process(MxFetch.fetch(Config.Host + url, param, 116180));
 };
 /* eslint-disable */
 export const PFetch = (url, param) => {

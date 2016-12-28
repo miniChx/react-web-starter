@@ -43,7 +43,7 @@ const processAction = (data, props, next) => {
 const routerChangeDecorator = url => {
   return {
     next: (data, props, next) => {
-      routerChange.next(data, url, props);
+      routerChange.next(data, url, props, next);
     }
   };
 };

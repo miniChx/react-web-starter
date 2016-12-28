@@ -41,14 +41,12 @@ export default class ModalInput extends React.Component {
 
   render() {
     return (
-      <div style={{ marginBottom: 16 }}>
-        <Input
-          addonAfter={<Icon type="bars" onClick={!this.props.isReadonly && this._showModal} />}
-          // defaultValue={this.props.defaultValue}
-          disabled={this.props.isReadonly || this.props.disabled}
-          value={this.state.value}
-        />
-      </div>
+      <Input
+        addonAfter={<Icon type="bars" onClick={!this.props.isReadonly && this._showModal} />}
+        // defaultValue={this.props.defaultValue}
+        disabled={this.props.isReadonly || this.props.disabled}
+        value={this.state.value}
+      />
     );
   }
 }

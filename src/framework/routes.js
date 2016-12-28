@@ -10,7 +10,7 @@ import App from './App';
 import exclusive from './pageContainer/exclusive';
 import { PFetch } from './system/fetch';
 import { longRunExec } from './system/longRunOpt';
-import { savePageData, getPageData } from './service/CacheService';
+import { savePageData } from './service/CacheService';
 // import { getToken } from './framework/service/CacheService';
 
 export const CONTAINER_PRE = 'page_container';

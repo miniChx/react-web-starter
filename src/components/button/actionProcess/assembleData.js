@@ -144,7 +144,7 @@ const createTriggerRequest = () => {
 const createRouterChange = () => {
   return {
     next: (d, p, next) => {
-      routerChange.next(d, p.actionLink || p.domainLink, p);
+      routerChange.next(d, p.actionLink || p.domainLink, p, next);
     }
   };
 };

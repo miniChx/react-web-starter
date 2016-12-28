@@ -1,9 +1,9 @@
 import React from 'react';
-import { Table, Button } from 'mxa';
+import { Table } from 'mxa';
 import { autobind } from 'core-decorators';
 import bodyCreator from './bodyCreator';
 import FilterCreator from './filterCreator';
-import { clearParam, getParam } from './filterCreator/filterParam';
+import { getParam } from './filterCreator/filterParam';
 import { PFetch } from '../../../system/fetch';
 
 export default class StartProcess extends React.Component {
@@ -17,7 +17,8 @@ export default class StartProcess extends React.Component {
           title: item.fieldText,
           dataIndex: item.fieldName.split('.')[0],
           key: item.fieldName,
-          render: (text, record, index) => bodyCreator(item.displayStyle)(item, text, record, index, { ...this.props, filterData: this.filterData })
+          render: (text, record, index) =>
+            bodyCreator(item.displayStyle)(item, text, record, index, { ...this.props, filterData: this.filterData })
         };
       });
   }
@@ -27,7 +28,7 @@ export default class StartProcess extends React.Component {
     const param = getParam();
     const urlAry = this.props.domainLink.split('/');
     const reg = /^(.*\/)render(\w*)$/;
-    const ret = reg.exec(urlAry);
+    // const ret = reg.exec(urlAry);
     const searchUrl = urlAry.replace(reg, '$1search$2');
     this.props.exec(() => {
       return PFetch('/' + searchUrl, param).then(response => {

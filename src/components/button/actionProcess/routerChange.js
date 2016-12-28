@@ -14,7 +14,7 @@ import { longRunExec } from '../../../framework/system/longRunOpt';
 
 import { BUTTON_INTERACTIVETYPE } from '../../../framework/constant/dictCodes';
 
-const jump = (params, actionLink, props) => {
+const jump = (params, actionLink, props, next) => {
   params.displayType = props.displayType;
   const templateType = props.templateType || props.domainType;
   const mode = props.interactiveType;
@@ -31,6 +31,10 @@ const jump = (params, actionLink, props) => {
   } else if (mode === BUTTON_INTERACTIVETYPE.REFRESH) {
     props.onRefresh && props.onRefresh(params);
   }
+  // if (props.isModal && props.modalCallback) {
+  //   props.modalCallback();
+  // }
+  next();
 };
 
 export default {
