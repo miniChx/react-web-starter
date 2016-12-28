@@ -4,7 +4,7 @@
 var ProgressBar = require('progress');
 var chalk = require('chalk');
 
-var bar = new ProgressBar(chalk.cyan('  compiling') +' [:bar] :percent :etas', {
+var bar = new ProgressBar(chalk.cyan('  compiling') +' [:bar] :percent', {
   complete: chalk.cyan('='),
   incomplete: ' ',
   width: 60,
