@@ -19,6 +19,7 @@
     "mxa": "http://192.168.61.91:10001/repository/npm-group/mxa/-/mxa-0.1.6.tgz",
     "numeral": "^2.0.1",
     "object-assign": "^4.1.0",
+    "progress": "^1.1.8",
     "qiniu": "^6.1.13",
     "qs": "^6.3.0",
     "rc-animate": "^2.3.1",

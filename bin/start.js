@@ -23,6 +23,8 @@ var openBrowser = require('react-dev-utils/openBrowser');
 var prompt = require('react-dev-utils/prompt');
 var config = require('../config/webpack.config.dev.js');
 var paths = require('../config/paths');
+var ProgressPlugin = require('webpack/lib/ProgressPlugin');
+var ProcessBar = require('../config/processBar');
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
@@ -60,6 +62,10 @@ function setupCompiler(host, port, protocol) {
     clearConsole();
     console.log('Compiling...');
   });
+
+  compiler.apply(new ProgressPlugin(function(percentage, msg) {
+    ProcessBar(percentage, clearConsole);
+  }));
 
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
@@ -237,9 +243,9 @@ function runDevServer(host, port, protocol) {
       return console.log(err);
     }
 
-    clearConsole();
-    console.log(chalk.cyan('Starting the development server...'));
-    console.log();
+    //clearConsole();
+    //console.log(chalk.cyan('Starting the development server...'));
+    //console.log();
     openBrowser(protocol + '://' + host + ':' + port + '/');
   });
 }
