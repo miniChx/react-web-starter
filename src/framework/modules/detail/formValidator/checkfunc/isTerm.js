@@ -6,7 +6,7 @@ import validation from '../../../../utils/validation';
 const validator = (record, value) => {
   const opt = (record.formValidate && record.formValidate.opt) || {};
   const handle = validation.isTerm;
-  if (!handle(value)) {
+  if (value && !handle(value)) {
     // record.formValidate.validateType
     return new Error((opt.message) || '格式错误');
   }

@@ -822,14 +822,12 @@
       "index": 25,
       "entityShortName": "ope",
       "formValidate": {
-        "opt":{
-          "formItemName": "businessScope"
-        },
+        "opt":{},
         "validateType": "ISSAMEWITH"
       },
       "type": "String",
       "length": 2000,
-      "description": "主营业务/主要产品/服务情况",
+      "description": "服务情况",
       "groupId": 4,
       "groupName": "经营信息",
       "groupShortName": "经营",

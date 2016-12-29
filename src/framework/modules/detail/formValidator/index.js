@@ -9,7 +9,7 @@ const createRules = (record, form) => {
   ret.push(isRequired);
   ret.push({ validator(rule, value, callback) {
     const validateType = record && record.formValidate && record.formValidate.validateType;
-    const errors = checkFunc[validateType] && checkFunc[validateType](record, value, form.getFieldsValue());
+    const errors = checkFunc[validateType] && checkFunc[validateType](record, value, form.getFieldsValue(), form);
     callback((errors && [errors]) || []);
   } });
   return ret;

@@ -5,7 +5,7 @@ import React from 'react';
 import { Form, Input, DatePicker, Col, Select, Tooltip, Icon, Cascader, Row, Button, Checkbox, Modal } from 'mxa';
 import { autobind } from 'core-decorators';
 import { goBack, replace } from 'react-router-redux';
-
+import _ from 'lodash';
 import appStyle from '../../styles/views/detail.less';
 import renderFuc from './displayComp/index';
 import styles from '../../styles/views/listview.less';
@@ -15,7 +15,7 @@ import { CONTAINER_PRE } from '../../routes';
 import { getValueByKey } from '../../utils/MapUtils';
 import { AnHref } from '../info';
 import SwitchContainer from './switchContainer';
-import { VIEW, EDIT } from './constant';
+import { VIEW, EDIT, CONFIRM_SUFFIX } from './constant';
 import { BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { ExtendButton } from '../../../components';
 
@@ -218,6 +218,32 @@ class Detail extends React.Component {
     );
   }
 
+  @autobind
+  _processFields(fields) {
+    if (this.props.model === VIEW) {
+      return fields;
+    }
+    if (this.props.model === EDIT) {
+      const ret = [];
+      fields.forEach(f => {
+        const validateType = f && f.formValidate && f.formValidate.validateType;
+        if (validateType === 'ISSAMEWITH') {
+          f.formValidate.opt = { formItemName: f.name + CONFIRM_SUFFIX };
+          ret.push(f);
+          //insert a confirm Text
+          const fClone = _.cloneDeep(f);
+          fClone.name = f.name + CONFIRM_SUFFIX;
+          fClone.description = f.description + '确认';
+          fClone.formValidate.opt = { formItemName: f.name, description: f.description };
+          ret.push(fClone);
+        } else {
+          ret.push(f);
+        }
+      });
+      return ret;
+    }
+  }
+
   renderGroupItem(data, fields) {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -227,7 +253,7 @@ class Detail extends React.Component {
     return (
       <div className={appStyle.formBox} >
         <Row gutter={40} className={appStyle.cell}>
-          {fields.filter(f => f.isVisible).map((item, index) => {
+          {this._processFields(fields).filter(f => f.isVisible).map((item, index) => {
             return (
               <Col key={index} span={(24 / data.columnNumber) || 12}>
                 {renderFuc(formItemLayout, item, getFieldDecorator, this.state.detailResult, this.props, this.changeDataSourceVisable, this.changeInitValue)}
