@@ -9,7 +9,7 @@ import { PFetch } from '../../../framework/system/fetch';
 import { longRunExec } from '../../../framework/system/longRunOpt';
 import routerChange from './routerChange';
 
-const processAction = (data, props, next) => {
+const processAction = (data, props, next, stopLoading) => {
   longRunExec(() => PFetch(trimStart(data.url, '/'), data.params)
     .then(response => {
       if (response.needConfirm) {
@@ -31,11 +31,11 @@ const processAction = (data, props, next) => {
       }
     })
     .catch(errorData => {
-      console.log(errorData);
+      // console.log(errorData);
       Modal.error({
         title: '提示',
         content: (<div>{props.buttonDescription}失败！</div>),
-        onOk() {},
+        onOk: () => stopLoading(false),
       });
     }));
 };

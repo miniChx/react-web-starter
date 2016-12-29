@@ -218,6 +218,7 @@ class Detail extends React.Component {
     );
   }
 
+  // 特殊情况 二次确认需要自己渲染标单项
   @autobind
   _processFields(fields) {
     if (this.props.model === VIEW) {

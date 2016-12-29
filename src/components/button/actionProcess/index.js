@@ -35,7 +35,7 @@ const startProcess = (props, stopLoading) => {
       next && next(data, props, res => {
         ctrl && ctrl(res, props, processList, stopLoading);
         nextFunc(res);
-      });
+      }, stopLoading);
     }
   };
   nextFunc({});
