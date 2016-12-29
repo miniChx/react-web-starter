@@ -188,12 +188,14 @@ class Detail extends React.Component {
               inject={inject}
               submitFuc={item.relatedData === BUTTON_RELATEDDATA.FORM && ((func) => this.handleSubmit(func))}
               onRefresh={this._onSearch}
+              isModal={this.props.isModal}
+              modalCallback={this.props.modalCallback}
             />
           );
         }
       });
     } else {
-      buttons = this.props.renderButtonsSelf(buttons, displayPosition);
+      buttons = this.props.renderButtonsSelf(buttons, displayPosition, this.props);
     }
 
     if (this.props.createTopButtons && displayPosition === BUTTON_POSITION.TOP) {

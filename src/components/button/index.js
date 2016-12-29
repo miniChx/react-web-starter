@@ -53,15 +53,16 @@ export class ExtendButton extends React.Component {
   }
 
   @autobind
-  stopLoading() {
-    this.setState({ loading: false });
+  switchLoading(flag) {
+    this.setState({ loading: flag });
   }
 
   // 第一阶段  收集数据
   @autobind
   _triggerAction() {
     if (!this.state.loading) {
-      this.setState({ loading: true }, () => actionProcess(this.props, this.stopLoading));
+      actionProcess(this.props, this.switchLoading);
+      // this.setState({ loading: true }, () => actionProcess(this.props, this.stopLoading));
     }
   }
 

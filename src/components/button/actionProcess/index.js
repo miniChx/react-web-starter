@@ -26,14 +26,14 @@ import assembleData from './assembleData';
 
 // 解决回调问题
 const startProcess = (props, stopLoading) => {
-  const processList = [{ next: stopLoading }, assembleData];
+  const processList = [{ next: () => stopLoading(false) }, assembleData];
   const nextFunc = data => {
     const step = processList.pop();
     if (step) {
       const next = step.next;
       const ctrl = step.ctrl;
       next && next(data, props, res => {
-        ctrl && ctrl(res, props, processList);
+        ctrl && ctrl(res, props, processList, stopLoading);
         nextFunc(res);
       });
     }

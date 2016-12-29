@@ -151,8 +151,9 @@ const createRouterChange = () => {
 
 export default {
   next: collectData,
-  ctrl: (data, props, processCtrl) => {
+  ctrl: (data, props, processCtrl, switchLoading) => {
     if (props.actionType === BUTTON_ACTIONTYPE.REQUEST) {
+      switchLoading && switchLoading(true);
       processCtrl.push(createTriggerRequest());
     } else if (props.actionType === BUTTON_ACTIONTYPE.ROUTER) {
       processCtrl.push(createRouterChange());

@@ -262,6 +262,8 @@ class ListView extends React.Component {
         className={buttonClass}
         query={query}
         inject={inject}
+        isModal={this.props.isModal}
+        modalCallback={this.props.modalCallback}
         onRefresh={this._onSearch}
       />
       ));

@@ -21,6 +21,9 @@ const jump = (params, actionLink, props, next) => {
   if (mode === BUTTON_INTERACTIVETYPE.PAGE) {
     window.open('/' + CONTAINER_PRE + actionLink + '?p='
       + btoa(Qs.stringify({ ...params, domainType: templateType, s: '1' })));
+    if (props.isModal && props.modalCallback) {
+      props.modalCallback();
+    }
   } else if (mode === BUTTON_INTERACTIVETYPE.MODAL || mode === BUTTON_INTERACTIVETYPE.RIGHTDRAWER) {
     showModal(params, templateType, actionLink, () => props.onRefresh && props.onRefresh());
   } else if (mode === BUTTON_INTERACTIVETYPE.REPLACE) {
