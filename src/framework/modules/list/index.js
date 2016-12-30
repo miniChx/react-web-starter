@@ -267,6 +267,9 @@ class ListView extends React.Component {
         onRefresh={this._onSearch}
       />
       ));
+    if (this.props.modalCallback) {
+      btns.push(<Button className={buttonClass} onClick={this.props.modalCallback}>返回</Button>);
+    }
     if (this.props.createTopButtons) {
       this.props.createTopButtons(btns);
       return null;

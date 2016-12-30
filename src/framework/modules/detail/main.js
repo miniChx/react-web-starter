@@ -35,7 +35,7 @@ class Detail extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'mx-detail',
+    prefixCls: 'mx-list',
   };
 
   constructor(props) {
@@ -170,7 +170,7 @@ class Detail extends React.Component {
       buttons = buttons.map(item => {
         if (item.isEditButton) {
           return (
-            <Button onClick={this.props.changeState}>{this.props.model === EDIT ? '返回' : '编辑'}</Button>
+            <Button className={buttonClass} onClick={this.props.changeState}>{this.props.model === EDIT ? '返回' : '编辑'}</Button>
           );
         } else {
           return (
@@ -194,6 +194,9 @@ class Detail extends React.Component {
           );
         }
       });
+      if (this.props.modalCallback && displayPosition === BUTTON_POSITION.BOTTOM) {
+        buttons.push(<Button type="ghost" className={buttonClass} onClick={this.props.modalCallback}>返回</Button>);
+      }
     } else {
       buttons = this.props.renderButtonsSelf(buttons, displayPosition, this.props);
     }
