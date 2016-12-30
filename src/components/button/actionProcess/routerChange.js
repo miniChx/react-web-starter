@@ -11,7 +11,7 @@ import { CONTAINER_PRE } from '../../../framework/routes';
 import { showModal } from '../../../framework/pageContainer/ModalWrapper';
 import { PFetch } from '../../../framework/system/fetch';
 import { longRunExec } from '../../../framework/system/longRunOpt';
-import { pushWindowHandler, getWindowHandler } from '../../../framework/service/CacheService';
+import { jumpToNewTab } from '../../../framework/utils/windowUtils';
 
 import { BUTTON_INTERACTIVETYPE } from '../../../framework/constant/dictCodes';
 
@@ -21,13 +21,10 @@ const jump = (params, actionLink, props, next) => {
   const mode = props.interactiveType;
   // console.log('lalal opener', window.opener && window.opener._windowHandler);
   if (mode === BUTTON_INTERACTIVETYPE.PAGE) {
-    // TODO: 同一个按钮 参数一样的  map 优化
-    const { openerHandle, windowCallback } = getWindowHandler(props.buttonCode + JSON.stringify(params));
-    openerHandle && openerHandle.close();
-    const newOpenHandle = window.open('/' + CONTAINER_PRE + actionLink + '?p='
-      + btoa(Qs.stringify({ ...params, domainType: templateType, s: '1' })));
-    pushWindowHandler(props.buttonCode + JSON.stringify(params),
-      { openerHandle: newOpenHandle, windowCallback: props.onRefresh && props.onRefresh() });
+    jumpToNewTab(
+      '/' + CONTAINER_PRE + actionLink + '?p=' + btoa(Qs.stringify({ ...params, domainType: templateType, s: '1' })),
+      props
+    );
     if (props.isModal && props.modalCallback) {
       props.modalCallback();
     }

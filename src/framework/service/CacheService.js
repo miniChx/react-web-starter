@@ -25,14 +25,3 @@ export const savePageData = data => {
 };
 
 export const getPageData = () => _cach.data;
-
-const _windowHandler = {};
-window._windowHandler = _windowHandler;
-
-export const pushWindowHandler = (key, value) => {
-  _windowHandler[key] = value;
-};
-
-export const getWindowHandler = key => {
-  return _windowHandler[key] || {};
-};
