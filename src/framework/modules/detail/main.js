@@ -250,8 +250,12 @@ class Detail extends React.Component {
 
   renderGroupItem(data, fields) {
     const { getFieldDecorator } = this.props.form;
+    let span = 8;
+    if (data.columnNumber === '1') {
+      span = 5;
+    }
     const formItemLayout = {
-      labelCol: { span: 8 },
+      labelCol: { span },
       wrapperCol: { span: 16 }
     };
     return (
