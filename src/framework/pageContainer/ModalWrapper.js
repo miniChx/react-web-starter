@@ -36,7 +36,7 @@ const showModal = (params, domainType, domainLink, callback) => {
   const self = {};
   const ModalPage = Compose(AsyncDecorator, InitDecorator)();
   const maskModal = (
-    <MaskLayer visible={true} onCancel={_close} zIndex="999" maskClosable={false}>
+    <MaskLayer wrapClassName={appStyle.modalWrapper} visible={true} onCancel={_close} zIndex="999" maskClosable={false}>
       <div>
         {closeBar(_close)}
         <div className={appStyle.modalContainer} ref={node => { self.container = node; }}>

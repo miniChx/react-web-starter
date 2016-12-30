@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import MaskLayer from 'react-mask-layer';
 import 'react-mask-layer/assets/index.css';
 import { closeBar } from '../../framework/pageContainer/ModalWrapper';
+import appStyle from '../../framework/styles/views/modal.less';
+
 
 const showComponent = (component, params) => {
   const maskDiv = document.createElement('div');
@@ -30,6 +32,7 @@ const showComponent = (component, params) => {
       visible={true}
       onCancel={_close}
       zIndex="999"
+      wrapClassName={appStyle.modalWrapper}
     >
       <div>
         {closeBar(_close)}
