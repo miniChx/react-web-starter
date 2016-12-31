@@ -100,7 +100,7 @@ class MenuCreator extends React.Component {
         onClick={this.handleClick}
         selectedKeys={[this.state.current]}
         mode="horizontal"
-        style={{ borderBottom: '0px' }}
+        prefixCls="mx-menu-self"
       >
         {this.props.menu && this.props.menu.map((item => this.renderMenuItem(item)))}
       </Menu>

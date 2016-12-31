@@ -11,9 +11,10 @@ import Compose from '../utils/Compose';
 import AsyncDecorator from './ModalAsyncDecorator';
 import InitDecorator from './InitDecorator';
 
-export const closeBar = cb => (
+export const closeBar = (cb, title) => (
   <div className={appStyle.closeBar}>
-    <a onClick={cb}><Icon className={appStyle.closeFlag} type="close" /></a>
+    <span className={appStyle.title}>{title}</span>
+    <a className={appStyle.closeFlag} onClick={cb}><Icon className={appStyle.closeFlag} type="close" /></a>
   </div>
 );
 
@@ -38,7 +39,7 @@ const showModal = (params, domainType, domainLink, callback) => {
   const maskModal = (
     <MaskLayer wrapClassName={appStyle.modalWrapper} visible={true} onCancel={_close} zIndex="999" maskClosable={false}>
       <div>
-        {closeBar(_close)}
+        {closeBar(_close, params && params.modalTitle)}
         <div className={appStyle.modalContainer} ref={node => { self.container = node; }}>
           <ModalPage
             target={() => self.container}

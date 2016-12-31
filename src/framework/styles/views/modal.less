@@ -5,13 +5,22 @@
   max-height: 40rem;
   min-height: 40rem;
   overflow: scroll;
+  background-color: #fff;
 }
 
 .closeBar {
-  text-align: right;
-  .closeFlag {
-    padding: 0.5rem;
-    color: @text-color;
+  background-color: #2684DC;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    text-align: left;
+    color: #fff;
+  };
+  a {
+    text-align: right;
+    color: #fff;
     font-size: 22px;
   }
 }

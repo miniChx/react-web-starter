@@ -206,7 +206,7 @@ class Detail extends React.Component {
       return null;
     }
     return (
-      <div>
+      <div className={this.props.isModal ? appStyle.buttonsRight : ""}>
         {buttons}
       </div>
     );
@@ -292,12 +292,12 @@ class Detail extends React.Component {
   render() {
     const tailFormItemLayout = {
       wrapperCol: {
-        span: 14,
+        span: 22,
         offset: 1,
       },
     };
     return (
-      <div>
+      <div className={appStyle.container}>
         <Form horizontal={true} >
           <FormItem {...tailFormItemLayout}>
             {this._renderColumnAction(BUTTON_POSITION.TOP)}

@@ -15,7 +15,7 @@ export default class Search extends React.Component {
 
   static defaultProps = {
     dataSource: [],
-    prefixCls: 'mx-search',
+    prefixCls: 'mx-search-self',
   };
 
   constructor(props) {

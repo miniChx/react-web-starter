@@ -29,7 +29,7 @@ const jump = (params, actionLink, props, next) => {
       props.modalCallback();
     }
   } else if (mode === BUTTON_INTERACTIVETYPE.MODAL || mode === BUTTON_INTERACTIVETYPE.RIGHTDRAWER) {
-    showModal(params, templateType, actionLink, () => props.onRefresh && props.onRefresh());
+    showModal({ ...params, modalTitle: props.buttonDescription }, templateType, actionLink, () => props.onRefresh && props.onRefresh());
   } else if (mode === BUTTON_INTERACTIVETYPE.REPLACE) {
     props.dispatch(push({
       pathname: '/' + CONTAINER_PRE + actionLink,

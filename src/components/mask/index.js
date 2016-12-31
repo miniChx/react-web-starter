@@ -35,7 +35,7 @@ const showComponent = (component, params) => {
       wrapClassName={appStyle.modalWrapper}
     >
       <div>
-        {closeBar(_close)}
+        {closeBar(_close, params && params.modalTitle)}
         {mergedComponent}
       </div>
     </MaskLayer>

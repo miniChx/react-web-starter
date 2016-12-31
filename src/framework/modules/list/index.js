@@ -329,6 +329,7 @@ class ListView extends React.Component {
       // console.log('Search[data] ===> ', this.state.filters);
       const { prefixCls } = this.props;
       const toolbarClass = `${prefixCls}-toolbar`;
+      const listContainer = `${prefixCls}-container`;
       return (
         <div className={prefixCls}>
           <BodyTitle title={this.props.menuValue} />
@@ -336,16 +337,18 @@ class ListView extends React.Component {
             {this._renderTopButtons()}
             {!this.props.hiddenSearchBar && (<Search dataSource={this.state.filters} onSearch={this._onFilterChange} />)}
           </div>
-          <Table
-            locale={{ emptyText: '无符合条件的相关数据' }}
-            rowSelection={rowSelection}
-            columns={this.state.columns}
-            dataSource={this.state.dataSource}
-            sortOrder={false}
-            pagination={this.state.pagination}
-            onChange={this._onChange}
-            onRowClick={this._onRowClick}
-          />
+          <div className={listContainer}>
+            <Table
+              locale={{ emptyText: '无符合条件的相关数据' }}
+              rowSelection={rowSelection}
+              columns={this.state.columns}
+              dataSource={this.state.dataSource}
+              sortOrder={false}
+              pagination={this.state.pagination}
+              onChange={this._onChange}
+              onRowClick={this._onRowClick}
+            />
+          </div>
         </div>
       );
     }
