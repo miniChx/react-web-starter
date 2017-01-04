@@ -7,6 +7,8 @@ import { Table, Button, Row, Col, Tooltip } from 'mxa';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';
 import { ExtendButton, BodyTitle, Search } from '../../../components';
+import SearchPlus from '../../../components/search/SearchPlus';
+import SuperSearch from '../../../components/search/SuperSearch';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 import SideMenu from '../info/sideMenu';
@@ -26,6 +28,7 @@ class ListView extends React.Component {
   static defaultProps = {
     prefixCls: 'mx-list',
     isModal: false,
+    hiddenSearchBar: false
   };
 
   constructor(props) {
@@ -98,9 +101,9 @@ class ListView extends React.Component {
     });
 
     // fix first column
-    if (columns.length > 0) {
-      columns[0].fixed = true;
-    }
+    // if (columns.length > 0) {
+    //   columns[0].fixed = true;
+    // }
 
     // add operation
     if (!this.props.isModal && buttons && buttons.row && buttons.row.length > 0) {
@@ -153,7 +156,8 @@ class ListView extends React.Component {
       selectedRowKeys: [],
       selectedRows: [],
       openMenuKeys: [],
-      selectedMenuKeys: null
+      selectedMenuKeys: null,
+      isAdvanceSearch: false
     };
   }
 
@@ -306,8 +310,16 @@ class ListView extends React.Component {
     }
   }
 
+  @autobind
+  _onAdvanceSearch() {
+    this.setState({
+      isAdvanceSearch: !this.state.isAdvanceSearch
+    });
+  }
+
   renderList() {
     // const selectedRows = [];
+    const hiddenSearchBar = this.props.hiddenSearchBar;
     const rowSelection = this.state.selectedType === LIST_SELECTTYPE.INLINE ? null : {
       type: this.state.selectedType.toLowerCase(),
       onChange: (selectedRowKeys, selectedRows) => {
@@ -325,20 +337,39 @@ class ListView extends React.Component {
       selectedRowKeys: this.state.selectedRowKeys,
     };
 
+    // {!this.props.hiddenSearchBar && (<Search dataSource={this.state.filters} onSearch={this._onFilterChange} />)}
     if (this.state.columns && this.state.columns.length > 0) {
       // console.log('Search[data] ===> ', this.state.filters);
       const { prefixCls } = this.props;
+      const tableHeaderClass = `${prefixCls}-table-header`;
       const toolbarClass = `${prefixCls}-toolbar`;
       const listContainer = `${prefixCls}-container`;
       return (
         <div className={prefixCls}>
           <BodyTitle title={this.props.menuValue} />
-          <div className={toolbarClass}>
-            {this._renderTopButtons()}
-            {!this.props.hiddenSearchBar && (<Search dataSource={this.state.filters} onSearch={this._onFilterChange} />)}
+          <div className={tableHeaderClass}>
+            <div className={toolbarClass}>
+              {this._renderTopButtons()}
+              {
+                !hiddenSearchBar &&
+                (
+                  <SearchPlus
+                    dataSource={this.state.filters[0]}
+                    onSearch={this._onFilterChange}
+                    onAdvanceSearch={this._onAdvanceSearch}
+                  />
+                )
+              }
+            </div>
+            {this.state.isAdvanceSearch && (
+              <div>
+                <SuperSearch dataSource={this.state.filters} onSearch={this._onFilterChange} />
+              </div>
+            )}
           </div>
           <div className={listContainer}>
             <Table
+              bordered={true}
               locale={{ emptyText: '无符合条件的相关数据' }}
               rowSelection={rowSelection}
               columns={this.state.columns}
@@ -347,6 +378,7 @@ class ListView extends React.Component {
               pagination={this.state.pagination}
               onChange={this._onChange}
               onRowClick={this._onRowClick}
+              prefixCls="mx-table-self"
             />
           </div>
         </div>
