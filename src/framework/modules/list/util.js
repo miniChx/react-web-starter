@@ -15,6 +15,7 @@ export const handleFilterItems = (filterItems, fieldsObject) =>
         ...filter,
         type: fieldData.displayComponent.componentType,
         extra: fieldData.displayComponent.dictionaryItems,
+        dataType: fieldData.type,
       };
     }
     return filter;

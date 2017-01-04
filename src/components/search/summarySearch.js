@@ -1,4 +1,7 @@
 /**
+ * Created by baoyinghai on 1/4/17.
+ */
+/**
  * Created by baoyinghai on 12/27/16.
  */
 import React, { PropTypes } from 'react';
@@ -21,9 +24,17 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props);
     // initial state
+    const dataSource = this.props.dataSource;
+    const title = [];
+    const filterItems = [];
+    dataSource.forEach(item => {
+      title.push(item.displayName);
+      filterItems.push(item);
+    });
     this.state = {
-      advancedSearch: false,
       requestFilterFields: [],
+      title,
+      filterItems
     };
   }
 
@@ -51,25 +62,23 @@ export default class Search extends React.Component {
     this.props.onSearch && this.props.onSearch(value);
   }
 
-
   render() {
-    const { prefixCls, dataSource } = this.props;
-    if (dataSource && dataSource.length > 0) {
-      const defaultSearch = dataSource[0];
+    if (this.props.dataSource && this.props.dataSource.length > 0 && this.state.title.length > 0) {
+      const { prefixCls } = this.props;
       return (
         <div className={`${prefixCls}`}>
           <div className={`${prefixCls}-basic`}>
             <SearchInput
               isSummary={this.props.isSummary}
               prefixCls={`${prefixCls}-input`}
-              type={defaultSearch.type}
-              operatorType={defaultSearch.operatorType}
-              code={defaultSearch.fieldName}
-              title={defaultSearch.displayName}
-              extra={defaultSearch.extra}
-              hideButton={this.state.advancedSearch}
+              operatorType={'LIKE'}
+              code={'summary_search'}
+              title={this.state.title.join('/')}
+              hideButton={false}
               onChange={this._onChange}
               onSearch={this._onDefaultSearch}
+              placeholder={this.state.title.join('/')}
+              disabled={this.props.advancedSearch}
             />
           </div>
         </div>

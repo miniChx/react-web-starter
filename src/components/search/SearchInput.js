@@ -13,7 +13,7 @@ const { Option } = Select;
 export default class SearchInput extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string,
-    placeholder: PropTypes.string,
+    // placeholder: PropTypes.string,
     code: PropTypes.string,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -23,6 +23,7 @@ export default class SearchInput extends React.Component {
     hideButton: PropTypes.bool,
     onSearch: PropTypes.func,
     onChange: PropTypes.func,
+    requestFilterFields: PropTypes.array,
   };
 
   static defaultProps = {
@@ -31,16 +32,29 @@ export default class SearchInput extends React.Component {
     type: 'INPUT',
     size: 'default',
     hideButton: true,
+    requestFilterFields: []
   };
 
   constructor(props) {
     super(props);
     this.state = {
       fieldName: this.props.code,
-      value: '',
+      value: this._getDefaultInputValue(this.props.code),
       minValue: '',
       maxValue: '',
     };
+  }
+
+  _transformDataType = data => {
+    // if (this.props.dataType === 'Integer' || this.props.dataType === 'Long' || this.props.dataType === 'Double' || this.props.dataType === 'BigDecimal') {
+    //  if (!isNaN(data)) {
+    //    return Number(data);
+    //  }
+    // }
+    // if (this.props.dataType === 'String') {
+    //   return data;
+    // }
+    return data;
   }
 
   _handleSearch = () => {
@@ -85,6 +99,20 @@ export default class SearchInput extends React.Component {
     });
   }
 
+  _getPlaceHolder = () => {
+    return '请输入' + this.props.title;
+  }
+
+  _getDefaultInputValue = fieldName => {
+    let tag;
+    this.props.requestFilterFields && this.props.requestFilterFields.forEach(i => {
+      if (i.fieldName === fieldName) {
+        tag = i;
+      }
+    });
+    return tag && tag.value;
+  }
+
   _renderInput = () => {
     const { prefixCls } = this.props;
     if (this.props.type === 'DATEPICKER') {
@@ -93,11 +121,13 @@ export default class SearchInput extends React.Component {
           size={this.props.size}
           locale={zhCN}
           onChange={this._handleDateChange}
+          placeholder={this._getPlaceHolder()}
         />
       );
     } else if (this.props.type === 'INPUT' && this.props.operatorType === 'BETWEEN') {
       return (
         <RangeInput
+          placeholder={this._getPlaceHolder()}
           onChange={this._handleRangeChange}
         />
       );
@@ -110,6 +140,7 @@ export default class SearchInput extends React.Component {
           // placeholder="Select a person"
           optionFilterProp="children"
           onChange={this._handleSelectChange}
+          placeholder={this._getPlaceHolder()}
         >
           {
             this.props.extra.map(item => (
@@ -124,9 +155,11 @@ export default class SearchInput extends React.Component {
       <Input
         size={this.props.size}
         className={prefixCls}
-        placeholder={this.props.placeholder}
+        // placeholder={this.props.placeholder}
         value={this.state.value}
         onChange={this._handleInputChange}
+        placeholder={this._getPlaceHolder()}
+        disabled={this.props.disabled}
         // onPressEnter={this._handleSearch}
       />
     );
@@ -143,6 +176,7 @@ export default class SearchInput extends React.Component {
         className={`${this.props.prefixCls}-btn`}
         size={this.props.size}
         onClick={this._handleSearch}
+        disabled={this.props.disabled}
       />
     );
   }
@@ -151,7 +185,7 @@ export default class SearchInput extends React.Component {
     const { prefixCls } = this.props;
     return (
       <div className={`${prefixCls}-wrapper`}>
-        <span className={`${prefixCls}-title`}>{this.props.title}</span>
+        {!this.props.isSummary && (<span className={`${prefixCls}-title`}>{this.props.title}</span>)}
         {this._renderInput()}
         {this._renderSearchBtn()}
       </div>

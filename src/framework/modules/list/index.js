@@ -6,15 +6,14 @@ import { Table, Button, Row, Col, Tooltip } from 'mxa';
 // import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';
-import { ExtendButton, BodyTitle, Search } from '../../../components';
-import SearchPlus from '../../../components/search/SearchPlus';
-import SuperSearch from '../../../components/search/SuperSearch';
+import { ExtendButton, BodyTitle, SearchSummary, AdvancedSearch } from '../../../components';
 import { LIST_SELECTTYPE, BUTTON_POSITION, BUTTON_RELATEDDATA } from '../../constant/dictCodes';
 import { arr2obj, handleFilterItems, handleOrderItems, handleContentList } from './util';
 import SideMenu from '../info/sideMenu';
 import { getMenuItemByKeyPaths, getMenuItemByFunc, getMenuItemAndPathByFunc, searchBeforeAndAfter } from '../../utils/MenuHelper';
 import processMenu from './processMenu';
 import { templeteTypes } from '../../pageContainer/config';
+import FilterBarContainer from './filterBarContainer';
 
 class ListView extends React.Component {
   static propTypes = {
@@ -22,13 +21,12 @@ class ListView extends React.Component {
     isModal: PropTypes.bool,
     modalCallback: PropTypes.func,
     inject: PropTypes.object, // inject for customize, key is 'buttonDescription'
-    hiddenSearchBar: PropTypes.bool,
+    // hiddenSearchBar: PropTypes.bool,
   };
 
   static defaultProps = {
     prefixCls: 'mx-list',
     isModal: false,
-    hiddenSearchBar: false
   };
 
   constructor(props) {
@@ -118,7 +116,7 @@ class ListView extends React.Component {
     }
 
     const variantFields = {};
-    data.variantFields.forEach(variant => {
+    data.variantFields && data.variantFields.forEach(variant => {
       variantFields[variant] = this.props.query ? this.props.query[variant] : '';
     });
 
@@ -157,15 +155,17 @@ class ListView extends React.Component {
       selectedRows: [],
       openMenuKeys: [],
       selectedMenuKeys: null,
-      isAdvanceSearch: false
+      advancedSearch: null,
+      isAdvance: false // 查询模式
     };
   }
 
   @autobind
-  _onFilterChange(value) {
+  _onFilterChange(value, isAdvance) {
     console.log(`_onFilterChange ${value}`);
     this.setState({
       requestFilterFields: value,
+      isAdvance: !!isAdvance
     }, () => {
       this._onSearch();
     });
@@ -208,6 +208,7 @@ class ListView extends React.Component {
       requestParamsBean: this.state.variantFields, // issue #5
       requestFilterFields: this.state.requestFilterFields,
       requestOrderFields: this.state.orderFields,
+      isAdvance: this.state.isAdvance,
     };
     this.props.exec(() => this.props.fetch(searchUrl, param)
       .then(data => {
@@ -311,15 +312,26 @@ class ListView extends React.Component {
   }
 
   @autobind
-  _onAdvanceSearch() {
+  updateAdvancedSearch(ele) {
+    if (ele) {
+      this.advanceDetail = ele;
+    }
     this.setState({
-      isAdvanceSearch: !this.state.isAdvanceSearch
+      advancedSearch: ele
     });
+  }
+
+  @autobind
+  renderAdvancedDetail() {
+    return (
+      <FilterBarContainer {...this.props} advancedSearch={!!this.state.advancedSearch}>
+        {this.advanceDetail}
+      </FilterBarContainer>
+    );
   }
 
   renderList() {
     // const selectedRows = [];
-    const hiddenSearchBar = this.props.hiddenSearchBar;
     const rowSelection = this.state.selectedType === LIST_SELECTTYPE.INLINE ? null : {
       type: this.state.selectedType.toLowerCase(),
       onChange: (selectedRowKeys, selectedRows) => {
@@ -337,39 +349,30 @@ class ListView extends React.Component {
       selectedRowKeys: this.state.selectedRowKeys,
     };
 
-    // {!this.props.hiddenSearchBar && (<Search dataSource={this.state.filters} onSearch={this._onFilterChange} />)}
     if (this.state.columns && this.state.columns.length > 0) {
       // console.log('Search[data] ===> ', this.state.filters);
       const { prefixCls } = this.props;
-      const tableHeaderClass = `${prefixCls}-table-header`;
       const toolbarClass = `${prefixCls}-toolbar`;
       const listContainer = `${prefixCls}-container`;
+      const summaryRol = `${prefixCls}-search-summary`;
+      const advancedRol = `${prefixCls}-advanced-search-advanced`;
       return (
         <div className={prefixCls}>
           <BodyTitle title={this.props.menuValue} />
-          <div className={tableHeaderClass}>
-            <div className={toolbarClass}>
+          <Row>
+            <Col span="15" className={toolbarClass}>
               {this._renderTopButtons()}
-              {
-                !hiddenSearchBar &&
-                (
-                  <SearchPlus
-                    dataSource={this.state.filters[0]}
-                    onSearch={this._onFilterChange}
-                    onAdvanceSearch={this._onAdvanceSearch}
-                  />
-                )
-              }
-            </div>
-            {this.state.isAdvanceSearch && (
-              <div>
-                <SuperSearch dataSource={this.state.filters} onSearch={this._onFilterChange} />
-              </div>
-            )}
-          </div>
+            </Col>
+            <Col span="6" className={summaryRol}>
+              <SearchSummary dataSource={this.state.filters} onSearch={this._onFilterChange} advancedSearch={this.state.advancedSearch} />
+            </Col>
+            <Col span="3" className={advancedRol}>
+              <AdvancedSearch dataSource={this.state.filters} requestFilterFields={this.state.requestFilterFields} onSearch={value => this._onFilterChange(value, true)} updateAdvancedSearch={this.updateAdvancedSearch} />
+            </Col>
+          </Row>
+          {this.renderAdvancedDetail()}
           <div className={listContainer}>
             <Table
-              bordered={true}
               locale={{ emptyText: '无符合条件的相关数据' }}
               rowSelection={rowSelection}
               columns={this.state.columns}

@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  flex: 1;
 
   &-input-wrapper {
     align-items: center;
@@ -15,10 +16,12 @@
       //width: 80px;
       white-space: nowrap;
       padding-right: 15px;
+      font-size: 12px;
     }
 
     .@{search-prefix-cls}-input {
       flex: 1;
+      border-radius: 0px;
     }
 
     .@{mx-prefix}-input-wrapper {
@@ -44,12 +47,19 @@
     }
   }
 
+  &-input-btn {
+    border-radius: 1px;
+    &:hover {
+      border-color: #d9d9d9;
+    }
+  }
+
   &-basic {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
     width: 100%;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
 
     &-switch {
       //margin-bottom: 15px;
@@ -69,6 +79,62 @@
     &-button {
       width: 100px;
       align-self: flex-end;
+    }
+  }
+
+  &-advanced-button-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  &-advanced-button {
+    // margin-left: 5px;
+    background-color: #40a5ed;
+    border: 0px;
+    color: #fff;
+    &:hover {
+      background-color: #40a5ed;
+      color: #fff;
+    }
+  }
+
+  &-advanced-button-cancel {
+    margin-left: 5px;
+    background-color: #DADADA;
+    border: 0px;
+    &:hover {
+      background-color: #DADADA;
+      color: #666;
+    }
+  }
+
+  &-advanced-button-clear {
+    margin-left: 5px;
+    background-color: #F89024;
+    border: 0px;
+    color: #fff;
+    &:hover {
+      background-color: #F89024;
+      color: #fff;
+    }
+  }
+
+  &-advanced-search-form {
+    padding: 0.5rem;
+    background-color: #fff;
+  }
+
+  &-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .advanced-button-close {
+      color: #40a5ed;
+      background-color: #fff;
+      margin-top: 1px;
+      padding: 2px 6px 2px 6px;
     }
   }
 }
