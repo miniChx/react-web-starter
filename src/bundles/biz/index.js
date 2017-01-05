@@ -7,6 +7,7 @@ import customTest from './customTest';
 import EnterpriseCusBasicInfoList from './EnterpriseCusBasicInfoList';
 import popMaskTest from './popMaskTest';
 import fileManager from './fileManager';
+import fxpg from './fxpg';
 
 export default {
   tab,
@@ -17,5 +18,6 @@ export default {
   EnterpriseCusBasicInfoList,
   customTest,
   popMaskTest,
-  fileManager
+  fileManager,
+  fxpg
 };

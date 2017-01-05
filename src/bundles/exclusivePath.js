@@ -4,5 +4,6 @@ export default [
   domainLink => domainLink === 'example/modalInput',
   domainLink => domainLink === 'example/hello',
   domainLink => domainLink === 'example/tab',
-  domainLink => domainLink.indexOf('imageView') >= 0
+  domainLink => domainLink.indexOf('imageView') >= 0,
+  domainLink => domainLink === 'fengxianpingu'
 ];

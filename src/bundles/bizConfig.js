@@ -12,5 +12,6 @@ export default {
   '/Api/EnterpriseCusBasicInfoList/render': example.EnterpriseCusBasicInfoList,
   '/ddd/rendByKey': example.customTest,
   '/example/process': example.popMaskTest,
-  '/Api/FileManager/demo': example.fileManager
+  '/Api/FileManager/demo': example.fileManager,
+  '/fengxianpingu': example.fxpg
 };

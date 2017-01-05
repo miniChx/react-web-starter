@@ -91,7 +91,7 @@ class ListView extends React.Component {
               );
             }
             return (
-              <span>text</span>
+              <span>{text}</span>
             );
           }
         });
