@@ -49,16 +49,16 @@ const ModalAsyncDecorator = Wrapper => {
 
     render() {
       const { data } = this.state;
-      if (data && ((data.length && data.length > 0) || (Object.keys(data).length > 0))) {
-        return (
-          <Wrapper
-            {...this.props}
-            dataSource={data}
-            freshData={this.freshData}
-          />
-        );
-      }
-      return (<div>加载中</div>);
+      // if (data && ((data.length && data.length > 0) || (Object.keys(data).length > 0))) {
+      return (
+        <Wrapper
+          {...this.props}
+          dataSource={data}
+          freshData={this.freshData}
+        />
+      );
+      // }
+      // return (<div>加载中</div>);
     }
   }
 

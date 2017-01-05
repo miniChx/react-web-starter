@@ -194,7 +194,7 @@ export default class Layout extends React.Component {
   @autobind
   popMaskByXiaoGang() {
     // showComponent((<Approval />), {});
-    showModal({}, null, 'fengxianpingu', () => console.log('close pop mask!!!!'));
+    showModal({ modalTitle: '风险评估申请详情信息完整性检查' }, null, 'fengxianpingu', () => console.log('close pop mask!!!!'));
   }
 
   render() {
