@@ -67,7 +67,7 @@ export default class Search extends React.Component {
               <Row>
                 {
                   advancedData.map(item => (
-                    <Col span="7" offset="1">
+                    <Col span="8">
                       <SearchInput
                         key={item.fieldName + Math.random()}
                         type={item.type}

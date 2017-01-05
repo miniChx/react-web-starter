@@ -3,7 +3,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import { Button, Input, DatePicker, Select } from 'mxa';
+import { Button, Input, DatePicker, Select, Row, Col } from 'mxa';
 import zhCN from 'mxa/lib/date-picker/locale/zh_CN';
 import RangeInput from './RangeInput';
 
@@ -121,6 +121,7 @@ export default class SearchInput extends React.Component {
           size={this.props.size}
           locale={zhCN}
           onChange={this._handleDateChange}
+          className={prefixCls}
           placeholder={this._getPlaceHolder()}
         />
       );
@@ -128,6 +129,7 @@ export default class SearchInput extends React.Component {
       return (
         <RangeInput
           placeholder={this._getPlaceHolder()}
+          className={prefixCls}
           onChange={this._handleRangeChange}
         />
       );
@@ -183,12 +185,23 @@ export default class SearchInput extends React.Component {
 
   render() {
     const { prefixCls } = this.props;
+    if (this.props.isSummary) {
+      return (
+        <div className={`${prefixCls}-wrapper`}>
+          {this._renderInput()}
+          {this._renderSearchBtn()}
+        </div>
+      );
+    }
     return (
-      <div className={`${prefixCls}-wrapper`}>
-        {!this.props.isSummary && (<span className={`${prefixCls}-title`}>{this.props.title}</span>)}
-        {this._renderInput()}
-        {this._renderSearchBtn()}
-      </div>
+      <Row className={`${prefixCls}-wrapper`}>
+        <Col span="5" className="search-input-col search-input-col-label">
+          <span className={`${prefixCls}-title`}>{this.props.title}</span>
+        </Col>
+        <Col span="16" offset="1" className="search-input-col">
+          {this._renderInput()}
+        </Col>
+      </Row>
     );
   }
 }

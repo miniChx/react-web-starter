@@ -277,7 +277,7 @@ class ListView extends React.Component {
     }
     if (this.props.createTopButtons) {
       this.props.createTopButtons(btns);
-      return null;
+      return (<div />);
     }
     return (
       <div>
@@ -354,19 +354,17 @@ class ListView extends React.Component {
       const { prefixCls } = this.props;
       const toolbarClass = `${prefixCls}-toolbar`;
       const listContainer = `${prefixCls}-container`;
-      const summaryRol = `${prefixCls}-search-summary`;
-      const advancedRol = `${prefixCls}-advanced-search-advanced`;
       return (
         <div className={prefixCls}>
           <BodyTitle title={this.props.menuValue} />
-          <Row>
-            <Col span="15" className={toolbarClass}>
+          <Row className={toolbarClass}>
+            <Col span="15" className={'toolbar-buttons'}>
               {this._renderTopButtons()}
             </Col>
-            <Col span="6" className={summaryRol}>
+            <Col span="6" className={'search-summary'}>
               <SearchSummary dataSource={this.state.filters} onSearch={this._onFilterChange} advancedSearch={this.state.advancedSearch} />
             </Col>
-            <Col span="3" className={advancedRol}>
+            <Col span="3" className={'advanced-search-advanced'}>
               <AdvancedSearch dataSource={this.state.filters} requestFilterFields={this.state.requestFilterFields} onSearch={value => this._onFilterChange(value, true)} updateAdvancedSearch={this.updateAdvancedSearch} />
             </Col>
           </Row>
