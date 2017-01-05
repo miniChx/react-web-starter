@@ -11,7 +11,7 @@ The starter boilerplate is designed to get you up and running with a bunch of aw
 After confirming that your development environment meets the specified [requirements](#requirements), you can follow these steps to get the project up and running:
 
 ```bash
-$ git clone <url>
+$ git clone https://github.com/vison123/mx-web-boilerplate.git
 $ cd mx-web-boilerplate
 $ npm install                   # Install project dependencies
 $ npm start                     # Compile and launch
