@@ -1,9 +1,9 @@
 /**
- * Created by baoyinghai on 11/17/16.
+ * Created by vison on 11/17/16.
  */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { InputNumber, Input } from 'mxa';
+import { InputNumber, Input } from 'antd';
 import staticDisplay from './StaticDisplay';
 import { VIEW, EDIT } from '../../constant';
 

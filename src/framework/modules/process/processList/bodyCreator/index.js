@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/3/16.
+ * Created by vison on 11/3/16.
  */
 import React from 'react';
-import { Button } from 'mxa';
+import { Button } from 'antd';
 import { getValueByKey } from '../../../../utils/MapUtils';
 import actionTrigger from './ActionAnalyser';
 

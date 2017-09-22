@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Select } from 'mxa';
+import { Select } from 'antd';
 
 import data from './data';
 

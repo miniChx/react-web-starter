@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/10/16.
+ * Created by vison on 11/10/16.
  */
 import React from 'react';
-import { Form, Input, DatePicker, Col, Select, Tooltip, Icon, Cascader, Row, Button, Checkbox, Modal } from 'mxa';
+import { Form, Input, DatePicker, Col, Select, Tooltip, Icon, Cascader, Row, Button, Checkbox, Modal } from 'antd';
 import { autobind } from 'core-decorators';
 import { goBack } from 'react-router-redux';
 

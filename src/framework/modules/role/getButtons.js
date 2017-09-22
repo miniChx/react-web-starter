@@ -1,10 +1,10 @@
 /**
- * Created by cui on 16/11/15.
+ * Created by vison on 16/11/15.
  */
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Tree } from 'mxa';
+import { Tree } from 'antd';
 
 import { PFetch } from '../../system/fetch';
 

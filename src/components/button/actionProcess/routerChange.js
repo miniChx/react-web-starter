@@ -4,7 +4,7 @@
 import React, { PropTypes } from 'react';
 import { push } from 'react-router-redux';
 import { autobind } from 'core-decorators';
-import { Button, Modal, Tooltip } from 'mxa';
+import { Button, Modal, Tooltip } from 'antd';
 import Qs from 'qs';
 import { trimStart } from 'lodash/string';
 import { CONTAINER_PRE } from '../../../framework/routes';

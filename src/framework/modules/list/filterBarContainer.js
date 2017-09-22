@@ -1,9 +1,9 @@
 /**
- * Created by baoyinghai on 1/4/17.
+ * Created by vison on 1/4/17.
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Row, Col } from 'mxa';
+import { Row, Col } from 'antd';
 
 export default class FilterBarContainer extends React.Component {
 

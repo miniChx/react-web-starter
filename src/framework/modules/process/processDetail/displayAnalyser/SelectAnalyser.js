@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/17/16.
+ * Created by vison on 11/17/16.
  */
 import React from 'react';
-import { Select } from 'mxa';
+import { Select } from 'antd';
 
 const compRender = record => {
   return (

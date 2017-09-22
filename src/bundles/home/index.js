@@ -25,9 +25,6 @@ export class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className={styles.jump}>
-          <a onClick={() => this.props.dispatch(push('/page_container/AccountList/render'))}>跳转到用户管理</a>
-        </div>
         <div className={styles.district}>
           <District onChange={this._onChange} width={150} />
           <div>{'省： ' + this.state.province}</div>

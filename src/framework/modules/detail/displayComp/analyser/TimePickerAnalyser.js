@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/17/16.
+ * Created by vison on 11/17/16.
  */
 import React from 'react';
-import { TimePicker } from 'mxa';
+import { TimePicker } from 'antd';
 import moment from 'moment';
 import { VIEW, EDIT } from '../../constant';
 

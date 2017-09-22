@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon } from 'mxa';
+import { Button, Icon } from 'antd';
 
 import appStyle from '../../../styles/views/info.less';
 

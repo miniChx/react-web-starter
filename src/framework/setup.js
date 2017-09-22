@@ -5,7 +5,6 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import Qs from 'qs';
 // import LoadingBar from 'react-redux-loading-bar';
 import LoadingBar from './modules/loading-bar';
-// import 'mxa/dist/mxa.less';
 
 import configureStore from './store/configureStore';
 import analytics from './service/analytics';

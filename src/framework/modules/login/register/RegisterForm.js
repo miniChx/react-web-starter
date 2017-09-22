@@ -1,10 +1,10 @@
 /**
- * Created by geweimin on 16/10/26.
+ * Created by vison on 16/10/26.
  */
 /* eslint-disable */
 import React from 'react';
 
-import { Form, Input, Row, Col, Button } from 'mxa';
+import { Form, Input, Row, Col, Button } from 'antd';
 let FormItem = Form.Item;
 import validation from '../../../utils/validation';
 import classNames from 'classnames';

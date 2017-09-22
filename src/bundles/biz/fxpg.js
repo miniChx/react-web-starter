@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 1/5/17.
+ * Created by vison on 1/5/17.
  */
 import React from 'react';
-import { Timeline, Icon, Row, Col, Button } from 'mxa';
+import { Timeline, Icon, Row, Col, Button } from 'antd';
 
 export default class Fxpg extends React.Component {
 

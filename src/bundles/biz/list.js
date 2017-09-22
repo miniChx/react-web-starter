@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/30/16.
+ * Created by vison on 11/30/16.
  */
 import React from 'react';
-import { Icon, Col, Row, Form, Input } from 'mxa';
+import { Icon, Col, Row, Form, Input } from 'antd';
 import { autobind } from 'core-decorators';
 import ModalInput from '../../components/modalInput';
 import { ListView } from '../../framework/modules';

@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 10/21/16.
+ * Created by vison on 10/21/16.
  */
 let _store = null;
 /* eslint-disable */

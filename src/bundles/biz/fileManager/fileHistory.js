@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 12/16/16.
+ * Created by vison on 12/16/16.
  */
 import React from 'react';
-import { Table, Icon } from 'mxa';
+import { Table, Icon } from 'antd';
 import moment from 'moment';
 import appStyle from '../../../framework/styles/views/fileManager.less';
 import Config from '../../../config';

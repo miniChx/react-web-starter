@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 12/5/16.
+ * Created by vison on 12/5/16.
  */
 import ContextCheck from './contextCheck';
 import isAmount from './isAmount';

@@ -1,10 +1,10 @@
 /**
- * Created by cui on 16/11/8.
+ * Created by vison on 16/11/8.
  */
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Modal, Input } from 'mxa';
+import { Table, Modal, Input } from 'antd';
 import ModalPage from './modalPage';
 
 import * as RoleActions from '../../actions/role';

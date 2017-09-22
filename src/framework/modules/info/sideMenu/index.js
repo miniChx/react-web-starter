@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/28/16.
+ * Created by vison on 11/28/16.
  */
 import React from 'react';
-import { Menu } from 'mxa';
+import { Menu } from 'antd';
 import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
 import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../../routes';

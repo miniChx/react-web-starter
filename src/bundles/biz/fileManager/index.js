@@ -1,9 +1,9 @@
 /**
- * Created by baoyinghai on 12/15/16.
+ * Created by vison on 12/15/16.
  */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { message, Button, Icon, Table } from 'mxa';
+import { message, Button, Icon, Table } from 'antd';
 import Config from '../../../config';
 import { ListView } from '../../../framework/modules';
 import UploadBtn, { FileList } from './uploadBtn';

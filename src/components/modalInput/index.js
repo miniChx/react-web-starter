@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Input, Icon } from 'mxa';
+import { Input, Icon } from 'antd';
 import { autobind } from 'core-decorators';
 import { showComponent } from '../mask';
 

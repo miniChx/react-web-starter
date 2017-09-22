@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 11/25/16.
+ * Created by vison on 11/25/16.
  */
 import React from 'react';
 import styles from '../../framework/styles/views/anchor.less';

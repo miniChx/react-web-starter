@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 12/26/16.
+ * Created by vison on 12/26/16.
  */
 import React from 'react';
-import { Icon } from 'mxa';
+import { Icon } from 'antd';
 import styles from '../../bundles/styles/views/app.less';
 
 export default class BodyTitle extends React.Component {

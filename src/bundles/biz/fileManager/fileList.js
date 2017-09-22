@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 12/16/16.
+ * Created by vison on 12/16/16.
  */
 import React from 'react';
-import { Table, Icon, Modal } from 'mxa';
+import { Table, Icon, Modal } from 'antd';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
 import { showComponent } from '../../../components/mask';

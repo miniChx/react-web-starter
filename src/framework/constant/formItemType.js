@@ -1,5 +1,5 @@
 /**
- * Created by geweimin on 16/10/31.
+ * Created by vison on 16/10/31.
  */
 export default {
   INPUT: 'INPUT',

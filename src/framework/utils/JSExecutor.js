@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 11/10/16.
+ * Created by vison on 11/10/16.
  */
 
 const evil = fn => {

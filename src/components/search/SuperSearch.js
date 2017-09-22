@@ -1,8 +1,8 @@
 /**
- * Created by geweimin on 17/1/3.
+ * Created by vison on 17/1/3.
  */
 import React, { PropTypes } from 'react';
-import { Row, Col, Button } from 'mxa';
+import { Row, Col, Button } from 'antd';
 import SearchInput from './SearchInput';
 
 export default class SuperSearch extends React.Component {

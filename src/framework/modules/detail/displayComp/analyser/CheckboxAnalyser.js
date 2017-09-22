@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/17/16.
+ * Created by vison on 11/17/16.
  */
 import React from 'react';
-import { Checkbox } from 'mxa';
+import { Checkbox } from 'antd';
 import staticDisplay from './StaticDisplay';
 import { VIEW, EDIT } from '../../constant';
 

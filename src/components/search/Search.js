@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 12/27/16.
+ * Created by vison on 12/27/16.
  */
 import React, { PropTypes } from 'react';
-import { Button } from 'mxa';
+import { Button } from 'antd';
 import SearchInput from './SearchInput';
 
 

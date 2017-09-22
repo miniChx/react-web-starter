@@ -46,21 +46,10 @@ const routes = {
   component: App,
   indexRoute: { component: Home },
   childRoutes: [
-    // { path: '/home', component: Home },
+    { path: '/home', component: Home },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/findPwd', component: FindPwd },
-    // { path: '/' + CONTAINER_PRE + '/**', component: PageContainer },
-    {
-      path: '/' + CONTAINER_PRE + '/**',
-      component: PageContainer,
-      // getComponents(nextState, callback) {
-      //   require.ensure([], require => {
-      //     callback(null, require('./pageContainer/index').default);
-      //   }, 'container');
-      // },
-      onEnter: getPageInitData
-    },
     { path: '*', component: NotFound },
   ],
 };

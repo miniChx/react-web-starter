@@ -1,5 +1,3 @@
-// import 'mxa/lib/style/index';
-
 import './index.less';
 
 function isFlexSupported(style) {

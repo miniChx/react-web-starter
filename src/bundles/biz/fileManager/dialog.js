@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 12/15/16.
+ * Created by vison on 12/15/16.
  */
 import React from 'react';
-import { Upload, message, Button, Icon, Table, Form, Input, Select } from 'mxa';
+import { Upload, message, Button, Icon, Table, Form, Input, Select } from 'antd';
 import { autobind } from 'core-decorators';
 import Links from '../../constant/links';
 import Config from '../../../config';

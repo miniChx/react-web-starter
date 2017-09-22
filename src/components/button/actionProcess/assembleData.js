@@ -2,7 +2,7 @@
  * 收集数据
  */
 import React from 'react';
-import { Modal } from 'mxa';
+import { Modal } from 'antd';
 import {
   LIST_SELECTTYPE,
   BUTTON_INTERACTIVETYPE,

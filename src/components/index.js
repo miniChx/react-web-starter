@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 11/25/16.
+ * Created by vison on 11/25/16.
  */
 
 export { default as Anchor, AnchorLink } from './anchor';

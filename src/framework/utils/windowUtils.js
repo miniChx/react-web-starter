@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 12/30/16.
+ * Created by vison on 12/30/16.
  */
 const _windowHandler = {};
 window._windowHandler = _windowHandler;

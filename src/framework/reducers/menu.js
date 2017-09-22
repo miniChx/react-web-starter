@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 10/20/16.
+ * Created by vison on 10/20/16.
  */
 import { MENU_RESET, INIT_DATA_FROM_SERVER, AUTH_FORCE_LOGOUT } from '../constant/dictActions';
 

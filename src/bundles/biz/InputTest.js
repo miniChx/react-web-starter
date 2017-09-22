@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/17/16.
+ * Created by vison on 11/17/16.
  */
 import React from 'react';
-import { Input, Button } from 'mxa';
+import { Input, Button } from 'antd';
 import StaticDisplay from '../../framework/modules/detail/displayComp/analyser/StaticDisplay';
 
 class CompWrapper extends React.Component {

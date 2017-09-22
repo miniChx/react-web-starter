@@ -1,10 +1,10 @@
 /**
- * Created by baoyinghai on 12/10/16.
+ * Created by vison on 12/10/16.
  */
 
 import React from 'react';
 import moment from 'moment';
-import { Icon, Col, Row, Form, Input, Modal } from 'mxa';
+import { Icon, Col, Row, Form, Input, Modal } from 'antd';
 import { createComp } from '../../framework/modules/detail/displayComp/compRefactHelper';
 import { ListDetail } from '../../framework/modules';
 import RadioGroup from '../../framework/modules/detail/displayComp/analyser/RadioGroupAnalyser';

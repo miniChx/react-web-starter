@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MaskLayer from 'react-mask-layer';
-import { Icon } from 'mxa';
+import { Icon } from 'antd';
 
 import 'react-mask-layer/assets/index.css';
 

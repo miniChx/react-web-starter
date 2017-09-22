@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 12/13/16.
+ * Created by vison on 12/13/16.
  */
 var qiniu = require("qiniu");
 var config = require("./tellNoBody");

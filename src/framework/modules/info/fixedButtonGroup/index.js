@@ -1,9 +1,9 @@
 /**
- * Created by baoyinghai on 12/5/16.
+ * Created by vison on 12/5/16.
  */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Button, Icon } from 'mxa';
+import { Button, Icon } from 'antd';
 
 import Container from './container';
 import appStyle from '../../../styles/views/info.less';

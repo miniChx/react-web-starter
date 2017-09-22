@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 10/21/16.
+ * Created by vison on 10/21/16.
  */
 import React from 'react';
-import { Spin } from 'mxa';
+import { Spin } from 'antd';
 import Compose from '../utils/Compose';
 import AsyncDecorator from './AsyncDecorator';
 import InitDecorator from './InitDecorator';

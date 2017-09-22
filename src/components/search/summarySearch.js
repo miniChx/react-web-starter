@@ -1,11 +1,11 @@
 /**
- * Created by baoyinghai on 1/4/17.
+ * Created by vison on 1/4/17.
  */
 /**
- * Created by baoyinghai on 12/27/16.
+ * Created by vison on 12/27/16.
  */
 import React, { PropTypes } from 'react';
-import { Button } from 'mxa';
+import { Button } from 'antd';
 import SearchInput from './SearchInput';
 
 

@@ -5,7 +5,6 @@
     'stage-0',
   ],
   "plugins": [
-    "transform-decorators-legacy",
-    ["import", [{ "libraryName": "mxa", "style": true }]]
+    "transform-decorators-legacy"
   ]
 }

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import { Row, Col } from 'mxa';
+import { Row, Col } from 'antd';
 
 import styles from '../../bundles/styles/views/app.less';
 

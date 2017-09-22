@@ -1,11 +1,11 @@
 /**
- * Created by baoyinghai on 10/18/16.
+ * Created by vison on 10/18/16.
  */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { autobind } from 'core-decorators';
-import { Menu } from 'mxa';
+import { Menu } from 'antd';
 import { getValueByKey } from '../../framework/utils/MapUtils';
 import { CONTAINER_PRE, CUSTOM_CONTAINER_PRE } from '../../framework/routes';
 import { getOpenKeys, getMenuItemAndPathByFunc } from '../../framework/utils/MenuHelper';

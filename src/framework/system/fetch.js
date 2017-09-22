@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 10/18/16.
+ * Created by vison on 10/18/16.
  */
 import Qs from 'qs';
 import { trimStart } from 'lodash/string';

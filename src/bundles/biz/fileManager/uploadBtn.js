@@ -1,9 +1,9 @@
 /**
- * Created by baoyinghai on 12/15/16.
+ * Created by vison on 12/15/16.
  */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Upload, message, Button, Icon, Table } from 'mxa';
+import { Upload, message, Button, Icon, Table } from 'antd';
 import { showComponent } from '../../../components/mask';
 import Dialog from './dialog';
 

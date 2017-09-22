@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 12/23/16.
+ * Created by vison on 12/23/16.
  */
 import React, { PropTypes } from 'react';
-import { Button, Modal, Tooltip } from 'mxa';
+import { Button, Modal, Tooltip } from 'antd';
 import { trimStart } from 'lodash/string';
 
 import { PFetch } from '../../../framework/system/fetch';

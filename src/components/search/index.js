@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 12/27/16.
+ * Created by vison on 12/27/16.
  */
 import React from 'react';
 import Search from './summarySearch';

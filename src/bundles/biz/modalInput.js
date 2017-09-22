@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button, Modal } from 'mxa';
+import { Input, Button, Modal } from 'antd';
 
 import classNames from 'classnames';
 

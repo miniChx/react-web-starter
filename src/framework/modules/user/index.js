@@ -1,10 +1,10 @@
 /**
- * Created by geweimin on 16/11/8.
+ * Created by vison on 16/11/8.
  */
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Modal, Input, Row, Col, Select, Radio } from 'mxa';
+import { Table, Button, Modal, Input, Row, Col, Select, Radio } from 'antd';
 import sha256 from 'sha256';
 import { ModalPage } from './modalPage';
 

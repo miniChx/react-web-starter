@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 12/7/16.
+ * Created by vison on 12/7/16.
  */
 import React from 'react';
-import { Input, Button } from 'mxa';
+import { Input, Button } from 'antd';
 
 import staticDisplay from './StaticDisplay';
 import ModalInput from '../../../../../components/modalInput';

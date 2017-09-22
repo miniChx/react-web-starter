@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'mxa';
+import { Table } from 'antd';
 import { autobind } from 'core-decorators';
 import bodyCreator from './bodyCreator';
 import FilterCreator from './filterCreator';

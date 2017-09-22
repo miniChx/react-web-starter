@@ -1,10 +1,10 @@
 /**
- * Created by baoyinghai on 12/27/16.
+ * Created by vison on 12/27/16.
  */
 
 import React, { PropTypes } from 'react';
-import { Button, Input, DatePicker, Select, Row, Col } from 'mxa';
-import zhCN from 'mxa/lib/date-picker/locale/zh_CN';
+import { Button, Input, DatePicker, Select, Row, Col } from 'antd';
+import zhCN from 'antd/lib/date-picker/locale/zh_CN';
 import RangeInput from './RangeInput';
 
 const { RangePicker } = DatePicker;

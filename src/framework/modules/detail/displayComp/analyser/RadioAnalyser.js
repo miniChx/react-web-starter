@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/20/16.
+ * Created by vison on 11/20/16.
  */
 import React from 'react';
-import { Radio } from 'mxa';
+import { Radio } from 'antd';
 import staticDisplay from './StaticDisplay';
 import { VIEW, EDIT } from '../../constant';
 

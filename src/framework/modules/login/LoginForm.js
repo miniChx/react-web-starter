@@ -1,9 +1,9 @@
 /**
- * Created by geweimin on 16/10/25.
+ * Created by vison on 16/10/25.
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Button, Input, Row, Col, Checkbox } from 'mxa';
+import { Form, Button, Input, Row, Col, Checkbox } from 'antd';
 import { Link } from 'react-router';
 import sha256 from 'sha256';
 import { replace } from 'react-router-redux';

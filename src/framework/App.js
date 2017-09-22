@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push, replace, goBack } from 'react-router-redux';
 
-import { Row, Col, BackTop } from 'mxa';
+import { Row, Col, BackTop } from 'antd';
 
 import { autobind } from 'core-decorators';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -13,9 +13,6 @@ import './styles/global/index.less';
 import '../bundles/styles/global/index.less';
 import appStyle from '../bundles/styles/views/app.less';
 import { Header, Footer } from '../components';
-import { isInitDataFromServer } from './service/CacheService';
-import { initDataFromServer } from './actions/global';
-import { longRunExec } from './system/longRunOpt';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,10 +23,6 @@ class App extends React.Component {
   componentWillMount() {
     if (!this.props.token) {
       this.props.actions.push('/login');
-    }
-    if (this.props.token && !isInitDataFromServer()) {
-      // if (!isInitDataFromServer()) {
-      longRunExec(() => this.props.actions.initDataFromServer());
     }
   }
 
@@ -98,7 +91,7 @@ const mapStateToProps = state => ({
 // eslint-disable-next-line arrow-body-style
 const mapDispatchToProps = () => dispatch => ({
   actions: {
-    ...bindActionCreators({ push, replace, goBack, initDataFromServer }, dispatch)
+    ...bindActionCreators({ push, replace, goBack }, dispatch)
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

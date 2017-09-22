@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 12/21/16.  评论组件
+ * Created by vison on 12/21/16.  评论组件
  */
 
 import React from 'react';

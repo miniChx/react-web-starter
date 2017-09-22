@@ -1,10 +1,11 @@
 {
-  "name": "mx-web-boilerplate",
+  "name": "react-web-starter",
   "version": "0.0.3",
-  "description": "Boilerplate to start react project.",
+  "description": "Boilerplate And Components for start react project.",
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "antd": "^2.13.2",
     "babel-polyfill": "^6.9.1",
     "classnames": "^2.2.5",
     "co": "^4.6.0",
@@ -16,7 +17,6 @@
     "local-storage": "^1.4.2",
     "lodash": "^4.16.4",
     "moment": "^2.15.2",
-    "mxa": "http://192.168.61.91:10001/repository/npm-group/mxa/-/mxa-0.1.6.tgz",
     "numeral": "^2.0.1",
     "object-assign": "^4.1.0",
     "progress": "^1.1.8",
@@ -75,7 +75,6 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.8.3",
     "json-loader": "0.5.4",
-    "json-mock-tool": "http://192.168.61.91:10001/repository/npm-group/json-mock-tool/-/json-mock-tool-0.4.5.tgz",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "object-assign": "4.1.0",
@@ -116,7 +115,7 @@
     "clone": "git submodule update --init --recursive && git submodule foreach git pull origin master",
     "mock": "node mock/index.js"
   },
-  "author": "ge_yangyang@126.com",
+  "author": "sen_wei@163.com",
   "pre-commit": [
     "lint"
   ]

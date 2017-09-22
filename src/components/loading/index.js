@@ -1,10 +1,10 @@
 /**
- * Created by baoyinghai on 10/18/16.
+ * Created by vison on 10/18/16.
  */
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Spin } from 'mxa';
+import { Spin } from 'antd';
 
 class Loading extends React.Component {
   render() {

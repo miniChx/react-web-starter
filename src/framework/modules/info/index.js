@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/27/16.
+ * Created by vison on 11/27/16.
  */
 import React from 'react';
-import { Row, Col, Menu, Icon, BackTop, Affix, Button } from 'mxa';
+import { Row, Col, Menu, Icon, BackTop, Affix, Button } from 'antd';
 import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
 import Anchor, { ArchorLink } from '../../../components/anchor';

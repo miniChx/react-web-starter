@@ -1,8 +1,8 @@
 /**
- * Created by geweimin on 17/1/3.
+ * Created by vison on 17/1/3.
  */
 import React, { PropTypes } from 'react';
-import { Button } from 'mxa';
+import { Button } from 'antd';
 import SearchInput from './SearchInput';
 
 export default class SearchPlus extends React.Component {

@@ -2,7 +2,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Icon, Col, Row, Button } from 'mxa';
+import { Icon, Col, Row, Button } from 'antd';
 import { logout } from '../../framework/actions/global';
 import styles from '../../bundles/styles/views/app.less';
 import Menu from './Menu';

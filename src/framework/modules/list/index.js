@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
-import { Table, Button, Row, Col, Tooltip } from 'mxa';
+import { Table, Button, Row, Col, Tooltip } from 'antd';
 // import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { trimStart } from 'lodash/string';

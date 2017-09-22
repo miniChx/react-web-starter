@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/16/16.
+ * Created by vison on 11/16/16.
  */
 import React from 'react';
-import { Select, Input, Radio, Row, Col, Checkbox } from 'mxa';
+import { Select, Input, Radio, Row, Col, Checkbox } from 'antd';
 import { override } from 'core-decorators';
 
 import AbstractAnalyser from './AbstractAnalyser';

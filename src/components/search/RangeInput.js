@@ -1,9 +1,9 @@
 /**
- * Created by baoyinghai on 12/27/16.
+ * Created by vison on 12/27/16.
  */
 
 import React, { PropTypes } from 'react';
-import { Input } from 'mxa';
+import { Input } from 'antd';
 
 
 export default class RangeInput extends React.Component {

@@ -1,10 +1,10 @@
 /**
- * Created by cui on 16/11/10.
+ * Created by vison on 16/11/10.
  */
 /* eslint-disable */
 import React from 'react';
 import { autobind } from 'core-decorators';
-import { Modal, Button, Input, Row, Col, Form } from 'mxa';
+import { Modal, Button, Input, Row, Col, Form } from 'antd';
 import GetMenus from './getMenus';
 import GetButtons from './getButtons';
 

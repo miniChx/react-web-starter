@@ -1,11 +1,11 @@
 /**
- * Created by cui on 16/11/10.
+ * Created by vison on 16/11/10.
  */
 /* eslint-disable */
 import React from 'react';
 import {connect} from 'react-redux';
 import {autobind} from 'core-decorators';
-import {Modal, Form, Button, Input, Row, Col, message, Checkbox} from 'mxa';
+import {Modal, Form, Button, Input, Row, Col, message, Checkbox} from 'antd';
 import sha256 from 'sha256';
 
 import styles from '../../styles/views/listview.less';

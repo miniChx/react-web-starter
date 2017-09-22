@@ -1,10 +1,10 @@
 /**
- * Created by baoyinghai on 10/26/16.
+ * Created by vison on 10/26/16.
  */
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Button } from 'mxa';
+import { Button } from 'antd';
 
 class FindPwd extends React.Component {
   constructor(props) {

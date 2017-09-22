@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 12/8/16.
+ * Created by vison on 12/8/16.
  */
 import React from 'react';
 import { EDIT } from '../constant';

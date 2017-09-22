@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs } from 'mxa';
+import { Tabs } from 'antd';
 
 const TabPane = Tabs.TabPane;
 

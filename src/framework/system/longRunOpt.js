@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 10/18/16.
+ * Created by vison on 10/18/16.
  */
 import co from 'co';
-import { Modal } from 'mxa';
+import { Modal } from 'antd';
 // import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { showLoading, hideLoading } from '../modules/loading-bar';
 

@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 11/18/16.
+ * Created by vison on 11/18/16.
  */
 import React from 'react';
 import Config from '../../../../config';

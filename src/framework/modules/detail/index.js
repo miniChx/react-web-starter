@@ -1,5 +1,5 @@
 /**
- * Created by baoyinghai on 11/10/16.
+ * Created by vison on 11/10/16.
  */
 import React from 'react';
 import { autobind } from 'core-decorators';

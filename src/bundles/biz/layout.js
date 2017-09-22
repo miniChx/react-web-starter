@@ -1,8 +1,8 @@
 /**
- * Created by baoyinghai on 11/27/16.
+ * Created by vison on 11/27/16.
  */
 import React from 'react';
-import { Icon, Col, Row, Form, Input, Modal } from 'mxa';
+import { Icon, Col, Row, Form, Input, Modal } from 'antd';
 import { autobind } from 'core-decorators';
 import { trimStart } from 'lodash/string';
 import { createComp } from '../../framework/modules/detail/displayComp/compRefactHelper';
