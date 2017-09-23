@@ -12,7 +12,7 @@ After confirming that your development environment meets the specified [requirem
 
 ```bash
 $ git clone https://github.com/vison123/react-web-starter.git
-$ cd mx-web-boilerplate
+$ cd react-web-starter
 $ npm install                   # Install project dependencies
 $ npm start                     # Compile and launch
 ```
