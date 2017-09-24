@@ -10,8 +10,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 import './styles/global/index.less';
-import '../bundles/styles/global/index.less';
-import appStyle from '../bundles/styles/views/app.less';
+import appStyle from './styles/views/app.less';
 import { Header, Footer } from '../components';
 
 class App extends React.Component {

@@ -1,7 +1,6 @@
 /**
  * Created by vison on 16/11/16.
  */
-import { createAction } from 'redux-actions';
 import { PFetch } from '../system/fetch';
 import links from '../constant/links';
 

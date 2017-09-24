@@ -12,9 +12,7 @@ export default function update(state = initialState, action) {
   switch (action.type) {
     case types.INIT_APP:
       return {
-        ...state,
-        // token: action.payload.token
-        token: '123123'
+        ...state
       };
     case types.FETCH_START:
       return { ...state, showLoading: true };

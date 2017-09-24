@@ -4,7 +4,7 @@ import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import Qs from 'qs';
 // import LoadingBar from 'react-redux-loading-bar';
-import LoadingBar from './modules/loading-bar';
+import LoadingBar from '../components/loading-bar';
 
 import configureStore from './store/configureStore';
 import analytics from './service/analytics';
@@ -12,7 +12,7 @@ import { executeInit } from './service/ServiceInitHelper';
 
 import routes from './routes';
 import { initApp, updateQuery } from './actions/global';
-import appStyle from '../bundles/styles/views/app.less';
+import appStyle from '../framework/styles/views/app.less';
 
 const setup = () => {
   const store = configureStore({});
