@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Icon } from 'antd';
 import classNames from 'classnames';
-import * as urls from '../../constants';
+import { connect } from 'react-redux';
+import { updateMenuOpenKeys, updateMenuSelectedKeys } from '../../actions/menu';
+import * as urls from '../../constants/index';
 import storage from '../../utils/storage';
 import style from './style.css'
 
@@ -12,31 +14,11 @@ class MainMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'inline',
-      openKeys: storage.get('openKeys') || [],
-      current: '',
     };
   }
 
   handleClick = e => {
     this.setState({ current: e.key });
-  }
-
-  onOpenChange = openKeys => {
-    const state = this.state;
-    const latestOpenKey = openKeys.find(key => !(state.openKeys.indexOf(key) > -1));
-    const latestCloseKey = state.openKeys.find(key => !(openKeys.indexOf(key) > -1));
-    let nextOpenKeys = [];
-    if (latestOpenKey) {
-      nextOpenKeys = this.getAncestorKeys(latestOpenKey).concat(latestOpenKey);
-    }
-    if (latestCloseKey) {
-      nextOpenKeys = this.getAncestorKeys(latestCloseKey);
-    }
-    console.log(nextOpenKeys);
-    this.setState({ openKeys: nextOpenKeys }, () => {
-      storage.set('openKeys', nextOpenKeys);
-    });
   }
 
   getAncestorKeys = key => {
@@ -55,13 +37,33 @@ class MainMenu extends Component {
     return map[key] || [];
   }
 
+  onOpenChange = openKeys => {
+    console.log('openKeys', openKeys);
+    this.props.dispatch(updateMenuOpenKeys({openKeys}));
+  }
+
+  onSelect = menuItem => {
+    console.log('selectedKeys', menuItem);
+    this.props.dispatch(updateMenuSelectedKeys({selectedKeys: menuItem.selectedKeys}));
+  }
+
+  onClick = menuItem => {
+    console.log('onClickKey', menuItem);
+  }
+
   render() {
     return (
       <Menu
         theme="dark"
-        defaultSelectedKeys={['home']}
         mode="inline"
         className={style.menu}
+        selectable={true}
+        onOpenChange={this.onOpenChange}
+        defaultSelectedKeys={['home']}
+        openKeys={this.props.openKeys}
+        selectedKeys={this.props.selectedKeys}
+        onSelect={this.onSelect}
+        onClick={this.onClick}
       >
         <Menu.Item key='home'>
           <Link to={urls.HOME}>
@@ -81,7 +83,7 @@ class MainMenu extends Component {
           <Menu.Item key="5">Alex</Menu.Item>
         </SubMenu>
         <SubMenu
-          key="sub2"
+          key="sample"
           title={<span><Icon type="team" /><span>Team</span></span>}
         >
           <Menu.Item key='6'>
@@ -100,4 +102,16 @@ class MainMenu extends Component {
   }
 }
 
-export default MainMenu;
+
+const mapStateToProps = state => {
+  return {
+    selectedKeys: state.menu.selectedKeys,
+    openKeys: state.menu.openKeys
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {dispatch}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);

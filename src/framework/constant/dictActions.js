@@ -12,7 +12,8 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_FORCE_LOGOUT = 'AUTH_FORCE_LOGOUT';
 
 // menu
-export const MENU_RESET = 'MENU_RESET';
+export const MENU_OPEN_KEYS = 'MENU_OPEN_KEYS';
+export const MENU_SELECTED_KEYS = 'MENU_SELECTED_KEYS';
 
 export const PAGE_TYPE_LIST = 'List';
 export const PAGE_TYPE_DETAIL = 'Detail';

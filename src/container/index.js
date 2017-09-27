@@ -3,7 +3,7 @@ import { Layout, Icon } from 'antd';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as urls from '../constants';
-import AppMenu from '../components/menu';
+import AppMenu from './menu';
 import style from './style.css';
 import classNames from 'classnames';
 
