@@ -1,0 +1,6 @@
+.menu {
+  width: 200px;
+  height: calc(100%);
+  float: left;
+  border: none;
+}

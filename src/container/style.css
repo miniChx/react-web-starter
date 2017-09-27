@@ -1,0 +1,62 @@
+.header {
+  background: #383E42;
+  line-height: 50px;
+  height: 50px;
+  width: 100%;
+}
+
+.sider {
+  background: #333745;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  bottom: 0;
+  background-color: #FFF;
+  z-index: 100;
+}
+
+.topbarbtn {
+  display: block;
+  height: 50px;
+  color: #FFF;
+  line-height: 50px;
+  text-align: center;
+}
+
+.topbarbtn:hover {
+  display: block;
+  height: 50px;
+  color: #FFF;
+  line-height: 50px;
+  text-align: center;
+  background: #2B2F33;
+}
+
+.topbarlogo {
+  width: 60px;
+  font-size: 24px !important;
+  border-right: thin solid #2B2F33;
+}
+
+.topbarhome {
+  width: 139px;
+  font-size: 16px !important;
+  border-right: thin solid #2B2F33;
+}
+
+.topbaruserinfo {
+  width: 140px;
+  font-size: 14px !important;
+  border-left: thin solid #2B2F33;
+}
+
+.topbarleft {
+  float: left;
+}
+
+.topbarright {
+  float: right;
+}

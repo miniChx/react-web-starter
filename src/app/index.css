@@ -1,0 +1,10 @@
+
+:global {
+  #root {
+    .ant-menu-inline-collapsed {
+      a i {
+        margin-right: 26px;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed", { "requireReturnForObjectLiteral": true }],
+    "comma-dangle": ["warn", "only-multiline"],
+    "global-require": ["off"],
+    "import/no-named-as-default": ["off"],
+    "import/prefer-default-export": ["off"],
+    "max-len": ["warn", 120, 2],
+    "new-cap": ["error", { "capIsNewExceptions": [ "Compose", "PFetch" ] }],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+    "no-underscore-dangle": ["off", { "allowAfterThis": true }],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "no-unused-vars": ["off", { "vars": "all", "args": "after-used", "caughtErrors": "none" }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "object-shorthand": ["warn"],
+    "padded-blocks": ["error", "never"],
+    "prefer-template": ["off"],
+    "class-methods-use-this": ["off"],
+    "quote-props": ["error", "consistent-as-needed", { "keywords": true }],
+    "jsx-a11y/href-no-hash": ["off"],
+    "jsx-a11y/no-static-element-interactions": ["off"],
+  }
+}
