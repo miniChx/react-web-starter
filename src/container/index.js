@@ -7,8 +7,6 @@ import AppMenu from './menu';
 import style from './style.css';
 import classNames from 'classnames';
 
-const { Header, Content, Footer, Sider } = Layout;
-
 class MainLayout extends Component {
   constructor(props) {
     super(props);
@@ -21,15 +19,6 @@ class MainLayout extends Component {
   onCollapse = collapsed => {
     this.setState({ collapsed });
   };
-
-  getMenuName(pathName) {
-    if (!pathName || pathName === '/') return '';
-    const reg = new RegExp(/\/(\b\w*\b)/);
-    const matchName = pathName.match(reg)[1];
-    let name = matchName.split('');
-    name = name[0].toUpperCase() + name.slice(1).join('');
-    return name;
-  }
 
   render() {
     const MainContent = this.props.content;
