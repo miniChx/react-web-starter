@@ -6,17 +6,13 @@ class Detail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: false
-    };
-  }
 
-  onCollapse = collapsed => {
-    this.setState({ collapsed });
-  };
+    }
+  }
 
   render() {
     return (
-      <div>详情模版</div>
+      <div>Page2</div>
     );
   }
 }

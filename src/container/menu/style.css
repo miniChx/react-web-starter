@@ -1,19 +1,43 @@
-.menuwrapper {
-  width: 200px;
+.sider {
+  width: auto;
   height: calc(100%);
   float: left;
 }
 
-.menucollapse {
+.collapseOpen {
   width: 200px;
   height: 30px;
   text-align: center;
   background: #343845;
+  transition: width 0.25s;
+  -moz-transition: width 0.25s; /* Firefox 4 */
+  -webkit-transition: width 0.25s; /* Safari 和 Chrome */
+  -o-transition: width 0.25s; /* Opera */
+}
+
+.collapseClose {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  background: #343845;
+  transition: width 0.3s;
+  -moz-transition: width 0.3s; /* Firefox 4 */
+  -webkit-transition: width 0.3s; /* Safari 和 Chrome */
+  -o-transition: width 0.3s; /* Opera */
 }
 
 .menu {
   width: 200px;
-  height: calc(100% - 30px);
+  min-height: calc(100% - 30px);
+  height: auto;
+  float: left;
+  border: none;
+}
+
+.menuCollapsed {
+  width: 60px;
+  min-height: calc(100% - 30px);
+  height: auto;
   float: left;
   border: none;
 }
