@@ -27,23 +27,26 @@ class MainMenu extends Component {
   };
 
   getMenuClass = () => {
-    let menuClass = style.menu;
+    let menuClass = style['menu'];
     if (this.props.collapsed) {
-      menuClass = classNames(style.menuCollapsed, 'ant-menu-inline-collapsed');
+      menuClass = classNames(style['menu-collapsed'], 'ant-menu-inline-collapsed');
     }
     return menuClass;
   };
 
   render() {
     return (
-      <div className={style.sider}>
-        <div className={this.props.collapsed ? style.collapseClose : style.collapseOpen} onClick={this.onCollapse}>
+      <div className={style['sider']}>
+        <div
+          className={this.props.collapsed ? style['collapse-close'] : style['collapse-open']}
+          onClick={this.onCollapse}
+        >
           <Icon
             type={this.props.collapsed ?'menu-unfold':'menu-fold'}
             style={{ fontSize: 16, color: '#fff', width: 10, height: 10, marginTop: 7 }} />
         </div>
         <Menu
-          theme="light"
+          theme="dark"
           mode="inline"
           className={this.getMenuClass()}
           selectable={true}

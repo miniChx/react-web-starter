@@ -11,51 +11,44 @@ class MainLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: false,
-      dealDialogVisible: false
     };
   }
 
-  onCollapse = collapsed => {
-    this.setState({ collapsed });
+  _userInfo = () => {
+
+  };
+  _toHome = () => {
+    this.props.match.history.replace(urls.HOME);
   };
 
   render() {
     const MainContent = this.props.content;
-    const logoClass = classNames(style.topbarbtn, style.topbarlogo, style.topbarleft );
-    const homeClass = classNames(style.topbarbtn, style.topbarhome, style.topbarleft );
-    const userInfoClass = classNames(style.topbarbtn, style.topbaruserinfo, style.topbarright );
+    const logoClass = classNames(style['topbar-btn'], style['topbar-logo'], style['topbar-left'] );
+    const homeClass = classNames(style['topbar-btn'], style['topbar-home'], style['topbar-left'] );
+    const userInfoClass = classNames(style['topbar-btn'], style['topbar-userinfo'], style['topbar-right'] );
     return (
       <div>
-        <div className={style.header}>
+        <div className={style['header']}>
           <Link className={logoClass} to={urls.HOME}>
             <img style={{ width: 30, height: 30, marginTop: 10 }} src={require('../asset/topbar-logo.png')}/>
           </Link>
-          <Link className={homeClass} to={urls.HOME}>
+          <div className={homeClass}  onClick={this._toHome}>
             管理控制台
-          </Link>
-          <div className={userInfoClass}>
+          </div>
+          <div className={userInfoClass} onClick={this._userInfo} >
             7238*****@qq.com
           </div>
         </div>
-        <div className={style.content}>
+        <div className={style['content']}>
           <AppMenu
             match={this.props.match}
-            selectedMenu={this.props.selectedMenu}
-            mode={this.state.collapsed}
           />
-          <MainContent {...this.props} />
+          <div className={style['container']}>
+            <MainContent {...this.props} />
+          </div>
         </div>
       </div>
     );
-  }
-  close() {
-    this.setState({
-      dealDialogVisible: false
-    });
-  }
-  deal() {
-    this.props.match.history.push('/app/order/takeout');
   }
 }
 

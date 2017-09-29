@@ -17,7 +17,9 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className={style.title}>首页</div>
+      <div className={style.title}>
+        首页
+      </div>
     );
   }
 }

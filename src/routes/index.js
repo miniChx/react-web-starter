@@ -52,8 +52,7 @@ const RouteConfig = () => (
               match={match}
               content={route.component}
               path={route.path}
-            />
-          }
+            />}
         />
       ))}
     </Switch>

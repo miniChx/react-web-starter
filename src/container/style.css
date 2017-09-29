@@ -1,3 +1,16 @@
+body {
+  font-family: Arial, 'Hiragino Sans GB', '微软雅黑', '黑体-简', Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  background-color: #F2F4F7;
+  -webkit-transition: background 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: background 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  overflow: hidden;
+  scroll-behavior: smooth;
+  min-width: 800px;
+}
+
 .header {
   background: #383E42;
   line-height: 50px;
@@ -18,7 +31,7 @@
   z-index: 100;
 }
 
-.topbarbtn {
+.topbar-btn {
   display: block;
   height: 50px;
   color: #FFF;
@@ -26,7 +39,7 @@
   text-align: center;
 }
 
-.topbarbtn:hover {
+.topbar-btn:hover {
   display: block;
   height: 50px;
   color: #FFF;
@@ -35,28 +48,36 @@
   background: #2B2F33;
 }
 
-.topbarlogo {
+.topbar-logo {
   width: 60px;
-  font-size: 24px !important;
+  font-size: 24px;
   border-right: thin solid #2B2F33;
 }
 
-.topbarhome {
+.topbar-home {
   width: 139px;
-  font-size: 16px !important;
+  font-size: 14px;
   border-right: thin solid #2B2F33;
 }
 
-.topbaruserinfo {
+.topbar-userinfo {
   width: 140px;
-  font-size: 14px !important;
+  font-size: 14px;
   border-left: thin solid #2B2F33;
 }
 
-.topbarleft {
+.topbar-left {
   float: left;
 }
 
-.topbarright {
+.topbar-right {
   float: right;
+}
+
+.container {
+  height: 100%;
+  background: #FFF;
+  margin: 0 16px;
+  overflow-x: visible;
+  overflow-y: visible;
 }
